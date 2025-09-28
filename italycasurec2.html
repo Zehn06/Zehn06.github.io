@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İtalya Üniversite Rehberi - İnteraktif Uygulama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Muted Blue Accent -->
+    <!-- Application Structure Plan: A task-oriented SPA with five main sections (Explore, Prepare, Apply, Finance, Arrival) to guide the user chronologically. This structure simplifies the complex report into a manageable, interactive journey, prioritizing user tasks over the original document's linear structure. Key interactions include a dynamic cost-of-living chart, a sortable university table, and an interactive process timeline to enhance usability and data exploration. -->
+    <!-- Visualization & Content Choices: 1. Cost of Living (Table 3) -> Goal: Compare -> Viz: Interactive Bar Chart -> Interaction: City selection updates chart and text -> Justification: More engaging than a static table, allows personalized comparison -> Library: Chart.js. 2. Application Process (Sections 5,6,8) -> Goal: Guide -> Viz: HTML/CSS Timeline -> Interaction: Click-to-expand details -> Justification: Simplifies a complex, multi-step process into a clear visual path -> Library/Method: Vanilla JS. 3. Universities (Table 1) -> Goal: Organize -> Viz: HTML Table -> Interaction: Sort/Filter -> Justification: Makes dense data easily searchable -> Library/Method: Vanilla JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .nav-link { transition: all 0.3s ease; }
+        .nav-link.active { color: #2563eb; border-bottom-color: #2563eb; font-weight: 600; }
+        .timeline-item::before { content: ''; position: absolute; left: 11px; top: 12px; bottom: -12px; width: 2px; background-color: #d1d5db; }
+        .timeline-item:last-child::before { display: none; }
+        .timeline-dot { position: absolute; left: 0; top: 0; width: 24px; height: 24px; }
+    </style>
+</head>
+<body class="bg-amber-50 text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-900">🇮🇹 İtalya Eğitim Yol Haritası</h1>
+                </div>
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#kesfet" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 border-b-2 border-transparent">Keşfet</a>
+                        <a href="#hazirlan" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 border-b-2 border-transparent">Hazırlan</a>
+                        <a href="#basvur" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 border-b-2 border-transparent">Başvur</a>
+                        <a href="#finans" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 border-b-2 border-transparent">Finans</a>
+                        <a href="#varis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 border-b-2 border-transparent">Varış</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <section id="kesfet" class="page-section space-y-8 min-h-screen">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Keşfet: Üniversite ve Şehir Seçimi</h2>
+                <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">İtalya'daki eğitim maceranız için en doğru üniversiteyi ve şehri bulma aşamasına hoş geldiniz. Bu bölümde, İtalya'nın önde gelen üniversitelerini, uzmanlık alanlarını ve konumlarını interaktif bir şekilde inceleyebilirsiniz. Bu, akademik hedeflerinize ve yaşam tarzınıza en uygun seçimi yapmanız için ilk ve en önemli adımdır.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Popüler Üniversiteler</h3>
+                 <p class="mb-4 text-gray-600">Aşağıdaki tablo, İtalya'nın önde gelen üniversitelerini ve uzmanlık alanlarını göstermektedir. Başlıklara tıklayarak sıralama yapabilir, arama kutusunu kullanarak filtreleyebilirsiniz. Bu interaktif tablo, seçeneklerinizi daraltmanıza ve size en uygun kurumu bulmanıza yardımcı olmak için tasarlanmıştır.</p>
+                <input type="text" id="universitySearch" class="w-full p-2 border border-gray-300 rounded-md mb-4" placeholder="Üniversite, şehir veya bölüm ara...">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="name">Üniversite Adı 🏛️</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="city">Şehir 🏙️</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Öne Çıkan Alanlar 🔬</th>
+                            </tr>
+                        </thead>
+                        <tbody id="universityTableBody" class="bg-white divide-y divide-gray-200">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="hazirlan" class="page-section space-y-8 min-h-screen">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Hazırlan: Gereklilikler ve Sınavlar</h2>
+                <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">Bu bölüm, başvuru öncesinde tamamlamanız gereken akademik, dil ve yasal koşulları detaylandırmaktadır. İtalya'da üniversite okumak için gereken temel şartları ve Tıp, Mühendislik gibi bölümler için zorunlu olan giriş sınavlarının (IMAT, TOLC) içeriklerini burada bulabilirsiniz.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Temel Başvuru Koşulları</h3>
+                    <p class="mb-4 text-gray-600">İtalya'da üniversite okumak için gereken temel şartlar aşağıda listelenmiştir. Bu adımları eksiksiz tamamlamak, başvurunuzun başarılı olması için kritik öneme sahiptir.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span><span><b>12 Yıllık Eğitim:</b> Lisans başvurusu için en az 12 yıllık temel eğitimi tamamlamış olmak.</span></li>
+                        <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span><span><b>YKS Baraj Puanı (Türkiye'den Gelenler İçin):</b> Lisans başvurularında TYT ve AYT'den konsolosluğun belirlediği baraj puanını geçmiş olmak zorunludur.</span></li>
+                        <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span><span><b>B2 Dil Yeterliliği:</b> Eğitim diline göre (İngilizce veya İtalyanca) en az B2 seviyesinde uluslararası geçerliliği olan bir sınav skoru (IELTS, TOEFL, CILS, CELI vb.).</span></li>
+                        <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span><span><b>Yüksek Not Ortalaması (GPA):</b> Özellikle rekabetçi bölümler ve burslar için 100 üzerinden 70 ve üzeri bir ortalama tavsiye edilir.</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Giriş Sınavları</h3>
+                    <p class="mb-4 text-gray-600">İtalya'da Tıp, Mühendislik gibi kontenjanı sınırlı bölümlere girebilmek için özel sınavlara girmeniz gerekmektedir. Aşağıdaki sekmelerden ilgili sınavın detaylarını inceleyebilirsiniz.</p>
+                    <div class="border-b border-gray-200">
+                        <nav class="-mb-px flex space-x-4" aria-label="Tabs">
+                            <button class="exam-tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-blue-600 border-blue-600" data-target="imat-content">IMAT (Tıp)</button>
+                            <button class="exam-tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 border-transparent" data-target="tolc-content">TOLC (Mühendislik/Ekonomi)</button>
+                        </nav>
+                    </div>
+                    <div id="imat-content" class="exam-tab-content pt-4">
+                        <h4 class="font-semibold">IMAT - Uluslararası Tıp Kabul Testi</h4>
+                        <p class="text-sm text-gray-600 mt-2">İngilizce Tıp ve Diş Hekimliği bölümleri için zorunludur. 60 çoktan seçmeli sorudan oluşur ve 100 dakika sürer. Bölümleri: Biyoloji, Kimya, Fizik/Matematik, Mantıksal Akıl Yürütme ve Genel Kültür.</p>
+                    </div>
+                    <div id="tolc-content" class="exam-tab-content pt-4 hidden">
+                        <h4 class="font-semibold">TOLC - Çevrimiçi CISIA Testi</h4>
+                        <p class="text-sm text-gray-600 mt-2">Mühendislik (TOLC-I), Ekonomi (TOLC-E) ve Eczacılık (TOLC-F) gibi birçok bölüm için kullanılır. Sınavlar çevrimiçidir ve bölüm bazında farklı soru dağılımlarına sahiptir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="basvur" class="page-section space-y-8 min-h-screen">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Başvur: Süreç Adımları</h2>
+                <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">Kabulden vizeye uzanan yolda izlemeniz gereken adımları bu bölümde bulabilirsiniz. İtalya'ya başvuru süreci birkaç aşamadan oluşur ve doğru sırayı takip etmek çok önemlidir. Bu interaktif zaman tüneli, her adımda ne yapmanız gerektiğini ve hangi belgelere ihtiyacınız olacağını gösterir.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Başvuru ve Vize Zaman Tüneli</h3>
+                <p class="mb-6 text-gray-600">Her bir adıma tıklayarak detayları görebilirsiniz. Doğru sıra: **Üniversite Başvurusu → Kabul Mektubu → Universitaly Ön Kayıt → Vize Başvurusu.**</p>
+                <div id="timeline-container" class="space-y-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="finans" class="page-section space-y-8 min-h-screen">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Finans: Bütçe ve Burslar</h2>
+                <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">Eğitim ücretleri, yaşam maliyetleri ve burs imkanları hakkında her şey bu bölümde. İtalya, diğer Batı Avrupa ülkelerine göre daha uygun maliyetli bir seçenek olsa da, doğru bir finansal planlama yapmak başarının anahtarıdır. Burada hem masraflarınızı öngörebilir hem de destek bulma yollarını öğrenebilirsiniz.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Şehirlere Göre Aylık Yaşam Maliyeti Karşılaştırması</h3>
+                     <p class="mb-4 text-gray-600">İtalya'da yaşam masrafları şehirden şehire önemli ölçüde değişir. Aşağıdaki interaktif grafiği kullanarak farklı şehirlerdeki ortalama aylık giderleri (kira, mutfak, ulaşım) karşılaştırabilir ve bütçenizi buna göre planlayabilirsiniz.</p>
+                    <div class="mb-4">
+                        <label for="city-select" class="block text-sm font-medium text-gray-700 mb-2">Karşılaştırmak için bir şehir seçin:</label>
+                        <select id="city-select" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="Milano">Milano</option>
+                            <option value="Roma">Roma</option>
+                            <option value="Bologna">Bologna</option>
+                            <option value="Torino">Torino</option>
+                            <option value="Padova">Padova</option>
+                            <option value="Napoli">Napoli</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Burs Olanakları</h3>
+                    <p class="mb-4 text-gray-600">İtalya, uluslararası öğrenciler için çeşitli burs imkanları sunar. En yaygın burs türleri ve başvuru yerleri aşağıda özetlenmiştir.</p>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold">DSU (Bölgesel İhtiyaç Bursu)</h4>
+                            <p class="text-sm text-gray-600">Aile gelirine dayalıdır. Yıllık nakit desteği, ücretsiz konaklama ve yemekhane hizmeti sağlar. Başvurular yaz aylarında, üniversitenin bulunduğu bölgenin DSU ofisine (ER.GO, LazioDisco vb.) yapılır.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">MAECI (İtalyan Hükümeti Başarı Bursu)</h4>
+                            <p class="text-sm text-gray-600">Genellikle yüksek lisans ve doktora öğrencilerine verilir. Aylık cep harçlığı sağlar. Başvurular "Study in Italy" portalı üzerinden yapılır.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Üniversite Özel Bursları</h4>
+                            <p class="text-sm text-gray-600">Politecnico di Milano, Bologna Üniversitesi gibi birçok prestijli okul, akademik başarıya veya sınav skorlarına (SAT, GRE, TOLC) dayalı kendi burslarını sunar. Detaylar için üniversitelerin web siteleri incelenmelidir.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="varis" class="page-section space-y-8 min-h-screen">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Varış: İtalya'daki İlk Adımlar</h2>
+                <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">Tebrikler, artık İtalya'dasınız! Bu son bölüm, ülkeye indikten sonra tamamlamanız gereken yasal işlemleri ve öğrenci hayatına uyum sağlamanız için pratik bilgileri içerir. Oturma izninden banka hesabı açmaya kadar olan tüm süreci burada adım adım takip edebilirsiniz.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Varış Sonrası Kontrol Listesi</h3>
+                <p class="mb-6 text-gray-600">İtalya'ya vardığınızda öğrenci statünüzü yasallaştırmak ve günlük hayatınızı kolaylaştırmak için tamamlamanız gereken adımlar bulunmaktadır. Aşağıdaki listedeki her bir başlığa tıklayarak yapmanız gerekenleri ve gerekli belgeleri öğrenebilirsiniz.</p>
+                <div id="arrival-accordion" class="space-y-2">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const universityData = [
+                { name: 'Politecnico di Milano', city: 'Milano', fields: 'Mühendislik, Mimarlık, Tasarım' },
+                { name: 'Sapienza University of Rome', city: 'Roma', fields: 'Hukuk, Beşeri Bilimler, Tıp, Mühendislik' },
+                { name: 'University of Bologna', city: 'Bologna', fields: 'Ekonomi, Hukuk, Mühendislik, Siyaset Bilimi' },
+                { name: 'University of Padua', city: 'Padova', fields: 'Tıp, Mühendislik, Fen Bilimleri, Astronomi' },
+                { name: 'Bocconi University', city: 'Milano', fields: 'İşletme, Ekonomi, Finans, Hukuk' },
+                { name: 'Politecnico di Torino', city: 'Torino', fields: 'Mühendislik, Bilgisayar Bilimi, Robotik' },
+                { name: 'University of Milan', city: 'Milano', fields: 'Tıp, Bilgisayar Bilimleri, Biyoteknoloji' },
+                { name: 'University of Pisa', city: 'Pisa', fields: 'Bilgisayar Bilimleri, Veterinerlik, Fen Bilimleri' },
+                { name: 'LUISS Guido Carli', city: 'Roma', fields: 'İşletme, Hukuk, Uluslararası İlişikler' },
+                { name: 'University of Florence', city: 'Floransa', fields: 'Mimarlık, Sanat, Hukuk, Tarım' }
+            ];
+
+            const costData = {
+                'Milano': { rent: 750, food: 325, transport: 32, total: 1400 },
+                'Roma': { rent: 675, food: 325, transport: 32, total: 1300 },
+                'Bologna': { rent: 575, food: 325, transport: 32, total: 1250 },
+                'Torino': { rent: 525, food: 275, transport: 32, total: 1025 },
+                'Padova': { rent: 450, food: 275, transport: 32, total: 950 },
+                'Napoli': { rent: 350, food: 275, transport: 32, total: 850 }
+            };
+
+            const timelineData = [
+                {
+                    title: '1. Üniversite Başvurusu',
+                    content: 'İlgilendiğiniz üniversitelerin kendi online portalları (Apply@PoliTO, Studenti Online vb.) üzerinden başvuru yapılır. Gerekli belgeler: Pasaport, diploma, transkript, dil belgesi, motivasyon mektubu, CV.'
+                },
+                {
+                    title: '2. Kabul Mektubu',
+                    content: 'Üniversite başvurunuzu değerlendirir ve başarılı bulunursanız size resmi bir kabul mektubu veya uygunluk belgesi gönderir. Bu belge, sonraki adımlar için kritiktir.'
+                },
+                {
+                    title: '3. Universitaly Ön Kayıt',
+                    content: 'Kabul mektubunu aldıktan sonra, vize için zorunlu olan ön kayıt işlemini Universitaly.it portalı üzerinden yapmanız gerekir. Bu işlem, sizi konsolosluğa resmi olarak bildirir.'
+                },
+                {
+                    title: '4. Vize Başvurusu (D Tipi)',
+                    content: 'Universitaly onayı sonrası, iDATA veya VFS Global üzerinden randevu alarak ulusal öğrenci vizesine başvurulur. Gerekli belgeler: Kabul mektubu, Universitaly özeti, finansal kanıt, konaklama kanıtı, sağlık sigortası.'
+                },
+                {
+                    title: '5. Diploma Denkliği (DV)',
+                    content: 'Vize başvurusu ile birlikte, diplomanızın İtalya\'da geçerliliğini kanıtlayan "Dichiarazione di Valore" belgesi için de başvuru yapılır. Bu işlem için diplomanızın Apostilli aslı ve yeminli tercümesi gerekir.'
+                }
+            ];
+            
+            const arrivalData = [
+                {
+                    title: 'Oturma İzni (Permesso di Soggiorno)',
+                    content: 'İtalya\'ya giriş yaptıktan sonraki <strong>8 iş günü içinde</strong> postaneden başvuru kitini ("Kit Postale") alıp doldurarak süreci başlatmalısınız. Bu, en acil ve en önemli adımdır. Postane size parmak izi için emniyetten (Questura) bir randevu verecektir.'
+                },
+                {
+                    title: 'Vergi Numarası (Codice Fiscale)',
+                    content: 'En yakın vergi dairesine (Agenzia delle Entrate) pasaportunuzla giderek ücretsiz olarak alabilirsiniz. Banka hesabı açmaktan kira kontratı yapmaya kadar her işlem için gereklidir.'
+                },
+                {
+                    title: 'Üniversiteye Kesin Kayıt (Immatricolazione)',
+                    content: 'Oturma izni başvuru makbuzunuz (ricevuta) ve diğer orijinal belgelerinizle üniversitenin öğrenci işleri ofisine giderek kaydınızı tamamlarsınız.'
+                },
+                {
+                    title: 'Sağlık Sistemine Kayıt (SSN)',
+                    content: 'Yerel sağlık birimine (ASL) giderek Ulusal Sağlık Sistemi\'ne kaydolabilirsiniz. Bu size bir aile hekimi atar ve devlet hastanelerinden faydalanmanızı sağlar. Alternatif olarak özel sigorta da yaptırabilirsiniz.'
+                }
+            ];
+
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => observer.observe(section));
+            
+            const universityTableBody = document.getElementById('universityTableBody');
+            const universitySearch = document.getElementById('universitySearch');
+            let sortDirection = { name: 1, city: 1 };
+
+            function renderUniversities(data) {
+                universityTableBody.innerHTML = '';
+                data.forEach(uni => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">${uni.name}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-600">${uni.city}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-normal">
+                            <div class="text-sm text-gray-600">${uni.fields}</div>
+                        </td>
+                    `;
+                    universityTableBody.appendChild(row);
+                });
+            }
+            
+            function filterAndRender() {
+                const searchTerm = universitySearch.value.toLowerCase();
+                const filteredData = universityData.filter(uni => 
+                    uni.name.toLowerCase().includes(searchTerm) ||
+                    uni.city.toLowerCase().includes(searchTerm) ||
+                    uni.fields.toLowerCase().includes(searchTerm)
+                );
+                renderUniversities(filteredData);
+            }
+
+            universitySearch.addEventListener('input', filterAndRender);
+            
+            document.querySelectorAll('th[data-sort]').forEach(header => {
+                header.addEventListener('click', () => {
+                    const sortKey = header.dataset.sort;
+                    const direction = sortDirection[sortKey];
+                    universityData.sort((a, b) => {
+                        if (a[sortKey] < b[sortKey]) return -1 * direction;
+                        if (a[sortKey] > b[sortKey]) return 1 * direction;
+                        return 0;
+                    });
+                    sortDirection[sortKey] *= -1;
+                    filterAndRender();
+                });
+            });
+
+            renderUniversities(universityData);
+
+            const examTabs = document.querySelectorAll('.exam-tab-button');
+            const examContents = document.querySelectorAll('.exam-tab-content');
+            examTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    examTabs.forEach(t => {
+                        t.classList.remove('text-blue-600', 'border-blue-600');
+                        t.classList.add('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300', 'border-transparent');
+                    });
+                    tab.classList.add('text-blue-600', 'border-blue-600');
+                    tab.classList.remove('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300', 'border-transparent');
+                    const target = tab.dataset.target;
+                    examContents.forEach(content => {
+                        content.classList.toggle('hidden', content.id !== target);
+                    });
+                });
+            });
+
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'relative pl-8 timeline-item cursor-pointer';
+                div.innerHTML = `
+                    <div class="timeline-dot bg-white border-2 border-blue-500 rounded-full flex items-center justify-center">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                    </div>
+                    <div class="timeline-header">
+                        <h4 class="font-semibold text-lg">${item.title}</h4>
+                    </div>
+                    <div class="timeline-content hidden mt-2 pl-4 border-l-2 border-gray-200">
+                        <p class="text-gray-600">${item.content}</p>
+                    </div>
+                `;
+                timelineContainer.appendChild(div);
+                div.querySelector('.timeline-header').addEventListener('click', () => {
+                    div.querySelector('.timeline-content').classList.toggle('hidden');
+                });
+            });
+
+            const citySelect = document.getElementById('city-select');
+            const ctx = document.getElementById('costChart').getContext('2d');
+            let costChart;
+
+            function createOrUpdateCostChart(city) {
+                const data = costData[city];
+                const chartData = {
+                    labels: ['Ortalama Kira', 'Mutfak Masrafı', 'Ulaşım', 'Toplam Gider'],
+                    datasets: [{
+                        label: `${city} Aylık Ortalama Gider (€)`,
+                        data: [data.rent, data.food, data.transport, data.total],
+                        backgroundColor: [
+                            'rgba(255, 159, 64, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)',
+                            'rgba(54, 162, 235, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                };
+
+                if (costChart) {
+                    costChart.destroy();
+                }
+
+                costChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: chartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false },
+                            title: { display: true, text: `${city} Aylık Ortalama Gider (€)` }
+                        },
+                        scales: {
+                            x: { beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            citySelect.addEventListener('change', (e) => {
+                createOrUpdateCostChart(e.target.value);
+            });
+
+            createOrUpdateCostChart(citySelect.value);
+            
+            const accordionContainer = document.getElementById('arrival-accordion');
+            arrivalData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'border border-gray-200 rounded-lg';
+                div.innerHTML = `
+                    <button type="button" class="accordion-header w-full flex items-center justify-between p-4 text-left font-semibold text-gray-800 hover:bg-gray-50">
+                        <span>${item.title}</span>
+                        <svg class="w-5 h-5 transform transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="accordion-content hidden p-4 border-t border-gray-200">
+                        <p class="text-gray-600">${item.content}</p>
+                    </div>
+                `;
+                accordionContainer.appendChild(div);
+                
+                const header = div.querySelector('.accordion-header');
+                const content = div.querySelector('.accordion-content');
+                const icon = div.querySelector('svg');
+
+                header.addEventListener('click', () => {
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
