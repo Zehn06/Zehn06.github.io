@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proje Portalı</title>
+    <!-- Tailwind CSS'i projemize dahil ediyoruz -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts'tan modern bir yazı tipi ekliyoruz -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Sayfanın temel yazı tipini belirliyoruz */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Butonlara yumuşak bir geçiş efekti ekliyoruz */
+        .btn-hover-effect {
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-hover-effect:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Ana Kart -->
+    <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
+        
+        <!-- Başlık -->
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">
+            Proje Sayfaları
+        </h1>
+        
+        <!-- Açıklama -->
+        <p class="text-gray-500 dark:text-gray-400 mb-8">
+            Aşağıdaki butonları kullanarak projelere ulaşabilirsiniz.
+        </p>
+        
+        <!-- Buton Konteyneri -->
+        <div class="space-y-4">
+            
+            <!-- İngilizce Öğrenme Sayfası Butonu -->
+            <a href="./learningenglish.html" 
+               class="btn-hover-effect block w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-xl text-lg shadow-md">
+                🇬🇧 İngilizce Öğrenme
+            </a>
+            
+            <!-- Beslenme Planı Sayfası Butonu -->
+            <a href="./nutritionplan.html" 
+               class="btn-hover-effect block w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-xl text-lg shadow-md">
+                🥗 Beslenme Planı
+            </a>
+            
+            <!-- TOLC Sayfası Butonu -->
+            <a href="./tolc.html" 
+               class="btn-hover-effect block w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-xl text-lg shadow-md">
+                🏛️ TOLC
+            </a>
+
+        </div>
+
+        <!-- Alt Bilgi -->
+        <div class="mt-8 text-xs text-gray-400 dark:text-gray-500">
+            &copy; 2024 Zehn06. Tüm hakları saklıdır.
+        </div>
+
+    </div>
+
+</body>
+</html>
