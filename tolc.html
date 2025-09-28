@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOLC-I Kapsamlı Çalışma Rehberi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Blue Accent -->
+    <!-- Application Structure Plan: Kullanıcının geri bildirimi üzerine, uygulama yapısı korunmuş ancak içerik hiyerarşisi önemli ölçüde derinleştirilmiştir. Ana sekmeli yapı (Matematik, Mantık vb.) gezinmeyi basit tutarken, her sekme içindeki akordeonlar artık resmi müfredata dayalı çok katmanlı alt başlıklar içermektedir. Bu, kullanıcının genel bir konudan en spesifik alt konuya kadar adım adım inmesine olanak tanır. Etkileşim aynı kalır (sekmeler ve akordeonlar), ancak bilgi derinliği artırılmıştır. Bu yapı, tam kapsamlı bir çalışma kılvuzu için en ideal yaklaşımdır. -->
+    <!-- Visualization & Content Choices: Rapor Bilgisi -> Sınavın bölüm dağılımı. Amaç -> Sınav yapısını görsel olarak özetlemek. Sunum Yöntemi -> Donut Chart (Chart.js). Etkileşim -> Hover. Gerekçe -> Bölümlerin ağırlığını anında gösterir. Kütüphane -> Chart.js. Rapor Bilgisi -> Resmi ve detaylı konu/alt konu listesi. Amaç -> Kapsamlı ve eksiksiz bir çalışma materyali sunmak. Sunum Yöntemi -> Çok seviyeli interaktif akordeon menüler (HTML/CSS/JS). Etkileşim -> Tıklama (Açma/Kapama). Gerekçe -> Karmaşık ve detaylı müfredatı, kullanıcıyı boğmadan, yönetilebilir ve hiyerarşik bir şekilde sunar. Kütüphane/Yöntem -> Vanilla JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #FDFBF8;
+            font-family: 'Inter', sans-serif;
+            color: #3f3f46;
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+        .tab-btn.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+        .accordion-header {
+            transition: background-color 0.3s ease;
+        }
+        .accordion-header:hover {
+            background-color: #f0f9ff;
+        }
+        .accordion-content {
+           display: none;
+        }
+        .accordion-content.open {
+            display: block;
+        }
+        .resource-link {
+            transition: all 0.2s ease-in-out;
+            border-left: 3px solid #93c5fd;
+        }
+        .resource-link:hover {
+            transform: translateX(5px);
+            background-color: #eff6ff;
+            border-left-color: #3b82f6;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: auto;
+            max-height: 400px;
+        }
+        @import url('https://rsms.me/inter/inter.css');
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+    <div class="container mx-auto p-2 sm:p-4 md:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-600 mb-2">TOLC-I Kapsamlı Çalışma Rehberi</h1>
+            <p class="text-base sm:text-lg text-gray-600">Sınav konularının en detaylı dökümü ve A1 seviyesine uygun kaynaklar.</p>
+        </header>
+
+        <main>
+            <section id="exam-overview" class="mb-12 bg-white p-4 sm:p-6 rounded-2xl shadow-sm">
+                <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Sınav Konu Dağılımı</h2>
+                <p class="text-center text-gray-600 mb-6 max-w-2xl mx-auto">TOLC-I sınavı, mühendislik ve bazı teknik alanlar için temel yeteneklerinizi ölçer. Bu grafik, bölümlerin soru ağırlığını göstererek çalışma planınızı önceliklendirmenize yardımcı olur.</p>
+                <div class="chart-container">
+                    <canvas id="examChart"></canvas>
+                </div>
+            </section>
+
+            <div class="bg-white rounded-2xl shadow-sm p-2 sm:p-4 md:p-8">
+                <nav class="flex justify-center border-b mb-8 flex-wrap">
+                    <button data-tab="matematik" class="tab-btn active text-base sm:text-lg font-semibold py-3 sm:py-4 px-4 sm:px-6">Matematik</button>
+                    <button data-tab="mantik" class="tab-btn text-base sm:text-lg font-semibold py-3 sm:py-4 px-4 sm:px-6">Mantık</button>
+                    <button data-tab="fen" class="tab-btn text-base sm:text-lg font-semibold py-3 sm:py-4 px-4 sm:px-6">Fen Bilimleri</button>
+                    <button data-tab="okuma" class="tab-btn text-base sm:text-lg font-semibold py-3 sm:py-4 px-4 sm:px-6">Okuduğunu Anlama</button>
+                </nav>
+
+                <div id="content-container">
+                </div>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2025 İnteraktif Çalışma Rehberi. Sınavınızda başarılar!</p>
+        </footer>
+    </div>
+
+<script>
+const studyData = {
+    matematik: {
+        title: "Matematik",
+        description: "Bu bölümde, resmi TOLC-I müfredatında yer alan tüm matematik konuları ve alt başlıkları detaylı bir şekilde listelenmiştir. Her konu için başlangıç seviyesine uygun kaynaklar seçilmiştir.",
+        topics: [
+            {
+                name: "Sayılar ve Cebir",
+                subtopics: [
+                    { name: "Sayıların Özellikleri ve İşlemler", details: ["Tam sayılar, rasyonel sayılar, gerçek sayılar", "Sıralama ve karşılaştırma", "Mutlak değer", "Üslü ve köklü ifadeler", "Logaritmalar ve özellikleri"], resources: [{ text: "Khan Academy: Aritmetik ve Cebir Öncesi", url: "https://www.khanacademy.org/math/pre-algebra" }, { text: "Sayılar ve Logaritma (Maths is Fun)", url: "https://www.mathsisfun.com/algebra/index.html" }] },
+                    { name: "Polinomlar ve Cebirsel İfadeler", details: ["Temel işlemler (toplama, çıkarma, çarpma)", "Çarpanlara ayırma", "Özdeşlikler"], resources: [{ text: "Polinomlara Giriş (Görsel Anlatım)", url: "https://www.mathsisfun.com/algebra/polynomials.html" }] },
+                    { name: "Denklemler ve Eşitsizlikler", details: ["Birinci ve ikinci dereceden denklemler", "Rasyonel ve irrasyonel denklemler", "Üslü ve logaritmik denklemler", "Doğrusal ve ikinci dereceden eşitsizlikler", "Denklem sistemleri"], resources: [{ text: "Khan Academy: Cebir 1 (Denklemler)", url: "https://www.khanacademy.org/math/algebra" }, { text: "Denklem Çözme Pratikleri", url: "https://www.mathpapa.com/practice/" }] },
+                ]
+            },
+            {
+                name: "Geometri",
+                subtopics: [
+                    { name: "Düzlem Geometrisi (Öklid)", details: ["Temel geometrik şekiller (üçgen, dörtgen, çember)", "Açılar, paralellik, diklik", "Alan ve çevre hesaplamaları", "Pisagor ve Öklid teoremleri"], resources: [{ text: "Khan Academy: Temel Geometri", url: "https://www.khanacademy.org/math/basic-geo" }, { text: "Geometriye Görsel Giriş", url: "https://www.mathsisfun.com/geometry/index.html" }] },
+                    { name: "Analitik Geometri", details: ["Kartezyen koordinat sistemi", "Doğrunun denklemi ve özellikleri (eğim, kesişim)", "İki nokta arası uzaklık", "Çember, parabol, elips gibi konik kesitlerin denklemleri"], resources: [{ text: "Analitik Geometriye Giriş (Video)", url: "https://www.youtube.com/watch?v=g-h_w4yW_a4" }, { text: "İnteraktif Grafik Çizici (Desmos)", url: "https://www.desmos.com/calculator" }] },
+                ]
+            },
+            {
+                name: "Fonksiyonlar",
+                subtopics: [
+                    { name: "Fonksiyonların Temel Özellikleri", details: ["Tanım ve değer kümesi", "Birebir, örten fonksiyonlar", "Ters ve bileşke fonksiyonlar", "Fonksiyon grafikleri"], resources: [{ text: "Khan Academy: Fonksiyonlar", url: "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:functions" }] },
+                    { name: "Temel (Elemanter) Fonksiyonlar", details: ["Doğrusal ve ikinci dereceden fonksiyonlar (paraboller)", "Üslü ve logaritmik fonksiyonlar", "Mutlak değer fonksiyonu", "Polinom ve rasyonel fonksiyonlar"], resources: [{ text: "Temel Fonksiyon Grafikleri (Maths is Fun)", url: "https://www.mathsisfun.com/sets/function-graphs.html" }] },
+                ]
+            },
+             {
+                name: "Trigonometri",
+                subtopics: [
+                    { name: "Temel Kavramlar ve Formüller", details: ["Açı ölçü birimleri (radyan, derece)", "Temel trigonometrik fonksiyonlar (sin, cos, tan)", "Birim çember", "Temel trigonometrik özdeşlikler", "Trigonometrik fonksiyonların grafikleri"], resources: [{ text: "Khan Academy: Trigonometri", url: "https://www.khanacademy.org/math/trigonometry" }, { text: "Trigonometriye Görsel Giriş", url: "https://www.mathsisfun.com/algebra/trigonometry.html" }] },
+                ]
+            },
+        ]
+    },
+    mantik: {
+        title: "Mantık",
+        description: "Mantık bölümü, metinlerdeki mantıksal ilişkileri anlama ve problem çözme becerilerinizi ölçer. Konular, resmi müfredata uygun olarak detaylandırılmıştır.",
+        topics: [
+            {
+                name: "Mantık ve Dil",
+                subtopics: [
+                    { name: "Metin Analizi", details: ["Verilen bir metindeki önermeleri ve mantıksal ilişkileri anlama", "Ana fikir ve yardımcı fikirleri bulma", "Tutarlılık ve çelişkileri saptama"], resources: [{ text: "Eleştirel Düşünme Temelleri (Video)", url: "https://www.youtube.com/watch?v=J_A5s23_S8A" }] },
+                ]
+            },
+            {
+                name: "Problem Çözme",
+                subtopics: [
+                    { name: "Sayısal ve Mantıksal Akıl Yürütme", details: ["Sayısal, sözel veya şekilsel verilerden yola çıkarak problem çözme", "Hipotez kurma ve test etme", "Verilen koşullara göre olası sonuçları değerlendirme"], resources: [{ text: "Basit Mantık Bulmacaları ve Zeka Oyunları", url: "https://www.brainzilla.com/logic/logic-grid-puzzles/" }, { text: "Problem Çözme Stratejileri (Maths is Fun)", url: "https://www.mathsisfun.com/algebra/word-questions-solving.html" }] },
+                ]
+            },
+        ]
+    },
+    fen: {
+        title: "Fen Bilimleri",
+        description: "Bu bölüm, temel Fizik ve Kimya konularının tüm alt başlıklarını içerir. Kaynaklar, temel kavramları anlamanız için görsel ve basitleştirilmiş anlatımlar sunar.",
+        topics: [
+            {
+                name: "Fizik",
+                subtopics: [
+                    { name: "Mekanik", details: ["Kinematik: Hareket, hız, ivme", "Dinamik: Kuvvet, Newton'un hareket yasaları, kütle, ağırlık", "İş, enerji, güç, kinetik ve potansiyel enerji", "Mekanik enerjinin korunumu"], resources: [{ text: "Khan Academy: Fizik 1", url: "https://www.khanacademy.org/science/physics" }] },
+                    { name: "Termodinamik ve Akışkanlar", details: ["Sıcaklık, ısı, termal denge", "Gaz yasaları", "Basınç ve Arşimet prensibi"], resources: [{ text: "Sıcaklık ve Isı (Basit Anlatım)", url: "https://www.ducksters.com/science/heat.php" }, { text: "İnteraktif Gaz Yasaları Simülasyonu", url: "https://phet.colorado.edu/en/simulations/gas-properties" }] },
+                    { name: "Elektromanyetizma ve Optik", details: ["Elektrik yükü, Coulomb Yasası", "Elektrik alan ve potansiyel", "Doğru akım (DC) devreleri, Ohm Yasası", "Geometrik optik: Yansıma, kırılma"], resources: [{ text: "Basit Elektrik Devreleri (İnteraktif)", url: "https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc" }, { text: "Optik ve Kırılma Simülasyonu", url: "https://phet.colorado.edu/en/simulations/bending-light" }] },
+                ]
+            },
+            {
+                name: "Kimya",
+                subtopics: [
+                    { name: "Maddenin Yapısı ve Özellikleri", details: ["Maddenin halleri", "Heterojen ve homojen karışımlar", "Atomlar, moleküller, iyonlar", "Periyodik tablo ve elementlerin özellikleri"], resources: [{ text: "Khan Academy: Kimya", url: "https://www.khanacademy.org/science/chemistry" }, { text: "İnteraktif Periyodik Tablo", url: "https://ptable.com/?lang=tr" }] },
+                    { name: "Kimyasal Bağlar ve Reaksiyonlar", details: ["İyonik ve kovalent bağlar", "Kimyasal reaksiyonlar ve stokiyometri", "Asitler, bazlar ve pH", "Oksidasyon ve redüksiyon (redoks) temelleri"], resources: [{ text: "Kimyasal Reaksiyonlar (BBC Bitesize)", url: "https://www.bbc.co.uk/bitesize/subjects/znxtb9q" }, { text: "Asit ve Bazlara Giriş (Basit Video)", url: "https://www.youtube.com/watch?v=A_URRb5g82s" }] },
+                ]
+            },
+        ]
+    },
+    okuma: {
+        title: "Okuduğunu Anlama",
+        description: "Bu bölüm, bilimsel veya sosyal içerikli kısa metinleri okuyup anlama becerinizi test eder. Dil öğrenmekten çok, metin analizi yeteneği ön plandadır.",
+        topics: [
+            {
+                name: "Metin Analizi Becerileri",
+                subtopics: [
+                    { name: "Ana Fikri ve Yapıyı Anlama", details: ["Metnin ana temasını ve amacını belirleme", "Paragraflar arası mantıksal bağlantıları kurma", "Yazarın tutumunu ve argümanlarını anlama"], resources: [{ text: "Aktif Okuma Stratejileri", url: "https://www.indeed.com/career-advice/career-development/active-reading-strategies" }] },
+                    { name: "Detayları ve Çıkarımları Bulma", details: ["Metindeki spesifik bilgileri bulma (scanning)", "Metinde doğrudan belirtilmeyen ama ima edilen sonuçları çıkarma (inference)", "Kelime ve deyimlerin bağlamdaki anlamını çözme"], resources: [{ text: "British Council: A1-A2 Seviyesi Okuma Pratiği", url: "https://learnenglish.britishcouncil.org/skills/reading" }] },
+                ]
+            }
+        ]
+    },
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contentContainer = document.getElementById('content-container');
+
+    const renderContent = (tabKey) => {
+        const data = studyData[tabKey];
+        if (!data) return;
+
+        let contentHTML = `<div class="p-2 sm:p-4"><h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">${data.title}</h2><p class="text-gray-600 mb-8">${data.description}</p><div class="accordion-container space-y-4">`;
+
+        data.topics.forEach((topic) => {
+            contentHTML += `
+                <div class="accordion-item border rounded-lg overflow-hidden bg-gray-50">
+                    <button class="accordion-header w-full text-left p-4 sm:p-5 font-semibold text-base sm:text-lg text-gray-700 flex justify-between items-center">
+                        <span>${topic.name}</span>
+                        <i class="fas fa-chevron-down transform transition-transform"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-3 sm:p-5 border-t space-y-4">`;
+            
+            topic.subtopics.forEach(subtopic => {
+                contentHTML += `<div class="accordion-item p-3 sm:p-4 rounded-md bg-blue-50/50">
+                                    <button class="accordion-header w-full text-left font-semibold text-blue-800 flex justify-between items-center">
+                                      <span>${subtopic.name}</span>
+                                      <i class="fas fa-chevron-down text-sm transform transition-transform"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                      <div class="pt-3 mt-2 border-t border-blue-200">
+                                        <ul class="list-disc list-inside text-gray-600 space-y-1 mb-3 text-sm sm:text-base">
+                                          ${subtopic.details.map(d => `<li>${d}</li>`).join('')}
+                                        </ul>
+                                        <div class="space-y-2">`;
+                subtopic.resources.forEach(resource => {
+                     contentHTML += `<a href="${resource.url}" target="_blank" rel="noopener noreferrer" class="resource-link block p-3 rounded-md text-gray-700 hover:text-blue-600 bg-white text-sm sm:text-base">
+                                        <i class="fas fa-link mr-2 text-blue-400"></i>${resource.text}
+                                    </a>`;
+                });
+                contentHTML += `</div></div></div></div>`;
+            });
+
+            contentHTML += `</div></div></div>`;
+        });
+
+        contentHTML += `</div></div>`;
+        contentContainer.innerHTML = contentHTML;
+    };
+    
+    // YENİ VE BASİTLEŞTİRİLMİŞ AKORDEON MANTIĞI
+    contentContainer.addEventListener('click', function(e) {
+        const header = e.target.closest('.accordion-header');
+        if (!header) return;
+
+        const content = header.nextElementSibling;
+        const icon = header.querySelector('i.fa-chevron-down');
+        
+        // Sadece aynı seviyedeki diğer açık menüleri kapat
+        const parent = header.closest('.accordion-item').parentElement;
+        parent.querySelectorAll(':scope > .accordion-item > .accordion-header').forEach(otherHeader => {
+            if (otherHeader !== header) {
+                const otherContent = otherHeader.nextElementSibling;
+                const otherIcon = otherHeader.querySelector('i.fa-chevron-down');
+                otherContent.classList.remove('open');
+                if(otherIcon) otherIcon.classList.remove('rotate-180');
+            }
+        });
+        
+        // Tıklanan menüyü aç/kapat
+        content.classList.toggle('open');
+        if(icon) icon.classList.toggle('rotate-180');
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderContent(tab.dataset.tab);
+        });
+    });
+
+    renderContent('matematik');
+
+    const ctx = document.getElementById('examChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Matematik (20)', 'Mantık (10)', 'Fen Bilimleri (10)', 'Okuduğunu Anlama (10)'],
+            datasets: [{
+                label: 'Soru Sayısı',
+                data: [20, 10, 10, 10],
+                backgroundColor: [
+                    'rgba(59, 130, 246, 0.7)',
+                    'rgba(16, 185, 129, 0.7)',
+                    'rgba(239, 68, 68, 0.7)',
+                    'rgba(249, 115, 22, 0.7)'
+                ],
+                borderColor: ['#FDFBF8'],
+                borderWidth: 4,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { position: 'bottom', labels: { padding: 20, font: { size: 14 } } },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label || ''}: ${context.parsed || 0} soru`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
+
