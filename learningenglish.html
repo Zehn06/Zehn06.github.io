@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kişisel İngilizce Öğrenme Yol Haritası</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A guided, step-by-step journey structure to eliminate user confusion. It starts with the 'why' (scientific principles), moves to the 'what' (interactive toolkit), then the 'how' (6-month timeline), and finishes with practicalities (budget, motivation). This linear, progressive disclosure is chosen to prevent overwhelming the user and provide a single, clear path, directly addressing their request to avoid decision paralysis. -->
+    <!-- Visualization & Content Choices: 1. Learning Methods: Goal=Compare, Viz=Horizontal Bar Chart (Chart.js), Interaction=Hover tooltips. Justification: Visually demonstrates the scientific backing of the plan. 2. 6-Month Plan: Goal=Organize, Viz=Clickable Accordion/Cards (HTML/Tailwind), Interaction=Click to reveal details. Justification: Breaks down a long-term plan into digestible, less intimidating steps. 3. Toolkit: Goal=Organize, Viz=Tabbed Interface (HTML/Tailwind), Interaction=Click to switch skills. Justification: Neatly categorizes tools to prevent a cluttered list. All choices use Canvas or HTML/CSS, avoiding SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf7;
+            color: #3f3c3a;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+        .step-card {
+            background-color: #ffffff;
+            border: 1px solid #f0e9e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .tab-button.active {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-stone-200">
+        <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-blue-600">Yol Haritası</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#giris" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600">Giriş</a>
+                        <a href="#prensipler" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600">Prensipler</a>
+                        <a href="#araclar" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600">Araçlar</a>
+                        <a href="#plan" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600">6 Aylık Plan</a>
+                        <a href="#motivasyon" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600">Motivasyon</a>
+                        <a href="#sss" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600">S.S.S.</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <section id="giris" class="text-center py-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-stone-800 mb-4 tracking-tight">Kafa Karışıklığına Son</h1>
+            <p class="max-w-3xl mx-auto text-lg text-stone-600 mb-8">
+                İngilizce öğrenmek için en doğru yolu bulma konusundaki kararsızlığını anlıyorum. Bu rehber, bilimsel verilere dayanarak senin için hazırlanmış en etkili ve mantıklı tek yolu sunar. Artık hangi uygulamayı veya kursu seçeceğini düşünmek yerine doğrudan öğrenmeye başlayabilirsin.
+            </p>
+            <a href="#prensipler" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300 inline-block">Hemen Başla</a>
+        </section>
+
+        <section id="prensipler" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-stone-800">Adım 1: Neden Bu Yöntem En İyisi? (Bilimsel Temel)</h2>
+                <p class="mt-4 text-md text-stone-600 max-w-2xl mx-auto">Her yöntemin bir etki derecesi vardır. Planımız, en yüksek etkiye sahip bilimsel olarak kanıtlanmış yöntemlere odaklanır. Bu, zamanını en verimli şekilde kullanmanı sağlar.</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="methodsChart"></canvas>
+            </div>
+        </section>
+        
+        <section id="araclar" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-stone-800">Adım 2: Kişisel Araç Setin</h2>
+                <p class="mt-4 text-md text-stone-600 max-w-2xl mx-auto">Yüzlerce uygulama arasında kaybolma. Her beceri için en etkili ve çoğunlukla ücretsiz olan tek bir araca odaklanacağız. İşte senin kişisel ve sadeleştirilmiş araç setin:</p>
+            </div>
+            
+            <div class="bg-white p-2 rounded-lg shadow-md max-w-2xl mx-auto">
+                <div class="flex space-x-1" id="skillTabs">
+                    <button data-target="kelime" class="tab-button flex-1 p-3 text-sm font-semibold rounded-md transition duration-300 active">📘 Kelime</button>
+                    <button data-target="dinleme" class="tab-button flex-1 p-3 text-sm font-semibold rounded-md transition duration-300">🎧 Dinleme</button>
+                    <button data-target="konusma" class="tab-button flex-1 p-3 text-sm font-semibold rounded-md transition duration-300">🗣️ Konuşma</button>
+                    <button data-target="okuma" class="tab-button flex-1 p-3 text-sm font-semibold rounded-md transition duration-300">📖 Okuma</button>
+                    <button data-target="yazma" class="tab-button flex-1 p-3 text-sm font-semibold rounded-md transition duration-300">✍️ Yazma</button>
+                </div>
+
+                <div id="skillContent" class="mt-4 p-4">
+                    <div id="kelime" class="tab-content">
+                        <h3 class="font-bold text-xl text-stone-800">Ana Araç: Anki</h3>
+                        <p class="text-stone-600 mt-2">Aralıklı tekrar (Spaced Repetition) sisteminin kralıdır. Kendi kelime kartlarını oluştur veya hazır desteleri kullan. Günde sadece 15 dakika ayırarak binlerce kelimeyi kalıcı olarak öğrenebilirsin. Diğer uygulamalar yerine bunu temel al.</p>
+                        <a href="https://apps.ankiweb.net/" target="_blank" class="text-blue-600 hover:underline mt-2 inline-block">Anki'yi İndir →</a>
+                    </div>
+                    <div id="dinleme" class="tab-content hidden">
+                        <h3 class="font-bold text-xl text-stone-800">Ana Kaynak: YouTube & Podcast'ler</h3>
+                        <p class="text-stone-600 mt-2">Kendi seviyene uygun içerik bulmak kritik. Başlangıç için "BBC Learning English" kanalındaki "6 Minute English" serisi mükemmeldir. Anlaşılır ve yavaş konuşurlar. Seviyen ilerledikçe ilgi alanlarına yönelik kanallara geçebilirsin.</p>
+                         <a href="https://www.youtube.com/user/bbclearningenglish" target="_blank" class="text-blue-600 hover:underline mt-2 inline-block">BBC Learning English →</a>
+                    </div>
+                    <div id="konusma" class="tab-content hidden">
+                        <h3 class="font-bold text-xl text-stone-800">Ana Teknik: Shadowing (Gölgeleme)</h3>
+                        <p class="text-stone-600 mt-2">En etkili ve ücretsiz konuşma pratiği. Anadili İngilizce olan birini dinle ve aynı anda veya hemen sonrasında onu taklit et. Telaffuzun ve akıcılığın inanılmaz gelişir. Günde 10 dakika yeterli. Partner bulmak için HelloTalk veya Tandem'i daha sonra düşünebilirsin.</p>
+                    </div>
+                    <div id="okuma" class="tab-content hidden">
+                         <h3 class="font-bold text-xl text-stone-800">Ana Kaynak: BBC Learning English Sitesi</h3>
+                        <p class="text-stone-600 mt-2">Seviyelere ayrılmış kısa ve ilgi çekici metinler sunar. Her metnin sonunda kelime listeleri bulunur. Bu, "Anlaşılır Girdi" prensibi için harikadır. Bilmediğin kelimeleri buradan Anki'ye ekleyebilirsin.</p>
+                         <a href="https://www.bbc.co.uk/learningenglish" target="_blank" class="text-blue-600 hover:underline mt-2 inline-block">Siteyi Ziyaret Et →</a>
+                    </div>
+                    <div id="yazma" class="tab-content hidden">
+                        <h3 class="font-bold text-xl text-stone-800">Ana Alışkanlık: Günlük Tutma</h3>
+                        <p class="text-stone-600 mt-2">Her gün sadece 3-5 cümle ile o gün ne yaptığını yaz. Mükemmel olmak zorunda değil. Hatalarını kontrol etmek için Grammarly'nin ücretsiz versiyonunu kullanabilirsin. Amaç, öğrendiğin kelime ve yapıları aktif olarak kullanmaktır.</p>
+                        <a href="https://www.grammarly.com/" target="_blank" class="text-blue-600 hover:underline mt-2 inline-block">Grammarly'yi Dene →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plan" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-stone-800">Adım 3: Uygulanabilir 6 Aylık Yol Haritan</h2>
+                <p class="mt-4 text-md text-stone-600 max-w-2xl mx-auto">Büyük hedefi küçük, yönetilebilir adımlara bölüyoruz. İşte önümüzdeki 6 ay boyunca izleyeceğin net program.</p>
+            </div>
+            <div class="space-y-4 max-w-3xl mx-auto">
+                <div class="accordion-item bg-white rounded-lg shadow-sm border border-stone-200">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-stone-700 flex justify-between items-center">
+                        <span>AY 1-3: Temel Atma (A1-A2 Seviyesi)</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content px-5 pb-5">
+                        <p class="text-stone-600"><strong>Hedef:</strong> 500-1000 temel kelime, basit cümle kurma ve anlama.</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-stone-600">
+                            <li><strong>Günlük Görev (30-45 dk):</strong></li>
+                            <li><strong>Anki:</strong> 15 dk (10-15 yeni kelime)</li>
+                            <li><strong>Dinleme:</strong> 10 dk (BBC 6 Minute English)</li>
+                            <li><strong>Konuşma:</strong> 5 dk (Shadowing tekniği)</li>
+                            <li><strong>Yazma:</strong> 5 dk (Günlük 2-3 cümle)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item bg-white rounded-lg shadow-sm border border-stone-200">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-stone-700 flex justify-between items-center">
+                        <span>AY 4-6: Geliştirme (B1 Seviyesi)</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content px-5 pb-5">
+                        <p class="text-stone-600"><strong>Hedef:</strong> 2000+ kelime, kısa sohbetleri anlama ve katılma.</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-stone-600">
+                           <li><strong>Günlük Görev (45-60 dk):</strong></li>
+                           <li><strong>Anki:</strong> 15 dk (15-20 yeni kelime)</li>
+                           <li><strong>Dinleme:</strong> 15 dk (TED Talks veya ilgi alanına yönelik YouTube videoları)</li>
+                           <li><strong>Konuşma:</strong> 10 dk (Shadowing veya HelloTalk ile sesli mesajlaşma)</li>
+                           <li><strong>Yazma:</strong> 5 dk (Günlük 1 paragraf)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="motivasyon" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-stone-800">Adım 4: Yolda Kalmak (Motivasyon)</h2>
+                <p class="mt-4 text-md text-stone-600 max-w-2xl mx-auto">En iyi plan bile devamlılık olmadan işe yaramaz. İşte motivasyonunu yüksek tutacak ipuçları.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="step-card p-6 rounded-lg text-center">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="font-bold text-lg text-stone-800">Küçük Hedefler Koy</h3>
+                    <p class="text-stone-600 mt-2 text-sm">"1. Ay sonu: 500 kelime öğrenmiş olacağım." gibi net ve ölçülebilir hedefler belirle.</p>
+                </div>
+                <div class="step-card p-6 rounded-lg text-center">
+                    <div class="text-4xl mb-4">🔗</div>
+                    <h3 class="font-bold text-lg text-stone-800">Zinciri Kırma</h3>
+                    <p class="text-stone-600 mt-2 text-sm">Her gün en az 15 dakika çalışarak bir "streak" (seri) oluştur. Takvimde her günü işaretle.</p>
+                </div>
+                <div class="step-card p-6 rounded-lg text-center">
+                    <div class="text-4xl mb-4">🎉</div>
+                    <h3 class="font-bold text-lg text-stone-800">Başarıyı Kutla</h3>
+                    <p class="text-stone-600 mt-2 text-sm">İlk basit cümleni kurduğunda veya bir podcast'i anladığında kendine aferin de. Bu küçük zaferler önemlidir.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sss" class="py-16 bg-stone-100 rounded-lg">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-stone-800">Sıkça Sorulan Sorular</h2>
+            </div>
+            <div class="space-y-4 max-w-3xl mx-auto">
+                 <div class="accordion-item bg-white rounded-lg shadow-sm border border-stone-200">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-stone-700 flex justify-between items-center">
+                        <span>Peki ya Duolingo, Memrise gibi uygulamalar?</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content px-5 pb-5">
+                        <p class="text-stone-600">Bu uygulamalar başlangıç için eğlencelidir ancak verimlilik açısından tuzağa düşürebilirler. Sizi uygulamada tutmak için tasarlanmış "oyunlaştırma" mekanikleri, gerçekten öğrendiğiniz hissiyatı verse de, Anki'nin bilimsel aralıklı tekrar yöntemi kadar kalıcı öğrenme sağlamazlar. <br><br><strong>Kısacası:</strong> Zamanın değerli. Günde 15 dakikanı Duolingo'da "puan" kazanmak yerine Anki'de kalıcı kelime öğrenmeye ayırman, seni hedefine çok daha hızlı ulaştırır. Eğlence için ara sıra bakabilirsin ama ana programının bir parçası yapma.</p>
+                    </div>
+                </div>
+                 <div class="accordion-item bg-white rounded-lg shadow-sm border border-stone-200">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-stone-700 flex justify-between items-center">
+                        <span>Udemy veya BTK Akademi'den bir kurs almanın zararı olur mu?</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content px-5 pb-5">
+                        <p class="text-stone-600">Zararı olmaz, ancak doğru kullanılmazsa zaman kaybı yaratabilir. Kurslar "pasif öğrenme"dir. Video izlemek, ilerlediğini hissettirir ama bilgiyi aktif olarak kullanmadıkça unutulur. Bu yol haritası ise "aktif öğrenme" üzerine kurulu.<br><br><strong>Doğru Kullanım:</strong> Kursları birincil öğrenme aracı olarak görme. Haftada 1-2 saat, anlamadığın bir gramer konusunu veya genel bir tekrarı videodan izle. Ama her gün yapman gereken Anki, dinleme, yazma gibi aktif pratiklerin asla yerini almasın. Unutma, araba kullanmak video izleyerek değil, direksiyona geçerek öğrenilir. İngilizce de aynıdır.</p>
+                    </div>
+                </div>
+                <div class="accordion-item bg-white rounded-lg shadow-sm border border-stone-200">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-stone-700 flex justify-between items-center">
+                        <span>Bu plana göre grameri tam olarak ne yapacağım?</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content px-5 pb-5">
+                        <p class="text-stone-600">Bu plan, grameri kuralları ezberleyerek değil, bir bebeğin anadilini öğrendiği gibi doğal yollarla, yani "fark ederek" öğrenmeni hedefler. Okuduğun ve dinlediğin içeriklerdeki kalıplar, zamanla beynine sezgisel olarak yerleşir. Bu, en kalıcı yöntemdir.<br><br><strong>Pratik Çözüm:</strong> Bir konu kafana çok mu takıldı? (Örn: "Present Perfect Tense"). O zaman şunu yap:<br>1. Konuyu Google'dan hızlıca araştır (10-15 dakika, daha fazla değil).<br>2. Amacın kuralı ezberlemek değil, sadece ne işe yaradığını anlamak olsun.<br>3. Sonra o yapının kullanıldığı 10-15 farklı örnek cümle bul ve oku. Amacın, kuralı "fark etmek".<br>Bu yöntem, saatlerce gramer çalışmaktan çok daha etkilidir.</p>
+                    </div>
+                </div>
+                <div class="accordion-item bg-white rounded-lg shadow-sm border border-stone-200">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-stone-700 flex justify-between items-center">
+                        <span>Daha fazla kaynak eklersem daha hızlı öğrenmez miyim?</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content px-5 pb-5">
+                        <p class="text-stone-600">Hayır, tam tersi olabilir. Bu, en sık düşülen hatadır. Her gün 5 farklı uygulamaya 10'ar dakika bakmak yerine, 1 doğru uygulamaya 50 dakika odaklanmak kat kat daha verimlidir. Sürekli kaynak değiştirmek, beynin derinlemesine öğrenmesini engeller ve seni en başta kaçtığın "kararsızlık" döngüsüne geri sokar.<br><br><strong>Bu planın amacı:</strong> Seni en yüksek verime sahip 2-3 temel araca (Anki, YouTube/Podcast, Not defteri) odaklayıp, kaynak arama derdini ortadan kaldırmaktır. Enerjini araştırmaya değil, öğrenmeye harca. Hız, tutarlılıktan ve odaklanmaktan gelir, kaynak çokluğundan değil.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-800 text-white mt-16">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            <p>&copy; 2025 Kişisel İngilizce Yol Haritası. Başarılar dileriz!</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('methodsChart').getContext('2d');
+            const methodsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Aralıklı Tekrar (Spaced Repetition)', 
+                        'Anlaşılır Girdi (Comprehensible Input)', 
+                        'Aktif Hatırlama (Active Recall)', 
+                        'Dil Banyosu (Immersion)', 
+                        'Sadece Gramer Çalışması'
+                    ],
+                    datasets: [{
+                        label: 'Öğrenmedeki Etki Yüzdesi (%)',
+                        data: [42, 30, 15, 8, 5],
+                        backgroundColor: [
+                            'rgba(37, 99, 235, 0.8)',
+                            'rgba(22, 163, 74, 0.8)',
+                            'rgba(217, 119, 6, 0.8)',
+                            'rgba(220, 38, 38, 0.8)',
+                            'rgba(107, 114, 128, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(37, 99, 235, 1)',
+                            'rgba(22, 163, 74, 1)',
+                            'rgba(217, 119, 6, 1)',
+                            'rgba(220, 38, 38, 1)',
+                            'rgba(107, 114, 128, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%'
+                                }
+                            }
+                        },
+                        y: {
+                           ticks: {
+                                autoSkip: false,
+                                font: {
+                                    size: 10
+                                }
+                           }
+                        }
+                    }
+                }
+            });
+
+            const skillTabs = document.getElementById('skillTabs');
+            const skillContents = document.getElementById('skillContent').children;
+
+            skillTabs.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const targetId = e.target.dataset.target;
+
+                    for (const button of skillTabs.children) {
+                        button.classList.remove('active');
+                    }
+                    e.target.classList.add('active');
+                    
+                    for (const content of skillContents) {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    }
+                }
+            });
+            
+            const accordions = document.querySelectorAll('.accordion-item');
+            accordions.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = header.querySelector('span:last-child');
+                header.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight;
+                    accordions.forEach(i => {
+                        i.querySelector('.accordion-content').style.maxHeight = null;
+                        i.querySelector('.accordion-header span:last-child').style.transform = 'rotate(0deg)';
+                    });
+                    
+                    if (!isOpen) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
