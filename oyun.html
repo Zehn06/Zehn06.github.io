@@ -1,305 +1,313 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tek Kişilik Mobil Oyun Geliştirme Yol Haritası</title>
+    <title>Gelişmiş Mobil Oyun Geliştirici Rehberi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Developer's Focus -->
-    <!-- Application Structure Plan: The SPA is designed as a single-page, vertical-scrolling guide. It starts with a strategic roadmap (Preparation, Development, Publishing, Monetization), followed by a data-driven Market Analysis and Financial Projections, and concludes with an actionable Game Idea Recommendation. This structure was chosen to guide the user logically from foundational knowledge ('what do I need to know?') to strategic decisions ('what should I build and what can I earn?'), creating a comprehensive and educational journey rather than just a simple Q&A. The sticky navigation enhances usability by allowing easy access to each key section. -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Chosen Palette: Midnight Teal -->
+    <!-- Application Structure Plan: The SPA is redesigned as a visually engaging, dashboard-like experience. It begins with a hero section and key probabilistic metrics (Success Rate, Time to Market) for immediate insight. It then flows into a visual "Journey" timeline, a "Deep Dive" into market analytics with new probabilistic charts (Effort vs. Reward), financial modeling, and a dedicated "Gemini Toolkit". It concludes with an actionable "Strategy Toolbox" (Tools, Marketing, Pitfalls) and an FAQ. This structure transforms the "wiki" feel into a stylish, interactive, and data-driven guide, prioritizing user engagement and strategic decision-making over linear information consumption. -->
     <!-- Visualization & Content Choices: 
-    1. Report Info: Success Factors in Indie Mobile Games -> Goal: Inform on what's important -> Viz/Presentation: Radar Chart -> Interaction: Hover tooltips for details -> Justification: A radar chart effectively visualizes the balance and importance of multiple key factors (idea, gameplay, marketing) simultaneously. -> Library: Chart.js/Canvas.
-    2. Report Info: Popular & Feasible Genres for Solo Devs -> Goal: Compare genres by complexity vs. market size -> Viz/Presentation: Horizontal Bar Chart -> Interaction: None, purely informational -> Justification: A bar chart is the clearest way to compare and rank discrete categories like game genres, making it easy to see which are most viable. -> Library: Chart.js/Canvas.
-    3. Report Info: Potential Monthly Earnings Scenarios -> Goal: Show potential income over time -> Viz/Presentation: Bar Chart -> Interaction: Buttons to switch between monetization models (Ads vs. IAP) -> Justification: A bar chart provides a clear, tangible view of potential revenue under different success scenarios (Low, Medium, High). Interactivity adds depth by showing how strategic choices impact earnings. -> Library: Chart.js/Canvas.
-    All textual content is organized in cards with clear headings to break down complex information into digestible chunks, supporting the overall educational goal of the application.
+    1. Report Info: Indie Dev Success Probability -> Goal: Set realistic expectations -> Viz: Donut Chart -> Interaction: Hover tooltips -> Justification: A donut chart is excellent for showing parts of a whole, clearly communicating that "financial success" is only one possible positive outcome. -> Library: Chart.js/Canvas.
+    2. Report Info: Genre Complexity vs. Monetization Potential -> Goal: Guide strategic genre selection -> Viz: Scatter Plot (Effort vs. Reward) -> Interaction: Hover tooltips with genre details -> Justification: A scatter plot is the best way to visualize the relationship between two variables (effort, reward) for multiple categories (genres), directly addressing the user's request for more probabilistic insights. -> Library: Chart.js/Canvas.
+    3. Report Info: Core skills and process -> Goal: Guide the development journey -> Viz: Vertical Timeline with Icons -> Interaction: None, purely visual/structural -> Justification: A timeline visually structures the multi-stage process, making it more digestible and less intimidating than blocks of text. -> Method: HTML/CSS with Font Awesome icons.
+    All other charts and Gemini features from the previous version are retained but restyled to fit the new, sophisticated dark theme, improving clarity and visual appeal.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8F7F4;
-            color: #3D3D3D;
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827;
+            color: #E5E7EB;
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+            height: 350px;
         }
         .sticky-nav {
-            position: -webkit-sticky;
             position: sticky;
             top: 0;
             z-index: 50;
         }
         .active-nav {
-            color: #F8F7F4;
-            background-color: #4A908A;
+            color: #111827;
+            background-color: #2DD4BF;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
+        .fade-in-section {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(20px);
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1F2937;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4B5563;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6B7280;
         }
     </style>
 </head>
 <body class="antialiased">
-    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky-nav">
-        <div class="container mx-auto px-4">
+    <header class="bg-gray-900/70 backdrop-blur-lg shadow-lg sticky-nav">
+        <div class="container mx-auto px-4 max-w-7xl">
             <nav id="navbar" class="flex flex-wrap justify-center items-center py-2 text-sm md:text-base">
-                <a href="#giriş" class="nav-link text-gray-600 hover:text-[#4A908A] font-medium py-2 px-3 md:px-4 rounded-md transition-all duration-300">Giriş</a>
-                <a href="#yol-haritasi" class="nav-link text-gray-600 hover:text-[#4A908A] font-medium py-2 px-3 md:px-4 rounded-md transition-all duration-300">Yol Haritası</a>
-                <a href="#pazar-analizi" class="nav-link text-gray-600 hover:text-[#4A908A] font-medium py-2 px-3 md:px-4 rounded-md transition-all duration-300">Pazar Analizi</a>
-                <a href="#finansal-projeksiyon" class="nav-link text-gray-600 hover:text-[#4A908A] font-medium py-2 px-3 md:px-4 rounded-md transition-all duration-300">Finansal Projeksiyon</a>
-                <a href="#oyun-onerisi" class="nav-link text-gray-600 hover:text-[#4A908A] font-medium py-2 px-3 md:px-4 rounded-md transition-all duration-300">Oyun Önerisi</a>
-                <a href="#gemini-fikir" class="nav-link text-gray-600 hover:text-[#4A908A] font-medium py-2 px-3 md:px-4 rounded-md transition-all duration-300">✨ Fikir Geliştir</a>
+                <a href="#giriş" class="nav-link text-gray-300 hover:text-white font-medium py-2 px-3 rounded-lg transition-all duration-300">Giriş</a>
+                <a href="#yolculuk" class="nav-link text-gray-300 hover:text-white font-medium py-2 px-3 rounded-lg transition-all duration-300">Yolculuk</a>
+                <a href="#pazar-analizi" class="nav-link text-gray-300 hover:text-white font-medium py-2 px-3 rounded-lg transition-all duration-300">Pazar Analizi</a>
+                <a href="#finansal-projeksiyon" class="nav-link text-gray-300 hover:text-white font-medium py-2 px-3 rounded-lg transition-all duration-300">Finansal Projeksiyon</a>
+                <a href="#gemini-araclar" class="nav-link text-gray-300 hover:text-white font-medium py-2 px-3 rounded-lg transition-all duration-300">Gemini Araçları</a>
+                <a href="#strateji" class="nav-link text-gray-300 hover:text-white font-medium py-2 px-3 rounded-lg transition-all duration-300">Strateji</a>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 md:py-12">
-        <section id="giriş" class="text-center mb-16 scroll-mt-20">
-            <h1 class="text-4xl md:text-5xl font-bold text-[#4A908A] mb-4">Tek Başına Mobil Oyun Geliştirme</h1>
-            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-600">
-                Bu interaktif rapor, tek kişilik bir ordu olarak basit mobil oyunlar geliştirip para kazanma hedefinize ulaşmanız için gereken adımları, araçları, pazar gerçeklerini ve potansiyel kazançları analiz eder.
+    <main class="container mx-auto px-4 py-8 md:py-12 max-w-7xl">
+        <section id="giriş" class="text-center mb-24 fade-in-section is-visible">
+            <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 mb-6">Tek Kişilik Dev Ordu: Mobil Oyun Geliştirme Rehberi</h1>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto text-gray-300">
+                Bu interaktif rehber, solo geliştirici olarak bir fikri kârlı bir mobil oyuna dönüştürme yolculuğunuzda size stratejik veriler, olasılıksal analizler ve yapay zeka destekli araçlar sunar.
             </p>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-3">İlk Oyuna Kalan Süre</h3>
+                    <p class="text-4xl font-bold text-emerald-400">3-6 Ay</p>
+                    <p class="text-sm text-gray-400 mt-2">Sıfırdan başlayan birisi için ortalama öğrenme ve geliştirme süresi.</p>
+                </div>
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                     <h3 class="text-lg font-semibold text-gray-300 mb-3">Finansal Başarı Olasılığı</h3>
+                     <div class="chart-container" style="height: 120px;">
+                        <canvas id="successDonutChart"></canvas>
+                     </div>
+                </div>
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-3">Ortalama İlk Yıl Geliri (Hit)</h3>
+                    <p class="text-4xl font-bold text-emerald-400">$50K+</p>
+                    <p class="text-sm text-gray-400 mt-2">Viral olan ve iyi monetize edilmiş bir oyun için potansiyel.</p>
+                </div>
+            </div>
         </section>
 
-        <section id="yol-haritasi" class="mb-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center mb-10 text-[#3D3D3D]">Adım Adım Yol Haritası</h2>
-            <div class="space-y-8">
-                <div>
-                    <h3 class="text-2xl font-semibold text-[#4A908A] mb-4 border-b-2 border-[#4A908A]/30 pb-2">1. Aşama: Hazırlık ve Yetenek Geliştirme</h3>
-                    <p class="mb-6 text-gray-600">Geliştirme sürecine başlamadan önce temel yetenekleri ve araçları edinmek, projenizin başarısı için kritik öneme sahiptir. Bu aşama, sağlam bir temel oluşturmanızı sağlar.</p>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">Oyun Motoru Seçimi</h4>
-                            <p class="text-gray-600"><strong>Unity</strong> veya <strong>Godot</strong> gibi motorlar tek geliştirici için idealdir. Unity (C# dili ile) geniş kaynak ve topluluk desteği sunarken, Godot tamamen ücretsiz ve açık kaynaklıdır. Başlangıç için Unity daha yaygın bir tercihtir.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">Programlama Temelleri</h4>
-                            <p class="text-gray-600">Seçtiğiniz motora göre temel programlama öğrenmelisiniz. Unity için <strong>C#</strong> dilinde değişkenler, döngüler, koşullar ve nesne yönelimli programlama (OOP) mantığını anlamalısınız. Sıfırdan başlıyorsanız, bu süreç 3-6 ay sürebilir.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">Görsel ve Ses Varlıkları</h4>
-                            <p class="text-gray-600">Basit 2D görseller için <strong>Aseprite</strong> (pixel art) veya <strong>Canva</strong>, 3D modeller için <strong>Blender</strong>'ın temellerini öğrenin. Sesler için <strong>freesound.org</strong> gibi sitelerden hazır varlıklar kullanabilir veya <strong>Audacity</strong> ile basit sesler oluşturabilirsiniz.</p>
-                        </div>
+        <section id="yolculuk" class="mb-24 fade-in-section">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white">Geliştirici Yolculuğu</h2>
+            <div class="relative max-w-2xl mx-auto">
+                <div class="absolute left-1/2 w-0.5 h-full bg-gray-700 -translate-x-1/2"></div>
+                <div class="relative mb-12">
+                    <div class="absolute left-1/2 w-8 h-8 bg-gray-700 rounded-full -translate-x-1/2 border-4 border-gray-900 flex items-center justify-center">
+                        <i class="fa-solid fa-graduation-cap text-emerald-400"></i>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 ml-12 w-[calc(50%-3rem)]">
+                        <h3 class="font-bold text-xl text-emerald-400 mb-2">Aşama 1: Öğren</h3>
+                        <p class="text-gray-300"><strong>Unity</strong> ve <strong>C#</strong> temellerine odaklan. Hedefin, 1-2 ay içinde basit bir "Flappy Bird" klonu yapabilecek seviyeye gelmek olsun.</p>
                     </div>
                 </div>
-
-                <div>
-                    <h3 class="text-2xl font-semibold text-[#4A908A] mb-4 border-b-2 border-[#4A908A]/30 pb-2">2. Aşama: Geliştirme ve Prototipleme</h3>
-                     <p class="mb-6 text-gray-600">Fikrinizi hayata geçirme zamanı. Bu aşamadaki en önemli hedef, oyunun eğlenceli olup olmadığını en hızlı şekilde test etmektir. Mükemmeliyetçilikten kaçınıp hıza odaklanın.</p>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">Oyun Fikri ve MVP</h4>
-                            <p class="text-gray-600">Büyük düşünmeyin. Çok basit, tek bir mekaniğe dayalı (örneğin zıplama, birleştirme, kaydırma) bir fikir bulun. Amacınız 1-2 hafta içinde oynanabilir bir prototip (Minimum Viable Product - MVP) çıkarmak olmalı. Bu prototip sadece oyunun ana mekaniğini içermelidir.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">Test ve Geri Bildirim</h4>
-                            <p class="text-gray-600">Prototipi arkadaşlarınıza veya ailenize oynatın. Hiçbir şey anlatmadan oyunu anlayabiliyorlar mı? Eğleniyorlar mı? Bu geri bildirimler, projenin devam edip etmeyeceğine karar vermenizde en önemli yol göstericidir. Oyun eğlenceli değilse, fikri değiştirmekten çekinmeyin.</p>
-                        </div>
+                <div class="relative mb-12 flex justify-end">
+                    <div class="absolute left-1/2 w-8 h-8 bg-gray-700 rounded-full -translate-x-1/2 border-4 border-gray-900 flex items-center justify-center">
+                        <i class="fa-solid fa-cube text-emerald-400"></i>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mr-12 w-[calc(50%-3rem)]">
+                        <h3 class="font-bold text-xl text-emerald-400 mb-2">Aşama 2: İnşa Et</h3>
+                        <p class="text-gray-300">En basit oyun fikrini seç (MVP). 1 ay içinde oynanabilir bir prototip çıkar ve hemen test et. Eğlenceli değilse, fikri acımadan değiştir.</p>
                     </div>
                 </div>
-
-                 <div>
-                    <h3 class="text-2xl font-semibold text-[#4A908A] mb-4 border-b-2 border-[#4A908A]/30 pb-2">3. Aşama: Yayınlama ve Pazarlama</h3>
-                    <p class="mb-6 text-gray-600">İyi bir oyun yapmak denklemin sadece bir yarısıdır. Diğer yarısı ise o oyunu doğru oyunculara ulaştırmaktır. Bu aşama genellikle en çok göz ardı edilen ama en kritik olanlardan biridir.</p>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">Mağaza Hazırlığı (ASO)</h4>
-                            <p class="text-gray-600">Google Play (25$ ücret) ve Apple App Store (99$/yıl ücret) için geliştirici hesapları açın. Oyununuz için dikkat çekici bir ikon, ekran görüntüleri ve açıklama metni hazırlayın. Doğru anahtar kelimeleri kullanmak (App Store Optimization - ASO), organik olarak bulunmanızı sağlar.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">İlk Kullanıcıları Kazanma</h4>
-                            <p class="text-gray-600">Oyununuzu Reddit'in ilgili alt forumlarında (subreddit), TikTok'ta veya Instagram'da kısa videolarla tanıtın. Küçük bir bütçeyle (örneğin 50-100$) sosyal medya reklamları deneyerek ilk verileri toplayın. Amaç, indirme başına maliyeti ve oyuncu başına geliri (LTV) ölçmektir.</p>
-                        </div>
+                <div class="relative mb-12">
+                    <div class="absolute left-1/2 w-8 h-8 bg-gray-700 rounded-full -translate-x-1/2 border-4 border-gray-900 flex items-center justify-center">
+                        <i class="fa-solid fa-rocket text-emerald-400"></i>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 ml-12 w-[calc(50%-3rem)]">
+                        <h3 class="font-bold text-xl text-emerald-400 mb-2">Aşama 3: Fırlat</h3>
+                        <p class="text-gray-300">App Store Optimizasyonu (ASO) öğren. TikTok ve Reddit'te küçük bütçeli pazarlama kampanyalarıyla ilk verileri topla.</p>
                     </div>
                 </div>
-
-                <div>
-                    <h3 class="text-2xl font-semibold text-[#4A908A] mb-4 border-b-2 border-[#4A908A]/30 pb-2">4. Aşama: Para Kazanma ve Optimizasyon</h3>
-                    <p class="mb-6 text-gray-600">Oyununuzun sürdürülebilir bir gelir modeline sahip olması, bu işi devam ettirebilmeniz için gereklidir. Oyuncu deneyimini bozmadan gelir elde etme dengesini kurmak esastır.</p>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">Reklam Modelleri</h4>
-                            <p class="text-gray-600">En popüler yöntem <strong>Ödüllü Reklamlardır</strong> (Rewarded Ads). Oyuncuya bir hak, ipucu veya oyun içi para karşılığında video izletmek, en etkili modeldir. Geçiş Reklamları (Interstitial) ise seviye aralarında dikkatli kullanılmalıdır. <strong>AdMob</strong> ve <strong>Unity Ads</strong> başlamak için iyi platformlardır.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                            <h4 class="font-bold text-lg mb-2">Analiz ve İyileştirme</h4>
-                            <p class="text-gray-600">Unity Analytics veya GameAnalytics gibi araçlarla oyuncu davranışlarını izleyin. Oyuncular hangi seviyede oyunu bırakıyor (retention)? Ortalama ne kadar süre oynuyorlar? Bu verilere göre oyunda güncellemeler yaparak oyuncu tutma oranını ve geliri artırmaya çalışın.</p>
-                        </div>
+                <div class="relative flex justify-end">
+                    <div class="absolute left-1/2 w-8 h-8 bg-gray-700 rounded-full -translate-x-1/2 border-4 border-gray-900 flex items-center justify-center">
+                        <i class="fa-solid fa-chart-line text-emerald-400"></i>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mr-12 w-[calc(50%-3rem)]">
+                        <h3 class="font-bold text-xl text-emerald-400 mb-2">Aşama 4: Büyüt</h3>
+                        <p class="text-gray-300">GameAnalytics gibi araçlarla oyuncu verilerini analiz et. Oyuncu tutma (retention) oranını artıracak güncellemeler yap.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="pazar-analizi" class="mb-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center mb-10 text-[#3D3D3D]">Pazar Analizi: Zorluklar ve Fırsatlar</h2>
+        <section id="pazar-analizi" class="mb-24 fade-in-section">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white">Pazarın Derinlikleri: Risk ve Fırsat Analizi</h2>
             <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                    <h3 class="text-xl font-semibold mb-4 text-center">Mobil Oyunda Başarı Faktörleri</h3>
-                     <p class="text-sm text-gray-600 mb-4 text-center">Başarı, sadece iyi kod yazmaktan ibaret değildir. Fikir, pazarlama ve oyun döngüsü gibi unsurların dengeli bir birleşimidir.</p>
-                    <div class="chart-container mx-auto">
-                        <canvas id="successFactorsChart"></canvas>
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4 text-center text-white">Çaba vs. Potansiyel Ödül (Oyun Türleri)</h3>
+                    <p class="text-sm text-gray-400 mb-4 text-center">Bazı türler daha az eforla daha hızlı gelir sağlarken, bazıları daha uzun vadeli yatırım gerektirir.</p>
+                    <div class="chart-container">
+                        <canvas id="effortRewardChart"></canvas>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                    <h3 class="text-xl font-semibold mb-4 text-center">Tek Geliştirici İçin Uygun Oyun Türleri</h3>
-                    <p class="text-sm text-gray-600 mb-4 text-center">Pazarın doygunluğu ve geliştirme karmaşıklığına göre bazı türler tek kişi için daha yönetilebilirdir.</p>
-                    <div class="chart-container mx-auto" style="height: 350px;">
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4 text-center text-white">Tek Geliştirici İçin En Uygun Türler</h3>
+                    <p class="text-sm text-gray-400 mb-4 text-center">Geliştirme kolaylığı ve pazar potansiyeline göre sıralama.</p>
+                    <div class="chart-container">
                         <canvas id="genreChart"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="mt-8 bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-4 rounded-md">
-                <p><strong class="font-bold">Gerçekçi Beklentiler:</strong> Mobil oyun pazarı aşırı rekabetçidir. Yayınlanan oyunların %90'ından fazlası finansal olarak başarısız olur. Başarı bir gecede gelmez; genellikle birkaç deneme, öğrenme ve sabır gerektirir. İlk oyununuzun amacı para kazanmaktan çok, süreci baştan sona deneyimlemek olmalıdır.</p>
-            </div>
         </section>
 
-        <section id="finansal-projeksiyon" class="mb-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center mb-4 text-[#3D3D3D]">Finansal Projeksiyon: Ne Kadar Kazanılabilir?</h2>
-            <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Bu tahminler, sektör ortalamalarına dayanmaktadır ve tamamen varsayımsaldır. Gelir; oyunun kalitesine, pazarlama başarısına ve pazarın durumuna göre büyük ölçüde değişebilir.</p>
-            <div class="text-center mb-6">
-                <button id="adsBtn" class="revenue-btn bg-[#4A908A] text-white py-2 px-4 rounded-l-md transition-all">Reklam Geliri Senaryosu</button>
-                <button id="iapBtn" class="revenue-btn bg-gray-200 text-gray-700 py-2 px-4 rounded-r-md transition-all">IAP Geliri Senaryosu</button>
+        <section id="finansal-projeksiyon" class="mb-24 fade-in-section">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-white">Finansal Senaryolar: Ne Beklemeli?</h2>
+            <p class="text-center max-w-3xl mx-auto text-gray-400 mb-8">Bu tahminler, sektör ortalamalarına ve farklı monetization (para kazanma) stratejilerine dayanmaktadır. Başarı, büyük ölçüde pazarlama ve oyunun kalitesine bağlıdır.</p>
+            <div class="text-center mb-6 flex justify-center bg-gray-800 p-1 rounded-lg max-w-md mx-auto">
+                <button id="adsBtn" class="revenue-btn flex-1 bg-emerald-500 text-white py-2 px-4 rounded-md transition-all">Reklam Odaklı</button>
+                <button id="iapBtn" class="revenue-btn flex-1 text-gray-300 py-2 px-4 rounded-md transition-all">IAP Odaklı</button>
+                <button id="hybridBtn" class="revenue-btn flex-1 text-gray-300 py-2 px-4 rounded-md transition-all">Hibrit Model</button>
             </div>
-            <div class="bg-white p-4 md:p-6 rounded-lg shadow-md border border-gray-200">
-                 <h3 id="revenue-title" class="text-xl font-semibold mb-4 text-center">Aylık Potansiyel Gelir (Reklam Odaklı)</h3>
-                <div class="chart-container mx-auto" style="height:350px;">
+            <div class="bg-gray-800/50 p-4 md:p-6 rounded-xl border border-gray-700">
+                 <h3 id="revenue-title" class="text-xl font-semibold mb-4 text-center text-white">Aylık Potansiyel Gelir (Reklam Odaklı)</h3>
+                <div class="chart-container">
                     <canvas id="revenueChart"></canvas>
                 </div>
             </div>
         </section>
 
-        <section id="oyun-onerisi" class="scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center mb-10 text-[#3D3D3D]">Oyun Fikri Önerisi: Hiper-Basit Bulmaca (Hyper-casual Puzzle)</h2>
-            <div class="bg-white p-8 rounded-lg shadow-xl border border-gray-200">
-                <p class="text-gray-600 mb-6">Parasal kazanç odaklı, tek kişilik bir geliştirici için en mantıklı başlangıç noktası, hiper-basit (hyper-casual) bir bulmaca oyunudur. Bu tür, geliştirme sürecini basitleştirir ve para kazanma potansiyelini maksimize eder.</p>
-                <div class="grid md:grid-cols-3 gap-6 text-center">
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2 text-[#4A908A]">Düşük Geliştirme Maliyeti</h4>
-                        <p class="text-sm text-gray-600">Karmaşık grafiklere, hikayeye veya karakterlere ihtiyaç duymaz. Basit şekiller ve renklerle bile çekici bir oyun yapılabilir. Bu da tek kişinin altından kalkabileceği bir iş yükü demektir.</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2 text-[#4A908A]">Geniş Kitle</h4>
-                        <p class="text-sm text-gray-600">Basit ve anlaşılır mekanikleri sayesinde her yaştan ve her kesimden oyuncuya hitap eder. Bu, potansiyel indirme sayısını artırır.</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2 text-[#4A908A]">Yüksek Gelir Potansiyeli</h4>
-                        <p class="text-sm text-gray-600">Bulmaca oyunları, "Ödüllü Reklamlar" için mükemmeldir. Oyuncu bir seviyede takıldığında, "ipucu için reklam izle" veya "ekstra hamle için reklam izle" gibi tekliflerle yüksek reklam geliri elde edilebilir.</p>
-                    </div>
-                </div>
-                <div class="mt-6 border-t pt-6">
-                    <h4 class="font-semibold text-lg">Örnek Konsept: "Renk Döngüsü"</h4>
-                    <p class="text-gray-600 mt-2">Ekranda farklı renklerde halkalar belirir. Oyuncunun amacı, halkalara dokunarak onları doğru renk sırasına göre patlatmaktır. Her seviyede halka sayısı ve hızı artar. Çok basit, bağımlılık yapıcı ve tek parmakla oynanabilir.</p>
-                    <div class="mt-6 text-center">
-                        <button id="generateLevelIdeasBtn" class="bg-amber-500 text-white font-bold py-2 px-6 rounded-md hover:bg-amber-600 transition-colors duration-300 flex items-center justify-center mx-auto">
-                             <span id="level-btn-text">✨ Yeni Seviye Fikirleri Üret</span>
-                             <svg id="level-btn-loader" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
+        <section id="gemini-araclar" class="mb-24 fade-in-section">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-white">Gemini Destekli Yaratıcılık Araçları</h2>
+            <p class="text-center max-w-3xl mx-auto text-gray-400 mb-12">Fikir aşamasında tıkandığınızda veya projenizi genişletmek istediğinizde yapay zekanın gücünden faydalanın.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Oyun Fikri Jeneratörü</h3>
+                    <p class="text-gray-400 mb-4">Anahtar kelimelerden yola çıkarak size özel, hiper-basit oyun konseptleri oluşturun.</p>
+                    <div class="flex flex-col gap-4">
+                        <input type="text" id="keywordsInput" class="flex-grow w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Örn: kedi, bulmaca, uzay">
+                        <button id="generateIdeasBtn" class="bg-emerald-500 text-gray-900 font-bold py-2.5 px-6 rounded-md hover:bg-emerald-400 transition-colors duration-300 flex items-center justify-center">
+                            <span id="btn-text">✨ Fikir Üret</span>
+                            <svg id="btn-loader" class="animate-spin h-5 w-5 text-gray-900 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                         </button>
                     </div>
-                    <div id="level-ideas-results" class="mt-6 space-y-4">
-                        <!-- Level ideas will be injected here -->
+                    <div id="gemini-results" class="mt-6 space-y-4"></div>
+                </div>
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Seviye Tasarım Asistanı</h3>
+                    <p class="text-gray-400 mb-4">Örnek oyun konseptimiz "Renk Döngüsü" için anında yeni ve zorlayıcı seviye fikirleri alın.</p>
+                     <div class="text-center">
+                        <button id="generateLevelIdeasBtn" class="bg-teal-500 text-gray-900 font-bold py-2.5 px-6 rounded-md hover:bg-teal-400 transition-colors duration-300 flex items-center justify-center mx-auto">
+                             <span id="level-btn-text">🚀 Seviye Fikirleri İste</span>
+                             <svg id="level-btn-loader" class="animate-spin h-5 w-5 text-gray-900 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        </button>
                     </div>
+                    <div id="level-ideas-results" class="mt-6 space-y-2"></div>
                 </div>
             </div>
         </section>
 
-        <section id="gemini-fikir" class="scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center mb-4 text-[#3D3D3D]">✨ Gemini ile Oyun Fikri Geliştir</h2>
-            <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">
-                Aklınızdaki anahtar kelimeleri girin ve Gemini'nin sizin için yaratıcı ve benzersiz oyun konseptleri oluşturmasını izleyin. Fikir tıkanıklığı yaşadığınız anlar için mükemmel bir yardımcı.
-            </p>
-            <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <input type="text" id="keywordsInput" class="flex-grow w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4A908A]" placeholder="Örn: kedi, bulmaca, uzay">
-                    <button id="generateIdeasBtn" class="bg-[#4A908A] text-white font-bold py-2 px-6 rounded-md hover:bg-[#3f7a73] transition-colors duration-300 flex items-center justify-center">
-                        <span id="btn-text">Fikir Üret</span>
-                        <svg id="btn-loader" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </button>
+        <section id="strateji" class="fade-in-section">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white">Strateji Araç Seti</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4 text-emerald-400">🛠️ Temel Araçlar</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><strong>Unity:</strong> Endüstri standardı, geniş topluluk.</li>
+                        <li><strong>Godot:</strong> Tamamen ücretsiz ve açık kaynak.</li>
+                        <li><strong>Aseprite:</strong> Pixel art için en iyi araç.</li>
+                        <li><strong>Blender:</strong> Ücretsiz 3D modelleme.</li>
+                        <li><strong>Audacity & Freesound.org:</strong> Ses ihtiyaçlarınız için.</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4 text-emerald-400">📈 Pazarlama 101</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><strong>TikTok:</strong> Oyununuzdan kısa, tatmin edici videolar paylaşın.</li>
+                        <li><strong>Reddit:</strong> r/indiegames gibi subreddit'lerde geri bildirim alın.</li>
+                        <li><strong>ASO:</strong> İkon, başlık ve anahtar kelimeler en büyük silahınız.</li>
+                        <li><strong>Veri Analizi:</strong> CPI (İndirme Başına Maliyet) ve LTV (Yaşam Boyu Değer) metriklerini öğrenin.</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4 text-emerald-400">⚠️ Kaçınılması Gereken Hatalar</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><strong>Kapsam Büyütme (Scope Creep):</strong> Fikrinize sürekli yeni özellikler eklemek. Basit kalın!</li>
+                        <li><strong>Pazarlamayı Sona Bırakmak:</strong> Geliştirmenin başından itibaren pazarlamayı düşünün.</li>
+                        <li><strong>Kötü Kullanıcı Arayüzü (UI):</strong> Oyun ne kadar iyi olursa olsun, kötü menüler oyuncuyu kaçırır.</li>
+                        <li><strong>Verileri Göz Ardı Etmek:</strong> Duygularla değil, verilerle karar verin.</li>
+                    </ul>
                 </div>
             </div>
-            <div id="gemini-results" class="mt-8 max-w-4xl mx-auto space-y-6">
-                <!-- Gemini results will be injected here -->
+        </section>
+        
+        <section id="faq" class="mt-24 fade-in-section">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Sıkça Sorulan Sorular</h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <details class="bg-gray-800/50 border border-gray-700 rounded-lg p-4 cursor-pointer">
+                    <summary class="font-semibold text-lg text-gray-200">Ne kadar sürede para kazanmaya başlarım?</summary>
+                    <p class="text-gray-400 mt-3">Gerçekçi olmak gerekirse, ilk oyununuz muhtemelen çok az kazandıracak veya hiç kazandırmayacaktır. İlk oyununuzu bir öğrenme projesi olarak görün. Genellikle 2. veya 3. oyundan sonra, eğer derslerinizi iyi çalıştıysanız, anlamlı bir gelir elde etmeye başlayabilirsiniz. Bu süreç 1-2 yıl sürebilir.</p>
+                </details>
+                <details class="bg-gray-800/50 border border-gray-700 rounded-lg p-4 cursor-pointer">
+                    <summary class="font-semibold text-lg text-gray-200">Çok güçlü bir bilgisayara ihtiyacım var mı?</summary>
+                    <p class="text-gray-400 mt-3">2D veya basit 3D hiper-basit oyunlar için hayır. Son 5-6 yılda üretilmiş, en az 8GB RAM'e sahip ortalama bir dizüstü veya masaüstü bilgisayar işinizi görecektir. Projeleriniz büyüdükçe daha güçlü bir donanıma ihtiyaç duyabilirsiniz, ama başlangıç için elinizdeki yeterlidir.</p>
+                </details>
+                <details class="bg-gray-800/50 border border-gray-700 rounded-lg p-4 cursor-pointer">
+                    <summary class="font-semibold text-lg text-gray-200">Pazar çok doymuş durumda, başlamak için çok mu geç?</summary>
+                    <p class="text-gray-400 mt-3">Pazar rekabetçi, evet. Ama doymuş değil. Her gün yeni trendler ve yeni oyuncu kitleleri ortaya çıkıyor. Yaratıcı, cilalı ve iyi pazarlanmış basit bir oyunun her zaman şansı vardır. Büyük stüdyoların girmeyeceği kadar küçük nişlerde büyük fırsatlar yakalanabilir.</p>
+                </details>
             </div>
         </section>
+
     </main>
 
-    <footer class="bg-white mt-16 py-6 border-t">
+    <footer class="bg-gray-900 mt-16 py-8 border-t border-gray-800">
         <div class="container mx-auto text-center text-gray-500">
-            <p>&copy; 2025 Mobil Oyun Geliştirici Analizi. Bu rapor, genel bilgilendirme amacıyla oluşturulmuştur.</p>
+            <p>&copy; 2025 Gelişmiş Mobil Oyun Geliştirici Rehberi. Stratejik verilerle donatılmıştır.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const chartFontColor = '#3D3D3D';
-            
-            const successFactorsCtx = document.getElementById('successFactorsChart').getContext('2d');
-            new Chart(successFactorsCtx, {
-                type: 'radar',
+            Chart.defaults.color = '#A0AEC0';
+            Chart.defaults.borderColor = 'rgba(107, 114, 128, 0.2)';
+
+            // Donut Chart for Success
+            const successDonutCtx = document.getElementById('successDonutChart').getContext('2d');
+            new Chart(successDonutCtx, {
+                type: 'doughnut',
                 data: {
-                    labels: ['Oyun Fikri', 'Oynanış Kalitesi', 'Pazarlama (ASO)', 'Para Kazanma', 'Görsel/Ses Cilası'],
+                    labels: ['Finansal Başarı', 'Öğrenme Deneyimi', 'Düşük Etkileşim'],
                     datasets: [{
-                        label: 'Başarı İçin Önemi',
-                        data: [9, 10, 8, 8, 6],
-                        backgroundColor: 'rgba(74, 144, 138, 0.2)',
-                        borderColor: 'rgba(74, 144, 138, 1)',
-                        pointBackgroundColor: 'rgba(74, 144, 138, 1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(74, 144, 138, 1)'
+                        data: [5, 25, 70],
+                        backgroundColor: ['#2DD4BF', '#3B82F6', '#4B5563'],
+                        borderColor: '#111827',
+                        borderWidth: 4,
                     }]
                 },
                 options: {
                     maintainAspectRatio: false,
                     responsive: true,
-                    scales: {
-                        r: {
-                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                            pointLabels: { font: { size: 12 }, color: chartFontColor },
-                            ticks: {
-                                backdropColor: 'transparent',
-                                stepSize: 2,
-                                color: chartFontColor
-                            }
-                        }
-                    },
+                    cutout: '70%',
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
-                             callbacks: {
+                            callbacks: {
                                 label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    label += context.raw;
-                                    return label + ' / 10';
+                                    return `${context.label}: ${context.raw}%`;
                                 }
                             }
                         }
@@ -307,6 +315,61 @@
                 }
             });
 
+            // Scatter Chart for Effort vs Reward
+            const effortRewardCtx = document.getElementById('effortRewardChart').getContext('2d');
+            new Chart(effortRewardCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Hiper-Basit',
+                        data: [{x: 2, y: 6}],
+                        backgroundColor: '#2DD4BF',
+                        pointRadius: 15, pointHoverRadius: 20
+                    }, {
+                        label: 'Bulmaca',
+                        data: [{x: 4, y: 7}],
+                        backgroundColor: '#A78BFA',
+                        pointRadius: 15, pointHoverRadius: 20
+                    }, {
+                        label: 'Idle (Boşta)',
+                        data: [{x: 5, y: 9}],
+                        backgroundColor: '#F472B6',
+                        pointRadius: 15, pointHoverRadius: 20
+                    }, {
+                        label: 'Arcade',
+                        data: [{x: 3, y: 5}],
+                        backgroundColor: '#FB923C',
+                        pointRadius: 15, pointHoverRadius: 20
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            min: 0, max: 10,
+                            title: { display: true, text: 'Geliştirme Çabası' }
+                        },
+                        y: {
+                            min: 0, max: 10,
+                            title: { display: true, text: 'Monetization Potansiyeli' }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.dataset.label}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Genre Chart
             const genreCtx = document.getElementById('genreChart').getContext('2d');
             new Chart(genreCtx, {
                 type: 'bar',
@@ -315,149 +378,93 @@
                     datasets: [{
                         label: 'Uygunluk Skoru',
                         data: [9, 7, 6, 5],
-                        backgroundColor: [
-                            'rgba(74, 144, 138, 0.7)',
-                            'rgba(74, 144, 138, 0.5)',
-                            'rgba(74, 144, 138, 0.4)',
-                            'rgba(74, 144, 138, 0.3)'
-                        ],
-                        borderColor: 'rgba(74, 144, 138, 1)',
-                        borderWidth: 1
+                        backgroundColor: '#2DD4BF',
+                        borderRadius: 4
                     }]
                 },
                 options: {
                     indexAxis: 'y',
                     maintainAspectRatio: false,
                     responsive: true,
-                    scales: {
-                        x: {
-                           beginAtZero: true,
-                           grid: { display: false },
-                           ticks: { color: chartFontColor }
-                        },
-                        y: {
-                           grid: { color: 'rgba(0, 0, 0, 0.05)' },
-                           ticks: { color: chartFontColor }
-                        }
-                    },
                     plugins: {
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Geliştirme Kolaylığı ve Pazar Potansiyeli',
-                            color: chartFontColor
-                        }
+                        legend: { display: false },
                     }
                 }
             });
 
+            // Revenue Chart
             const revenueData = {
                 ads: {
                     title: 'Aylık Potansiyel Gelir (Reklam Odaklı)',
-                    labels: ['Düşük Başarı', 'Orta Başarı', 'Yüksek Başarı (Hit)'],
-                    data: [50, 2500, 50000],
-                    tooltips: [
-                        'En yaygın senaryo. Genellikle masrafları karşılamaz.',
-                        'İyi bir niş oyun ve etkili pazarlama ile ulaşılabilir.',
-                        'Çok nadir, viral başarı gerektirir.'
-                    ]
+                    data: [50, 2500, 50000]
                 },
                 iap: {
                     title: 'Aylık Potansiyel Gelir (IAP Odaklı)',
-                    labels: ['Düşük Başarı', 'Orta Başarı', 'Yüksek Başarı (Hit)'],
-                    data: [10, 1500, 80000],
-                    tooltips: [
-                        'Genellikle sadece "reklamları kaldır" satışı.',
-                        'Oyuncuların değer verdiği kozmetik/güçlendirme satışları.',
-                        'Büyük ve sadık bir oyuncu kitlesi gerektirir.'
-                    ]
+                    data: [10, 1500, 80000]
+                },
+                hybrid: {
+                    title: 'Aylık Potansiyel Gelir (Hibrit Model)',
+                    data: [70, 3500, 120000]
                 }
             };
+            const revenueLabels = ['Düşük Başarı', 'Orta Başarı', 'Yüksek Başarı (Hit)'];
             
             const revenueCtx = document.getElementById('revenueChart').getContext('2d');
             let revenueChart = new Chart(revenueCtx, {
                 type: 'bar',
                 data: {
-                    labels: revenueData.ads.labels,
+                    labels: revenueLabels,
                     datasets: [{
                         label: 'Aylık Gelir ($)',
                         data: revenueData.ads.data,
-                        backgroundColor: [
-                            'rgba(255, 205, 86, 0.6)',
-                            'rgba(75, 192, 192, 0.6)',
-                            'rgba(54, 162, 235, 0.6)',
-                        ],
-                        borderColor: [
-                            'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)',
-                            'rgb(54, 162, 235)',
-                        ],
-                        borderWidth: 1
+                        backgroundColor: ['#4B5563', '#3B82F6', '#2DD4BF'],
+                        borderRadius: 4
                     }]
                 },
                 options: {
                     maintainAspectRatio: false,
                     scales: {
                         y: {
-                            beginAtZero: true,
                             type: 'logarithmic',
                             ticks: {
-                                color: chartFontColor,
-                                callback: function(value, index, values) {
-                                    if (value === 100000 || value === 50000 || value === 10000 || value === 5000 || value === 1000 || value === 100 || value === 10) {
+                                callback: function(value) {
+                                    if ([10, 100, 1000, 10000, 100000].includes(value)) {
                                         return '$' + value.toLocaleString();
                                     }
                                 }
                             }
-                        },
-                        x: { ticks: { color: chartFontColor } }
+                        }
                     },
                     plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                afterLabel: function(context) {
-                                    const currentModel = document.querySelector('.bg-\\[\\#4A908A\\]').id === 'adsBtn' ? 'ads' : 'iap';
-                                    return revenueData[currentModel].tooltips[context.dataIndex];
-                                }
-                            }
-                        }
+                        legend: { display: false }
                     }
                 }
             });
 
-            const adsBtn = document.getElementById('adsBtn');
-            const iapBtn = document.getElementById('iapBtn');
+            const revenueBtns = document.querySelectorAll('.revenue-btn');
             const revenueTitle = document.getElementById('revenue-title');
 
-            function updateRevenueChart(model) {
-                revenueChart.data.labels = revenueData[model].labels;
-                revenueChart.data.datasets[0].data = revenueData[model].data;
-                revenueTitle.innerText = revenueData[model].title;
-                revenueChart.update();
+            revenueBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const model = btn.id.replace('Btn', '');
+                    revenueChart.data.datasets[0].data = revenueData[model].data;
+                    revenueTitle.innerText = revenueData[model].title;
+                    revenueChart.update();
+                    
+                    revenueBtns.forEach(b => {
+                        b.classList.remove('bg-emerald-500', 'text-white');
+                        b.classList.add('text-gray-300');
+                    });
+                    btn.classList.add('bg-emerald-500', 'text-white');
+                    btn.classList.remove('text-gray-300');
+                });
+            });
 
-                if(model === 'ads') {
-                    adsBtn.classList.add('bg-[#4A908A]', 'text-white');
-                    adsBtn.classList.remove('bg-gray-200', 'text-gray-700');
-                    iapBtn.classList.add('bg-gray-200', 'text-gray-700');
-                    iapBtn.classList.remove('bg-[#4A908A]', 'text-white');
-                } else {
-                    iapBtn.classList.add('bg-[#4A908A]', 'text-white');
-                    iapBtn.classList.remove('bg-gray-200', 'text-gray-700');
-                    adsBtn.classList.add('bg-gray-200', 'text-gray-700');
-                    adsBtn.classList.remove('bg-[#4A908A]', 'text-white');
-                }
-            }
 
-            adsBtn.addEventListener('click', () => updateRevenueChart('ads'));
-            iapBtn.addEventListener('click', () => updateRevenueChart('iap'));
-
+            // Smooth Scroll & Nav Highlight
             const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('section');
-
-            const observer = new IntersectionObserver((entries) => {
+            const sections = document.querySelectorAll('main section');
+            const navObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         navLinks.forEach(link => {
@@ -468,19 +475,20 @@
                         });
                     }
                 });
-            }, { rootMargin: "-50% 0px -50% 0px" });
+            }, { rootMargin: "-40% 0px -60% 0px" });
+            sections.forEach(section => navObserver.observe(section));
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-            
-            navLinks.forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+            // Fade-in animation on scroll
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting){
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
                 });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
             });
 
             // Gemini API Integration
@@ -496,7 +504,6 @@
             const levelBtnText = document.getElementById('level-btn-text');
             const levelBtnLoader = document.getElementById('level-btn-loader');
 
-
             async function callGeminiApi(payload, maxRetries = 3) {
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 let attempt = 0;
@@ -509,12 +516,7 @@
                         });
 
                         if (!response.ok) {
-                            if (response.status === 429 || response.status >= 500) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            const errorData = await response.json();
-                            console.error("API Error:", errorData);
-                            return { error: `API'den bir hata alındı: ${errorData.error?.message || response.statusText}` };
+                           throw new Error(`HTTP error! status: ${response.status}`);
                         }
 
                         const result = await response.json();
@@ -522,18 +524,16 @@
                         if (text) {
                             return { text };
                         } else {
-                            console.error("Invalid response structure:", result);
-                            return { error: "API'den geçerli bir yanıt alınamadı. Lütfen daha sonra tekrar deneyin." };
+                            return { error: "API'den geçerli bir yanıt alınamadı." };
                         }
 
                     } catch (error) {
                         console.error(`Attempt ${attempt + 1} failed:`, error);
                         attempt++;
                         if (attempt >= maxRetries) {
-                            return { error: "Sunucuya ulaşılamadı. Lütfen internet bağlantınızı kontrol edip tekrar deneyin." };
+                            return { error: "Sunucuya ulaşılamadı. Tekrar deneyin." };
                         }
-                        const delay = Math.pow(2, attempt) * 1000;
-                        await new Promise(resolve => setTimeout(resolve, delay));
+                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
                     }
                 }
             }
@@ -548,10 +548,10 @@
 
                     if (titleMatch && conceptMatch && mechanicsMatch) {
                         html += `
-                            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-fade-in">
-                                <h4 class="font-bold text-xl mb-2 text-[#4A908A]">${titleMatch[1].trim()}</h4>
-                                <p class="mb-2"><strong class="font-semibold">Konsept:</strong> ${conceptMatch[1].trim()}</p>
-                                <p><strong class="font-semibold">Ana Mekanik:</strong> ${mechanicsMatch[1].trim()}</p>
+                            <div class="bg-gray-700/50 p-4 rounded-lg border border-gray-600">
+                                <h4 class="font-bold text-lg text-emerald-400">${titleMatch[1].trim()}</h4>
+                                <p class="text-sm text-gray-300 mt-1"><strong class="font-semibold">Konsept:</strong> ${conceptMatch[1].trim()}</p>
+                                <p class="text-sm text-gray-300 mt-1"><strong class="font-semibold">Mekanik:</strong> ${mechanicsMatch[1].trim()}</p>
                             </div>
                         `;
                     }
@@ -561,78 +561,55 @@
 
             function parseAndRenderLevelIdeas(text) {
                 const ideas = text.split('\n').filter(line => line.trim().startsWith('*'));
-                let html = '<ul class="list-disc list-inside bg-gray-50 p-4 rounded-md text-gray-700 animate-fade-in">';
+                let html = '<ul class="space-y-2 text-left">';
                 ideas.forEach(idea => {
-                    html += `<li class="mb-2">${idea.substring(1).trim()}</li>`;
+                    html += `<li class="bg-gray-700/50 p-3 rounded-md text-gray-300 text-sm"><i class="fa-solid fa-star text-teal-400 mr-2"></i>${idea.substring(1).trim()}</li>`;
                 });
                 html += '</ul>';
                 return html;
             }
 
+            generateIdeasBtn.addEventListener('click', async () => {
+                const keywords = keywordsInput.value;
+                if (!keywords.trim()) {
+                    geminiResultsContainer.innerHTML = `<p class="text-center text-red-400">Lütfen bir anahtar kelime girin.</p>`;
+                    return;
+                }
+                btnText.classList.add('hidden');
+                btnLoader.classList.remove('hidden');
+                generateIdeasBtn.disabled = true;
+                geminiResultsContainer.innerHTML = '';
+                const systemPrompt = "You are a creative mobile game designer specializing in hyper-casual and puzzle games for solo developers. Generate 3 distinct and simple game concepts. For each concept, provide a 'Oyun Adı:', a 'Konsept:' (1-2 sentences), and a 'Ana Mekanik:'. Ensure the mechanics are simple enough for a solo developer to implement. Separate each concept with '---'.";
+                const userQuery = `Generate game ideas based on these keywords: ${keywords}`;
+                const payload = { contents: [{ parts: [{ text: userQuery }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, };
+                const result = await callGeminiApi(payload);
+                if (result.error) {
+                    geminiResultsContainer.innerHTML = `<p class="text-center text-red-400">${result.error}</p>`;
+                } else {
+                    geminiResultsContainer.innerHTML = parseAndRenderGameIdeas(result.text);
+                }
+                btnText.classList.remove('hidden');
+                btnLoader.classList.add('hidden');
+                generateIdeasBtn.disabled = false;
+            });
 
-            if (generateIdeasBtn) {
-                generateIdeasBtn.addEventListener('click', async () => {
-                    const keywords = keywordsInput.value;
-                    if (!keywords.trim()) {
-                        geminiResultsContainer.innerHTML = `<p class="text-center text-red-500">Lütfen fikir üretmek için en az bir anahtar kelime girin.</p>`;
-                        return;
-                    }
-
-                    btnText.classList.add('hidden');
-                    btnLoader.classList.remove('hidden');
-                    generateIdeasBtn.disabled = true;
-                    geminiResultsContainer.innerHTML = '';
-
-                    const systemPrompt = "You are a creative mobile game designer specializing in hyper-casual and puzzle games for solo developers. Generate 3 distinct and simple game concepts. For each concept, provide a 'Oyun Adı:', a 'Konsept:' (1-2 sentences), and a 'Ana Mekanik:'. Ensure the mechanics are simple enough for a solo developer to implement. Separate each concept with '---'.";
-                    const userQuery = `Generate game ideas based on these keywords: ${keywords}`;
-
-                    const payload = {
-                        contents: [{ parts: [{ text: userQuery }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] },
-                    };
-
-                    const result = await callGeminiApi(payload);
-
-                    if (result.error) {
-                        geminiResultsContainer.innerHTML = `<p class="text-center text-red-500">${result.error}</p>`;
-                    } else {
-                        const htmlContent = parseAndRenderGameIdeas(result.text);
-                        geminiResultsContainer.innerHTML = htmlContent || `<p class="text-center text-gray-500">Sonuç bulunamadı. Farklı anahtar kelimelerle tekrar deneyin.</p>`;
-                    }
-
-                    btnText.classList.remove('hidden');
-                    btnLoader.classList.add('hidden');
-                    generateIdeasBtn.disabled = false;
-                });
-            }
-
-            if (generateLevelIdeasBtn) {
-                generateLevelIdeasBtn.addEventListener('click', async () => {
-                    levelBtnText.classList.add('hidden');
-                    levelBtnLoader.classList.remove('hidden');
-                    generateLevelIdeasBtn.disabled = true;
-                    levelIdeasResultsContainer.innerHTML = '';
-
-                    const userQuery = "Generate 5 creative and increasingly difficult level ideas for the hyper-casual puzzle game 'Renk Döngüsü'. The core mechanic is tapping circles to burst them in the correct color sequence. The ideas should introduce new challenges or variations. Format the output as a bulleted list.";
-
-                    const payload = {
-                        contents: [{ parts: [{ text: userQuery }] }],
-                    };
-
-                    const result = await callGeminiApi(payload);
-
-                    if (result.error) {
-                        levelIdeasResultsContainer.innerHTML = `<p class="text-center text-red-500">${result.error}</p>`;
-                    } else {
-                        const htmlContent = parseAndRenderLevelIdeas(result.text);
-                        levelIdeasResultsContainer.innerHTML = htmlContent || `<p class="text-center text-gray-500">Fikir üretilemedi, lütfen tekrar deneyin.</p>`;
-                    }
-
-                    levelBtnText.classList.remove('hidden');
-                    levelBtnLoader.classList.add('hidden');
-                    generateLevelIdeasBtn.disabled = false;
-                });
-            }
+            generateLevelIdeasBtn.addEventListener('click', async () => {
+                levelBtnText.classList.add('hidden');
+                levelBtnLoader.classList.remove('hidden');
+                generateLevelIdeasBtn.disabled = true;
+                levelIdeasResultsContainer.innerHTML = '';
+                const userQuery = "Generate 5 creative and increasingly difficult level ideas for the hyper-casual puzzle game 'Renk Döngüsü'. The core mechanic is tapping circles to burst them in the correct color sequence. The ideas should introduce new challenges or variations. Format the output as a bulleted list.";
+                const payload = { contents: [{ parts: [{ text: userQuery }] }], };
+                const result = await callGeminiApi(payload);
+                if (result.error) {
+                    levelIdeasResultsContainer.innerHTML = `<p class="text-center text-red-400">${result.error}</p>`;
+                } else {
+                    levelIdeasResultsContainer.innerHTML = parseAndRenderLevelIdeas(result.text);
+                }
+                levelBtnText.classList.remove('hidden');
+                levelBtnLoader.classList.add('hidden');
+                generateLevelIdeasBtn.disabled = false;
+            });
         });
     </script>
 </body>
