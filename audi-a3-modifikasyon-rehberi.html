@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audi A3 2008 (8P) - Kapsamlı Modifikasyon Rehberi & Maliyet Hesaplayıcı</title>
+    <title>Audi A3 2008 (8P) - Kapsamlı Modifikasyon Rehberi & Performans Hesaplayıcı</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,9 +62,9 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
-        .sticky-calculator {
-            position: sticky;
-            top: 20px;
+        /* Akıcı kaydırma için sticky pozisyonu kaldırıldı */
+        .calculator-container {
+            position: relative;
         }
         .checkbox-custom {
             width: 20px;
@@ -78,6 +78,17 @@
             font-size: 0.75rem;
             color: #6b7280;
         }
+        .performance-bar-bg {
+            background-color: #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .performance-bar {
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.5s ease-in-out;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
     </style>
 </head>
 <body>
@@ -85,166 +96,132 @@
         <!-- Header -->
         <div class="text-center mb-10">
             <h1 class="text-5xl font-bold gradient-text mb-4">Audi A3 2008 (8P) Modifikasyon Rehberi</h1>
-            <p class="text-gray-600 text-lg">Tüm modifikasyon seçenekleri, güncel fiyatlar ve Ankara'daki en iyi yerler</p>
+            <p class="text-gray-600 text-lg">Tüm modifikasyon seçenekleri, güncel fiyatlar ve performans analizi</p>
             <p class="text-sm text-gray-500 mt-2">Fiyatlar Ekim 2025 dönemi tahminleridir</p>
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8">
-            <!-- Sol Panel - Modifikasyon Listesi -->
+            <!-- Sol Panel - Modifikasyon Listesi ve Performans Analizi -->
             <div class="lg:col-span-2 space-y-6">
                 <div class="bg-white rounded-2xl shadow-lg p-6">
                     <h2 class="text-2xl font-bold mb-6">📋 Modifikasyon Seçenekleri</h2>
                     
-                    <!-- Multimedya & Elektronik -->
+                    <!-- Kategoriler -->
                     <div class="mb-8">
-                        <div class="category-header p-3 rounded-lg mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">📱 Multimedya & Elektronik Sistemler</h3>
-                        </div>
-                        <div class="space-y-3" id="multimedia-mods">
-                            <!-- Modlar JS ile eklenecek -->
-                        </div>
+                        <div class="category-header p-3 rounded-lg mb-4"><h3 class="text-lg font-semibold text-gray-800">🚀 Performans Modifikasyonları</h3></div>
+                        <div class="space-y-3" id="performance-mods"></div>
                     </div>
-
-                    <!-- Performans -->
                     <div class="mb-8">
-                        <div class="category-header p-3 rounded-lg mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">🚀 Performans Modifikasyonları</h3>
-                        </div>
-                        <div class="space-y-3" id="performance-mods">
-                            <!-- Modlar JS ile eklenecek -->
-                        </div>
+                        <div class="category-header p-3 rounded-lg mb-4"><h3 class="text-lg font-semibold text-gray-800">📱 Multimedya & Elektronik Sistemler</h3></div>
+                        <div class="space-y-3" id="multimedia-mods"></div>
                     </div>
-
-                    <!-- Dış Görünüm -->
                     <div class="mb-8">
-                        <div class="category-header p-3 rounded-lg mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">🎨 Dış Görünüm & Estetik</h3>
-                        </div>
-                        <div class="space-y-3" id="exterior-mods">
-                            <!-- Modlar JS ile eklenecek -->
-                        </div>
+                        <div class="category-header p-3 rounded-lg mb-4"><h3 class="text-lg font-semibold text-gray-800">🎨 Dış Görünüm & Estetik</h3></div>
+                        <div class="space-y-3" id="exterior-mods"></div>
                     </div>
-
-                    <!-- İç Mekan -->
                     <div class="mb-8">
-                        <div class="category-header p-3 rounded-lg mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">🏠 İç Mekan & Konfor</h3>
-                        </div>
-                        <div class="space-y-3" id="interior-mods">
-                            <!-- Modlar JS ile eklenecek -->
-                        </div>
+                        <div class="category-header p-3 rounded-lg mb-4"><h3 class="text-lg font-semibold text-gray-800">🏠 İç Mekan & Konfor</h3></div>
+                        <div class="space-y-3" id="interior-mods"></div>
                     </div>
-
-                    <!-- Güvenlik & Sensörler -->
                     <div class="mb-8">
-                        <div class="category-header p-3 rounded-lg mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">🛡️ Güvenlik & Sensör Sistemleri</h3>
-                        </div>
-                        <div class="space-y-3" id="safety-mods">
-                            <!-- Modlar JS ile eklenecek -->
-                        </div>
+                        <div class="category-header p-3 rounded-lg mb-4"><h3 class="text-lg font-semibold text-gray-800">🛡️ Güvenlik & Sensör Sistemleri</h3></div>
+                        <div class="space-y-3" id="safety-mods"></div>
                     </div>
                 </div>
 
                 <!-- Ankara'daki Yerler -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 mt-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6">
                     <h2 class="text-2xl font-bold mb-6">📍 Ankara'da Önerilen Yerler</h2>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <div class="shop-card p-4 rounded-lg">
-                            <h4 class="font-bold text-lg mb-2">EMR Garage</h4>
-                            <p class="text-sm text-gray-600 mb-2">📍 Şaşmaz Sanayi</p>
-                            <p class="text-sm">✅ Multimedya, 360° kamera, ses sistemleri, LED/Xenon far</p>
-                            <p class="text-sm font-semibold text-green-600">🌟 Geniş yelpaze, Audi tecrübesi</p>
+                        <!-- Dükkan Kartları -->
+                         <div class="shop-card p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">EMR Garage</h4><p class="text-sm text-gray-600 mb-2">📍 Şaşmaz Sanayi</p><p class="text-sm">✅ Multimedya, 360° kamera, ses sistemleri, LED/Xenon far</p><p class="text-sm font-semibold text-green-600">🌟 Geniş yelpaze, Audi tecrübesi</p></div><div class="shop-card p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Hangar Oto</h4><p class="text-sm text-gray-600 mb-2">📍 Ankara</p><p class="text-sm">✅ Multimedya, Keyless Go, otomatik bagaj</p><p class="text-sm font-semibold text-green-600">🌟 Keyless sistemlerde uzman</p></div><div class="shop-card p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Carvocal Ankara</h4><p class="text-sm text-gray-600 mb-2">📍 Balgat</p><p class="text-sm">✅ Android ekran, navigasyon, ses sistemleri</p><p class="text-sm font-semibold text-green-600">🌟 Türkiye'nin en büyük multimedya mağazası</p></div><div class="shop-card p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">SF Auto Garage</h4><p class="text-sm text-gray-600 mb-2">📍 İvedik Sanayi</p><p class="text-sm">✅ Genel modifikasyon işlemleri</p><p class="text-sm font-semibold text-green-600">🌟 Kapsamlı modifikasyon deneyimi</p></div><div class="shop-card p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Prime Care Garage</h4><p class="text-sm text-gray-600 mb-2">📍 Şaşmaz</p><p class="text-sm">✅ Audi elektronik, sensörler, cruise control</p><p class="text-sm font-semibold text-green-600">🌟 Audi özel servis deneyimi</p></div><div class="shop-card p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Remap Works</h4><p class="text-sm text-gray-600 mb-2">📍 Ankara</p><p class="text-sm">✅ Chip tuning, ECU yazılım</p><p class="text-sm font-semibold text-green-600">🌟 7 gün iade garantisi</p></div>
+                    </div>
+                </div>
+                
+                <!-- YENİ: Performans Karşılaştırma Bölümü -->
+                <div class="bg-white rounded-2xl shadow-lg p-6" id="performanceComparison">
+                    <h2 class="text-2xl font-bold mb-6">📊 Tahmini Performans Değişimi</h2>
+                    <p class="text-sm text-gray-500 mb-6 -mt-4">Not: Bu değerler 1.6 FSI (115 HP, 155 Nm) motor baz alınarak hazırlanmış genel tahminlerdir.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Stok Değerler -->
+                        <div>
+                            <h3 class="font-bold text-lg mb-3 text-gray-600">STANDART GÜÇ</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between items-baseline mb-1">
+                                        <span class="font-semibold">Beygir Gücü (HP)</span>
+                                        <span id="stockHp" class="text-xl font-bold text-gray-700">115 HP</span>
+                                    </div>
+                                    <div class="performance-bar-bg h-4"><div class="performance-bar" style="width: 100%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-baseline mb-1">
+                                        <span class="font-semibold">Tork (Nm)</span>
+                                        <span id="stockTorque" class="text-xl font-bold text-gray-700">155 Nm</span>
+                                    </div>
+                                    <div class="performance-bar-bg h-4"><div class="performance-bar" style="width: 100%;"></div></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="shop-card p-4 rounded-lg">
-                            <h4 class="font-bold text-lg mb-2">Hangar Oto</h4>
-                            <p class="text-sm text-gray-600 mb-2">📍 Ankara</p>
-                            <p class="text-sm">✅ Multimedya, Keyless Go, otomatik bagaj</p>
-                            <p class="text-sm font-semibold text-green-600">🌟 Keyless sistemlerde uzman</p>
-                        </div>
-                        <div class="shop-card p-4 rounded-lg">
-                            <h4 class="font-bold text-lg mb-2">Carvocal Ankara</h4>
-                            <p class="text-sm text-gray-600 mb-2">📍 Balgat</p>
-                            <p class="text-sm">✅ Android ekran, navigasyon, ses sistemleri</p>
-                            <p class="text-sm font-semibold text-green-600">🌟 Türkiye'nin en büyük multimedya mağazası</p>
-                        </div>
-                        <div class="shop-card p-4 rounded-lg">
-                            <h4 class="font-bold text-lg mb-2">SF Auto Garage</h4>
-                            <p class="text-sm text-gray-600 mb-2">📍 İvedik Sanayi</p>
-                            <p class="text-sm">✅ Genel modifikasyon işlemleri</p>
-                            <p class="text-sm font-semibold text-green-600">🌟 Kapsamlı modifikasyon deneyimi</p>
-                        </div>
-                        <div class="shop-card p-4 rounded-lg">
-                            <h4 class="font-bold text-lg mb-2">Prime Care Garage</h4>
-                            <p class="text-sm text-gray-600 mb-2">📍 Şaşmaz</p>
-                            <p class="text-sm">✅ Audi elektronik, sensörler, cruise control</p>
-                            <p class="text-sm font-semibold text-green-600">🌟 Audi özel servis deneyimi</p>
-                        </div>
-                        <div class="shop-card p-4 rounded-lg">
-                            <h4 class="font-bold text-lg mb-2">Remap Works</h4>
-                            <p class="text-sm text-gray-600 mb-2">📍 Ankara</p>
-                            <p class="text-sm">✅ Chip tuning, ECU yazılım</p>
-                            <p class="text-sm font-semibold text-green-600">🌟 7 gün iade garantisi</p>
+                        <!-- Modifiyeli Değerler -->
+                        <div>
+                            <h3 class="font-bold text-lg mb-3 gradient-text">MODİFİYELİ GÜÇ</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between items-baseline mb-1">
+                                        <span class="font-semibold">Beygir Gücü (HP)</span>
+                                        <span id="modifiedHp" class="text-xl font-bold text-indigo-600">115 HP</span>
+                                    </div>
+                                    <div class="performance-bar-bg h-4"><div id="modifiedHpBar" class="performance-bar" style="width: 100%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-baseline mb-1">
+                                        <span class="font-semibold">Tork (Nm)</span>
+                                        <span id="modifiedTorque" class="text-xl font-bold text-indigo-600">155 Nm</span>
+                                    </div>
+                                    <div class="performance-bar-bg h-4"><div id="modifiedTorqueBar" class="performance-bar" style="width: 100%;"></div></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <!-- Sağ Panel - Hesaplayıcı -->
             <div class="lg:col-span-1">
-                <div class="sticky-calculator">
+                <div class="calculator-container">
                     <div class="bg-white rounded-2xl shadow-lg p-6">
-                        <h2 class="text-2xl font-bold mb-4">💰 Maliyet Hesaplayıcı</h2>
+                        <h2 class="text-2xl font-bold mb-4">💰 Maliyet & Analiz</h2>
                         
                         <div class="mb-6">
-                            <div id="totalCostDisplay" class="text-center">
-                                0 ₺
-                            </div>
+                            <div id="totalCostDisplay" class="text-center">0 ₺</div>
                             <p class="text-center text-gray-500 text-sm mt-2">Toplam Maliyet</p>
                         </div>
 
                         <div class="space-y-4 mb-6">
-                            <div class="flex justify-between text-sm">
-                                <span>Seçilen Modifikasyon:</span>
-                                <span id="selectedCount" class="font-bold">0</span>
-                            </div>
-                            <div class="flex justify-between text-sm">
-                                <span>En Ucuz Seçenek:</span>
-                                <span id="cheapestOption" class="font-bold text-green-600">-</span>
-                            </div>
-                            <div class="flex justify-between text-sm">
-                                <span>En Pahalı Seçenek:</span>
-                                <span id="expensiveOption" class="font-bold text-red-600">-</span>
-                            </div>
+                            <div class="flex justify-between text-sm"><span>Seçilen Modifikasyon:</span><span id="selectedCount" class="font-bold">0</span></div>
+                            <div class="flex justify-between text-sm"><span>En Ucuz Seçenek:</span><span id="cheapestOption" class="font-bold text-green-600">-</span></div>
+                            <div class="flex justify-between text-sm"><span>En Pahalı Seçenek:</span><span id="expensiveOption" class="font-bold text-red-600">-</span></div>
                         </div>
 
                         <div class="border-t pt-4">
                             <h3 class="font-semibold mb-3">Kategori Dağılımı:</h3>
-                            <div class="space-y-2" id="categoryBreakdown">
-                                <!-- JS ile doldurulacak -->
-                            </div>
+                            <div class="space-y-2" id="categoryBreakdown"></div>
+                        </div>
+
+                        <!-- DÜZENLEME: Grafik, hesaplayıcı kartının içine taşındı -->
+                        <div class="mt-6 border-t pt-4">
+                             <h3 class="font-semibold mb-3">Maliyet Grafiği:</h3>
+                             <div class="relative h-64"><canvas id="costChart"></canvas></div>
                         </div>
 
                         <div class="mt-6 space-y-3">
-                            <button onclick="selectPackage('basic')" class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition">
-                                🎯 Temel Paket Seç
-                            </button>
-                            <button onclick="selectPackage('comfort')" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
-                                ⭐ Konfor Paket Seç
-                            </button>
-                            <button onclick="selectPackage('premium')" class="w-full bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition">
-                                💎 Premium Paket Seç
-                            </button>
-                            <button onclick="clearAll()" class="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition">
-                                🔄 Temizle
-                            </button>
+                            <button onclick="selectPackage('basic')" class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition">🎯 Temel Paket Seç</button>
+                            <button onclick="selectPackage('comfort')" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">⭐ Konfor Paket Seç</button>
+                            <button onclick="selectPackage('premium')" class="w-full bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition">💎 Premium Paket Seç</button>
+                            <button onclick="clearAll()" class="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition">🔄 Temizle</button>
                         </div>
-                    </div>
-
-                    <!-- Grafikler -->
-                    <div class="bg-white rounded-2xl shadow-lg p-6 mt-6">
-                        <h3 class="text-lg font-bold mb-4">📊 Maliyet Analizi</h3>
-                        <canvas id="costChart" width="400" height="400"></canvas>
                     </div>
                 </div>
             </div>
@@ -252,8 +229,26 @@
     </div>
 
     <script>
-        // Modifikasyon verileri
+        // Standart araç performansı (1.6 FSI referans alınmıştır)
+        const stockPerformance = { hp: 115, torque: 155 };
+
+        // Modifikasyon verileri (performans kazanımları eklendi)
         const modifications = {
+            performance: [
+                { name: "ECU Yazılım (Chip Tuning Stage 1)", price: 8000, popular: true, performanceGain: { hp: 15, torque: 20 } },
+                { name: "ECU Yazılım (Stage 2)", price: 12000, performanceGain: { hp: 25, torque: 40 } },
+                { name: "Cat-back Egzoz Sistemi", price: 15000, performanceGain: { hp: 5, torque: 8 } },
+                { name: "Komple Egzoz (Headers dahil)", price: 25000, premium: true, performanceGain: { hp: 12, torque: 15 } },
+                { name: "Soğuk Hava Girişi", price: 4500, performanceGain: { hp: 4, torque: 6 } },
+                { name: "Spor Hava Filtresi", price: 1500, performanceGain: { hp: 2, torque: 3 } },
+                { name: "Performans Fren (Disk+Balata)", price: 9000 },
+                { name: "Çelik Örgü Fren Hortumları", price: 2500 },
+                { name: "Spor Yay Seti (30-40mm)", price: 6500, popular: true },
+                { name: "Coilover Süspansiyon", price: 28000, premium: true },
+                { name: "Ayarlı Coilover (Premium)", price: 45000, premium: true },
+                { name: "Viraj Denge Çubuğu", price: 4500 },
+                { name: "Poliüretan Burçlar", price: 3500 }
+            ],
             multimedia: [
                 { name: "Android CarPlay Ekran (9-10.3 inç)", price: 18500, popular: true },
                 { name: "360 Derece Kamera (FHD)", price: 11500 },
@@ -261,16 +256,6 @@
                 { name: "Dash Cam (Ön+Arka DVR)", price: 3500 },
                 { name: "Head-Up Display (HUD)", price: 2750 },
                 { name: "OBD2 + Torque Pro Adaptör", price: 750 }
-            ],
-            performance: [
-                { name: "ECU Yazılım (Chip Tuning Stage 1)", price: 8000, popular: true },
-                { name: "ECU Yazılım (Stage 2)", price: 12000 },
-                { name: "Cat-back Egzoz Sistemi", price: 15000 },
-                { name: "Komple Egzoz (Headers dahil)", price: 25000, premium: true },
-                { name: "Soğuk Hava Girişi", price: 4500 },
-                { name: "Spor Hava Filtresi", price: 1500 },
-                { name: "Performans Fren (Disk+Balata)", price: 9000 },
-                { name: "Çelik Örgü Fren Hortumları", price: 2500 }
             ],
             exterior: [
                 { name: "LED Far Dönüşümü", price: 5500, popular: true },
@@ -307,138 +292,110 @@
                 { name: "Elektrikli Bagaj Kapısı", price: 11500 },
                 { name: "Alarm Sistemi (Upgraded)", price: 3500 }
             ],
-            suspension: [
-                { name: "Spor Yay Seti (30-40mm)", price: 6500, popular: true },
-                { name: "Coilover Süspansiyon", price: 28000, premium: true },
-                { name: "Ayarlı Coilover (Premium)", price: 45000, premium: true },
-                { name: "Viraj Denge Çubuğu", price: 4500 },
-                { name: "Poliüretan Burçlar", price: 3500 }
-            ]
         };
 
-        // Paket tanımlamaları
         const packages = {
-            basic: [
-                "Android CarPlay Ekran (9-10.3 inç)",
-                "360 Derece Kamera (FHD)",
-                "Park Sensörleri (Ön+Arka)",
-                "LED Far Dönüşümü"
-            ],
-            comfort: [
-                "Android CarPlay Ekran (9-10.3 inç)",
-                "360 Derece Kamera (4K)",
-                "Park Sensörleri (Ön+Arka)",
-                "LED Far Dönüşümü",
-                "Kör Nokta Sensörleri",
-                "Dash Cam (Ön+Arka DVR)",
-                "TPMS (Lastik Basınç Sensörü)",
-                "ECU Yazılım (Chip Tuning Stage 1)",
-                "Spor Yay Seti (30-40mm)"
-            ],
-            premium: [
-                "Android CarPlay Ekran (9-10.3 inç)",
-                "360 Derece Kamera (4K)",
-                "Keyless Entry/Go Sistemi",
-                "LED Far Dönüşümü",
-                "ECU Yazılım (Stage 2)",
-                "Coilover Süspansiyon",
-                "18 inç Jant Takımı",
-                "S-Line Direksiyon",
-                "Subwoofer + Amplifikatör",
-                "Head-Up Display (HUD)",
-                "Kör Nokta Sensörleri",
-                "TPMS (Lastik Basınç Sensörü)"
-            ]
+            basic: ["Android CarPlay Ekran (9-10.3 inç)", "360 Derece Kamera (FHD)", "Park Sensörleri (Ön+Arka)", "LED Far Dönüşümü"],
+            comfort: ["Android CarPlay Ekran (9-10.3 inç)", "360 Derece Kamera (4K)", "Park Sensörleri (Ön+Arka)", "LED Far Dönüşümü", "Kör Nokta Sensörleri", "Dash Cam (Ön+Arka DVR)", "TPMS (Lastik Basınç Sensörü)", "ECU Yazılım (Chip Tuning Stage 1)", "Spor Yay Seti (30-40mm)"],
+            premium: ["Android CarPlay Ekran (9-10.3 inç)", "360 Derece Kamera (4K)", "Keyless Entry/Go Sistemi", "LED Far Dönüşümü", "ECU Yazılım (Stage 2)", "Coilover Süspansiyon", "18 inç Jant Takımı", "S-Line Direksiyon", "Subwoofer + Amplifikatör", "Head-Up Display (HUD)", "Kör Nokta Sensörleri", "TPMS (Lastik Basınç Sensörü)"]
         };
 
-        // Chart.js setup
-        const ctx = document.getElementById('costChart').getContext('2d');
-        let costChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Maliyet Dağılımı',
-                    data: [],
-                    backgroundColor: [
-                        'rgba(102, 126, 234, 0.8)',
-                        'rgba(118, 75, 162, 0.8)',
-                        'rgba(239, 68, 68, 0.8)',
-                        'rgba(34, 197, 94, 0.8)',
-                        'rgba(251, 146, 60, 0.8)',
-                        'rgba(147, 51, 234, 0.8)'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 10,
-                            font: {
-                                size: 11
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        let costChart;
 
-        // Modifikasyonları DOM'a ekle
+        function initializeChart() {
+            const ctx = document.getElementById('costChart').getContext('2d');
+            costChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Maliyet Dağılımı',
+                        data: [],
+                        backgroundColor: ['rgba(102, 126, 234, 0.8)','rgba(118, 75, 162, 0.8)','rgba(239, 68, 68, 0.8)','rgba(34, 197, 94, 0.8)','rgba(251, 146, 60, 0.8)','rgba(147, 51, 234, 0.8)'],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
         function renderModifications() {
             Object.entries(modifications).forEach(([category, mods]) => {
-                let container;
-                switch(category) {
-                    case 'multimedia': container = document.getElementById('multimedia-mods'); break;
-                    case 'performance': container = document.getElementById('performance-mods'); break;
-                    case 'exterior': container = document.getElementById('exterior-mods'); break;
-                    case 'interior': container = document.getElementById('interior-mods'); break;
-                    case 'safety': container = document.getElementById('safety-mods'); break;
-                    case 'suspension': 
-                        container = document.getElementById('performance-mods');
-                        break;
-                }
-
+                const container = document.getElementById(`${category}-mods`);
+                if (!container) return;
+                
                 mods.forEach(mod => {
                     const div = document.createElement('div');
                     div.className = 'mod-card p-4 rounded-lg border cursor-pointer hover:shadow-md';
+                    const gainText = mod.performanceGain ? `<span class="info-badge ml-2 text-green-700 bg-green-100">+${mod.performanceGain.hp}HP / +${mod.performanceGain.torque}Nm</span>` : '';
                     div.innerHTML = `
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <input type="checkbox" class="checkbox-custom mr-3" data-name="${mod.name}" data-price="${mod.price}" data-category="${category}">
+                            <div class="flex items-center flex-wrap">
+                                <input type="checkbox" class="checkbox-custom mr-3 shrink-0" data-name="${mod.name}" data-price="${mod.price}" data-category="${category}">
                                 <div>
                                     <span class="font-medium">${mod.name}</span>
                                     ${mod.popular ? '<span class="info-badge ml-2">🔥 Popüler</span>' : ''}
                                     ${mod.premium ? '<span class="info-badge ml-2">💎 Premium</span>' : ''}
+                                    ${gainText}
                                 </div>
                             </div>
-                            <span class="price-tag">${mod.price.toLocaleString('tr-TR')} ₺</span>
-                        </div>
-                    `;
+                            <span class="price-tag ml-2">${mod.price.toLocaleString('tr-TR')} ₺</span>
+                        </div>`;
                     
                     const checkbox = div.querySelector('input[type="checkbox"]');
-                    checkbox.addEventListener('change', updateCalculations);
+                    checkbox.addEventListener('change', updateAll);
                     div.addEventListener('click', (e) => {
                         if (e.target.type !== 'checkbox') {
                             checkbox.checked = !checkbox.checked;
-                            updateCalculations();
+                            updateAll();
                         }
                     });
-
                     container.appendChild(div);
                 });
             });
         }
+        
+        function updatePerformanceComparison() {
+            const checkedPerformanceMods = document.querySelectorAll('#performance-mods input[type="checkbox"]:checked');
+            
+            let totalHpGain = 0;
+            let totalTorqueGain = 0;
 
-        // Hesaplamaları güncelle
-        function updateCalculations() {
+            checkedPerformanceMods.forEach(checkbox => {
+                const modName = checkbox.dataset.name;
+                const modData = modifications.performance.find(m => m.name === modName);
+                if (modData && modData.performanceGain) {
+                    totalHpGain += modData.performanceGain.hp;
+                    totalTorqueGain += modData.performanceGain.torque;
+                }
+            });
+
+            const modifiedHp = stockPerformance.hp + totalHpGain;
+            const modifiedTorque = stockPerformance.torque + totalTorqueGain;
+
+            document.getElementById('modifiedHp').textContent = `${modifiedHp} HP`;
+            document.getElementById('modifiedTorque').textContent = `${modifiedTorque} Nm`;
+            
+            // Barların genişliğini güncelle
+            const hpRatio = Math.min((modifiedHp / stockPerformance.hp) * 100, 200); // %200 max.
+            const torqueRatio = Math.min((modifiedTorque / stockPerformance.torque) * 100, 200); // %200 max.
+            
+            document.getElementById('modifiedHpBar').style.width = `${hpRatio}%`;
+            document.getElementById('modifiedTorqueBar').style.width = `${torqueRatio}%`;
+        }
+
+        function updateCostCalculations() {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
             let total = 0;
             let categoryTotals = {};
             let selectedMods = [];
+
+            document.querySelectorAll('.mod-card').forEach(card => card.classList.remove('selected-mod'));
 
             checkboxes.forEach(cb => {
                 const price = parseInt(cb.dataset.price);
@@ -450,20 +407,12 @@
                 categoryTotals[category] += price;
                 selectedMods.push({ name, price });
 
-                // Selected style ekle
                 cb.closest('.mod-card').classList.add('selected-mod');
             });
 
-            // Unselected olanların stilini kaldır
-            document.querySelectorAll('input[type="checkbox"]:not(:checked)').forEach(cb => {
-                cb.closest('.mod-card').classList.remove('selected-mod');
-            });
-
-            // Toplam maliyeti güncelle
             document.getElementById('totalCostDisplay').textContent = total.toLocaleString('tr-TR') + ' ₺';
             document.getElementById('selectedCount').textContent = checkboxes.length;
 
-            // En ucuz ve pahalı
             if (selectedMods.length > 0) {
                 selectedMods.sort((a, b) => a.price - b.price);
                 document.getElementById('cheapestOption').textContent = selectedMods[0].name.substring(0, 20) + '...';
@@ -473,67 +422,43 @@
                 document.getElementById('expensiveOption').textContent = '-';
             }
 
-            // Kategori dağılımını güncelle
             const breakdownDiv = document.getElementById('categoryBreakdown');
             breakdownDiv.innerHTML = '';
-            Object.entries(categoryTotals).forEach(([cat, total]) => {
-                const categoryNames = {
-                    multimedia: '📱 Multimedya',
-                    performance: '🚀 Performans',
-                    exterior: '🎨 Dış Görünüm',
-                    interior: '🏠 İç Mekan',
-                    safety: '🛡️ Güvenlik',
-                    suspension: '⚙️ Süspansiyon'
-                };
-                breakdownDiv.innerHTML += `
-                    <div class="flex justify-between text-sm">
-                        <span>${categoryNames[cat]}:</span>
-                        <span class="font-semibold">${total.toLocaleString('tr-TR')} ₺</span>
-                    </div>
-                `;
+            const categoryNames = { multimedia: '📱 Multimedya', performance: '🚀 Performans', exterior: '🎨 Dış Görünüm', interior: '🏠 İç Mekan', safety: '🛡️ Güvenlik' };
+            Object.entries(categoryTotals).forEach(([cat, catTotal]) => {
+                if (categoryNames[cat]) {
+                    breakdownDiv.innerHTML += `<div class="flex justify-between text-sm"><span>${categoryNames[cat]}:</span><span class="font-semibold">${catTotal.toLocaleString('tr-TR')} ₺</span></div>`;
+                }
             });
 
-            // Grafiği güncelle
-            costChart.data.labels = Object.keys(categoryTotals).map(cat => {
-                const names = {
-                    multimedia: 'Multimedya',
-                    performance: 'Performans',
-                    exterior: 'Dış Görünüm',
-                    interior: 'İç Mekan',
-                    safety: 'Güvenlik',
-                    suspension: 'Süspansiyon'
-                };
-                return names[cat];
-            });
+            costChart.data.labels = Object.keys(categoryTotals).map(cat => categoryNames[cat] || 'Diğer');
             costChart.data.datasets[0].data = Object.values(categoryTotals);
             costChart.update();
         }
 
-        // Paket seçimi
+        function updateAll() {
+            updateCostCalculations();
+            updatePerformanceComparison();
+        }
+        
         function selectPackage(packageType) {
             clearAll();
-            const packageMods = packages[packageType];
-            packageMods.forEach(modName => {
+            packages[packageType].forEach(modName => {
                 const checkbox = document.querySelector(`input[data-name="${modName}"]`);
-                if (checkbox) {
-                    checkbox.checked = true;
-                }
+                if (checkbox) checkbox.checked = true;
             });
-            updateCalculations();
+            updateAll();
         }
 
-        // Tümünü temizle
         function clearAll() {
-            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-                cb.checked = false;
-            });
-            updateCalculations();
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            updateAll();
         }
 
-        // Sayfa yüklendiğinde
         document.addEventListener('DOMContentLoaded', () => {
             renderModifications();
-            updateCalculations();
+            initializeChart();
+            updateAll();
         });
     </script>
 </body>
