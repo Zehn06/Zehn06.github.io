@@ -3,85 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proje Portalı</title>
-    <!-- Tailwind CSS'i projemize dahil ediyoruz -->
+    <title>Zehn06 - Proje Portalı</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts'tan modern bir yazı tipi ekliyoruz -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Sayfanın temel yazı tipini belirliyoruz */
         body {
             font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        /* Butonlara yumuşak bir geçiş efekti ekliyoruz */
-        .btn-hover-effect {
-            transition: all 0.3s ease-in-out;
+        
+        .heading-font {
+            font-family: 'Poppins', sans-serif;
         }
-        .btn-hover-effect:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        
+        /* Glassmorphism efekti */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Animasyonlar */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        /* Buton hover efektleri */
+        .project-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .project-btn:hover::before {
+            left: 100%;
+        }
+        
+        .project-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Particle background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 110vh;
+                opacity: 0;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen p-4">
+<body class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
 
-    <!-- Ana Kart -->
-    <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
+    <!-- Animated particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Ana Container -->
+    <div class="w-full max-w-5xl relative z-10">
         
-        <!-- Başlık -->
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">
-            Proje Sayfaları
-        </h1>
-        
-        <!-- Açıklama -->
-        <p class="text-gray-500 dark:text-gray-400 mb-8">
-            Aşağıdaki butonları kullanarak projelere ulaşabilirsiniz.
-        </p>
-        
-        <!-- Buton Konteyneri -->
-        <div class="space-y-4">
+        <!-- Header Section -->
+        <div class="text-center mb-12 fade-in-up">
+            <div class="inline-block mb-4 float-animation">
+                <div class="w-20 h-20 mx-auto bg-white rounded-2xl shadow-2xl flex items-center justify-center text-4xl">
+                    🚀
+                </div>
+            </div>
+            <h1 class="heading-font text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+                Hoş Geldiniz, <span class="text-yellow-300">Zehn06</span>
+            </h1>
+            <p class="text-xl text-white/80 max-w-2xl mx-auto">
+                Projelerinize hızlı erişim için aşağıdaki seçenekleri kullanabilirsiniz
+            </p>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             
-            <!-- İngilizce Öğrenme Sayfası Butonu -->
+            <!-- İngilizce Öğrenme -->
             <a href="./learningenglish.html" 
-               class="btn-hover-effect block w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-xl text-lg shadow-md">
-                🇬🇧 İngilizce Öğrenme
+               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
+               style="animation-delay: 0.1s;">
+                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🇬🇧</div>
+                <h3 class="text-xl font-bold text-white mb-2">İngilizce Öğrenme</h3>
+                <p class="text-white/70 text-sm">Dil becerilerinizi geliştirin</p>
+                <div class="mt-4 flex items-center text-white/60 text-sm">
+                    <span>Devam et</span>
+                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
             </a>
-            
-            <!-- Beslenme Planı Sayfası Butonu -->
+
+            <!-- Beslenme Planı -->
             <a href="./nutritionplan.html" 
-               class="btn-hover-effect block w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-xl text-lg shadow-md">
-                🥗 Beslenme Planı
+               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
+               style="animation-delay: 0.2s;">
+                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🥗</div>
+                <h3 class="text-xl font-bold text-white mb-2">Beslenme Planı</h3>
+                <p class="text-white/70 text-sm">Sağlıklı yaşam rehberiniz</p>
+                <div class="mt-4 flex items-center text-white/60 text-sm">
+                    <span>Devam et</span>
+                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
             </a>
-            
-            <!-- TOLC Sayfası Butonu -->
+
+            <!-- TOLC -->
             <a href="./tolc.html" 
-               class="btn-hover-effect block w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-xl text-lg shadow-md">
-                🏛️ TOLC
+               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
+               style="animation-delay: 0.3s;">
+                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🏛️</div>
+                <h3 class="text-xl font-bold text-white mb-2">TOLC Hazırlık</h3>
+                <p class="text-white/70 text-sm">Sınav hazırlık materyalleri</p>
+                <div class="mt-4 flex items-center text-white/60 text-sm">
+                    <span>Devam et</span>
+                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
             </a>
 
-            <!-- Genel İtalya Süreci Butonu -->
+            <!-- Genel İtalya Süreci -->
             <a href="./genelitalyasureci.html" 
-               class="btn-hover-effect block w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-6 rounded-xl text-lg shadow-md">
-                🇮🇹 Genel İtalya Süreci
+               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
+               style="animation-delay: 0.4s;">
+                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🇮🇹</div>
+                <h3 class="text-xl font-bold text-white mb-2">İtalya Süreci</h3>
+                <p class="text-white/70 text-sm">Genel süreç rehberi</p>
+                <div class="mt-4 flex items-center text-white/60 text-sm">
+                    <span>Devam et</span>
+                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
             </a>
 
-            <!-- İtalyanca Süreç Butonu -->
+            <!-- İtalyanca Süreç 2 -->
             <a href="./italycasurec2.html" 
-               class="btn-hover-effect block w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-4 px-6 rounded-xl text-lg shadow-md">
-                📚 İtalya Süreci 2
+               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
+               style="animation-delay: 0.5s;">
+                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📚</div>
+                <h3 class="text-xl font-bold text-white mb-2">İtalya Süreci 2</h3>
+                <p class="text-white/70 text-sm">Detaylı adım adım kılavuz</p>
+                <div class="mt-4 flex items-center text-white/60 text-sm">
+                    <span>Devam et</span>
+                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Yurtdışı Eğitim Rehberi -->
+            <a href="./yurtdisi-egitim-tam-rehber.html" 
+               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
+               style="animation-delay: 0.6s;">
+                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🌍</div>
+                <h3 class="text-xl font-bold text-white mb-2">Yurtdışı Eğitim</h3>
+                <p class="text-white/70 text-sm">Kapsamlı eğitim rehberi</p>
+                <div class="mt-4 flex items-center text-white/60 text-sm">
+                    <span>Devam et</span>
+                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
             </a>
 
         </div>
 
-        <!-- Alt Bilgi -->
-        <div class="mt-8 text-xs text-gray-400 dark:text-gray-500">
-            &copy; 2025-2026 Tüm hakları saklıdır.
+        <!-- Footer -->
+        <div class="glass-card rounded-2xl p-6 text-center fade-in-up" style="animation-delay: 0.7s;">
+            <div class="flex items-center justify-center space-x-6 text-white/60 text-sm">
+                <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>Son güncelleme: 23 Ekim 2025</span>
+                </div>
+                <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span>© 2025-2026 Zehn06</span>
+                </div>
+            </div>
         </div>
 
     </div>
 
+    <script>
+        // Particle oluşturma
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 5 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Sayfa yüklendiğinde particle'ları oluştur
+        window.addEventListener('load', createParticles);
+    </script>
+
 </body>
 </html>
-
