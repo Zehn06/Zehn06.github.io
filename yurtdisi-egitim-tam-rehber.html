@@ -32,6 +32,18 @@
             -webkit-text-size-adjust: 100%;
         }
 
+        @media (max-width: 768px) {
+            body {
+                line-height: 1.5;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                line-height: 1.4;
+            }
+        }
+
         /* Navigation */
         nav {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -659,6 +671,303 @@
             background: #475569;
         }
 
+        /* Transfer Modal Button */
+        .transfer-modal-btn {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: white;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            margin: 1rem 0;
+        }
+
+        .transfer-modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.4s;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            padding: 0;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .close-modal {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Tooltip System */
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: help;
+            margin-left: 5px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .info-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            background: #1e293b;
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            width: 250px;
+            max-width: 90vw;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #1e293b;
+        }
+
+        .info-icon:hover .tooltip,
+        .info-icon.active .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Budget Calculator */
+        .budget-calculator {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 2px solid #0ea5e9;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .calculator-input {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .input-group select,
+        .input-group input {
+            padding: 0.8rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .input-group select:focus,
+        .input-group input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        }
+
+        .recommendation-result {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .recommendation-result.active {
+            display: block;
+            animation: slideDown 0.4s;
+        }
+
+        .result-option {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-left: 4px solid #22c55e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .result-option h4 {
+            color: #15803d;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Transfer Program Highlights */
+        .transfer-highlight {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .transfer-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .transfer-option {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .transfer-option:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .transfer-option.best {
+            border-color: var(--success);
+            background: #d1fae5;
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             .container {
@@ -694,70 +1003,80 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 1rem;
+                padding: 0.5rem;
             }
 
             .nav-container {
-                padding: 0 1rem;
+                padding: 0 0.5rem;
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.5rem;
             }
 
             .logo {
-                font-size: 1.2rem;
+                font-size: 1rem;
                 text-align: center;
             }
 
             .nav-links {
-                gap: 0.5rem;
+                gap: 0.3rem;
                 justify-content: center;
             }
 
             .nav-links a {
-                font-size: 0.8rem;
-                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
             }
 
             .hero {
-                padding: 2rem 1rem;
+                padding: 1.5rem 0.5rem;
             }
 
             .hero h1 {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
                 line-height: 1.3;
             }
 
             .hero p {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
             }
 
             h2 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.3rem;
             }
 
             h3 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                margin: 1rem 0 0.5rem;
             }
 
             h4 {
-                font-size: 1.05rem;
+                font-size: 1rem;
+                margin: 0.8rem 0 0.3rem;
             }
 
             .country-selector {
-                padding: 1.5rem 1rem;
+                padding: 1rem 0.5rem;
             }
 
             .selector-title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .selector-subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
             }
 
             .country-grid {
                 grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-                gap: 0.8rem;
+                gap: 0.5rem;
             }
 
             .country-option {
-                padding: 1rem;
+                padding: 0.8rem 0.5rem;
             }
 
             .country-flag {
@@ -765,31 +1084,51 @@
             }
 
             .country-name {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .country-rating {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            .roadmap-container {
+                padding: 1rem 0.5rem;
+            }
+
+            .roadmap-header {
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .roadmap-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .roadmap-header .country-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
             }
 
             .roadmap-tabs {
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 0.3rem;
+                margin-bottom: 1rem;
             }
 
             .tab-button {
                 width: 100%;
-                padding: 0.7rem 1rem;
-                font-size: 0.85rem;
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
             }
 
             .university-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 0.8rem;
             }
 
             .university-card {
-                padding: 1rem;
+                padding: 0.8rem;
             }
 
             .salary-details {
@@ -800,8 +1139,14 @@
                 grid-template-columns: 1fr;
             }
 
+            .timeline {
+                padding: 1rem 0;
+            }
+
             .timeline-item {
                 padding-left: 2rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1.5rem;
             }
 
             .timeline-item::before {
@@ -810,18 +1155,38 @@
                 height: 14px;
             }
 
+            .timeline-content {
+                padding: 0.8rem;
+            }
+
+            .timeline-date {
+                font-size: 0.8rem;
+                padding: 0.25rem 0.6rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .checklist {
+                margin-top: 0.5rem;
+            }
+
+            .checklist li {
+                font-size: 0.85rem;
+                padding: 0.3rem 0;
+                padding-left: 1.5rem;
+            }
+
             .quick-compare {
                 overflow-x: auto;
             }
 
             .quick-compare table {
                 min-width: 700px;
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
 
             .quick-compare th,
             .quick-compare td {
-                padding: 0.6rem 0.4rem;
+                padding: 0.5rem 0.3rem;
             }
 
             .cost-table {
@@ -830,126 +1195,46 @@
 
             .cost-table table {
                 min-width: 500px;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .cost-table th,
             .cost-table td {
-                padding: 0.6rem 0.5rem;
+                padding: 0.5rem 0.4rem;
             }
 
             .scholarship-box,
             .alert {
-                padding: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .print-button,
-            .back-button {
-                width: 100%;
-                padding: 0.8rem 1rem;
-            }
-
-            .roadmap-header {
-                padding: 1rem;
-            }
-
-            .roadmap-header .country-info {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .roadmap-header h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
                 padding: 0.8rem;
-            }
-
-            .hero {
-                padding: 1.5rem 0.8rem;
-            }
-
-            .hero h1 {
-                font-size: 1.3rem;
-            }
-
-            .hero p {
                 font-size: 0.85rem;
+                margin: 0.8rem 0;
             }
 
-            .country-selector {
-                padding: 1rem 0.8rem;
+            .scholarship-box h4,
+            .alert h4 {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
             }
 
-            .selector-title {
-                font-size: 1.3rem;
-            }
-
-            .selector-subtitle {
-                font-size: 0.9rem;
-            }
-
-            .country-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.6rem;
-            }
-
-            .country-option {
-                padding: 0.8rem 0.5rem;
-            }
-
-            .country-flag {
-                font-size: 2rem;
-            }
-
-            .country-name {
-                font-size: 0.8rem;
-            }
-
-            .country-badge {
-                font-size: 0.65rem;
-                padding: 0.15rem 0.4rem;
-            }
-
-            h2 {
-                font-size: 1.2rem;
-            }
-
-            h3 {
-                font-size: 1.05rem;
-            }
-
-            .tab-button {
-                padding: 0.6rem 0.8rem;
-                font-size: 0.8rem;
-            }
-
-            .timeline-date {
-                font-size: 0.85rem;
-                padding: 0.25rem 0.8rem;
-            }
-
-            .timeline-content {
-                padding: 1rem;
-            }
-
-            .checklist li {
-                font-size: 0.9rem;
-                padding-left: 1.5rem;
+            .scholarship-details {
+                padding: 0.8rem;
+                margin-top: 0.8rem;
             }
 
             .uni-info {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
                 padding: 0.4rem 0;
             }
 
+            .salary-card {
+                padding: 1rem;
+                margin: 0.8rem 0;
+            }
+
             .salary-year {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 padding: 0.4rem 0.8rem;
+                margin-bottom: 0.8rem;
             }
 
             .salary-value {
@@ -957,29 +1242,301 @@
             }
 
             .salary-label {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            .salary-item {
+                padding: 0.8rem;
+            }
+
+            .document-card {
+                padding: 0.8rem;
+            }
+
+            .document-card h5 {
+                font-size: 0.85rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .document-card p {
+                font-size: 0.75rem;
+            }
+
+            .print-button,
+            .back-button {
+                width: 100%;
+                padding: 0.7rem 0.8rem;
+                font-size: 0.9rem;
             }
 
             .roadmap-header .country-info span {
                 font-size: 3rem !important;
             }
 
-            .roadmap-header h2 {
-                font-size: 1.3rem;
+            section {
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.4rem;
             }
 
-            .quick-compare table {
+            .hero {
+                padding: 1rem 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.2rem;
+            }
+
+            .hero p {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+
+            .country-selector {
+                padding: 0.8rem 0.4rem;
+            }
+
+            .selector-title {
+                font-size: 1.2rem;
+            }
+
+            .selector-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .country-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.4rem;
+            }
+
+            .country-option {
+                padding: 0.6rem 0.4rem;
+            }
+
+            .country-flag {
+                font-size: 2rem;
+            }
+
+            .country-name {
                 font-size: 0.75rem;
             }
 
+            .country-rating {
+                font-size: 0.7rem;
+            }
+
+            .country-badge {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.4rem;
+            }
+
+            h2 {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+                margin: 0.8rem 0 0.4rem;
+            }
+
+            h4 {
+                font-size: 0.9rem;
+            }
+
+            .tab-button {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.75rem;
+            }
+
+            .timeline-date {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.5rem;
+            }
+
+            .timeline-content {
+                padding: 0.6rem;
+            }
+
+            .timeline-item {
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .checklist li {
+                font-size: 0.8rem;
+                padding: 0.25rem 0;
+                padding-left: 1.3rem;
+                line-height: 1.4;
+            }
+
+            .checklist li::before {
+                font-size: 1rem;
+            }
+
+            .uni-info {
+                font-size: 0.75rem;
+                padding: 0.3rem 0;
+            }
+
+            .scholarship-box,
+            .alert {
+                padding: 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .scholarship-box h4,
+            .alert h4 {
+                font-size: 0.9rem;
+            }
+
+            .scholarship-details {
+                padding: 0.6rem;
+            }
+
+            .salary-card {
+                padding: 0.8rem;
+            }
+
+            .salary-year {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .salary-value {
+                font-size: 0.95rem;
+            }
+
+            .salary-label {
+                font-size: 0.7rem;
+            }
+
+            .salary-item {
+                padding: 0.6rem;
+            }
+
+            .document-card {
+                padding: 0.6rem;
+            }
+
+            .document-card h5 {
+                font-size: 0.8rem;
+            }
+
+            .document-card p {
+                font-size: 0.7rem;
+            }
+
+            .roadmap-container {
+                padding: 0.8rem 0.4rem;
+            }
+
+            .roadmap-header {
+                padding: 0.5rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .roadmap-header .country-info span {
+                font-size: 2.5rem !important;
+            }
+
+            .roadmap-header h2 {
+                font-size: 1.1rem;
+            }
+
+            .quick-compare table {
+                font-size: 0.7rem;
+            }
+
+            .quick-compare th,
+            .quick-compare td {
+                padding: 0.4rem 0.2rem;
+            }
+
             .cost-table table {
+                font-size: 0.75rem;
+            }
+
+            .cost-table th,
+            .cost-table td {
+                padding: 0.4rem 0.3rem;
+            }
+
+            .print-button,
+            .back-button {
+                padding: 0.6rem;
                 font-size: 0.85rem;
+            }
+
+            .alert ul,
+            .scholarship-box ul {
+                margin-left: 1rem;
+                font-size: 0.75rem;
+            }
+
+            .alert ul li,
+            .scholarship-box ul li {
+                line-height: 1.5;
+                margin-bottom: 0.3rem;
+            }
+
+            section {
+                margin-bottom: 1.5rem;
+            }
+
+            /* Modal responsive */
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+                max-height: 85vh;
+            }
+
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .transfer-modal-btn {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .transfer-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .partner-table,
+            .comparison-table {
+                font-size: 0.8rem;
+            }
+
+            .partner-table th,
+            .partner-table td,
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.5rem 0.3rem;
             }
         }
 
         @media (max-width: 360px) {
             .hero h1 {
-                font-size: 1.1rem;
+                font-size: 1rem;
+                line-height: 1.3;
+            }
+
+            .hero p {
+                font-size: 0.7rem;
             }
 
             .country-grid {
@@ -991,15 +1548,60 @@
             }
 
             .selector-title {
-                font-size: 1.2rem;
-            }
-
-            h2 {
                 font-size: 1.1rem;
             }
 
+            h2 {
+                font-size: 1rem;
+            }
+
+            h3 {
+                font-size: 0.95rem;
+            }
+
             .tab-button {
+                font-size: 0.7rem;
+                padding: 0.5rem;
+            }
+
+            .checklist li {
                 font-size: 0.75rem;
+            }
+
+            .alert,
+            .scholarship-box {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .quick-compare table,
+            .cost-table table {
+                font-size: 0.65rem;
+            }
+
+            /* Modal extra small screens */
+            .modal-content {
+                width: 98%;
+                margin: 3% auto;
+            }
+
+            .modal-header h2 {
+                font-size: 1rem;
+            }
+
+            .modal-body {
+                padding: 0.8rem;
+            }
+
+            .transfer-modal-btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .close-modal {
+                width: 35px;
+                height: 35px;
+                font-size: 1.5rem;
             }
         }
 
@@ -1092,7 +1694,101 @@
 
         <!-- Quick Compare Section -->
         <section id="compare">
+            
+            <!-- Budget Calculator -->
+            <div class="budget-calculator">
+                <h2 style="text-align: center; color: #0f172a; margin-bottom: 0.5rem;">
+                    🧮 Akıllı Ülke Öneri Sistemi
+                </h2>
+                <p style="text-align: center; color: #64748b; margin-bottom: 2rem;">
+                    Bütçenizi ve önceliklerinizi girin, size en uygun ülke ve stratejiyi bulalım!
+                </p>
+
+                <div class="calculator-input">
+                    <div class="input-group">
+                        <label>
+                            💰 Toplam Bütçeniz (4 yıl için)
+                            <span class="info-icon">ℹ️
+                                <span class="tooltip">Eğitim + barınma + yaşam giderleri + uçak bileti dahil 4 yıllık toplam bütçeniz. Part-time çalışma geliri dahil değil.</span>
+                            </span>
+                        </label>
+                        <select id="budgetRange">
+                            <option value="low">€12,000 - €20,000 (Çok Düşük)</option>
+                            <option value="medium-low">€20,000 - €35,000 (Düşük)</option>
+                            <option value="medium" selected>€35,000 - €50,000 (Orta)</option>
+                            <option value="medium-high">€50,000 - €70,000 (Orta-Yüksek)</option>
+                            <option value="high">€70,000+ (Yüksek)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>
+                            🎯 En Önemli Önceliğiniz
+                            <span class="info-icon">ℹ️
+                                <span class="tooltip">Karar verirken en çok neyi önemsediğinizi seçin. Sistem buna göre optimize edecek.</span>
+                            </span>
+                        </label>
+                        <select id="priority">
+                            <option value="cost">En Düşük Maliyet</option>
+                            <option value="job">İş Bulma Kolaylığı</option>
+                            <option value="salary">Yüksek Maaş Potansiyeli</option>
+                            <option value="prestige">Üniversite Prestiji</option>
+                            <option value="scholarship">Burs Şansı</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>
+                            📚 IELTS/TOEFL Seviyeniz
+                            <span class="info-icon">ℹ️
+                                <span class="tooltip">Mevcut İngilizce seviyeniz. Yoksa 'Hazırlanıyorum' seçin, uygun ülkeleri göstereceğiz.</span>
+                            </span>
+                        </label>
+                        <select id="englishLevel">
+                            <option value="none">Henüz Hazırlanmadım</option>
+                            <option value="preparing">Hazırlanıyorum</option>
+                            <option value="basic">IELTS 5.5 - 6.0 (Temel)</option>
+                            <option value="intermediate" selected>IELTS 6.5 - 7.0 (Orta)</option>
+                            <option value="advanced">IELTS 7.5+ (İleri)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>
+                            🌍 Transfer/Çift Diploma İlginiz
+                            <span class="info-icon">ℹ️
+                                <span class="tooltip">2 yıl ucuz ülkede okuyup 2 yıl prestijli ülkede okumak ister misiniz? Hem tasarruf hem güçlü diploma!</span>
+                            </span>
+                        </label>
+                        <select id="transferInterest">
+                            <option value="no">İlgilenmiyorum</option>
+                            <option value="maybe">Belki (Bilgi Ver)</option>
+                            <option value="yes">Evet, Kesinlikle!</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button class="calculate-btn" onclick="calculateRecommendation()">
+                        🎯 Size Özel Strateji Oluştur
+                    </button>
+                </div>
+
+                <div id="recommendationResult" class="recommendation-result">
+                    <!-- Sonuçlar buraya gelecek -->
+                </div>
+            </div>
+
             <h2>📊 Hızlı Karşılaştırma Tablosu</h2>
+            
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <button class="transfer-modal-btn" onclick="openTransferModal()">
+                    🔄 Transfer & Çift Diploma Programları
+                    <span style="display: block; font-size: 0.85rem; margin-top: 0.3rem; opacity: 0.9;">
+                        Ucuz ülkede başla, prestijli ülkede bitir! %50 tasarruf
+                    </span>
+                </button>
+            </div>
             
             <div class="alert alert-success" style="margin-bottom: 1.5rem;">
                 <h4>✅ SINAVSIZ ÜLKELER (Kolay Başvuru):</h4>
@@ -3765,6 +4461,613 @@
                             <p>İtalyanca öğrenme süreci, kaynaklar, maliyetler eklenecek...</p>
                         </div>
                     `
+                },
+                
+                czech: {
+                    title: 'ÇEK CUMHURİYETİ',
+                    content: `
+                        <div class="tab-container">
+                            <div class="tab-buttons">
+                                <button class="tab-button active" onclick="switchTab('czech', 'overview', this)">📋 Genel Bakış</button>
+                                <button class="tab-button" onclick="switchTab('czech', 'universities', this)">🎓 Üniversiteler</button>
+                                <button class="tab-button" onclick="switchTab('czech', 'scholarships', this)">💰 Burslar</button>
+                                <button class="tab-button" onclick="switchTab('czech', 'visa', this)">✈️ Vize</button>
+                                <button class="tab-button" onclick="switchTab('czech', 'costs', this)">💵 Maliyetler</button>
+                                <button class="tab-button" onclick="switchTab('czech', 'salary', this)">💼 Maaşlar</button>
+                                <button class="tab-button" onclick="switchTab('czech', 'documents', this)">📄 Belgeler</button>
+                            </div>
+
+                            <div id="czech-overview" class="tab-content active">
+                                <h3>🇨🇿 Çek Cumhuriyeti - Orta Avrupa'nın Yükselen Yıldızı</h3>
+                                
+                                <div class="info-box">
+                                    <h4>✅ Avantajlar</h4>
+                                    <ul class="checklist">
+                                        <li><strong>Sınavsız Başvuru:</strong> Sadece lise diploması + IELTS yeterli
+                                            <span class="info-icon">ℹ️
+                                                <span class="tooltip">Giriş sınavı yok! Başvuru çok kolay ve hızlı.</span>
+                                            </span>
+                                        </li>
+                                        <li><strong>Prestijli Üniversiteler:</strong> Czech Technical University (CTU), Charles University dünya sıralamalarında</li>
+                                        <li><strong>Güçlü Teknoloji Sektörü:</strong> Praha tech hub, birçok startup ve büyük şirket ofisi</li>
+                                        <li><strong>Schengen Bölgesi:</strong> 26 AB ülkesine vizesiz seyahat</li>
+                                        <li><strong>Düşük Yaşam Maliyeti:</strong> Batı Avrupa'ya göre %40-50 daha ucuz</li>
+                                        <li><strong>İngilizce Programlar:</strong> 200+ İngilizce lisans programı</li>
+                                        <li><strong>Part-time Çalışma:</strong> Öğrenci olarak haftada 20 saat çalışabilirsiniz</li>
+                                        <li><strong>Mezuniyet Sonrası İş Arama:</strong> 9 aylık iş arama vizesi</li>
+                                    </ul>
+                                </div>
+
+                                <div class="warning-box">
+                                    <h4>⚠️ Dikkat Edilmesi Gerekenler</h4>
+                                    <ul>
+                                        <li>Polonya ve Macaristan'a göre biraz daha pahalı</li>
+                                        <li>Çekçe bilmeden günlük hayat biraz zor olabilir (ama yapılabilir)</li>
+                                        <li>Kış ayları oldukça soğuk (-5°C ila -10°C)</li>
+                                        <li>Burs imkanları kısıtlı (%20 kabul oranı)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="timeline">
+                                    <h4>📅 Başvuru Takvimi</h4>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">📝</div>
+                                        <div class="timeline-content">
+                                            <h5>Ekim - Aralık 2024</h5>
+                                            <p>Başvuru hazırlığı: IELTS sınavı, belge toplama, motivasyon mektubu</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">📤</div>
+                                        <div class="timeline-content">
+                                            <h5>15 Ocak - 28 Şubat 2025</h5>
+                                            <p><strong>Başvuru Dönemi</strong> - Üniversite web sitelerinden online başvuru</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">📧</div>
+                                        <div class="timeline-content">
+                                            <h5>Mart - Nisan 2025</h5>
+                                            <p>Kabul/red mektupları gelmeye başlar</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">✈️</div>
+                                        <div class="timeline-content">
+                                            <h5>Mayıs - Temmuz 2025</h5>
+                                            <p>Vize başvurusu ve hazırlıklar</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">🎓</div>
+                                        <div class="timeline-content">
+                                            <h5>Eylül 2025</h5>
+                                            <p>Dönem başlangıcı - Praha'ya gidiş</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="czech-universities" class="tab-content">
+                                <h3>🎓 Top Bilgisayar Bilimleri Üniversiteleri</h3>
+                                
+                                <div class="university-card">
+                                    <div class="uni-header">
+                                        <h4>1. Czech Technical University in Prague (CTU)</h4>
+                                        <span class="uni-rank">🏆 QS Ranking: #481</span>
+                                    </div>
+                                    <div class="uni-info"><strong>📍 Şehir:</strong> Praha (Nüfus: 1.3M, Tech Hub)</div>
+                                    <div class="uni-info"><strong>💰 Eğitim Ücreti:</strong> €4,500 - €5,500/yıl</div>
+                                    <div class="uni-info"><strong>📚 Program:</strong> Computer Science and Engineering (B.Sc.)</div>
+                                    <div class="uni-info"><strong>🌐 Dil:</strong> İngilizce</div>
+                                    <div class="uni-info"><strong>📊 Başvuru:</strong> <span style="color: var(--success);">SINAVSIZ ✅</span></div>
+                                    <div class="uni-info"><strong>📖 IELTS:</strong> 6.5 (minimum 6.0 her bölümde)</div>
+                                    <div class="uni-info"><strong>🎯 Kabul Oranı:</strong> %65</div>
+                                    <div class="uni-info"><strong>👥 Sınıf Mevcudu:</strong> 25-30 öğrenci</div>
+                                    <div class="uni-info"><strong>🌍 Uluslararası Öğrenci:</strong> %18</div>
+                                    <div class="alert alert-info">
+                                        <strong>💼 Mezuniyet Sonrası:</strong> CTU mezunları ortalama 4-6 ay içinde iş buluyor. Skoda Auto, Avast, Seznam gibi firmalar kampüsten direkt işe alıyor. İlk maaş: €1,500-2,000/ay.
+                                    </div>
+                                </div>
+
+                                <div class="university-card">
+                                    <div class="uni-header">
+                                        <h4>2. Charles University - Faculty of Mathematics and Physics</h4>
+                                        <span class="uni-rank">🏆 QS Ranking: #248</span>
+                                    </div>
+                                    <div class="uni-info"><strong>📍 Şehir:</strong> Praha</div>
+                                    <div class="uni-info"><strong>💰 Eğitim Ücreti:</strong> €6,000 - €7,000/yıl</div>
+                                    <div class="uni-info"><strong>📚 Program:</strong> Computer Science (B.Sc.)</div>
+                                    <div class="uni-info"><strong>🌐 Dil:</strong> İngilizce</div>
+                                    <div class="uni-info"><strong>📊 Başvuru:</strong> <span style="color: var(--success);">SINAVSIZ ✅</span></div>
+                                    <div class="uni-info"><strong>📖 IELTS:</strong> 7.0</div>
+                                    <div class="uni-info"><strong>🎯 Kabul Oranı:</strong> %45 (daha seçici)</div>
+                                    <div class="alert alert-info">
+                                        <strong>🌟 Özellik:</strong> Çek Cumhuriyeti'nin en prestijli üniversitesi. Araştırma odaklı, akademik kariyer için ideal. Biraz daha teorik ve matematiksel.
+                                    </div>
+                                </div>
+
+                                <div class="university-card">
+                                    <div class="uni-header">
+                                        <h4>3. Brno University of Technology (BUT)</h4>
+                                        <span class="uni-rank">🏆 Top 700</span>
+                                    </div>
+                                    <div class="uni-info"><strong>📍 Şehir:</strong> Brno (Nüfus: 380K, Öğrenci şehri)</div>
+                                    <div class="uni-info"><strong>💰 Eğitim Ücreti:</strong> €4,000 - €4,500/yıl</div>
+                                    <div class="uni-info"><strong>📚 Program:</strong> Information Technology</div>
+                                    <div class="uni-info"><strong>🌐 Dil:</strong> İngilizce</div>
+                                    <div class="uni-info"><strong>📊 Başvuru:</strong> <span style="color: var(--success);">SINAVSIZ ✅</span></div>
+                                    <div class="uni-info"><strong>📖 IELTS:</strong> 6.0</div>
+                                    <div class="uni-info"><strong>🎯 Kabul Oranı:</strong> %70</div>
+                                    <div class="alert alert-success">
+                                        <strong>💰 Bütçe Dostu:</strong> Praha'ya göre %30 daha ucuz yaşam maliyeti! Aylık €400-500 ile rahat yaşayabilirsiniz. IBM, Red Hat ofisleri var.
+                                    </div>
+                                </div>
+
+                                <div class="university-card">
+                                    <div class="uni-header">
+                                        <h4>4. University of West Bohemia</h4>
+                                        <span class="uni-rank">🏆 Top 1000</span>
+                                    </div>
+                                    <div class="uni-info"><strong>📍 Şehir:</strong> Plzeň (Nüfus: 170K)</div>
+                                    <div class="uni-info"><strong>💰 Eğitim Ücreti:</strong> €3,500/yıl</div>
+                                    <div class="uni-info"><strong>📚 Program:</strong> Computer Science and Engineering</div>
+                                    <div class="uni-info"><strong>📊 Başvuru:</strong> <span style="color: var(--success);">SINAVSIZ ✅</span></div>
+                                    <div class="uni-info"><strong>🎯 Kabul Oranı:</strong> %80</div>
+                                    <div class="alert alert-success">
+                                        <strong>💸 En Ucuz Seçenek:</strong> Çek Cumhuriyeti'nin en uygun fiyatlı şehri. Toplam yıllık maliyet €7,000-8,000.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="czech-scholarships" class="tab-content">
+                                <h3>💰 Burs İmkanları</h3>
+                                
+                                <div class="scholarship-box">
+                                    <h4>1. Czech Government Scholarship</h4>
+                                    <div class="scholarship-details">
+                                        <p><strong>📝 Kapsam:</strong> Tam eğitim ücreti + Aylık €530 harçlık</p>
+                                        <p><strong>🎯 Kabul Oranı:</strong> %15-20 (çok rekabetçi)</p>
+                                        <p><strong>📅 Başvuru:</strong> Şubat - Mart arası</p>
+                                        <p><strong>✅ Gereksinimler:</strong></p>
+                                        <ul>
+                                            <li>Lise diploması (minimum %80 ortalama)</li>
+                                            <li>IELTS 7.0+</li>
+                                            <li>Güçlü motivasyon mektubu</li>
+                                            <li>Referans mektupları (2 adet)</li>
+                                        </ul>
+                                        <p><strong>🌐 Website:</strong> www.msmt.cz/scholarships</p>
+                                    </div>
+                                </div>
+
+                                <div class="scholarship-box">
+                                    <h4>2. CTU Rector's Scholarship</h4>
+                                    <div class="scholarship-details">
+                                        <p><strong>📝 Kapsam:</strong> €1,000 - €2,500/yıl (kısmi burs)</p>
+                                        <p><strong>🎯 Kabul Oranı:</strong> %25</p>
+                                        <p><strong>📅 Başvuru:</strong> Akademik başarıya göre otomatik değerlendirme</p>
+                                        <p><strong>💡 İpucu:</strong> İlk yıl başvuramıyorsunuz, ama 2. yıldan itibaren GPA 3.0+ ise başvurabilirsiniz.</p>
+                                    </div>
+                                </div>
+
+                                <div class="scholarship-box">
+                                    <h4>3. Charles University Excellence Scholarship</h4>
+                                    <div class="scholarship-details">
+                                        <p><strong>📝 Kapsam:</strong> €2,000 - €4,000/yıl</p>
+                                        <p><strong>🎯 Kabul Oranı:</strong> %10 (çok seçici)</p>
+                                        <p><strong>✅ Gereksinimler:</strong> Olağanüstü akademik başarı, IELTS 7.5+, ekstra müfredat aktiviteleri</p>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-warning">
+                                    <h4>⚠️ Burs Stratejisi</h4>
+                                    <p>Çek Cumhuriyeti bursları kısıtlı. Burssuz okuma planı yapın, burs bonustur. 
+                                    <strong>Part-time çalışma (€600-800/ay)</strong> + düşük yaşam maliyeti ile kolayca finanse edilebilir.</p>
+                                </div>
+                            </div>
+
+                            <div id="czech-visa" class="tab-content">
+                                <h3>✈️ Vize İşlemleri - Long-term Residence Permit</h3>
+                                
+                                <div class="info-box">
+                                    <h4>📋 Gerekli Belgeler</h4>
+                                    <ul class="checklist">
+                                        <li>Doldurul muş vize başvuru formu</li>
+                                        <li>Pasaport (minimum 15 ay geçerlilik)
+                                            <span class="info-icon">ℹ️
+                                                <span class="tooltip">Pasaportunuz 4 yıllık eğitim süresini kapsamalı. Yoksa yenileyin!</span>
+                                            </span>
+                                        </li>
+                                        <li>Üniversiteden kabul mektubu (Letter of Acceptance)</li>
+                                        <li>Banka ekstreleri (€4,500 minimum bakiye)
+                                            <span class="info-icon">ℹ️
+                                                <span class="tooltip">İlk 1 yıl için yeterli paranız olduğunu kanıtlamalısınız. Velinin hesabı da olabilir.</span>
+                                            </span>
+                                        </li>
+                                        <li>Sağlık sigortası (minimum €30,000 kapsam)</li>
+                                        <li>Konaklama belgesi (yurt rezervasyonu veya kira sözleşmesi)</li>
+                                        <li>Uçak bileti rezervasyonu</li>
+                                        <li>Biyometrik fotoğraf (2 adet)</li>
+                                        <li>Sabıka kaydı (noter onaylı)</li>
+                                        <li>Apostil şerhli lise diploması</li>
+                                    </ul>
+                                </div>
+
+                                <div class="timeline">
+                                    <h4>📅 Vize Başvuru Süreci</h4>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">1</div>
+                                        <div class="timeline-content">
+                                            <h5>Online Randevu Al</h5>
+                                            <p>Çek Konsolosluğu Ankara web sitesinden randevu alın (Mayıs ayında)</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">2</div>
+                                        <div class="timeline-content">
+                                            <h5>Belgeleri Hazırla</h5>
+                                            <p>Tüm belgeleri toplayın, çevirlerin yapılmasını sağlayın</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">3</div>
+                                        <div class="timeline-content">
+                                            <h5>Konsoloslukta Başvuru</h5>
+                                            <p>Ankara'daki Çek Konsolosluğu'na şahsen başvuru (Haziran-Temmuz)</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">4</div>
+                                        <div class="timeline-content">
+                                            <h5>Bekleme Süresi</h5>
+                                            <p>60-90 gün (Temmuz-Ağustos süresince bekleme)</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker">5</div>
+                                        <div class="timeline-content">
+                                            <h5>Vize Alımı</h5>
+                                            <p>Onay çıktıktan sonra konsolosluktan pasaportunuzu alın</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info">
+                                    <h4>💡 Önemli Notlar</h4>
+                                    <ul>
+                                        <li>Vize ücreti: €135</li>
+                                        <li>İşlem süresi uzun, erken başvurun!</li>
+                                        <li>Çek Cumhuriyeti'ne gittikten sonra 3 iş günü içinde yabancılar polisine kayıt olmalısınız</li>
+                                        <li>İlk yıl sonunda residence permit yenilemeniz gerekir (Praha'da yapılır)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div id="czech-costs" class="tab-content">
+                                <h3>💵 Detaylı Maliyet Analizi</h3>
+                                
+                                <div class="cost-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Gider Kalemi</th>
+                                                <th>Praha (Aylık)</th>
+                                                <th>Brno (Aylık)</th>
+                                                <th>Yıllık</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>🏠 Kira (yurt/daire)</td>
+                                                <td>€250-400</td>
+                                                <td>€180-300</td>
+                                                <td>€2,160-4,800</td>
+                                            </tr>
+                                            <tr>
+                                                <td>🍽️ Yemek</td>
+                                                <td>€150-200</td>
+                                                <td>€120-170</td>
+                                                <td>€1,440-2,400</td>
+                                            </tr>
+                                            <tr>
+                                                <td>🚌 Ulaşım</td>
+                                                <td>€20 (öğrenci)</td>
+                                                <td>€15</td>
+                                                <td>€180-240</td>
+                                            </tr>
+                                            <tr>
+                                                <td>📚 Kitap & Malzeme</td>
+                                                <td>€30-50</td>
+                                                <td>€30-50</td>
+                                                <td>€360-600</td>
+                                            </tr>
+                                            <tr>
+                                                <td>📱 Telefon & İnternet</td>
+                                                <td>€20</td>
+                                                <td>€15</td>
+                                                <td>€180-240</td>
+                                            </tr>
+                                            <tr>
+                                                <td>⚡ Elektrik & Su</td>
+                                                <td>€40-60</td>
+                                                <td>€30-50</td>
+                                                <td>€360-720</td>
+                                            </tr>
+                                            <tr>
+                                                <td>🎬 Sosyal & Eğlence</td>
+                                                <td>€80-120</td>
+                                                <td>€60-100</td>
+                                                <td>€720-1,440</td>
+                                            </tr>
+                                            <tr class="highlight-row">
+                                                <td><strong>TOPLAM AYLIK</strong></td>
+                                                <td><strong>€590-870</strong></td>
+                                                <td><strong>€450-700</strong></td>
+                                                <td><strong>€5,400-10,440</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="cost-table">
+                                    <h4 style="margin-top: 2rem;">💼 4 Yıllık Toplam Maliyet (Praha)</h4>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Gider</th>
+                                                <th>Tutar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>🎓 Eğitim Ücreti (4 yıl × €5,000)</td>
+                                                <td>€20,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>🏠 Yaşam Masrafları (48 ay × €700)</td>
+                                                <td>€33,600</td>
+                                            </tr>
+                                            <tr>
+                                                <td>✈️ Uçak Biletleri (8 gidiş-dönüş)</td>
+                                                <td>€1,600</td>
+                                            </tr>
+                                            <tr>
+                                                <td>📋 Vize & İdari Masraflar</td>
+                                                <td>€800</td>
+                                            </tr>
+                                            <tr>
+                                                <td>🏥 Sağlık Sigortası (4 yıl)</td>
+                                                <td>€1,600</td>
+                                            </tr>
+                                            <tr class="highlight-row">
+                                                <td><strong>GENEL TOPLAM</strong></td>
+                                                <td><strong>€57,600</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="alert alert-success">
+                                    <h4>💰 Part-time Çalışma ile Tasarruf</h4>
+                                    <p>Çek Cumhuriyeti'nde öğrenciler haftada 20 saat çalışabilir. Ortalama €6-8/saat = <strong>€480-640/ay</strong></p>
+                                    <p><strong>4 yıl çalışırsanız:</strong> €23,000-30,000 gelir!</p>
+                                    <p><strong>Net maliyet:</strong> €57,600 - €26,000 = <strong>€31,600</strong> (çok uygun!)</p>
+                                </div>
+                            </div>
+
+                            <div id="czech-salary" class="tab-content">
+                                <h3>💼 Mezuniyet Sonrası Maaşlar ve İş İmkanları</h3>
+                                
+                                <div class="info-box">
+                                    <h4>🇨🇿 Çek Cumhuriyeti Tech Sektörü</h4>
+                                    <p>Praha, Orta Avrupa'nın en hızlı büyüyen tech hub'larından biri. Google, Microsoft, Oracle, IBM, Avast gibi dev şirketlerin ofisleri var.</p>
+                                </div>
+
+                                <div class="salary-grid">
+                                    <div class="salary-card">
+                                        <div class="salary-year">Junior (0-2 yıl)</div>
+                                        <div class="salary-value">€1,500 - €2,200/ay</div>
+                                        <div class="salary-label">€18,000 - €26,400/yıl</div>
+                                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Yeni mezun pozisyonlar. Startup'lar genelde alt banttan, büyük şirketler üst banttan başlar.</p>
+                                    </div>
+
+                                    <div class="salary-card">
+                                        <div class="salary-year">Mid-level (2-4 yıl)</div>
+                                        <div class="salary-value">€2,500 - €3,500/ay</div>
+                                        <div class="salary-label">€30,000 - €42,000/yıl</div>
+                                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Deneyim kazandıkça hızlı artış. Bu seviyede remote çalışma imkanları da artıyor.</p>
+                                    </div>
+
+                                    <div class="salary-card">
+                                        <div class="salary-year">Senior (4+ yıl)</div>
+                                        <div class="salary-value">€4,000 - €6,000/ay</div>
+                                        <div class="salary-label">€48,000 - €72,000/yıl</div>
+                                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Senior developer, Tech Lead pozisyonları. Çok talep var!</p>
+                                    </div>
+                                </div>
+
+                                <div class="info-box">
+                                    <h4>🏢 Popüler İşverenler</h4>
+                                    <div class="salary-details">
+                                        <h5>🌐 Uluslararası Şirketler (Yüksek Maaş)</h5>
+                                        <ul class="checklist">
+                                            <li><strong>Google Prague:</strong> €3,500-5,000/ay (yeni mezun)</li>
+                                            <li><strong>Microsoft:</strong> €3,000-4,500/ay</li>
+                                            <li><strong>Oracle:</strong> €2,500-4,000/ay</li>
+                                            <li><strong>IBM:</strong> €2,300-3,800/ay</li>
+                                        </ul>
+
+                                        <h5 style="margin-top: 1.5rem;">🚀 Czech Startups & Tech Companies</h5>
+                                        <ul class="checklist">
+                                            <li><strong>Avast (Cybersecurity):</strong> €2,000-3,500/ay</li>
+                                            <li><strong>Seznam.cz:</strong> €1,800-3,000/ay</li>
+                                            <li><strong>JetBrains:</strong> €2,500-4,000/ay</li>
+                                            <li><strong>GoodData:</strong> €2,000-3,500/ay</li>
+                                        </ul>
+
+                                        <h5 style="margin-top: 1.5rem;">🏦 Bankalar & Fintech</h5>
+                                        <ul class="checklist">
+                                            <li><strong>Česká spořitelna:</strong> €2,200-3,500/ay</li>
+                                            <li><strong>Komerční banka:</strong> €2,000-3,300/ay</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info">
+                                    <h4>📊 İş Bulma İstatistikleri</h4>
+                                    <ul>
+                                        <li><strong>Ortalama İş Bulma Süresi:</strong> 3-6 ay</li>
+                                        <li><strong>CS Mezunlarında İstihdam:</strong> %92 (1 yıl içinde)</li>
+                                        <li><strong>İş Arama Vizesi:</strong> Mezuniyetten sonra 9 ay</li>
+                                        <li><strong>Kalıcı İkamet:</strong> 5 yıl çalıştıktan sonra başvurabilirsiniz</li>
+                                        <li><strong>Remote Çalışma:</strong> Pandemi sonrası %60 hybrid/remote</li>
+                                    </ul>
+                                </div>
+
+                                <div class="warning-box">
+                                    <h4>💡 Kariyer İpuçları</h4>
+                                    <ul>
+                                        <li>Üniversitede Çekçe öğrenin! İş görüşmelerinde avantaj sağlar</li>
+                                        <li>2-3. yılda intern pozisyonlara başvurun (€600-1,000/ay ödeniyor)</li>
+                                        <li>LinkedIn profilinizi güncel tutun, recruiter'lar çok aktif</li>
+                                        <li>Hackathon ve tech event'lere katılın (networking için çok önemli)</li>
+                                        <li>GitHub profilinde aktif proje yayınlayın</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div id="czech-documents" class="tab-content">
+                                <h3>📄 Gerekli Belgeler ve Hazırlık</h3>
+                                
+                                <div class="document-grid">
+                                    <div class="document-card">
+                                        <h5>📜 Lise Diploması</h5>
+                                        <p><strong>Ne yapmalı:</strong></p>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>Noter onaylı kopya</li>
+                                            <li>Apostil şerhi (Ankara Valiliği)</li>
+                                            <li>İngilizce yeminli tercüme</li>
+                                        </ul>
+                                        <p style="margin-top: 0.5rem;"><strong>⏰ Süre:</strong> 2-3 hafta</p>
+                                        <p><strong>💰 Maliyet:</strong> ₺2,000-3,000</p>
+                                    </div>
+
+                                    <div class="document-card">
+                                        <h5>📊 Transkript</h5>
+                                        <p><strong>Ne yapmalı:</strong></p>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>Okul müdürlüğünden resmi transkript</li>
+                                            <li>Mühürlü ve imzalı</li>
+                                            <li>İngilizce tercüme (yeminli)</li>
+                                            <li>Apostil şerhi</li>
+                                        </ul>
+                                        <p style="margin-top: 0.5rem;"><strong>⏰ Süre:</strong> 1-2 hafta</p>
+                                    </div>
+
+                                    <div class="document-card">
+                                        <h5>📖 IELTS/TOEFL</h5>
+                                        <p><strong>Minimum Skorlar:</strong></p>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>IELTS: 6.5 (genelde)</li>
+                                            <li>TOEFL iBT: 90+</li>
+                                            <li>Her bölüm en az 6.0 (IELTS)</li>
+                                        </ul>
+                                        <p style="margin-top: 0.5rem;"><strong>💡 İpucu:</strong> IELTS daha yaygın kabul görüyor</p>
+                                        <p><strong>💰 Sınav ücreti:</strong> €200-250</p>
+                                    </div>
+
+                                    <div class="document-card">
+                                        <h5>✍️ Motivasyon Mektubu</h5>
+                                        <p><strong>İçerik:</strong></p>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>Neden bilgisayar bilimleri?</li>
+                                            <li>Neden Çek Cumhuriyeti?</li>
+                                            <li>Kariyer hedefleriniz</li>
+                                            <li>Özel projeler/başarılar</li>
+                                        </ul>
+                                        <p style="margin-top: 0.5rem;"><strong>Uzunluk:</strong> 500-800 kelime (1-2 sayfa)</p>
+                                    </div>
+
+                                    <div class="document-card">
+                                        <h5>👨‍🏫 Referans Mektupları</h5>
+                                        <p><strong>Kimlerden:</strong></p>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>Matematik/Fizik öğretmeni</li>
+                                            <li>Müdür yardımcısı</li>
+                                            <li>Bilgisayar öğretmeni (varsa)</li>
+                                        </ul>
+                                        <p style="margin-top: 0.5rem;"><strong>Format:</strong> Okul antetli kağıt, imzalı, mühürlü</p>
+                                    </div>
+
+                                    <div class="document-card">
+                                        <h5>🖼️ CV (Resume)</h5>
+                                        <p><strong>İçermeli:</strong></p>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>Eğitim geçmişi</li>
+                                            <li>Teknik beceriler (Python, Java vs.)</li>
+                                            <li>Projeler (GitHub linkleri)</li>
+                                            <li>Ödüller, sertifikalar</li>
+                                            <li>Dil seviyeleri</li>
+                                        </ul>
+                                        <p style="margin-top: 0.5rem;"><strong>Format:</strong> Europass CV öneriliyor</p>
+                                    </div>
+
+                                    <div class="document-card">
+                                        <h5>🛂 Pasaport</h5>
+                                        <p><strong>Gereksinimler:</strong></p>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>Minimum 4 yıl geçerlilik</li>
+                                            <li>Boş sayfa: en az 2</li>
+                                        </ul>
+                                        <p style="margin-top: 0.5rem;"><strong>⏰ Yenileme:</strong> 2-4 hafta</p>
+                                        <p><strong>💰 Harç:</strong> ₺2,500</p>
+                                    </div>
+
+                                    <div class="document-card">
+                                        <h5>💶 Banka Ekstresi</h5>
+                                        <p><strong>Gerekli Miktar:</strong></p>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>Minimum €4,500 bakiye</li>
+                                            <li>Son 3 ayın ekstresi</li>
+                                            <li>Veli hesabı kabul edilir</li>
+                                            <li>İngilizce tercüme gerekli</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-warning">
+                                    <h4>⚠️ Önemli Hatırlatmalar</h4>
+                                    <ul>
+                                        <li>Tüm belgeleri <strong>en az 2 ay önceden</strong> toplamaya başlayın</li>
+                                        <li>Apostil işlemi için Ankara Valiliği'ne gitmeniz gerekir</li>
+                                        <li>Yeminli tercüme sadece onaylı tercüme bürolarından alınmalı</li>
+                                        <li>Bazı üniversiteler belgelerin <strong>orijinalini</strong> isteyebilir</li>
+                                        <li>Tüm belgelerin PDF kopyalarını bulutta saklayın</li>
+                                    </ul>
+                                </div>
+
+                                <div class="success-box">
+                                    <h4>✅ Başvuru Checklist</h4>
+                                    <ol style="padding-left: 1.5rem;">
+                                        <li>✅ IELTS sınavına kayıt ol ve hazırlan (2-3 ay)</li>
+                                        <li>✅ Pasaport kontrolü (gerekirse yenile)</li>
+                                        <li>✅ Lise diploması + transkript apostil işlemi</li>
+                                        <li>✅ Motivasyon mektubu yaz (uzman desteği al)</li>
+                                        <li>✅ Referans mektuplarını topla</li>
+                                        <li>✅ CV hazırla (Europass formatında)</li>
+                                        <li>✅ Üniversite web sitesinden online başvuru yap</li>
+                                        <li>✅ Başvuru ücretini öde (€30-50)</li>
+                                        <li>✅ Belgeleri yükle veya posta ile gönder</li>
+                                        <li>✅ Kabul mektubunu bekle (2-6 hafta)</li>
+                                        <li>✅ Vize başvurusu için randevu al</li>
+                                        <li>✅ Sağlık sigortası sat in al</li>
+                                        <li>✅ Barınma ayarla (yurt veya daire)</li>
+                                        <li>✅ Uçak bileti al</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    `
                 }
             };
 
@@ -3773,7 +5076,518 @@
 
             return countryData[country]?.content || '<p>Ülke bilgisi bulunamadı.</p>';
         }
+
+        // Transfer Modal Functions
+        function openTransferModal() {
+            const modal = document.getElementById('transferModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTransferModal() {
+            const modal = document.getElementById('transferModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('transferModal');
+            if (event.target == modal) {
+                closeTransferModal();
+            }
+        }
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeTransferModal();
+            }
+        });
+
+        // Budget Calculator & Smart Recommendation System
+        function calculateRecommendation() {
+            const budget = document.getElementById('budgetRange').value;
+            const priority = document.getElementById('priority').value;
+            const english = document.getElementById('englishLevel').value;
+            const transfer = document.getElementById('transferInterest').value;
+            
+            const resultDiv = document.getElementById('recommendationResult');
+            
+            // Recommendation logic
+            let recommendations = [];
+            
+            // Low budget strategies
+            if (budget === 'low') {
+                if (transfer === 'yes' || transfer === 'maybe') {
+                    recommendations.push({
+                        strategy: '🎯 EN İYİ SEÇİM: Macaristan (2 yıl) → Almanya (2 yıl)',
+                        details: '<strong>Toplam Maliyet:</strong> €15,000-22,000<br><strong>Diploma:</strong> Alman Üniversitesi<br><strong>İş Bulma:</strong> Almanya\'da 2-3 ay içinde<br><strong>Başlangıç Maaşı:</strong> €3,500-4,500/ay',
+                        savings: 'Normal Almanya eğitimine göre €13,000-18,000 tasarruf!',
+                        action: 'Macaristan\'da Stipendium Hungaricum bursuna başvurun (tam burs), 2 yıl sonra Almanya\'ya transfer edin.'
+                    });
+                } else {
+                    recommendations.push({
+                        strategy: '🥇 1. ÖNERİ: Macaristan - Stipendium Hungaricum',
+                        details: '<strong>Toplam Maliyet:</strong> €12,000-16,000 (bursla)<br><strong>Eğitim Ücreti:</strong> €0 (Tam Burs)<br><strong>Yaşam:</strong> €400-500/ay<br><strong>İş Bulma:</strong> 4-6 ay',
+                        savings: 'Burs kazanırsanız sadece yaşam masraflarını ödersiniz!',
+                        action: 'Stipendium Hungaricum bursuna başvurun (Kasım-Ocak). 40% kabul şansı var!'
+                    });
+                    recommendations.push({
+                        strategy: '🥈 2. ÖNERİ: Polonya - Kendi Bütçenle',
+                        details: '<strong>Toplam Maliyet:</strong> €18,000-24,000<br><strong>Eğitim:</strong> €2,000-2,500/yıl<br><strong>Yaşam:</strong> €350-450/ay<br><strong>Part-time:</strong> €500-700/ay kazanabilirsiniz',
+                        savings: 'Part-time çalışarak maliyetinizi €12,000\'a düşürebilirsiniz!',
+                        action: 'Polonya üniversitelerine direkt başvurun. Warsaw University of Technology öneriyoruz.'
+                    });
+                }
+            }
+            
+            // Medium-low budget
+            else if (budget === 'medium-low') {
+                if (priority === 'job' || priority === 'salary') {
+                    recommendations.push({
+                        strategy: '🎯 EN İYİ SEÇİM: Polonya (2 yıl) → Hollanda (2 yıl)',
+                        details: '<strong>Toplam Maliyet:</strong> €30,000-40,000<br><strong>Diploma:</strong> Hollanda Üniversitesi<br><strong>İş Bulma:</strong> 2-3 ay<br><strong>Başlangıç Maaşı:</strong> €3,500-4,500/ay',
+                        savings: 'Direkt Hollanda eğitimine göre €20,000 tasarruf!',
+                        action: 'Polonya\'da yüksek GPA yapın (3.5+), Hollanda\'daki partner üniversitelere başvurun.'
+                    });
+                } else {
+                    recommendations.push({
+                        strategy: '🥇 1. ÖNERİ: Polonya - Full Package',
+                        details: '<strong>Toplam Maliyet:</strong> €18,000-24,000<br><strong>Eğitim:</strong> €2,000-2,500/yıl<br><strong>Yaşam:</strong> €350-450/ay<br><strong>İş Olanakları:</strong> Mükemmel (Warsaw, Krakow, Wroclaw tech hub\'lar)',
+                        savings: 'Avrupa\'nın en iyi değer/fiyat ülkesi!',
+                        action: 'Warsaw University of Technology veya AGH Krakow\'a başvurun.'
+                    });
+                }
+            }
+            
+            // Medium budget
+            else if (budget === 'medium') {
+                if (transfer === 'yes') {
+                    recommendations.push({
+                        strategy: '🎯 EN İYİ SEÇİM: Letonya (2 yıl) → İngiltere (2 yıl)',
+                        details: '<strong>Toplam Maliyet:</strong> €40,000-50,000<br><strong>Diploma:</strong> İngiliz Üniversitesi<br><strong>İş Bulma:</strong> 1-2 ay<br><strong>Başlangıç Maaşı:</strong> £35,000-45,000/yıl',
+                        savings: 'Direkt İngiltere eğitimine göre €35,000 tasarruf!',
+                        action: 'Letonya\'da University of Latvia\'ya başvurun, partner UK üniversitelerini araştırın.'
+                    });
+                } else if (priority === 'prestige') {
+                    recommendations.push({
+                        strategy: '🥇 1. ÖNERİ: Hollanda - Top Üniversiteler',
+                        details: '<strong>Toplam Maliyet:</strong> €45,000-55,000<br><strong>Üniversiteler:</strong> TU Delft, Eindhoven, Utrecht<br><strong>İş Bulma:</strong> 2-3 ay<br><strong>Başlangıç Maaşı:</strong> €3,500-4,500/ay',
+                        savings: 'Dünya sıralamasında top 100 üniversiteler!',
+                        action: 'Studielink üzerinden başvurun (Ekim-Mayıs arası).'
+                    });
+                } else {
+                    recommendations.push({
+                        strategy: '🥇 1. ÖNERİ: Almanya - Ücretsiz Eğitim',
+                        details: '<strong>Toplam Maliyet:</strong> €35,000-45,000<br><strong>Eğitim:</strong> €0-350/semester<br><strong>Yaşam:</strong> €800-1,000/ay<br><strong>İş Bulma:</strong> 2-3 ay',
+                        savings: 'Avrupa\'nın en güçlü ekonomisinde ücretsiz eğitim!',
+                        action: 'TU Munich, RWTH Aachen veya KIT\'e başvurun. Almanca B2 gerekli.'
+                    });
+                }
+            }
+            
+            // Medium-high budget
+            else if (budget === 'medium-high') {
+                recommendations.push({
+                    strategy: '🎯 EN İYİ SEÇİM: İsveç - Top Tier',
+                    details: '<strong>Toplam Maliyet:</strong> €60,000-70,000<br><strong>Üniversiteler:</strong> KTH Stockholm, Chalmers<br><strong>İş Bulma:</strong> 1-2 ay<br><strong>Başlangıç Maaşı:</strong> €4,000-5,000/ay',
+                    savings: 'Dünyanın en iyi yaşam kalitesi ve iş dengesi!',
+                    action: 'KTH Stockholm veya Chalmers University\'ye başvurun. Burs şansları var.'
+                });
+                recommendations.push({
+                    strategy: '🥈 2. ÖNERİ: İsviçre - Dünya Zirvesi',
+                    details: '<strong>Toplam Maliyet:</strong> €50,000-65,000<br><strong>Üniversiteler:</strong> ETH Zurich, EPFL Lausanne<br><strong>İş Bulma:</strong> 1 ay<br><strong>Başlangıç Maaşı:</strong> CHF 85,000-100,000/yıl',
+                    savings: 'Dünyanın en iyi üniversiteleri ve en yüksek maaşlar!',
+                    action: 'ETH Zurich veya EPFL\'ye başvurun. Çok rekabetçi!'
+                });
+            }
+            
+            // High budget
+            else if (budget === 'high') {
+                recommendations.push({
+                    strategy: '🎯 EN İYİ SEÇİM: İngiltere - Russell Group',
+                    details: '<strong>Toplam Maliyet:</strong> €80,000-100,000<br><strong>Üniversiteler:</strong> Imperial College, UCL, Edinburgh<br><strong>İş Bulma:</strong> 1 ay<br><strong>Başlangıç Maaşı:</strong> £40,000-55,000/yıl',
+                    savings: 'Dünya çapında tanınan diploma ve güçlü mezun ağı!',
+                    action: 'UCAS üzerinden başvurun (Eylül-Ocak). Imperial College öneriyoruz.'
+                });
+                recommendations.push({
+                    strategy: '🥈 2. ÖNERİ: ABD - Burslu Program',
+                    details: '<strong>Toplam Maliyet:</strong> €40,000-60,000 (bursla)<br><strong>Üniversiteler:</strong> State Universities<br><strong>İş Bulma:</strong> 1-2 ay<br><strong>Başlangıç Maaşı:</strong> $75,000-95,000/yıl',
+                    savings: 'Tam burs kazanırsanız Avrupa\'dan bile ucuz olabilir!',
+                    action: 'SAT/ACT hazırlığı yapın, need-based burs veren üniversitelere başvurun.'
+                });
+            }
+            
+            // Generate HTML
+            let html = '<h3 style="color: #0f172a; margin-bottom: 1rem;">🎯 Size Özel Stratejiler:</h3>';
+            
+            recommendations.forEach((rec, index) => {
+                html += `
+                    <div class="result-option">
+                        <h4>${rec.strategy}</h4>
+                        <p style="margin: 0.8rem 0;">${rec.details}</p>
+                        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 0.8rem 0;">
+                            <strong style="color: #15803d;">💰 Tasarruf:</strong> ${rec.savings}
+                        </div>
+                        <div style="background: #fffbeb; border-left: 3px solid #f59e0b; padding: 1rem; border-radius: 4px;">
+                            <strong style="color: #92400e;">🎬 Hemen Yapmanız Gerekenler:</strong><br>
+                            ${rec.action}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Add transfer suggestion if not already interested
+            if (transfer === 'no' && (budget === 'medium' || budget === 'medium-low')) {
+                html += `
+                    <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px dashed #f59e0b; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem;">
+                        <h4 style="color: #92400e;">💡 Transfer Programlarını Değerlendirdiniz mi?</h4>
+                        <p>Bütçenizle transfer programları yapabilirsiniz! 2 yıl ucuz ülkede + 2 yıl prestijli ülkede = <strong>€15,000-35,000 tasarruf</strong></p>
+                        <button class="transfer-modal-btn" onclick="openTransferModal()" style="margin-top: 1rem;">
+                            🔄 Transfer Programlarını İncele
+                        </button>
+                    </div>
+                `;
+            }
+            
+            html += `
+                <div style="background: #f0f9ff; border: 2px solid #0ea5e9; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem;">
+                    <h4 style="color: #0c4a6e;">📞 Sonraki Adımlar:</h4>
+                    <ol style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li style="margin: 0.5rem 0;">Önerilen üniversitelerin web sitelerini ziyaret edin</li>
+                        <li style="margin: 0.5rem 0;">Başvuru tarihlerini takvime not edin (genelde Ocak-Mart)</li>
+                        <li style="margin: 0.5rem 0;">IELTS/TOEFL hazırlığına başlayın (minimum 6.5 hedefleyin)</li>
+                        <li style="margin: 0.5rem 0;">Motivasyon mektubu ve CV hazırlayın</li>
+                        <li style="margin: 0.5rem 0;">Lise diploması ve transkriptinizi İngilizce'ye çevirin</li>
+                    </ol>
+                </div>
+            `;
+            
+            resultDiv.innerHTML = html;
+            resultDiv.classList.add('active');
+            
+            // Smooth scroll to result
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Tooltip for mobile
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('info-icon')) {
+                e.target.classList.toggle('active');
+            } else {
+                document.querySelectorAll('.info-icon.active').forEach(icon => {
+                    icon.classList.remove('active');
+                });
+            }
+        });
     </script>
+
+    <!-- Transfer Programs Modal -->
+    <div id="transferModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🎓 Transfer ve Çift Diploma Programları</h2>
+                <button class="close-modal" onclick="closeTransferModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="transfer-highlight">
+                    <h3>💡 Transfer Programları Nedir?</h3>
+                    <p>Eğitiminizin bir bölümünü daha ekonomik bir ülkede tamamlayıp, mezuniyetinizi prestijli bir üniversiteden alabilirsiniz. Bu sayede hem maliyetleri düşürür, hem de güçlü bir diploma elde edersiniz.</p>
+                </div>
+
+                <h3>📊 2+2 Transfer Programları</h3>
+                <p>İlk 2 yılı ekonomik bir ülkede okuyup, son 2 yılı prestijli bir ülkede tamamlama programlarıdır.</p>
+                
+                <div class="info-box">
+                    <h4>🎯 Popüler 2+2 Rotaları</h4>
+                    
+                    <div class="transfer-comparison">
+                        <div class="comparison-card">
+                            <h5>Letonya → İngiltere</h5>
+                            <ul>
+                                <li><strong>İlk 2 yıl:</strong> Letonya (€4,000-6,000/yıl)</li>
+                                <li><strong>Son 2 yıl:</strong> İngiltere (£12,000-18,000/yıl)</li>
+                                <li><strong>Diploma:</strong> İngiliz Üniversitesi</li>
+                                <li><strong>Toplam Tasarruf:</strong> ~€35,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="comparison-card">
+                            <h5>Polonya → Almanya</h5>
+                            <ul>
+                                <li><strong>İlk 2 yıl:</strong> Polonya (€2,000-4,000/yıl)</li>
+                                <li><strong>Son 2 yıl:</strong> Almanya (€0-1,500/yıl)</li>
+                                <li><strong>Diploma:</strong> Alman Üniversitesi</li>
+                                <li><strong>Artı:</strong> Hem ucuz hem prestijli</li>
+                            </ul>
+                        </div>
+
+                        <div class="comparison-card">
+                            <h5>Macaristan → Hollanda</h5>
+                            <ul>
+                                <li><strong>İlk 2 yıl:</strong> Macaristan (€3,000-5,000/yıl)</li>
+                                <li><strong>Son 2 yıl:</strong> Hollanda (€8,000-12,000/yıl)</li>
+                                <li><strong>Diploma:</strong> Hollanda Üniversitesi</li>
+                                <li><strong>Toplam Tasarruf:</strong> ~€20,000</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎓 Double Degree (Çift Diploma) Programları</h3>
+                <p>İki farklı üniversiteden iki ayrı diploma alırsınız. Akademik CV'niz çok güçlenir.</p>
+                
+                <div class="warning-box">
+                    <h4>⚡ Double Degree Avantajları</h4>
+                    <ul>
+                        <li>✅ İki farklı ülkeden diploma (örn: Polonya + Fransa)</li>
+                        <li>✅ İki farklı kültür ve dil deneyimi</li>
+                        <li>✅ Daha geniş mezun ağı ve kariyer fırsatları</li>
+                        <li>✅ Her iki ülkede de çalışma hakkı şansı</li>
+                        <li>✅ Uluslararası iş piyasasında avantaj</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>🌍 Örnek Double Degree Programları</h4>
+                    <table class="partner-table">
+                        <thead>
+                            <tr>
+                                <th>Ana Üniversite</th>
+                                <th>Partner Üniversite</th>
+                                <th>Program</th>
+                                <th>Süre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Warsaw University of Technology 🇵🇱</td>
+                                <td>TU Munich 🇩🇪</td>
+                                <td>Computer Science</td>
+                                <td>4 yıl</td>
+                            </tr>
+                            <tr>
+                                <td>Budapest University of Technology 🇭🇺</td>
+                                <td>KTH Stockholm 🇸🇪</td>
+                                <td>Software Engineering</td>
+                                <td>4 yıl</td>
+                            </tr>
+                            <tr>
+                                <td>University of Latvia 🇱🇻</td>
+                                <td>University of Manchester 🇬🇧</td>
+                                <td>Data Science</td>
+                                <td>4 yıl</td>
+                            </tr>
+                            <tr>
+                                <td>Politecnico di Milano 🇮🇹</td>
+                                <td>EPFL Lausanne 🇨🇭</td>
+                                <td>AI & Robotics</td>
+                                <td>5 yıl</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>🔄 Joint Degree Programları</h3>
+                <p>İki veya daha fazla üniversitenin ortak verdiği tek bir diploma programıdır.</p>
+                
+                <div class="info-box">
+                    <h4>🎯 Joint Degree vs Double Degree</h4>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Özellik</th>
+                                <th>Joint Degree</th>
+                                <th>Double Degree</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Diploma Sayısı</td>
+                                <td>1 ortak diploma</td>
+                                <td>2 ayrı diploma</td>
+                            </tr>
+                            <tr>
+                                <td>Üniversite Logoları</td>
+                                <td>Her iki logo da aynı diplomada</td>
+                                <td>Ayrı diplomalar</td>
+                            </tr>
+                            <tr>
+                                <td>Program Süresi</td>
+                                <td>Genelde 4 yıl</td>
+                                <td>Genelde 4-5 yıl</td>
+                            </tr>
+                            <tr>
+                                <td>Geçiş Zamanı</td>
+                                <td>1-2 semester değişim</td>
+                                <td>2 yıl her üniversitede</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>📚 3+1 ve 3+2 Programlar</h3>
+                <p>Lisans + Yüksek Lisans entegre programlarıdır.</p>
+                
+                <div class="info-box">
+                    <h4>🚀 Hızlandırılmış Programlar</h4>
+                    <ul>
+                        <li><strong>3+1 Program:</strong> 3 yıl lisans + 1 yıl yüksek lisans (Toplam 4 yıl)</li>
+                        <li><strong>3+2 Program:</strong> 3 yıl lisans + 2 yıl yüksek lisans (Toplam 5 yıl)</li>
+                        <li><strong>Avantaj:</strong> Hem zaman hem para tasarrufu</li>
+                        <li><strong>Örnek:</strong> Polonya'da 3 yıl lisans + Almanya'da 1 yıl master</li>
+                    </ul>
+                </div>
+
+                <h3>🌟 Erasmus Mundus Joint Master</h3>
+                <p>AB tarafından finanse edilen, birden fazla ülkede okunan prestijli yüksek lisans programlarıdır.</p>
+                
+                <div class="success-box">
+                    <h4>💰 Erasmus Mundus Avantajları</h4>
+                    <ul>
+                        <li>✅ Tam burs (aylık €1,000-1,400 + uçak bileti + sigorta)</li>
+                        <li>✅ Minimum 2 AB ülkesinde eğitim</li>
+                        <li>✅ Ortak diploma veya çift diploma</li>
+                        <li>✅ Mezuniyet sonrası iş bulma kolaylığı</li>
+                        <li>✅ Prestijli uluslararası network</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>💻 Bilgisayar Bilimlerinde Erasmus Mundus Örnekleri</h4>
+                    <ul>
+                        <li><strong>BDMA:</strong> Big Data Management and Analytics (Fransa + Hollanda + İspanya)</li>
+                        <li><strong>MALGA:</strong> Machine Learning (Fransa + İtalya)</li>
+                        <li><strong>CyberSec:</strong> Cybersecurity (Finlandiya + Estonya + Fransa)</li>
+                        <li><strong>DMDW:</strong> Data Mining and Decision Making (Fransa + İtalya + Norveç)</li>
+                    </ul>
+                </div>
+
+                <h3>⚠️ Transfer Programlarında Dikkat Edilmesi Gerekenler</h3>
+                <div class="warning-box">
+                    <ul>
+                        <li>🔍 <strong>Akreditasyon:</strong> Her iki üniversitenin de tanınır olduğundan emin olun</li>
+                        <li>📄 <strong>Transcript Transfer:</strong> Notlarınızın kabul edileceğini teyit edin</li>
+                        <li>💶 <strong>Ek Maliyetler:</strong> Taşınma, vize, barınma masraflarını hesaplayın</li>
+                        <li>📝 <strong>Başvuru Kriterleri:</strong> Transfer için minimum GPA genelde 3.0/4.0</li>
+                        <li>🌐 <strong>Dil Yeterliliği:</strong> Her iki üniversite için de dil sertifikası gerekebilir</li>
+                        <li>⏰ <strong>Başvuru Tarihleri:</strong> Transfer başvuruları genelde 1 yıl önceden yapılır</li>
+                        <li>📚 <strong>Kredi Transferi:</strong> Hangi derslerin sayıldığını öğrenin</li>
+                    </ul>
+                </div>
+
+                <h3>💼 Transfer ile Maliyet Karşılaştırması</h3>
+                <table class="cost-table">
+                    <thead>
+                        <tr>
+                            <th>Senaryo</th>
+                            <th>Toplam Maliyet</th>
+                            <th>Diploma Ülkesi</th>
+                            <th>Tasarruf</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Direkt İngiltere (4 yıl)</td>
+                            <td>€60,000-80,000</td>
+                            <td>🇬🇧 İngiltere</td>
+                            <td>-</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>Letonya (2) + İngiltere (2)</td>
+                            <td>€35,000-45,000</td>
+                            <td>🇬🇧 İngiltere</td>
+                            <td>€25,000-35,000</td>
+                        </tr>
+                        <tr>
+                            <td>Direkt Hollanda (4 yıl)</td>
+                            <td>€35,000-50,000</td>
+                            <td>🇳🇱 Hollanda</td>
+                            <td>-</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>Polonya (2) + Hollanda (2)</td>
+                            <td>€22,000-30,000</td>
+                            <td>🇳🇱 Hollanda</td>
+                            <td>€13,000-20,000</td>
+                        </tr>
+                        <tr>
+                            <td>Direkt Almanya (4 yıl)</td>
+                            <td>€25,000-35,000</td>
+                            <td>🇩🇪 Almanya</td>
+                            <td>-</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>Macaristan (2) + Almanya (2)</td>
+                            <td>€15,000-22,000</td>
+                            <td>🇩🇪 Almanya</td>
+                            <td>€10,000-13,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>📋 Transfer Programına Başvuru Süreci</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <h4>Araştırma ve Planlama</h4>
+                            <p>Transfer anlaşması olan üniversiteleri belirleyin (1. sınıf)</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <h4>Yüksek GPA Hedefi</h4>
+                            <p>İlk 2 yılda minimum 3.0/4.0 GPA hedefleyin</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <h4>Dil Sertifikası</h4>
+                            <p>Hedef ülkenin dil sertifikasını alın (IELTS, TOEFL, TestDaF)</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">4</div>
+                        <div class="timeline-content">
+                            <h4>Transfer Başvurusu</h4>
+                            <p>2. sınıf sonunda transfer başvurusu yapın</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">5</div>
+                        <div class="timeline-content">
+                            <h4>Vize ve Taşınma</h4>
+                            <p>Kabul aldıktan sonra vize işlemleri ve taşınma</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">6</div>
+                        <div class="timeline-content">
+                            <h4>3. Yıl Başlangıç</h4>
+                            <p>Yeni üniversitede 3. sınıfa başlama</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h4>🎯 Sonuç</h4>
+                    <p>Transfer programları akıllıca kullanıldığında hem <strong>binlerce euro tasarruf</strong> sağlar, hem de <strong>prestijli bir diploma</strong> almanızı mümkün kılar. İlk 2 yılda yüksek GPA yapmanız ve dil seviyenizi geliştirmeniz kritik önem taşır.</p>
+                    <p><strong>Önemli:</strong> Her üniversitenin transfer politikası farklıdır. Başlamadan önce mutlaka International Office ile iletişime geçin ve transfer anlaşmalarını teyit edin.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
