@@ -15,6 +15,8 @@
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         
         .heading-font {
@@ -85,14 +87,6 @@
             animation: float 3s ease-in-out infinite;
         }
         
-        /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -143,142 +137,153 @@
                 opacity: 0;
             }
         }
+
+        /* Mobile fixes */
+        @media (max-width: 768px) {
+            .project-btn:active {
+                transform: scale(0.98);
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+<body class="min-h-screen">
 
     <!-- Animated particles background -->
     <div class="particles" id="particles"></div>
 
-    <!-- Ana Container -->
-    <div class="w-full max-w-5xl relative z-10">
+    <!-- Ana Container - Scroll edilebilir -->
+    <div class="relative z-10 py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
         
-        <!-- Header Section -->
-        <div class="text-center mb-12 fade-in-up">
-            <div class="inline-block mb-4 float-animation">
-                <div class="w-20 h-20 mx-auto bg-white rounded-2xl shadow-2xl flex items-center justify-center text-4xl">
-                    🚀
-                </div>
-            </div>
-            <h1 class="heading-font text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-                Hoş Geldiniz, <span class="text-yellow-300">Zehn06</span>
-            </h1>
-            <p class="text-xl text-white/80 max-w-2xl mx-auto">
-                Projelerinize hızlı erişim için aşağıdaki seçenekleri kullanabilirsiniz
-            </p>
-        </div>
-
-        <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="max-w-7xl mx-auto">
             
-            <!-- İngilizce Öğrenme -->
-            <a href="./learningenglish.html" 
-               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
-               style="animation-delay: 0.1s;">
-                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🇬🇧</div>
-                <h3 class="text-xl font-bold text-white mb-2">İngilizce Öğrenme</h3>
-                <p class="text-white/70 text-sm">Dil becerilerinizi geliştirin</p>
-                <div class="mt-4 flex items-center text-white/60 text-sm">
-                    <span>Devam et</span>
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
+            <!-- Header Section -->
+            <div class="text-center mb-8 sm:mb-12 fade-in-up">
+                <div class="inline-block mb-4 float-animation">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-white rounded-2xl shadow-2xl flex items-center justify-center text-3xl sm:text-4xl">
+                        🚀
+                    </div>
                 </div>
-            </a>
+                <h1 class="heading-font text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight px-4">
+                    Hoş Geldiniz, <span class="text-yellow-300">Zehn06</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto px-4">
+                    Projelerinize hızlı erişim için aşağıdaki seçenekleri kullanabilirsiniz
+                </p>
+            </div>
 
-            <!-- Beslenme Planı -->
-            <a href="./nutritionplan.html" 
-               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
-               style="animation-delay: 0.2s;">
-                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🥗</div>
-                <h3 class="text-xl font-bold text-white mb-2">Beslenme Planı</h3>
-                <p class="text-white/70 text-sm">Sağlıklı yaşam rehberiniz</p>
-                <div class="mt-4 flex items-center text-white/60 text-sm">
-                    <span>Devam et</span>
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </div>
-            </a>
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                
+                <!-- İngilizce Öğrenme -->
+                <a href="./learningenglish.html" 
+                   class="project-btn glass-card rounded-2xl p-5 sm:p-6 group fade-in-up"
+                   style="animation-delay: 0.1s;">
+                    <div class="text-4xl sm:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">🇬🇧</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">İngilizce Öğrenme</h3>
+                    <p class="text-white/70 text-sm">Dil becerilerinizi geliştirin</p>
+                    <div class="mt-3 sm:mt-4 flex items-center text-white/60 text-sm">
+                        <span>Devam et</span>
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
 
-            <!-- TOLC -->
-            <a href="./tolc.html" 
-               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
-               style="animation-delay: 0.3s;">
-                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🏛️</div>
-                <h3 class="text-xl font-bold text-white mb-2">TOLC Hazırlık</h3>
-                <p class="text-white/70 text-sm">Sınav hazırlık materyalleri</p>
-                <div class="mt-4 flex items-center text-white/60 text-sm">
-                    <span>Devam et</span>
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </div>
-            </a>
+                <!-- Beslenme Planı -->
+                <a href="./nutritionplan.html" 
+                   class="project-btn glass-card rounded-2xl p-5 sm:p-6 group fade-in-up"
+                   style="animation-delay: 0.2s;">
+                    <div class="text-4xl sm:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">🥗</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Beslenme Planı</h3>
+                    <p class="text-white/70 text-sm">Sağlıklı yaşam rehberiniz</p>
+                    <div class="mt-3 sm:mt-4 flex items-center text-white/60 text-sm">
+                        <span>Devam et</span>
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
 
-            <!-- Genel İtalya Süreci -->
-            <a href="./genelitalyasureci.html" 
-               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
-               style="animation-delay: 0.4s;">
-                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🇮🇹</div>
-                <h3 class="text-xl font-bold text-white mb-2">İtalya Süreci</h3>
-                <p class="text-white/70 text-sm">Genel süreç rehberi</p>
-                <div class="mt-4 flex items-center text-white/60 text-sm">
-                    <span>Devam et</span>
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </div>
-            </a>
+                <!-- TOLC -->
+                <a href="./tolc.html" 
+                   class="project-btn glass-card rounded-2xl p-5 sm:p-6 group fade-in-up"
+                   style="animation-delay: 0.3s;">
+                    <div class="text-4xl sm:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">🏛️</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">TOLC Hazırlık</h3>
+                    <p class="text-white/70 text-sm">Sınav hazırlık materyalleri</p>
+                    <div class="mt-3 sm:mt-4 flex items-center text-white/60 text-sm">
+                        <span>Devam et</span>
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
 
-            <!-- İtalyanca Süreç 2 -->
-            <a href="./italycasurec2.html" 
-               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
-               style="animation-delay: 0.5s;">
-                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📚</div>
-                <h3 class="text-xl font-bold text-white mb-2">İtalya Süreci 2</h3>
-                <p class="text-white/70 text-sm">Detaylı adım adım kılavuz</p>
-                <div class="mt-4 flex items-center text-white/60 text-sm">
-                    <span>Devam et</span>
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </div>
-            </a>
+                <!-- Genel İtalya Süreci -->
+                <a href="./genelitalyasureci.html" 
+                   class="project-btn glass-card rounded-2xl p-5 sm:p-6 group fade-in-up"
+                   style="animation-delay: 0.4s;">
+                    <div class="text-4xl sm:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">🇮🇹</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">İtalya Süreci</h3>
+                    <p class="text-white/70 text-sm">Genel süreç rehberi</p>
+                    <div class="mt-3 sm:mt-4 flex items-center text-white/60 text-sm">
+                        <span>Devam et</span>
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
 
-            <!-- Yurtdışı Eğitim Rehberi -->
-            <a href="./yurtdisi-egitim-tam-rehber.html" 
-               class="project-btn glass-card rounded-2xl p-6 group fade-in-up"
-               style="animation-delay: 0.6s;">
-                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🌍</div>
-                <h3 class="text-xl font-bold text-white mb-2">Yurtdışı Eğitim</h3>
-                <p class="text-white/70 text-sm">Kapsamlı eğitim rehberi</p>
-                <div class="mt-4 flex items-center text-white/60 text-sm">
-                    <span>Devam et</span>
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </div>
-            </a>
+                <!-- İtalyanca Süreç 2 -->
+                <a href="./italycasurec2.html" 
+                   class="project-btn glass-card rounded-2xl p-5 sm:p-6 group fade-in-up"
+                   style="animation-delay: 0.5s;">
+                    <div class="text-4xl sm:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">📚</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">İtalya Süreci 2</h3>
+                    <p class="text-white/70 text-sm">Detaylı adım adım kılavuz</p>
+                    <div class="mt-3 sm:mt-4 flex items-center text-white/60 text-sm">
+                        <span>Devam et</span>
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
 
-        </div>
+                <!-- Yurtdışı Eğitim Rehberi -->
+                <a href="./yurtdisi-egitim-tam-rehber.html" 
+                   class="project-btn glass-card rounded-2xl p-5 sm:p-6 group fade-in-up"
+                   style="animation-delay: 0.6s;">
+                    <div class="text-4xl sm:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">🌍</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Yurtdışı Eğitim</h3>
+                    <p class="text-white/70 text-sm">Kapsamlı eğitim rehberi</p>
+                    <div class="mt-3 sm:mt-4 flex items-center text-white/60 text-sm">
+                        <span>Devam et</span>
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
 
-        <!-- Footer -->
-        <div class="glass-card rounded-2xl p-6 text-center fade-in-up" style="animation-delay: 0.7s;">
-            <div class="flex items-center justify-center space-x-6 text-white/60 text-sm">
-                <div class="flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <span>Son güncelleme: 23 Ekim 2025</span>
-                </div>
-                <div class="flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    <span>© 2025-2026 Zehn06</span>
+            </div>
+
+            <!-- Footer -->
+            <div class="glass-card rounded-2xl p-4 sm:p-6 text-center fade-in-up" style="animation-delay: 0.7s;">
+                <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6 text-white/60 text-xs sm:text-sm">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Son güncelleme: 23 Aralık 2024</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        <span>© 2025-2026 Zehn06</span>
+                    </div>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -287,7 +292,7 @@
         // Particle oluşturma
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
+            const particleCount = window.innerWidth < 768 ? 15 : 30; // Mobilde daha az particle
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
