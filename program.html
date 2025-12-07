@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6+ Saat Garantili Sıkı Yönetim Planı</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; color: #0f172a; }
+        
+        .day-wrapper { background: white; border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; }
+        
+        .day-header { padding: 12px 20px; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .header-mon { background: #dc2626; }
+        .header-tue { background: #ea580c; }
+        .header-wed { background: #16a34a; }
+        .header-thu { background: #ea580c; }
+        .header-fri { background: #2563eb; }
+        .header-sat { background: #7c3aed; }
+        .header-sun { background: #475569; }
+
+        .hour-row { display: flex; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+        .hour-row:last-child { border-bottom: none; }
+        .time-cell { width: 60px; padding: 10px; font-weight: bold; color: #64748b; border-right: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; background: #f8fafc; flex-shrink: 0; }
+        .task-cell { flex-grow: 1; padding: 10px 15px; position: relative; }
+        
+        /* Task Backgrounds */
+        .bg-math { background-color: #eff6ff; border-left: 4px solid #2563eb; }
+        .bg-sci { background-color: #f0fdf4; border-left: 4px solid #16a34a; }
+        .bg-eng { background-color: #fdf2f8; border-left: 4px solid #db2777; }
+        .bg-uni { background-color: #f5f3ff; border-left: 4px solid #7c3aed; }
+        
+        .task-title { font-weight: 700; color: #1e293b; }
+        .task-detail { font-size: 11px; color: #475569; margin-top: 2px; }
+        .duration-badge { position: absolute; right: 10px; top: 10px; font-size: 10px; font-weight: bold; background: white; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0; }
+
+        .total-counter { padding: 10px 20px; background: #f8fafc; font-size: 13px; font-weight: bold; text-align: right; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 15px; }
+        .count-math { color: #2563eb; }
+        .count-eng { color: #db2777; }
+        .count-total { color: #0f172a; text-decoration: underline; }
+    </style>
+</head>
+<body class="py-10 px-4 max-w-4xl mx-auto">
+
+    <div class="text-center mb-10">
+        <h1 class="text-3xl font-extrabold text-slate-800">DENETİMLİ ÇALIŞMA PLANI (V3.0)</h1>
+        <p class="text-sm text-slate-500 mt-2 font-medium">Garanti: Her gün en az 6 saat "Saf Çalışma"</p>
+    </div>
+
+    <!-- PAZARTESİ -->
+    <div class="day-wrapper">
+        <div class="day-header header-mon">
+            <span class="font-bold text-lg">PAZARTESİ</span>
+            <span class="text-xs bg-white/20 px-2 py-1 rounded">MATEMATİK GÜNÜ</span>
+        </div>
+        
+        <div class="hour-row">
+            <div class="time-cell">08:00</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">2 SAAT</span>
+                <div class="task-title">Udemy: Algebra 1 & 2</div>
+                <div class="task-detail">Krista King. Konu anlatımını izle, not al.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">10:00</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">1.5 SAAT</span>
+                <div class="task-title">Pratik: Khan Academy</div>
+                <div class="task-detail">Sabahki konuyla ilgili en az 40 soru çöz.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">12:30</div>
+            <div class="task-cell bg-sci">
+                <span class="duration-badge">1.5 SAAT</span>
+                <div class="task-title">Fizik: Mekanik (TOLC)</div>
+                <div class="task-detail">Khan Academy "Physics". Newton Yasaları.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">15:00</div>
+            <div class="task-cell bg-eng">
+                <span class="duration-badge">1 SAAT</span>
+                <div class="task-title">Speaking Provası</div>
+                <div class="task-detail">Ayna karşısında matematiksel işlem anlat.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">20:00</div>
+            <div class="task-cell bg-uni">
+                <span class="duration-badge">2 SAAT</span>
+                <div class="task-title">Üni: Matematik Dersi</div>
+                <div class="task-detail">Canlı ders. Terimleri İngilizceye çevirerek dinle.</div>
+            </div>
+        </div>
+
+        <div class="total-counter">
+            <span class="count-math">Mat/Fen: 5 Saat</span>
+            <span class="count-eng">İngilizce: 1 Saat</span>
+            <span class="count-total">TOPLAM: 8 SAAT (MÜKEMMEL)</span>
+        </div>
+    </div>
+
+    <!-- SALI -->
+    <div class="day-wrapper">
+        <div class="day-header header-tue">
+            <span class="font-bold text-lg">SALI (KURS)</span>
+            <span class="text-xs bg-white/20 px-2 py-1 rounded">SABAH KAMPI</span>
+        </div>
+        
+        <div class="hour-row">
+            <div class="time-cell">07:00</div>
+            <div class="task-cell bg-eng">
+                <span class="duration-badge">30 Dk</span>
+                <div class="task-title">Sabah App Rutini</div>
+                <div class="task-detail">Duolingo + Busuu. Uyanmak için.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">08:00</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">2.5 SAAT</span>
+                <div class="task-title">Ağır Matematik (CrackSAT)</div>
+                <div class="task-detail">Akşam kurs var diye kaytarma. 50 tane "Algebra" sorusu çöz.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">11:00</div>
+            <div class="task-cell bg-uni">
+                <span class="duration-badge">1.5 SAAT</span>
+                <div class="task-title">Online Ders + Kelime</div>
+                <div class="task-detail">Üni dersi arkada çalarken Quizlet çalış.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">17:00</div>
+            <div class="task-cell bg-eng">
+                <span class="duration-badge">1 SAAT</span>
+                <div class="task-title">Yol: Pasif Dinleme</div>
+                <div class="task-detail">Podcast (BBC Learning English).</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">18:30</div>
+            <div class="task-cell bg-eng">
+                <span class="duration-badge">3 SAAT</span>
+                <div class="task-title">İngilizce Kursu</div>
+                <div class="task-detail">Yüz yüze eğitim.</div>
+            </div>
+        </div>
+
+        <div class="total-counter">
+            <span class="count-math">Mat/Fen: 2.5 Saat</span>
+            <span class="count-eng">İngilizce: 4.5 Saat</span>
+            <span class="count-total">TOPLAM: 7 SAAT (ONAYLI)</span>
+        </div>
+    </div>
+
+    <!-- ÇARŞAMBA -->
+    <div class="day-wrapper">
+        <div class="day-header header-wed">
+            <span class="font-bold text-lg">ÇARŞAMBA</span>
+            <span class="text-xs bg-white/20 px-2 py-1 rounded">FONKSİYONLAR</span>
+        </div>
+        
+        <div class="hour-row">
+            <div class="time-cell">08:30</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">2.5 SAAT</span>
+                <div class="task-title">Udemy: Pre-Calculus</div>
+                <div class="task-detail">Konu: Fonksiyonlar (Grafik Çizme, Tanım Kümesi).</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">12:00</div>
+            <div class="task-cell bg-sci">
+                <span class="duration-badge">2 SAAT</span>
+                <div class="task-title">Kimya: Atom (TOLC)</div>
+                <div class="task-detail">Khan Academy + Varsity Tutors testleri.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">15:00</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">1.5 SAAT</span>
+                <div class="task-title">Mantık (Logic)</div>
+                <div class="task-detail">Abstract Reasoning testleri çöz.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">17:30</div>
+            <div class="task-cell bg-eng">
+                <span class="duration-badge">1 SAAT</span>
+                <div class="task-title">Speaking (Kayıt)</div>
+                <div class="task-detail">Sesini kaydet, dinle, hatalarını bul.</div>
+            </div>
+        </div>
+
+        <div class="total-counter">
+            <span class="count-math">Mat/Fen: 6 Saat</span>
+            <span class="count-eng">İngilizce: 1 Saat</span>
+            <span class="count-total">TOPLAM: 7 SAAT (ONAYLI)</span>
+        </div>
+    </div>
+
+    <!-- PERŞEMBE -->
+    <div class="day-wrapper">
+        <div class="day-header header-thu">
+            <span class="font-bold text-lg">PERŞEMBE (KURS)</span>
+            <span class="text-xs bg-white/20 px-2 py-1 rounded">SABAH TELAFİ</span>
+        </div>
+        
+        <div class="hour-row">
+            <div class="time-cell">08:00</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">3 SAAT</span>
+                <div class="task-title">Hata Analizi & Tekrar</div>
+                <div class="task-detail">Pazartesi/Çarşamba yapamadığın soruları tekrar çöz. Konu eksiğini kapat.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">17:00</div>
+            <div class="task-cell bg-eng">
+                <span class="duration-badge">1 SAAT</span>
+                <div class="task-title">Yol: Pasif Dinleme</div>
+                <div class="task-detail">Youtube: Professor Leonard (Sadece dinle).</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">18:30</div>
+            <div class="task-cell bg-eng">
+                <span class="duration-badge">3 SAAT</span>
+                <div class="task-title">İngilizce Kursu</div>
+                <div class="task-detail">Yüz yüze eğitim.</div>
+            </div>
+        </div>
+
+        <div class="total-counter">
+            <span class="count-math">Mat/Fen: 3 Saat</span>
+            <span class="count-eng">İngilizce: 4 Saat</span>
+            <span class="count-total">TOPLAM: 7 SAAT (ONAYLI)</span>
+        </div>
+    </div>
+
+    <!-- CUMA -->
+    <div class="day-wrapper">
+        <div class="day-header header-fri">
+            <span class="font-bold text-lg">CUMA</span>
+            <span class="text-xs bg-white/20 px-2 py-1 rounded">OKUL + TRIGONOMETRİ</span>
+        </div>
+        
+        <div class="hour-row">
+            <div class="time-cell">09:30</div>
+            <div class="task-cell bg-uni">
+                <span class="duration-badge">4 SAAT</span>
+                <div class="task-title">Üni: Temel Yabancı Dil</div>
+                <div class="task-detail">Bu dersi "Bedava Özel Ders" gibi kullan. Çok aktif ol.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">14:30</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">2.5 SAAT</span>
+                <div class="task-title">Udemy: Trigonometri</div>
+                <div class="task-detail">Sin, Cos, Tan. Birim çemberi adın gibi öğren.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">17:30</div>
+            <div class="task-cell bg-sci">
+                <span class="duration-badge">1.5 SAAT</span>
+                <div class="task-title">Fizik: Enerji</div>
+                <div class="task-detail">Kinetik/Potansiyel Enerji soru çözümü.</div>
+            </div>
+        </div>
+
+        <div class="total-counter">
+            <span class="count-math">Mat/Fen: 4 Saat</span>
+            <span class="count-eng">İngilizce: 4 Saat</span>
+            <span class="count-total">TOPLAM: 8 SAAT (MÜKEMMEL)</span>
+        </div>
+    </div>
+
+    <!-- CUMARTESİ -->
+    <div class="day-wrapper">
+        <div class="day-header header-sat">
+            <span class="font-bold text-lg">CUMARTESİ</span>
+            <span class="text-xs bg-white/20 px-2 py-1 rounded">KARİYER + TELAFİ</span>
+        </div>
+        
+        <div class="hour-row">
+            <div class="time-cell">10:00</div>
+            <div class="task-cell bg-uni">
+                <span class="duration-badge">3 SAAT</span>
+                <div class="task-title">Üni Ders Telafisi (Kayıt)</div>
+                <div class="task-detail">Hafta içi izleyemediğin "Donanım" ve "Elektrik" derslerini 1.5x hızda izle.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">15:00</div>
+            <div class="task-cell bg-uni">
+                <span class="duration-badge">4 SAAT</span>
+                <div class="task-title">Üni: Programlama (Canlı)</div>
+                <div class="task-detail">CS kariyerin için hayati önemde. Çok iyi not al.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">20:00</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">1 SAAT</span>
+                <div class="task-title">Zihin Jimnastiği</div>
+                <div class="task-detail">Bulmaca çözer gibi Mantık sorusu çöz.</div>
+            </div>
+        </div>
+
+        <div class="total-counter">
+            <span class="count-math">Akademik: 8 Saat</span>
+            <span class="count-total">TOPLAM: 8 SAAT (MÜKEMMEL)</span>
+        </div>
+    </div>
+
+    <!-- PAZAR -->
+    <div class="day-wrapper">
+        <div class="day-header header-sun">
+            <span class="font-bold text-lg">PAZAR</span>
+            <span class="text-xs bg-white/20 px-2 py-1 rounded">GERÇEK SINAV</span>
+        </div>
+        
+        <div class="hour-row">
+            <div class="time-cell">11:00</div>
+            <div class="task-cell bg-math">
+                <span class="duration-badge">2 SAAT</span>
+                <div class="task-title">TOLC-I Deneme Sınavı</div>
+                <div class="task-detail">CISIA sitesinden indir. Süre tut (100 Dk). Mola vermek yasak.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">14:00</div>
+            <div class="task-cell bg-eng">
+                <span class="duration-badge">2 SAAT</span>
+                <div class="task-title">Analiz & Planlama</div>
+                <div class="task-detail">Deneme sonucunu incele. Haftanın programını revize et.</div>
+            </div>
+        </div>
+        <div class="hour-row">
+            <div class="time-cell">16:00</div>
+            <div class="task-cell bg-sci">
+                <span class="duration-badge">2 SAAT</span>
+                <div class="task-title">Film/Dizi (İngilizce)</div>
+                <div class="task-detail">İngilizce altyazılı izle. Kulağın alışsın.</div>
+            </div>
+        </div>
+
+        <div class="total-counter">
+            <span class="count-total">TOPLAM: 6 SAAT (ONAYLI)</span>
+        </div>
+    </div>
+
+</body>
+</html>
