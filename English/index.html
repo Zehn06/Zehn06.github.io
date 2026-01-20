@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Ankara'da en iyi konuşma odaklı İngilizce kursları - Kapsamlı araştırma ve karşılaştırma">
+    <title>Ankara İngilizce Kursları Araştırma Rehberi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <nav class="navbar">
+            <div class="logo">🎓 Ankara Dil Rehberi</div>
+            <ul class="nav-links">
+                <li><a href="#ozet">Özet</a></li>
+                <li><a href="#kurumlar">Kurumlar</a></li>
+                <li><a href="#karsilastirma">Karşılaştırma</a></li>
+                <li><a href="#fiyatlar">Fiyatlar</a></li>
+                <li><a href="#oneriler">Öneriler</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </nav>
+        <div class="hero-content">
+            <h1>Ankara İngilizce Kursları</h1>
+            <p class="hero-subtitle">Kapsamlı Araştırma Rehberi</p>
+            <p class="hero-desc">21+ kurum analiz edildi • Konuşma odaklı • Şikayet analizi • Gerçek yorumlar</p>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-num">21+</span><span class="stat-label">Kurum</span></div>
+                <div class="stat"><span class="stat-num">100</span><span class="stat-label">Puanlama</span></div>
+                <div class="stat"><span class="stat-num">4</span><span class="stat-label">Kategori</span></div>
+            </div>
+            <a href="#ozet" class="cta-btn">Araştırmayı İncele</a>
+        </div>
+    </header>
+
+    <!-- Executive Summary -->
+    <section id="ozet" class="section summary-section">
+        <div class="container">
+            <h2 class="section-title">🏆 En İyi 5 Kurum</h2>
+            <p class="section-subtitle">Konuşma odaklılık kriterlerine göre sıralama</p>
+
+            <div class="top-cards">
+                <div class="top-card gold">
+                    <div class="rank">1</div>
+                    <h3>Candelas Education</h3>
+                    <div class="score">87/100</div>
+                    <p class="highlight">Native öğretmen • Max 10 kişi • 19+ yıl</p>
+                    <ul class="features">
+                        <li>✓ Haftada 2x50dk konuşma kulübü</li>
+                        <li>✓ Esnek ödeme, şikayet yok</li>
+                        <li>✓ VIP birebir seçenek</li>
+                    </ul>
+                    <span class="price-tag">2-3K TL/ay</span>
+                </div>
+
+                <div class="top-card silver">
+                    <div class="rank">2</div>
+                    <h3>Wall Street English</h3>
+                    <div class="score">86/100</div>
+                    <p class="highlight">Blended Learning • 3-4 kişi</p>
+                    <ul class="features">
+                        <li>✓ AI destekli teknoloji</li>
+                        <li>✓ Native Encounter dersleri</li>
+                        <li>⚠️ Sözleşme dikkat!</li>
+                    </ul>
+                    <span class="price-tag">24-48K TL/yıl</span>
+                </div>
+
+                <div class="top-card bronze">
+                    <div class="rank">3</div>
+                    <h3>MeetSpeakUp</h3>
+                    <div class="score">86/100</div>
+                    <p class="highlight">Cafe ortamı • Native • Sosyal</p>
+                    <ul class="features">
+                        <li>✓ Gerçek sosyal ortam</li>
+                        <li>✓ Çok ekonomik</li>
+                        <li>✓ Esnek katılım</li>
+                    </ul>
+                    <span class="price-tag">Düşük maliyet</span>
+                </div>
+
+                <div class="top-card">
+                    <div class="rank">4</div>
+                    <h3>Just For Speaking</h3>
+                    <div class="score">85/100</div>
+                    <p class="highlight">Max 3 kişi • %100 konuşma</p>
+                    <ul class="features">
+                        <li>✓ En küçük sınıf</li>
+                        <li>✓ Gramersiz eğitim</li>
+                        <li>✓ Kur tekrar garantisi</li>
+                    </ul>
+                    <span class="price-tag">~4.500 TL/ay</span>
+                </div>
+
+                <div class="top-card">
+                    <div class="rank">5</div>
+                    <h3>Bilişsel Akademi</h3>
+                    <div class="score">84/100</div>
+                    <p class="highlight">Max 5 kişi • Koçluk • Ekonomik</p>
+                    <ul class="features">
+                        <li>✓ Kişisel koçluk</li>
+                        <li>✓ 1+1 kampanyası</li>
+                        <li>✓ Uygun fiyat</li>
+                    </ul>
+                    <span class="price-tag">~2.000 TL/ay</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Tümü</button>
+                <button class="filter-btn" data-filter="zincir">Zincir Kurumlar</button>
+                <button class="filter-btn" data-filter="butik">Butik Kurslar</button>
+                <button class="filter-btn" data-filter="universite">Üniversite Bağlantılı</button>
+                <button class="filter-btn" data-filter="speaking">Speaking Clubs</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Institutions Grid -->
+    <section id="kurumlar" class="section institutions-section">
+        <div class="container">
+            <h2 class="section-title">📚 Tüm Kurumlar</h2>
+            <p class="section-subtitle">Detaylı analiz ve değerlendirmeler</p>
+
+            <div class="institutions-grid" id="institutionsGrid">
+                <!-- Cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section id="karsilastirma" class="section comparison-section">
+        <div class="container">
+            <h2 class="section-title">📊 Kategorik Karşılaştırmalar</h2>
+
+            <div class="comparison-tabs">
+                <button class="comp-tab active" data-tab="konusma">Konuşma Odaklı</button>
+                <button class="comp-tab" data-tab="memnuniyet">Öğrenci Memnuniyeti</button>
+                <button class="comp-tab" data-tab="fiyat">Fiyat-Performans</button>
+                <button class="comp-tab warning-tab" data-tab="risk">⚠️ Şikayet Riski</button>
+            </div>
+
+            <div class="comparison-content" id="comparisonContent">
+                <!-- Content populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="fiyatlar" class="section pricing-section">
+        <div class="container">
+            <h2 class="section-title">💰 Fiyat Karşılaştırması</h2>
+            <p class="section-subtitle">2025-2026 güncel fiyat aralıkları</p>
+
+            <div class="pricing-table-container">
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Kurum</th>
+                            <th>Fiyat Aralığı</th>
+                            <th>Süre/Not</th>
+                            <th>Kategori</th>
+                            <th>⚠️ Dikkat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pricingTable">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendations Section -->
+    <section id="oneriler" class="section recommendations-section">
+        <div class="container">
+            <h2 class="section-title">🎯 Kişiselleştirilmiş Öneriler</h2>
+            <p class="section-subtitle">Profilinize uygun kurum seçin</p>
+
+            <div class="profile-cards">
+                <div class="profile-card">
+                    <div class="profile-icon">💎</div>
+                    <h3>Premium Konuşma</h3>
+                    <p>Bütçe esnek, konuşma öncelikli</p>
+                    <div class="recommendations">
+                        <span class="rec-badge">Just For Speaking</span>
+                        <span class="rec-badge">TAD Conv. Club</span>
+                        <span class="rec-badge">Berlitz</span>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon">💰</div>
+                    <h3>Ekonomik Seçenek</h3>
+                    <p>Düşük bütçe, sosyal öğrenme</p>
+                    <div class="recommendations">
+                        <span class="rec-badge">MeetSpeakUp</span>
+                        <span class="rec-badge">TAD Ankara</span>
+                        <span class="rec-badge">Bilişsel Akademi</span>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon">⏰</div>
+                    <h3>Yoğun Çalışan</h3>
+                    <p>Esnek program, online seçenek</p>
+                    <div class="recommendations">
+                        <span class="rec-badge">Wall Street English</span>
+                        <span class="rec-badge">Candelas Online</span>
+                        <span class="rec-badge">Berlitz Flex</span>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon">👤</div>
+                    <h3>Birebir İlgi</h3>
+                    <p>Kişiselleştirilmiş program</p>
+                    <div class="recommendations">
+                        <span class="rec-badge">Candelas VIP</span>
+                        <span class="rec-badge">Boutique English</span>
+                        <span class="rec-badge">Berlitz Özel</span>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon">🎓</div>
+                    <h3>Prestij & Güvenilirlik</h3>
+                    <p>Köklü kurum, akademik kalite</p>
+                    <div class="recommendations">
+                        <span class="rec-badge">TAD Ankara</span>
+                        <span class="rec-badge">ODTÜ</span>
+                        <span class="rec-badge">Berlitz</span>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon">🌟</div>
+                    <h3>Başlangıç Seviyesi</h3>
+                    <p>Sıfırdan konuşma odaklı</p>
+                    <div class="recommendations">
+                        <span class="rec-badge">Just For Speaking</span>
+                        <span class="rec-badge">Sara Dil</span>
+                        <span class="rec-badge">Candelas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trial Lesson Guide -->
+    <section class="section trial-section">
+        <div class="container">
+            <h2 class="section-title">📋 Deneme Dersi Rehberi</h2>
+
+            <div class="trial-grid">
+                <div class="trial-card">
+                    <h3>🔍 Sorulacak Kritik Sorular</h3>
+                    <ol>
+                        <li>Derslerde konuşma pratiğine ne kadar zaman ayrılıyor?</li>
+                        <li>Sınıf mevcutları gerçekte kaç kişi oluyor?</li>
+                        <li>Gramer nasıl öğretiliyor?</li>
+                        <li>Native speaker öğretmen var mı?</li>
+                        <li>Extra speaking clubs var mı?</li>
+                        <li>İptal/iade politikanız nasıl?</li>
+                    </ol>
+                </div>
+
+                <div class="trial-card">
+                    <h3>👀 Gözlemlenecek Noktalar</h3>
+                    <ul>
+                        <li>Sınıf ortamı rahat mı?</li>
+                        <li>Öğrenci-öğretmen etkileşimi nasıl?</li>
+                        <li>Hata yapıldığında tepki nasıl?</li>
+                        <li>Materyal kalitesi yeterli mi?</li>
+                        <li>Fiziksel mekan konforlu mu?</li>
+                    </ul>
+                </div>
+
+                <div class="trial-card warning">
+                    <h3>⚠️ Kırmızı Bayraklar</h3>
+                    <ul>
+                        <li>Derslerin %50+'sı gramer anlatımı</li>
+                        <li>Öğretmen %80+ konuşuyor</li>
+                        <li>Sınıf mevcudu vaad edilenden fazla</li>
+                        <li>Öğretmen sık değişiyor</li>
+                        <li>İade politikası belirsiz</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Institution Modal -->
+    <div class="modal" id="institutionModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="modalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Ankara İngilizce Kursları Araştırma Rehberi • Ocak 2026</p>
+            <p class="footer-note">Fiyatlar ve programlar değişiklik gösterebilir. Kesin bilgi için kurumlarla iletişime
+                geçiniz.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
