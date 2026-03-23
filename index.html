@@ -85,9 +85,6 @@
         .delay-100 { animation-delay: 100ms; }
         .delay-200 { animation-delay: 200ms; }
         .delay-300 { animation-delay: 300ms; }
-        .delay-400 { animation-delay: 400ms; }
-        .delay-500 { animation-delay: 500ms; }
-        .delay-600 { animation-delay: 600ms; }
     </style>
 </head>
 <body class="min-h-screen relative font-sans selection:bg-emerald-500/30 selection:text-emerald-200">
@@ -100,7 +97,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="relative z-10 max-w-6xl mx-auto px-6 py-16 sm:py-24">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 py-16 sm:py-24">
         
         <!-- Header Section -->
         <header class="mb-16 opacity-0 animate-fade-in-up">
@@ -117,10 +114,10 @@
         </header>
 
         <!-- Bento Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- 1. CV / Portfolio (FEATURED - Spans 2 columns on large screens) -->
-            <a href="./cv.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-100 md:col-span-2 lg:col-span-2 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
+            <!-- 1. CV / Portfolio (FEATURED - Spans 2 columns) -->
+            <a href="./cv.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-100 md:col-span-2 relative overflow-hidden flex flex-col justify-between min-h-[240px]">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
                 
                 <div class="relative z-10 flex justify-between items-start mb-6">
@@ -138,50 +135,8 @@
                 </div>
             </a>
 
-            <!-- 2. İngilizce Öğrenme -->
-            <a href="./learningenglish.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-200 flex flex-col justify-between min-h-[220px]">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-blue-400 group-hover:scale-110 transition-transform duration-300">
-                        <i class="ph ph-translate text-2xl"></i>
-                    </div>
-                    <i class="ph ph-arrow-right text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">İngilizce Eğitimi</h3>
-                    <p class="text-zinc-400 text-sm">B1'den B2'ye geçiş. Shadowing, kelime pratikleri ve gramer.</p>
-                </div>
-            </a>
-
-            <!-- 3. TOLC Hazırlık -->
-            <a href="./tolc.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-300 flex flex-col justify-between min-h-[220px]">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 text-amber-400 group-hover:scale-110 transition-transform duration-300">
-                        <i class="ph ph-exam text-2xl"></i>
-                    </div>
-                    <i class="ph ph-arrow-right text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">TOLC Sınavı</h3>
-                    <p class="text-zinc-400 text-sm">İtalya üniversite giriş sınavı materyalleri, denemeler ve notlar.</p>
-                </div>
-            </a>
-
-            <!-- 4. İtalya Süreci (Genel) -->
-            <a href="./genelitalyasureci.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-400 flex flex-col justify-between min-h-[220px]">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center border border-red-500/20 text-red-400 group-hover:scale-110 transition-transform duration-300">
-                        <i class="ph ph-map-pin text-2xl"></i>
-                    </div>
-                    <i class="ph ph-arrow-right text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">İtalya Genel Süreç</h3>
-                    <p class="text-zinc-400 text-sm">DSU bursu, evrak toplama, vize başvurusu ve yol haritası.</p>
-                </div>
-            </a>
-
-            <!-- 5. Yurtdışı Eğitim -->
-            <a href="./yurtdisi-egitim-tam-rehber.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-500 flex flex-col justify-between min-h-[220px]">
+            <!-- 2. Yurtdışı Eğitim -->
+            <a href="./yurtdisi-egitim-tam-rehber.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-200 flex flex-col justify-between min-h-[220px]">
                 <div class="flex justify-between items-start mb-6">
                     <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 text-indigo-400 group-hover:scale-110 transition-transform duration-300">
                         <i class="ph ph-globe-hemisphere-east text-2xl"></i>
@@ -190,39 +145,28 @@
                 </div>
                 <div>
                     <h3 class="text-xl font-bold text-white mb-2">Yurtdışı Rehberi</h3>
-                    <p class="text-zinc-400 text-sm">Letonya, İtalya ve Avrupa geneli üniversite araştırma arşivi.</p>
+                    <p class="text-zinc-400 text-sm">Letonya, İtalya ve Avrupa geneli üniversite araştırma arşivi ile başvuru rotaları.</p>
                 </div>
             </a>
 
-            <!-- 6. İtalya Süreç 2 & Beslenme (Combined/Mini Cards) -->
-            <div class="grid grid-rows-2 gap-6 opacity-0 animate-fade-in-up delay-600">
-                
-                <a href="./italycasurec2.html" class="bento-card rounded-3xl p-6 group flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 text-zinc-300 group-hover:scale-110 transition-transform">
-                            <i class="ph ph-books text-xl"></i>
-                        </div>
-                        <h3 class="font-bold text-white">İtalya Süreç II</h3>
+            <!-- 3. Beslenme Programı -->
+            <a href="./nutritionplan.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-300 flex flex-col justify-between min-h-[220px]">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center border border-green-500/20 text-green-400 group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-apple-logo text-2xl"></i>
                     </div>
-                    <i class="ph ph-arrow-up-right text-zinc-500 group-hover:text-white transition-colors"></i>
-                </a>
-
-                <a href="./nutritionplan.html" class="bento-card rounded-3xl p-6 group flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center border border-green-500/20 text-green-400 group-hover:scale-110 transition-transform">
-                            <i class="ph ph-apple-logo text-xl"></i>
-                        </div>
-                        <h3 class="font-bold text-white">Beslenme Planı</h3>
-                    </div>
-                    <i class="ph ph-arrow-up-right text-zinc-500 group-hover:text-white transition-colors"></i>
-                </a>
-
-            </div>
+                    <i class="ph ph-arrow-right text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">Beslenme Planı</h3>
+                    <p class="text-zinc-400 text-sm">Fiziksel performans, odaklanma ve günlük kalori/makro takibi için kişisel diyet rutini.</p>
+                </div>
+            </a>
 
         </div>
 
         <!-- Footer -->
-        <footer class="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 opacity-0 animate-fade-in-up delay-600">
+        <footer class="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 opacity-0 animate-fade-in-up delay-300">
             <div class="flex items-center gap-2 text-zinc-500 text-sm font-mono">
                 <i class="ph ph-terminal-window"></i>
                 <span>Zehn06_Workspace © 2026</span>
