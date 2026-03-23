@@ -47,7 +47,7 @@
     
     <style>
         body {
-            background-color: #f8fafc; /* Very soft blue-gray background */
+            background-color: #f8fafc;
             color: #18181b;
         }
 
@@ -85,12 +85,68 @@
             box-shadow: 0 10px 50px -5px rgba(0, 0, 0, 0.06);
             transform: translateY(-2px);
         }
+
+        /* =========================================
+           PRINT CSS (PDF ÇIKTISI İÇİN ÖZEL AYARLAR)
+           ========================================= */
+        @media print {
+            @page { margin: 1cm; size: A4; }
+            
+            body { 
+                background-color: white !important; 
+                -webkit-print-color-adjust: exact;
+                color: black !important;
+            }
+
+            /* Gizlenecek web elementleri (Navigasyon, Butonlar, Arkaplan efektleri) */
+            nav, .no-print, .bg-decoration { 
+                display: none !important; 
+            }
+
+            /* Animasyonları sıfırla (PDF'te görünmez olmamaları için) */
+            .reveal-section { 
+                opacity: 1 !important; 
+                transform: none !important; 
+                transition: none !important; 
+            }
+
+            /* Sayfa boşluklarını PDF'e uygun daralt */
+            main { 
+                padding-top: 0 !important; 
+                padding-bottom: 0 !important; 
+            }
+            .space-y-24 > :not([hidden]) ~ :not([hidden]) { 
+                margin-top: 2rem !important; 
+            }
+            
+            /* Kart gölgelerini kaldır, düz ve resmi çizgilere çevir */
+            .premium-card {
+                box-shadow: none !important;
+                border: 1px solid #d4d4d8 !important;
+                border-radius: 8px !important;
+                padding: 1.5rem !important;
+                page-break-inside: avoid; /* Kartın yarısının diğer sayfaya geçmesini engeller */
+                transform: none !important;
+            }
+
+            /* Yazı boyutlarını ve hizalamaları A4'e göre ayarla */
+            #hero { text-align: left !important; margin-bottom: 1rem !important; }
+            #hero h1 { font-size: 28pt !important; margin-bottom: 0.5rem !important; }
+            #hero p { font-size: 11pt !important; max-width: 100% !important; margin-bottom: 1rem !important; }
+            
+            h2 { font-size: 16pt !important; margin-bottom: 0.5rem !important; }
+            h3 { font-size: 12pt !important; }
+            p { font-size: 10pt !important; color: #333 !important; }
+            
+            /* Yetenek haplarını (pills) basitleştir */
+            .bg-zinc-50 { background-color: transparent !important; border-color: #a1a1aa !important; }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-zinc-900 selection:text-white relative">
 
-    <!-- Background Decoration (Subtle gradients) -->
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
+    <!-- Background Decoration -->
+    <div class="bg-decoration fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
         <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-100/50 blur-[100px]"></div>
         <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-100/50 blur-[100px]"></div>
     </div>
@@ -104,9 +160,11 @@
                 <a href="#education" class="hover:text-zinc-900 transition-colors">Education</a>
                 <a href="#skills" class="hover:text-zinc-900 transition-colors">Skills</a>
             </div>
-            <a href="#contact" class="px-5 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-full hover:bg-zinc-800 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                Contact Me
-            </a>
+            <!-- Header'daki küçük PDF butonu -->
+            <button onclick="window.print()" class="no-print flex items-center gap-2 px-4 py-2 bg-zinc-100 text-zinc-800 text-sm font-medium rounded-full hover:bg-zinc-200 transition-colors border border-zinc-200">
+                <i class="ph ph-file-pdf text-red-500"></i>
+                <span class="hidden sm:inline">Save PDF</span>
+            </button>
         </div>
     </nav>
 
@@ -115,7 +173,7 @@
 
         <!-- Hero Section -->
         <section id="hero" class="reveal-section text-center max-w-2xl mx-auto mb-10">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-200 text-xs font-semibold text-zinc-600 mb-8 shadow-sm">
+            <div class="no-print inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-200 text-xs font-semibold text-zinc-600 mb-8 shadow-sm">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 Available for remote work
             </div>
@@ -125,7 +183,9 @@
             <p class="text-lg md:text-xl text-zinc-500 font-light mb-10 leading-relaxed">
                 Computer Technology student. Focused on data annotation, hardware troubleshooting, and building a strong foundation for academic studies in Europe.
             </p>
-            <div class="flex flex-wrap justify-center items-center gap-4">
+            
+            <!-- Contact & Action Buttons -->
+            <div class="no-print flex flex-wrap justify-center items-center gap-4">
                 <a href="mailto:omrhrkmmf06@gmail.com" class="flex items-center gap-2 px-6 py-3.5 bg-zinc-900 text-white font-medium rounded-full hover:bg-zinc-800 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
                     <i class="ph ph-envelope-simple text-lg"></i>
                     Send Email
@@ -134,6 +194,16 @@
                     <i class="ph ph-phone text-lg"></i>
                     +90 551 040 2013
                 </a>
+                <!-- Ana PDF İndirme Butonu -->
+                <button onclick="window.print()" class="flex items-center gap-2 px-6 py-3.5 bg-red-50 text-red-700 font-medium rounded-full border border-red-200 hover:bg-red-100 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                    <i class="ph ph-download-simple text-lg font-bold"></i>
+                    Download PDF
+                </button>
+            </div>
+
+            <!-- PDF formatında çıkacak iletişim bilgileri (Ekranda gizli) -->
+            <div class="hidden print:block text-zinc-600 mt-2 text-sm">
+                Ankara, Turkey | omrhrkmmf06@gmail.com | +90 551 040 2013
             </div>
         </section>
 
@@ -168,7 +238,6 @@
                 </div>
                 
                 <div class="relative">
-                    <!-- Timeline Item -->
                     <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
                         <div class="md:w-1/4 pt-1">
                             <span class="px-3 py-1 bg-zinc-100 text-zinc-600 text-sm font-semibold rounded-full border border-zinc-200">
@@ -223,7 +292,7 @@
                     </div>
                 </div>
 
-                <!-- Languages (Spans full width on bottom) -->
+                <!-- Languages -->
                 <div class="premium-card p-8 md:col-span-2">
                     <h3 class="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2 border-b border-zinc-100 pb-4">
                         <i class="ph ph-translate text-zinc-400"></i> Languages
@@ -231,17 +300,19 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="flex justify-between items-center p-4 rounded-xl bg-zinc-50 border border-zinc-100">
                             <div class="flex items-center gap-3">
-                                <span class="text-2xl">🇹🇷</span>
+                                <span class="text-2xl no-print">🇹🇷</span>
                                 <span class="font-medium text-zinc-800">Turkish</span>
                             </div>
-                            <span class="text-xs font-bold uppercase tracking-wider bg-zinc-900 text-white px-3 py-1 rounded-full">Native</span>
+                            <span class="text-xs font-bold uppercase tracking-wider bg-zinc-900 text-white px-3 py-1 rounded-full no-print">Native</span>
+                            <span class="hidden print:inline font-bold text-sm">Native</span>
                         </div>
                         <div class="flex justify-between items-center p-4 rounded-xl bg-zinc-50 border border-zinc-100">
                             <div class="flex items-center gap-3">
-                                <span class="text-2xl">🇬🇧</span>
+                                <span class="text-2xl no-print">🇬🇧</span>
                                 <span class="font-medium text-zinc-800">English</span>
                             </div>
-                            <span class="text-xs font-bold uppercase tracking-wider bg-white text-zinc-600 border border-zinc-200 px-3 py-1 rounded-full shadow-sm">B1 Intermediate</span>
+                            <span class="text-xs font-bold uppercase tracking-wider bg-white text-zinc-600 border border-zinc-200 px-3 py-1 rounded-full shadow-sm no-print">B1 Intermediate</span>
+                            <span class="hidden print:inline font-bold text-sm">B1 Intermediate</span>
                         </div>
                     </div>
                 </div>
@@ -251,7 +322,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-zinc-200 bg-white mt-12">
+    <footer class="border-t border-zinc-200 bg-white mt-12 no-print">
         <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2 text-zinc-900 font-bold">
                 ÖFM.
@@ -264,16 +335,10 @@
 
     <!-- Scripts -->
     <script>
-        // Set current year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Scroll Animation Logic
         document.addEventListener("DOMContentLoaded", function() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -284,29 +349,21 @@
             }, observerOptions);
 
             const sections = document.querySelectorAll('.reveal-section');
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            sections.forEach(section => observer.observe(section));
             
-            // Trigger immediately for elements already in viewport on load
             setTimeout(() => {
                 sections.forEach(section => {
-                    const rect = section.getBoundingClientRect();
-                    if (rect.top < window.innerHeight) {
+                    if (section.getBoundingClientRect().top < window.innerHeight) {
                         section.classList.add('is-visible');
                     }
                 });
             }, 100);
         });
 
-        // Add subtle shadow to navbar on scroll
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 10) {
-                nav.classList.add('shadow-sm');
-            } else {
-                nav.classList.remove('shadow-sm');
-            }
+            if (window.scrollY > 10) nav.classList.add('shadow-sm');
+            else nav.classList.remove('shadow-sm');
         });
     </script>
 </body>
