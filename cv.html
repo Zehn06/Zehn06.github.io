@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ömer Faruk Memiş | Portfolio</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Phosphor Icons for minimal clean icons -->
+    
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,168 +27,223 @@
                         zinc: {
                             50: '#fafafa',
                             100: '#f4f4f5',
+                            200: '#e4e4e7',
+                            300: '#d4d4d8',
                             400: '#a1a1aa',
                             500: '#71717a',
+                            600: '#52525b',
                             800: '#27272a',
                             900: '#18181b',
                         }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 40px -2px rgba(0, 0, 0, 0.04)',
+                        'hover': '0 10px 50px -5px rgba(0, 0, 0, 0.08)',
                     }
                 }
             }
         }
     </script>
+    
     <style>
-        /* Minimal fade-in animation for elements as they scroll into view */
-        .fade-in-section {
+        body {
+            background-color: #f8fafc; /* Very soft blue-gray background */
+            color: #18181b;
+        }
+
+        /* Smooth reveal animation */
+        .reveal-section {
             opacity: 0;
-            transform: translateY(20px);
-            visibility: hidden;
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: opacity, visibility;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
-        .fade-in-section.is-visible {
+        
+        .reveal-section.is-visible {
             opacity: 1;
-            transform: none;
-            visibility: visible;
+            transform: translateY(0);
         }
-        /* Custom selection color */
-        ::selection {
-            background-color: #27272a;
-            color: #fafafa;
+
+        /* Glassmorphism Navbar */
+        .glass-nav {
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Modern Card Style */
+        .premium-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 24px;
+            box-shadow: 0 4px 40px -2px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .premium-card:hover {
+            box-shadow: 0 10px 50px -5px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="bg-zinc-50 text-zinc-900 font-sans antialiased selection:bg-zinc-900 selection:text-white">
+<body class="antialiased selection:bg-zinc-900 selection:text-white relative">
+
+    <!-- Background Decoration (Subtle gradients) -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-100/50 blur-[100px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-100/50 blur-[100px]"></div>
+    </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full bg-zinc-50/80 backdrop-blur-md z-50 border-b border-zinc-200">
-        <div class="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="font-semibold text-lg tracking-tight hover:text-zinc-600 transition-colors">Ö.</a>
-            <div class="space-x-6 text-sm font-medium text-zinc-500">
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-bold text-xl tracking-tighter text-zinc-900">ÖFM.</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-zinc-500">
                 <a href="#about" class="hover:text-zinc-900 transition-colors">About</a>
                 <a href="#education" class="hover:text-zinc-900 transition-colors">Education</a>
                 <a href="#skills" class="hover:text-zinc-900 transition-colors">Skills</a>
-                <a href="#contact" class="hover:text-zinc-900 transition-colors">Contact</a>
             </div>
+            <a href="#contact" class="px-5 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-full hover:bg-zinc-800 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                Contact Me
+            </a>
         </div>
     </nav>
 
     <!-- Main Content Container -->
-    <main class="max-w-3xl mx-auto px-6 pt-32 pb-20">
+    <main class="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-24 space-y-24">
 
         <!-- Hero Section -->
-        <section id="hero" class="fade-in-section mt-10 mb-24">
-            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-4">
-                Ömer Faruk Memiş
+        <section id="hero" class="reveal-section text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-200 text-xs font-semibold text-zinc-600 mb-8 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Available for remote work
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-zinc-900 mb-6 leading-tight">
+                Ömer Faruk <span class="text-zinc-400">Memiş</span>
             </h1>
-            <p class="text-xl text-zinc-500 font-light mb-8 max-w-xl leading-relaxed">
-                Computer Technology student. Focused on data annotation, hardware troubleshooting, and building a strong technical foundation for future studies in Europe.
+            <p class="text-lg md:text-xl text-zinc-500 font-light mb-10 leading-relaxed">
+                Computer Technology student. Focused on data annotation, hardware troubleshooting, and building a strong foundation for academic studies in Europe.
             </p>
-            <div class="flex items-center gap-4">
-                <a href="#contact" class="px-5 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-md hover:bg-zinc-800 transition-colors">
-                    Get in touch
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <a href="mailto:omrhrkmmf06@gmail.com" class="flex items-center gap-2 px-6 py-3.5 bg-zinc-900 text-white font-medium rounded-full hover:bg-zinc-800 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                    <i class="ph ph-envelope-simple text-lg"></i>
+                    Send Email
                 </a>
-                <a href="mailto:omrhrkmmf06@gmail.com" class="p-2.5 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200 rounded-md transition-all">
-                    <i class="ph ph-envelope-simple text-xl"></i>
+                <a href="tel:+905510402013" class="flex items-center gap-2 px-6 py-3.5 bg-white text-zinc-800 font-medium rounded-full border border-zinc-200 hover:bg-zinc-50 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                    <i class="ph ph-phone text-lg"></i>
+                    +90 551 040 2013
                 </a>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="fade-in-section mb-24 pt-10 border-t border-zinc-200">
-            <h2 class="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-6">About Me</h2>
-            <div class="prose prose-zinc max-w-none text-zinc-700 leading-relaxed space-y-4">
-                <p>
-                    I am a highly logical, detail-oriented student currently pursuing a degree in Computer Technology. I excel in environments that require focus, precision, and adherence to complex guidelines.
-                </p>
-                <p>
-                    My immediate professional focus involves remote data annotation and technical support tasks, leveraging my hardware knowledge and analytical mindset. My long-term objective is to further my computer science education at a university in Italy or Latvia.
-                </p>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education" class="fade-in-section mb-24 pt-10 border-t border-zinc-200">
-            <h2 class="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-8">Education</h2>
-            
-            <div class="relative pl-6 border-l border-zinc-200">
-                <!-- Timeline Item -->
-                <div class="mb-10 relative">
-                    <div class="absolute -left-[31px] top-1.5 w-3 h-3 bg-zinc-200 border-2 border-zinc-50 rounded-full"></div>
-                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                        <h3 class="text-lg font-semibold text-zinc-900">Ankara University</h3>
-                        <span class="text-sm text-zinc-500 font-mono mt-1 sm:mt-0">Present</span>
+        <!-- About Card -->
+        <section id="about" class="reveal-section">
+            <div class="premium-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600">
+                        <i class="ph ph-user text-xl"></i>
                     </div>
-                    <p class="text-zinc-700 font-medium">Associate Degree in Computer Technology</p>
-                    <p class="text-sm text-zinc-500 mt-2">Distance Learning. Building core competencies in programming, web technologies, and systems architecture.</p>
+                    <h2 class="text-2xl font-bold text-zinc-900">About Me</h2>
+                </div>
+                <div class="text-zinc-600 leading-relaxed space-y-5 text-lg font-light">
+                    <p>
+                        I am a highly logical, detail-oriented student currently pursuing a degree in Computer Technology. I excel in environments that require focus, precision, and adherence to complex guidelines.
+                    </p>
+                    <p>
+                        My immediate professional focus involves remote data annotation and technical support tasks, leveraging my hardware knowledge and analytical mindset. My long-term objective is to further my computer science education at a university in Italy or Latvia.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Card -->
+        <section id="education" class="reveal-section">
+            <div class="premium-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600">
+                        <i class="ph ph-graduation-cap text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-zinc-900">Education</h2>
                 </div>
                 
-                <!-- Timeline Item (High School / Previous - Optional, kept clean for now) -->
                 <div class="relative">
-                    <div class="absolute -left-[31px] top-1.5 w-3 h-3 bg-zinc-200 border-2 border-zinc-50 rounded-full"></div>
-                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                        <h3 class="text-lg font-semibold text-zinc-900">High School</h3>
-                        <span class="text-sm text-zinc-500 font-mono mt-1 sm:mt-0">Graduated</span>
+                    <!-- Timeline Item -->
+                    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
+                        <div class="md:w-1/4 pt-1">
+                            <span class="px-3 py-1 bg-zinc-100 text-zinc-600 text-sm font-semibold rounded-full border border-zinc-200">
+                                Present
+                            </span>
+                        </div>
+                        <div class="md:w-3/4">
+                            <h3 class="text-xl font-bold text-zinc-900 mb-1">Ankara University</h3>
+                            <p class="text-zinc-800 font-medium mb-3">Associate Degree in Computer Technology</p>
+                            <p class="text-zinc-500 leading-relaxed font-light">
+                                Distance Learning. Building core competencies in programming, web technologies, systems architecture, and database management. Developing self-discipline and independent research skills.
+                            </p>
+                        </div>
                     </div>
-                    <p class="text-zinc-700 font-medium">Science & Mathematics Focus</p>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="fade-in-section mb-24 pt-10 border-t border-zinc-200">
-            <h2 class="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-8">Technical & Language Skills</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-zinc-900 font-medium mb-4 flex items-center gap-2">
-                        <i class="ph ph-terminal-window text-lg"></i> Core Competencies
+        <!-- Skills Grid Cards -->
+        <section id="skills" class="reveal-section">
+            <div class="flex items-center gap-3 mb-8 px-2">
+                <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-zinc-700 shadow-sm">
+                    <i class="ph ph-lightning text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-zinc-900">Core Expertise</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tech Skills -->
+                <div class="premium-card p-8">
+                    <h3 class="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2 border-b border-zinc-100 pb-4">
+                        <i class="ph ph-terminal-window text-zinc-400"></i> Technical Skills
                     </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">JavaScript (Basic)</span>
-                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Data Annotation</span>
-                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Hardware Troubleshooting</span>
-                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Web Navigation</span>
-                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Windows OS</span>
-                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">MS Office Suite (Basic)</span>
-                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Adobe Software (Basic)</span>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">JavaScript</span>
+                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Data Annotation</span>
+                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">PC Hardware</span>
+                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Windows OS</span>
+                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Troubleshooting</span>
                     </div>
                 </div>
-                
-                <div>
-                    <h3 class="text-zinc-900 font-medium mb-4 flex items-center gap-2">
-                        <i class="ph ph-translate text-lg"></i> Languages
-                    </h3>
-                    <ul class="space-y-3">
-                        <li class="flex justify-between items-center pb-2 border-b border-zinc-100">
-                            <span class="text-zinc-700">Turkish</span>
-                            <span class="text-xs font-mono bg-zinc-800 text-white px-2 py-1 rounded">Native</span>
-                        </li>
-                        <li class="flex justify-between items-center pb-2 border-b border-zinc-100">
-                            <span class="text-zinc-700">English</span>
-                            <span class="text-xs font-mono bg-zinc-100 text-zinc-600 px-2 py-1 rounded border border-zinc-200">B1 Intermediate</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="fade-in-section pt-10 border-t border-zinc-200">
-            <div class="bg-zinc-100 rounded-2xl p-8 text-center border border-zinc-200">
-                <h2 class="text-2xl font-bold text-zinc-900 mb-2">Let's Connect</h2>
-                <p class="text-zinc-600 mb-6 max-w-md mx-auto">
-                    Currently open to remote data annotation, transcription, and testing roles. Reaching out regarding opportunities or academic collaborations.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                    <a href="mailto:omrhrkmmf06@gmail.com" class="flex items-center gap-2 px-6 py-3 bg-zinc-900 text-white font-medium rounded-lg hover:bg-zinc-800 transition-colors w-full sm:w-auto">
-                        <i class="ph ph-paper-plane-tilt text-lg"></i>
-                        omrhrkmmf06@gmail.com
-                    </a>
-                    <a href="tel:+905510402013" class="flex items-center gap-2 px-6 py-3 bg-white text-zinc-700 font-medium rounded-lg border border-zinc-200 hover:bg-zinc-50 transition-colors w-full sm:w-auto">
-                        <i class="ph ph-phone text-lg"></i>
-                        +90 551 040 2013
-                    </a>
+                <!-- Tools & Software -->
+                <div class="premium-card p-8">
+                    <h3 class="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2 border-b border-zinc-100 pb-4">
+                        <i class="ph ph-app-window text-zinc-400"></i> Tools & Software
+                    </h3>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">MS Office Suite</span>
+                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Adobe Creative Cloud</span>
+                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Web Navigation</span>
+                    </div>
+                </div>
+
+                <!-- Languages (Spans full width on bottom) -->
+                <div class="premium-card p-8 md:col-span-2">
+                    <h3 class="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2 border-b border-zinc-100 pb-4">
+                        <i class="ph ph-translate text-zinc-400"></i> Languages
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex justify-between items-center p-4 rounded-xl bg-zinc-50 border border-zinc-100">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🇹🇷</span>
+                                <span class="font-medium text-zinc-800">Turkish</span>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-wider bg-zinc-900 text-white px-3 py-1 rounded-full">Native</span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 rounded-xl bg-zinc-50 border border-zinc-100">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🇬🇧</span>
+                                <span class="font-medium text-zinc-800">English</span>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-wider bg-white text-zinc-600 border border-zinc-200 px-3 py-1 rounded-full shadow-sm">B1 Intermediate</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -191,22 +251,20 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-zinc-200 mt-12 bg-zinc-50">
-        <div class="max-w-3xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-sm text-zinc-500">
+    <footer class="border-t border-zinc-200 bg-white mt-12">
+        <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2 text-zinc-900 font-bold">
+                ÖFM.
+            </div>
+            <p class="text-sm text-zinc-500 font-light">
                 © <span id="year"></span> Ömer Faruk Memiş. All rights reserved.
             </p>
-            <div class="flex gap-4">
-                <!-- Add actual links when you have them -->
-                <a href="#" class="text-zinc-400 hover:text-zinc-900 transition-colors" title="LinkedIn"><i class="ph ph-linkedin-logo text-xl"></i></a>
-                <a href="#" class="text-zinc-400 hover:text-zinc-900 transition-colors" title="GitHub"><i class="ph ph-github-logo text-xl"></i></a>
-            </div>
         </div>
     </footer>
 
-    <!-- Intersection Observer Script for Fade-in Animations -->
+    <!-- Scripts -->
     <script>
-        // Set current year in footer
+        // Set current year
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // Scroll Animation Logic
@@ -214,20 +272,18 @@
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.15
+                threshold: 0.1
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        // Optional: Stop observing once it's visible so it doesn't fade out when scrolling up
-                        // observer.unobserve(entry.target); 
                     }
                 });
             }, observerOptions);
 
-            const sections = document.querySelectorAll('.fade-in-section');
+            const sections = document.querySelectorAll('.reveal-section');
             sections.forEach(section => {
                 observer.observe(section);
             });
@@ -241,6 +297,16 @@
                     }
                 });
             }, 100);
+        });
+
+        // Add subtle shadow to navbar on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
         });
     </script>
 </body>
