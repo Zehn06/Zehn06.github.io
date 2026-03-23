@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İtalya 2027 | Master Dokümantasyon</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
         tailwind.config = {
@@ -14,21 +14,21 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         dark: {
-                            900: '#0f172a', // Main BG
-                            800: '#1e293b', // Sidebar / Cards
-                            700: '#334155', // Borders
-                            600: '#475569',
-                            400: '#94a3b8', // Muted Text
-                            100: '#f1f5f9'  // Primary Text
+                            bg: '#0B0F19',
+                            surface: '#111827',
+                            card: '#1F2937',
+                            border: '#374151',
+                            text: '#9CA3AF',
+                            heading: '#F3F4F6'
                         },
                         brand: {
-                            400: '#38bdf8', // Light Blue
-                            500: '#0ea5e9', // Base Blue
-                            600: '#0284c7'  // Dark Blue
+                            light: '#7DD3FC',
+                            base: '#38BDF8',
+                            dark: '#0284C7'
                         }
                     }
                 }
@@ -36,361 +36,359 @@
         }
     </script>
     <style>
-        body { background-color: #0f172a; color: #f1f5f9; }
-        /* Custom Scrollbar for a sleek look */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        body { background-color: #0B0F19; color: #9CA3AF; }
         
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0B0F19; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4B5563; }
+        
+        .glass-nav {
+            background: rgba(17, 24, 39, 0.8);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(51, 65, 85, 0.8);
+            border-right: 1px solid #374151;
+        }
+
+        .minimal-card {
+            background-color: #111827;
+            border: 1px solid #1F2937;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .minimal-card:hover {
+            border-color: #374151;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
         
         .nav-link.active {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-            border-right: 3px solid #38bdf8;
+            color: #38BDF8;
+            background: rgba(56, 189, 248, 0.05);
+            border-right: 2px solid #38BDF8;
+            font-weight: 500;
         }
 
-        .content-section {
-            scroll-margin-top: 100px; /* Offset for sticky headers if any */
+        .content-section { scroll-margin-top: 80px; }
+        
+        .step-indicator {
+            position: relative;
         }
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 2.5rem;
+            bottom: -1rem;
+            width: 2px;
+            background: #1F2937;
+            z-index: 0;
+        }
+        .step-indicator:last-child::before { display: none; }
     </style>
 </head>
-<body class="flex flex-col md:flex-row min-h-screen font-sans selection:bg-brand-500 selection:text-white antialiased">
+<body class="flex flex-col md:flex-row min-h-screen font-sans antialiased selection:bg-brand-dark selection:text-white">
 
     <!-- Mobile Header -->
-    <div class="md:hidden glass-panel sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-dark-700">
-        <div class="font-bold text-xl tracking-wider text-white">IT<span class="text-brand-400">2027</span></div>
-        <button id="mobile-menu-btn" class="text-dark-400 hover:text-white">
-            <i class="fas fa-bars text-2xl"></i>
+    <div class="md:hidden fixed top-0 w-full bg-dark-surface/90 backdrop-blur-md z-50 px-6 py-4 flex justify-between items-center border-b border-dark-border">
+        <div class="font-bold text-xl tracking-tight text-white">IT<span class="text-brand-base">2027</span></div>
+        <button id="mobile-menu-btn" class="text-dark-text hover:text-white transition">
+            <i class="fas fa-bars text-xl"></i>
         </button>
     </div>
 
     <!-- Sidebar Navigation -->
-    <aside id="sidebar" class="hidden md:flex flex-col w-72 h-screen sticky top-0 glass-panel border-r border-dark-700 overflow-y-auto shrink-0 transition-all duration-300 z-40 fixed md:relative">
-        <div class="p-8 border-b border-dark-700">
-            <h1 class="text-2xl font-extrabold tracking-tight text-white mb-1">PoliTo <span class="text-brand-400">&</span> Sapienza</h1>
-            <p class="text-xs text-dark-400 font-mono tracking-widest uppercase">Operasyon Merkezi</p>
+    <aside id="sidebar" class="hidden md:flex flex-col w-72 h-screen sticky top-0 glass-nav overflow-y-auto shrink-0 transition-all duration-300 z-40 fixed md:relative">
+        <div class="p-8 pb-4">
+            <h1 class="text-2xl font-bold tracking-tight text-white mb-1">PoliTo <span class="text-brand-base">&</span> Sapienza</h1>
+            <p class="text-xs text-dark-text font-mono tracking-widest uppercase mt-2">Operasyon Merkezi</p>
         </div>
         
-        <nav class="flex-1 py-6 flex flex-col gap-2">
-            <a href="#genel-bakis" class="nav-link px-8 py-3 text-sm font-medium text-dark-400 hover:text-white hover:bg-dark-700 transition-colors flex items-center gap-3">
-                <i class="fas fa-satellite-dish w-5 text-center"></i> Genel Bakış
+        <nav class="flex-1 py-4 flex flex-col gap-1">
+            <div class="px-8 mt-4 mb-2 text-[10px] font-bold text-dark-text/50 uppercase tracking-widest">Temel Strateji</div>
+            <a href="#genel-bakis" class="nav-link px-8 py-2.5 text-sm text-dark-text hover:text-white transition-colors flex items-center gap-3">
+                <i class="fas fa-crosshairs w-4 text-center opacity-70"></i> Genel Bakış
             </a>
-            <a href="#psikoloji" class="nav-link px-8 py-3 text-sm font-medium text-dark-400 hover:text-white hover:bg-dark-700 transition-colors flex items-center gap-3">
-                <i class="fas fa-brain w-5 text-center"></i> Anksiyete & Mekan
+            <a href="#psikoloji" class="nav-link px-8 py-2.5 text-sm text-dark-text hover:text-white transition-colors flex items-center gap-3">
+                <i class="fas fa-brain w-4 text-center opacity-70"></i> İzole Yaşam Formu
             </a>
             
-            <div class="px-8 mt-6 mb-2 text-xs font-bold text-dark-600 uppercase tracking-widest">Akademik Müfredat</div>
-            
-            <a href="#ingilizce" class="nav-link px-8 py-3 text-sm font-medium text-dark-400 hover:text-white hover:bg-dark-700 transition-colors flex items-center gap-3">
-                <i class="fas fa-language w-5 text-center"></i> İngilizce (IELTS)
+            <div class="px-8 mt-6 mb-2 text-[10px] font-bold text-dark-text/50 uppercase tracking-widest">Akademik Müfredat</div>
+            <a href="#ingilizce" class="nav-link px-8 py-2.5 text-sm text-dark-text hover:text-white transition-colors flex items-center gap-3">
+                <i class="fas fa-language w-4 text-center opacity-70"></i> İngilizce (IELTS)
             </a>
-            <a href="#matematik" class="nav-link px-8 py-3 text-sm font-medium text-dark-400 hover:text-white hover:bg-dark-700 transition-colors flex items-center gap-3">
-                <i class="fas fa-square-root-variable w-5 text-center"></i> Matematik
+            <a href="#matematik" class="nav-link px-8 py-2.5 text-sm text-dark-text hover:text-white transition-colors flex items-center gap-3">
+                <i class="fas fa-square-root-variable w-4 text-center opacity-70"></i> TOLC Matematiği
             </a>
-            <a href="#fen-mantik" class="nav-link px-8 py-3 text-sm font-medium text-dark-400 hover:text-white hover:bg-dark-700 transition-colors flex items-center gap-3">
-                <i class="fas fa-atom w-5 text-center"></i> Fen & Mantık
+            <a href="#fen-mantik" class="nav-link px-8 py-2.5 text-sm text-dark-text hover:text-white transition-colors flex items-center gap-3">
+                <i class="fas fa-atom w-4 text-center opacity-70"></i> Fen & Mantık (Logic)
             </a>
 
-            <div class="px-8 mt-6 mb-2 text-xs font-bold text-dark-600 uppercase tracking-widest">Bürokrasi & Sınav</div>
-            
-            <a href="#sinavlar" class="nav-link px-8 py-3 text-sm font-medium text-dark-400 hover:text-white hover:bg-dark-700 transition-colors flex items-center gap-3">
-                <i class="fas fa-file-signature w-5 text-center"></i> Sınav Süreçleri
+            <div class="px-8 mt-6 mb-2 text-[10px] font-bold text-dark-text/50 uppercase tracking-widest">Bürokrasi & Hedef</div>
+            <a href="#sinavlar" class="nav-link px-8 py-2.5 text-sm text-dark-text hover:text-white transition-colors flex items-center gap-3">
+                <i class="fas fa-chart-line w-4 text-center opacity-70"></i> Sınav Puan Hedefleri
             </a>
-            <a href="#evrak-takvimi" class="nav-link px-8 py-3 text-sm font-medium text-dark-400 hover:text-white hover:bg-dark-700 transition-colors flex items-center gap-3">
-                <i class="fas fa-calendar-check w-5 text-center"></i> Detaylı Evrak Takvimi
+            <a href="#evrak-takvimi" class="nav-link px-8 py-2.5 text-sm text-dark-text hover:text-white transition-colors flex items-center gap-3">
+                <i class="fas fa-calendar-check w-4 text-center opacity-70"></i> Master Takvim
             </a>
         </nav>
 
-        <div class="p-6 border-t border-dark-700">
-            <div class="bg-dark-900 rounded-lg p-4 border border-dark-700 text-center">
-                <p class="text-xs text-brand-400 font-mono mb-1">Hedef Tarih</p>
-                <p class="text-lg font-bold text-white">Eylül 2027</p>
+        <div class="p-6">
+            <div class="bg-dark-bg rounded-xl p-4 border border-dark-border text-center">
+                <p class="text-[10px] text-brand-base font-mono mb-1 uppercase tracking-widest">Hedef Uçuş</p>
+                <p class="text-sm font-semibold text-white">Eylül 2027</p>
             </div>
         </div>
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 px-6 md:px-16 py-12 max-w-6xl mx-auto w-full">
+    <main class="flex-1 px-6 md:px-16 py-20 max-w-5xl mx-auto w-full">
         
         <!-- SECTION: Genel Bakış -->
-        <section id="genel-bakis" class="content-section mb-20">
-            <h2 class="text-sm font-mono text-brand-400 mb-2 uppercase tracking-widest">// Faz 00</h2>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6">Stratejik Hedef Özeti</h1>
-            <p class="text-lg text-dark-400 leading-relaxed mb-8 max-w-3xl">
-                Letonya'nın yarattığı zaman ve bütçe paniği tamamen terk edilmiştir. Önümüzde <strong>DSU Bursu garantili</strong>, ücretsiz yurt ve yemekhane imkanı sunan İtalya (Politecnico di Torino veya Sapienza) hedefi vardır. Zamanımız boldur, anksiyeteye yer yoktur.
+        <section id="genel-bakis" class="content-section mb-24">
+            <div class="inline-block px-3 py-1 bg-brand-base/10 border border-brand-base/20 rounded-full text-brand-base font-mono text-xs mb-6">
+                // ODAK: İTALYA 2027
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-dark-heading mb-6 tracking-tight">Sıfır Panik, <br>Sistematik İlerleme.</h1>
+            <p class="text-lg leading-relaxed text-dark-text mb-10 max-w-2xl">
+                Letonya paniği sona erdi. DSU bursu güvencesiyle 1 tam yıllık geniş zamanlı, stressiz bir sürece giriyoruz. Tek yapman gereken aşağıdaki minimal protokollere sadık kalmak.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-panel p-6 rounded-2xl">
-                    <i class="fas fa-wallet text-3xl text-emerald-400 mb-4"></i>
-                    <h3 class="font-bold text-lg mb-2">Sıfır Maliyet</h3>
-                    <p class="text-sm text-dark-400">Aile geliri düşük olduğu için DSU bursu kesindir. Okul harcı sıfırlanır.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="minimal-card p-6">
+                    <h3 class="text-white font-medium mb-2 flex items-center gap-2">
+                        <i class="fas fa-wallet text-emerald-400"></i> DSU Bursu Garantisi
+                    </h3>
+                    <p class="text-sm">Aile gelirinin düşük olması en büyük avantajın. Okul harcı sıfırlanır, ücretsiz yurt ve günlük 1 öğün yemekhane hakkı elde edersin.</p>
                 </div>
-                <div class="glass-panel p-6 rounded-2xl">
-                    <i class="fas fa-hourglass-half text-3xl text-brand-400 mb-4"></i>
-                    <h3 class="font-bold text-lg mb-2">Geniş Zaman</h3>
-                    <p class="text-sm text-dark-400">TOLC ve IELTS sınavları için önünde 1 tam yıllık devasa bir hazırlık süreci var.</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl">
-                    <i class="fas fa-building-columns text-3xl text-purple-400 mb-4"></i>
-                    <h3 class="font-bold text-lg mb-2">Prestij</h3>
-                    <p class="text-sm text-dark-400">PoliTo ve Sapienza, dünya sıralamasında Letonya üniversitelerinden kat kat üstündür.</p>
+                <div class="minimal-card p-6">
+                    <h3 class="text-white font-medium mb-2 flex items-center gap-2">
+                        <i class="fas fa-hourglass-half text-brand-base"></i> Zaman Avantajı
+                    </h3>
+                    <p class="text-sm">Sınavlar 2027 Bahar aylarında. Önümüzde IELTS'i 5.5'e çıkarıp, TYT Matematiği bitirmek için devasa bir zaman var.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: Psikoloji & Anksiyete -->
-        <section id="psikoloji" class="content-section mb-20 border-t border-dark-700 pt-16">
-            <h2 class="text-sm font-mono text-brand-400 mb-2 uppercase tracking-widest">// Faz 01</h2>
-            <h1 class="text-3xl font-bold text-white mb-8">Sosyal Anksiyete ve Mekan Yönetimi</h1>
+        <!-- SECTION: Psikoloji & Mekan -->
+        <section id="psikoloji" class="content-section mb-24 pt-8 border-t border-dark-border/50">
+            <h2 class="text-2xl font-semibold text-white mb-8">Çalışma Alanı & Sosyal Anksiyete</h2>
             
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-dark-800 rounded-2xl p-8 border border-dark-700 relative overflow-hidden group hover:border-brand-500 transition-colors">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-brand-500"></div>
-                    <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-location-dot mr-2 text-brand-400"></i> Ana Üs: Yaşar Kemal Kütüphanesi</h3>
-                    <p class="text-dark-400 text-sm leading-relaxed mb-4">
-                        Ev, anksiyeteni ve rehavetini tetikleyen bir toksik alandır. Scooter ile 5 dakika mesafedeki kütüphane senin resmi "iş yerin"dir. 
-                    </p>
-                    <ul class="text-sm text-dark-100 space-y-2">
-                        <li><i class="fas fa-check text-emerald-500 mr-2"></i> Matematik kampları burada izlenecek.</li>
-                        <li><i class="fas fa-check text-emerald-500 mr-2"></i> Gramer testleri burada çözülecek.</li>
-                        <li><i class="fas fa-times text-red-500 mr-2"></i> Evde sadece dinlenilecek ve konuşma pratiği yapılacak.</li>
-                    </ul>
+            <div class="space-y-4">
+                <div class="minimal-card p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-12 h-12 shrink-0 bg-dark-bg rounded-full flex items-center justify-center border border-dark-border text-brand-base">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-medium mb-2">Ana Karargah: Yaşar Kemal Kütüphanesi</h3>
+                        <p class="text-sm mb-3">Scooter ile 5 dakika. Evdeki rehaveti ve toksik uyarıcıları geride bırak. <strong>Matematik testleri ve Sessiz İngilizce (Reading/Gramer)</strong> sadece burada yapılacak.</p>
+                        <div class="text-xs font-mono text-brand-light bg-brand-base/10 inline-block px-2 py-1 rounded">Kural: Evde test çözmek yasaktır.</div>
+                    </div>
                 </div>
 
-                <div class="bg-dark-800 rounded-2xl p-8 border border-dark-700 relative overflow-hidden group hover:border-purple-500 transition-colors">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
-                    <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-door-closed mr-2 text-purple-400"></i> Odada Konuşma Korkusu (Speaking)</h3>
-                    <p class="text-dark-400 text-sm leading-relaxed mb-4">
-                        "Yanlış söylersem evdekiler duyar" düşüncesi bir illüzyondur. İtalya'ya gidip uluslararası amfilerde sunum yapacak bir mühendis adayı, yan odadaki annesinden/kardeşinden çekinmez.
-                    </p>
-                    <div class="bg-dark-900 p-4 rounded-lg border border-dark-700 text-sm">
-                        <strong class="text-white block mb-1">Çözüm Protokolü:</strong>
-                        Kapıyı kapat, gürültü engelleyici kulaklığını tak. Derse başladığında kendi sesini bile duymayacaksın. Ailenin senin "is / are" hatası yapmanla zerre ilgilenmediğini kabul et.
+                <div class="minimal-card p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-12 h-12 shrink-0 bg-dark-bg rounded-full flex items-center justify-center border border-dark-border text-purple-400">
+                        <i class="fas fa-door-closed"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-medium mb-2">Speaking & Odada Konuşma Anksiyetesi</h3>
+                        <p class="text-sm mb-3">"Yanlış söylersem içeriden ailem duyar" tamamen zihinsel bir illüzyondur. İtalya'ya uçacak adam, evdeki tıkırtıdan çekinmez.</p>
+                        <ul class="text-sm space-y-2 mt-2 border-l-2 border-dark-border pl-4">
+                            <li><span class="text-white">&rarr;</span> Odana gir, kapıyı kapat, kulak-içi/gürültü engelleyici kulaklığını tak.</li>
+                            <li><span class="text-white">&rarr;</span> Kendi sesini bile zor duyacaksın. Derse başla. Ailen senin İngilizce hatalarınla zerre ilgilenmiyor.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION: İNGİLİZCE -->
-        <section id="ingilizce" class="content-section mb-20 border-t border-dark-700 pt-16">
-            <h2 class="text-sm font-mono text-brand-400 mb-2 uppercase tracking-widest">// Faz 02</h2>
-            <h1 class="text-3xl font-bold text-white mb-8">İngilizce Operasyonu (IELTS 5.5+)</h1>
+        <section id="ingilizce" class="content-section mb-24 pt-8 border-t border-dark-border/50">
+            <h2 class="text-2xl font-semibold text-white mb-2">İngilizce Protokolü</h2>
+            <p class="text-sm text-dark-text mb-8">Hedef: IELTS Academic 5.5 (Aralık 2026)</p>
             
-            <div class="space-y-6">
-                <!-- Gramer Sentezi -->
-                <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-brand-500">
-                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                        <span class="bg-brand-500 text-white w-8 h-8 rounded flex items-center justify-center text-sm">1</span> 
-                        Gramer: "Özer Kiraz + Murphy" Hibrit Modeli
-                    </h3>
-                    <p class="text-dark-400 text-sm mb-4">Daha önce önerdiğim iki farklı yöntemi kusursuz bir sıraya koyuyoruz:</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-dark-900 p-5 rounded-xl border border-dark-700">
-                            <h4 class="font-bold text-brand-400 mb-2"><i class="fas fa-lightbulb mr-2"></i> Adım A: Mantığı Anla (Türkçe)</h4>
-                            <p class="text-sm text-dark-400">Yeni bir tens'e veya konuya geçerken <strong>Özer Kiraz'ın</strong> ilgili YouTube videosunu izle. O sana İngilizlerin bu kalıbı hangi felsefeyle kullandığını (Türkçedeki farkını) öğretecek.</p>
-                        </div>
-                        <div class="bg-dark-900 p-5 rounded-xl border border-dark-700">
-                            <h4 class="font-bold text-emerald-400 mb-2"><i class="fas fa-dumbbell mr-2"></i> Adım B: Pratiğe Dök (İngilizce)</h4>
-                            <p class="text-sm text-dark-400">Mantığı anladığın an videoyu kapat ve <strong>Raymond Murphy (Grammar in Use)</strong> kitabından o konunun testlerini çöz. Beynini İngilizce düşünmeye zorla.</p>
-                        </div>
+            <div class="relative space-y-8 before:absolute before:inset-0 before:ml-[1.75rem] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-dark-border before:to-transparent">
+                
+                <!-- Adım 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-dark-border bg-dark-bg text-brand-base shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10">
+                        1
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] minimal-card p-5">
+                        <h3 class="font-medium text-white mb-1">Gramer Hibrit Modeli</h3>
+                        <p class="text-sm mb-3 text-dark-text">Mantığı Türkçeden anla, pratiği İngilizceden yap.</p>
+                        <ul class="text-xs space-y-2 text-dark-text/80 bg-dark-bg p-3 rounded border border-dark-border">
+                            <li><strong class="text-white">A) Mantık:</strong> Yeni konuyu önce <em>Özer Kiraz</em>'dan (YouTube) izle.</li>
+                            <li><strong class="text-white">B) Pratik:</strong> Anında <em>Raymond Murphy (Grammar in Use)</em> kitabına geçip ilgili testleri çöz. Çeviri yapma, İngilizce düşün.</li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Çıktı ve Hoca -->
-                <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-purple-500">
-                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                        <span class="bg-purple-500 text-white w-8 h-8 rounded flex items-center justify-center text-sm">2</span> 
-                        Tutor Kullanımı (Preply / Italki)
-                    </h3>
-                    <p class="text-dark-400 text-sm mb-4">Havadan sudan sohbet anksiyete yaratır, çünkü öngörülemezdir. IELTS monologdur.</p>
-                    <div class="bg-dark-900 border border-dark-700 p-4 rounded-xl">
-                        <p class="text-xs text-dark-400 uppercase tracking-wider mb-2 font-bold">Hocaya Atılacak Katı Mesaj:</p>
-                        <blockquote class="text-brand-400 italic text-sm font-mono border-l-2 border-brand-500 pl-4">
-                            "Hi! I am preparing for IELTS Academic. I do NOT want free conversation. Please give me an IELTS Part 2 cue card. Give me 1 minute to think, I will speak for 2 minutes. Then, correct my mistakes directly. No small talk."
-                        </blockquote>
+                <!-- Adım 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-dark-border bg-dark-bg text-emerald-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10">
+                        2
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] minimal-card p-5">
+                        <h3 class="font-medium text-white mb-1">Dinleme (Listening & Shadowing)</h3>
+                        <p class="text-sm mb-3 text-dark-text">Sokak İngilizcesi değil, akademik ve resmi dile maruz kalmalısın.</p>
+                        <ul class="text-xs space-y-2 text-dark-text/80">
+                            <li class="flex gap-2 items-start"><i class="fas fa-podcast text-emerald-500 mt-0.5"></i> <span><strong>BBC 6 Minute English:</strong> Yolda kulaklıkla dinlenecek. Kelimeler taklit edilecek.</span></li>
+                            <li class="flex gap-2 items-start"><i class="fab fa-youtube text-red-500 mt-0.5"></i> <span><strong>IELTS Advantage:</strong> Taktik, Essay kalıpları ve okuma stratejileri bu kanaldan çalınacak.</span></li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Ek Kaynaklar -->
-                <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-emerald-500">
-                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                        <span class="bg-emerald-500 text-white w-8 h-8 rounded flex items-center justify-center text-sm">3</span> 
-                        Dinleme ve Kaynaklar
-                    </h3>
-                    <ul class="space-y-3 text-sm text-dark-100">
-                        <li class="flex items-start gap-3">
-                            <i class="fas fa-headphones mt-1 text-emerald-400"></i>
-                            <div><strong>BBC 6 Minute English (Podcast):</strong> Yolda, otobüste sürekli dinlenecek. Kelime telaffuzları (Shadowing) taklit edilecek.</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fab fa-youtube mt-1 text-red-500"></i>
-                            <div><strong>YouTube "IELTS Advantage" Kanalı:</strong> Writing (Deneme) ve Speaking taktikleri için dünyadaki en sade, en mantıklı kanaldır. Cümle kalıplarını buradan çalacaksın.</div>
-                        </li>
-                    </ul>
+                <!-- Adım 3 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-dark-border bg-dark-bg text-purple-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10">
+                        3
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] minimal-card p-5">
+                        <h3 class="font-medium text-white mb-1">Speaking & Tutor (Preply/Italki)</h3>
+                        <p class="text-sm mb-3 text-dark-text">Havadan sudan geyik yok. Hedef odaklı 450TL altı bütçeli hoca.</p>
+                        <div class="bg-dark-bg p-3 rounded border border-dark-border">
+                            <p class="text-[10px] uppercase text-brand-base mb-1 font-mono">Hocaya Atılacak Katı Mesaj:</p>
+                            <p class="text-xs italic text-dark-text/90">"I am preparing for IELTS Academic. No free conversation. Give me an IELTS Part 2 cue card. I will speak for 2 mins, then you correct my grammar/vocab strictly."</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION: MATEMATİK -->
-        <section id="matematik" class="content-section mb-20 border-t border-dark-700 pt-16">
-            <h2 class="text-sm font-mono text-brand-400 mb-2 uppercase tracking-widest">// Faz 03</h2>
-            <h1 class="text-3xl font-bold text-white mb-8">Matematik: TOLC-I İskeleti</h1>
-            <p class="text-dark-400 mb-8">İtalya mühendislik sınavlarındaki (TOLC-I / TIL-I) matematik %90 oranında Türkiye'deki TYT Matematiğine denktir. İleri düzey Calculus içermez, mantık ve temel cebir içerir.</p>
+        <section id="matematik" class="content-section mb-24 pt-8 border-t border-dark-border/50">
+            <h2 class="text-2xl font-semibold text-white mb-2">TOLC-I Matematiği (TYT İskeleti)</h2>
+            <p class="text-sm text-dark-text mb-8">İtalya'da ileri Calculus sorulmaz. Temel cebir ve mantık sorulur.</p>
 
             <div class="grid md:grid-cols-2 gap-6">
-                <!-- Adım 1 -->
-                <div class="bg-dark-800 p-6 rounded-2xl border border-dark-700 hover:border-brand-500 transition-all">
-                    <div class="w-12 h-12 bg-dark-900 rounded-full flex items-center justify-center text-brand-400 font-bold text-xl mb-4 border border-brand-500/30">01</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Temel İnşası (Şu Anki Aşama)</h3>
-                    <p class="text-sm text-dark-400 mb-4">Şu an izlediğin <strong>Rehber Matematik "22 Günde Temel"</strong> kampı kusursuz bir başlangıç. Dört işlem hatasını sıfırlamak ve x'i yalnız bırakma refleksini oturtmak için bu kampı kütüphanede bitir.</p>
+                <div class="minimal-card p-6 border-t-2 border-t-brand-dark">
+                    <span class="text-[10px] font-mono bg-dark-bg border border-dark-border px-2 py-1 rounded text-dark-text mb-4 inline-block">ŞU ANKİ AŞAMA</span>
+                    <h3 class="text-white font-medium mb-2">Temel Refleks İnşası</h3>
+                    <p class="text-sm text-dark-text mb-4">Şu an içinde bulunduğun <strong>Rehber Matematik "22 Günde Temel"</strong> kampını kütüphanede sıfır fireyle bitir. Dört işlem ve denklem kurma hatasını burada yok edeceksin.</p>
                 </div>
 
-                <!-- Adım 2 -->
-                <div class="bg-dark-800 p-6 rounded-2xl border border-dark-700 hover:border-brand-500 transition-all">
-                    <div class="w-12 h-12 bg-dark-900 rounded-full flex items-center justify-center text-brand-400 font-bold text-xl mb-4 border border-brand-500/30">02</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Ana Müfredat (TYT)</h3>
-                    <p class="text-sm text-dark-400 mb-4">Temel bittiği an, <strong>Mert Hoca TYT Kampı</strong> veya <strong>Eyüp B. TYT Video Ders Defteri'ne</strong> geçeceksin.</p>
-                    <div class="bg-dark-900 p-3 rounded border border-dark-700 text-xs text-brand-400 font-mono">
-                        Odaklanılacaklar: Rasyonel Sayılar, Üslü/Köklü Sayılar, Çarpanlara Ayırma, Fonksiyonlar, Temel Olasılık.
+                <div class="minimal-card p-6 border-t-2 border-t-emerald-600">
+                    <span class="text-[10px] font-mono bg-dark-bg border border-dark-border px-2 py-1 rounded text-dark-text mb-4 inline-block">SONRAKİ AŞAMA (ANA KAMP)</span>
+                    <h3 class="text-white font-medium mb-2">TYT Konu Anlatımı</h3>
+                    <p class="text-sm text-dark-text mb-4">Temel bitince <strong>Mert Hoca (TYT)</strong> veya <strong>Eyüp B. (VDD)</strong> kampına geçiş yapılacak.</p>
+                    <div class="flex flex-wrap gap-2 text-[10px] font-mono text-brand-light">
+                        <span class="bg-brand-base/10 px-2 py-1 rounded">Rasyonel Sayılar</span>
+                        <span class="bg-brand-base/10 px-2 py-1 rounded">Üslü/Köklü</span>
+                        <span class="bg-brand-base/10 px-2 py-1 rounded">Çarpanlara Ayırma</span>
+                        <span class="bg-brand-base/10 px-2 py-1 rounded">Fonksiyonlar</span>
+                        <span class="bg-brand-base/10 px-2 py-1 rounded">Olasılık</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION: FEN VE MANTIK -->
-        <section id="fen-mantik" class="content-section mb-20 border-t border-dark-700 pt-16">
-            <h2 class="text-sm font-mono text-brand-400 mb-2 uppercase tracking-widest">// Faz 04</h2>
-            <h1 class="text-3xl font-bold text-white mb-8">Fen (Fizik/Kimya) ve Logic (Mantık)</h1>
+        <section id="fen-mantik" class="content-section mb-24 pt-8 border-t border-dark-border/50">
+            <h2 class="text-2xl font-semibold text-white mb-6">Fen (Fizik) & Mantık (Logic)</h2>
             
-            <div class="space-y-6">
-                <div class="glass-panel p-6 rounded-2xl border border-dark-700 flex flex-col md:flex-row gap-6 items-start">
-                    <div class="w-16 h-16 shrink-0 bg-dark-900 rounded-2xl flex items-center justify-center border border-dark-700 text-yellow-400 text-2xl">
+            <div class="space-y-4">
+                <div class="minimal-card p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-10 h-10 shrink-0 bg-yellow-400/10 rounded border border-yellow-400/20 flex items-center justify-center text-yellow-400">
                         <i class="fas fa-bolt"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-white mb-2">Fizik: Nasıl Çalışılacak?</h3>
-                        <p class="text-sm text-dark-400 mb-3">İtalya'da Fizik soruları ağırlıklı olarak <strong>Mekanik (Kuvvet, Hareket, Enerji)</strong> ve <strong>Elektromanyetizma</strong> üzerinedir. TYT seviyesinde formül bilmek yeterlidir.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-dark-900 px-3 py-1 rounded-full text-xs font-mono text-brand-400 border border-dark-700">Kaynak: VIP Fizik (YouTube TYT Kampı)</span>
-                            <span class="bg-dark-900 px-3 py-1 rounded-full text-xs font-mono text-brand-400 border border-dark-700">Kaynak: Özcan Aykın (Daha mantıksal anlatım)</span>
-                        </div>
+                        <h3 class="text-white font-medium mb-1">Fizik (Sadece Temel Mekanik)</h3>
+                        <p class="text-sm text-dark-text mb-3">TOLC'ta Fizik ağırdır ancak TYT formatındaki Mekanik (Hareket, Kuvvet, İş/Güç) ve Temel Elektrik yeterlidir.</p>
+                        <p class="text-xs text-dark-text"><strong class="text-white">Kaynaklar:</strong> VIP Fizik (Sıfırdan alanlar için) veya Özcan Aykın (Daha mantıksal, ezbersiz anlatım için).</p>
                     </div>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl border border-dark-700 flex flex-col md:flex-row gap-6 items-start">
-                    <div class="w-16 h-16 shrink-0 bg-dark-900 rounded-2xl flex items-center justify-center border border-dark-700 text-emerald-400 text-2xl">
+                <div class="minimal-card p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-10 h-10 shrink-0 bg-emerald-400/10 rounded border border-emerald-400/20 flex items-center justify-center text-emerald-400">
                         <i class="fas fa-brain"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-white mb-2">Logic & Reading (Mantık ve Okuma)</h3>
-                        <p class="text-sm text-dark-400 mb-3">Bu bölüm saf matematik değil, "Okuduğunu anlama ve tümevarım" bölümüdür. Sana uzun bir metin veya bir tablo verip çıkarım yapmanı isterler.</p>
-                        <p class="text-sm text-dark-400"><strong>Nasıl Çalışılır?:</strong> Ayrı bir mantık kitabı bitirmene gerek yok. IELTS Reading metinlerini çözerken kazandığın "hızlı okuma ve ana fikri bulma" yeteneği, TOLC'un Mantık kısmını doğrudan fulletecektir.</p>
+                        <h3 class="text-white font-medium mb-1">Mantık (Logic) Bölümü</h3>
+                        <p class="text-sm text-dark-text mb-3">Ayrı bir "Mantık" kitabı çözmene gerek yoktur. Uzun akademik metinleri anlama ve tablo okuma sanatıdır.</p>
+                        <p class="text-xs text-dark-text"><strong class="text-white">Nasıl Gelişir?:</strong> IELTS Reading çözdükçe, İngilizce makalelerden ana fikir (tümevarım) çıkarma yeteneğin gelişecek, bu da Logic bölümünü otomatik fulletecektir.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION: SINAVLAR -->
-        <section id="sinavlar" class="content-section mb-20 border-t border-dark-700 pt-16">
-            <h2 class="text-sm font-mono text-brand-400 mb-2 uppercase tracking-widest">// Faz 05</h2>
-            <h1 class="text-3xl font-bold text-white mb-8">Sınav Yapısı ve Puan Hedefleri</h1>
+        <section id="sinavlar" class="content-section mb-24 pt-8 border-t border-dark-border/50">
+            <h2 class="text-2xl font-semibold text-white mb-6">Sınav Güvenli Bölge Analizi</h2>
             
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- IELTS -->
-                <div class="bg-dark-800 rounded-2xl p-8 border border-dark-700 relative">
-                    <div class="absolute top-4 right-4 bg-dark-900 text-brand-400 text-xs font-bold px-3 py-1 rounded-full border border-dark-700">Dil Barajı</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">IELTS Academic</h3>
-                    <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-400 mb-4">5.5+</div>
-                    <ul class="text-sm text-dark-400 space-y-2 mb-6">
-                        <li><i class="fas fa-angle-right text-brand-400 mr-2"></i> İtalya'daki tüm İngilizce mühendisliklerin alt sınırıdır.</li>
-                        <li><i class="fas fa-angle-right text-brand-400 mr-2"></i> Hedef: Aralık 2026'da bu skoru cebe koymak.</li>
-                    </ul>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-dark-bg border border-dark-border rounded-xl p-6 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-6xl text-brand-base/5"><i class="fas fa-language"></i></div>
+                    <div class="text-[10px] font-bold text-brand-base mb-2 uppercase tracking-widest">Dil Kapısı</div>
+                    <h3 class="text-xl text-white font-medium mb-1">IELTS Academic</h3>
+                    <div class="text-4xl font-bold text-white mb-3">5.5<span class="text-lg text-dark-text/50 font-normal">+</span></div>
+                    <p class="text-xs text-dark-text leading-relaxed">İtalya'da mühendislik okumanın yasal taban puanıdır. Minimum bu puanı aldığında İngilizce şartı ortadan kalkar.</p>
                 </div>
 
-                <!-- TOLC-I -->
-                <div class="bg-dark-800 rounded-2xl p-8 border border-dark-700 relative">
-                    <div class="absolute top-4 right-4 bg-dark-900 text-brand-400 text-xs font-bold px-3 py-1 rounded-full border border-dark-700">Kabul Sınavı</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">TOLC-I (Sapienza İçin)</h3>
-                    <div class="text-5xl font-black text-white mb-4">25<span class="text-xl text-dark-400 font-normal"> / 50 Puan</span></div>
-                    <ul class="text-sm text-dark-400 space-y-2 mb-6">
-                        <li><i class="fas fa-angle-right text-brand-400 mr-2"></i> 20 Mat, 10 Mantık, 10 Fen, 10 Okuma.</li>
-                        <li><i class="fas fa-angle-right text-brand-400 mr-2"></i> 25 net yapmak garantili yerleşme bölgesidir.</li>
-                        <li><i class="fas fa-angle-right text-brand-400 mr-2"></i> PoliTo için sınavın adı <strong>TIL-I</strong>'dir (Format %90 aynıdır).</li>
-                    </ul>
+                <div class="bg-dark-bg border border-dark-border rounded-xl p-6 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-6xl text-brand-base/5"><i class="fas fa-file-signature"></i></div>
+                    <div class="text-[10px] font-bold text-brand-base mb-2 uppercase tracking-widest">Akademik Kapı</div>
+                    <h3 class="text-xl text-white font-medium mb-1">TOLC-I / TIL-I</h3>
+                    <div class="text-4xl font-bold text-white mb-3">25<span class="text-lg text-dark-text/50 font-normal"> / 50 Puan</span></div>
+                    <p class="text-xs text-dark-text leading-relaxed">50 soruda 25 net yapmak seni Sapienza ve PoliTo için "Güvenli / Kesin Kabul" bölgesine yerleştirir. (OFA borcuna düşmezsin).</p>
                 </div>
             </div>
         </section>
 
         <!-- SECTION: EVRAK TAKVİMİ -->
-        <section id="evrak-takvimi" class="content-section mb-20 border-t border-dark-700 pt-16">
-            <h2 class="text-sm font-mono text-brand-400 mb-2 uppercase tracking-widest">// Faz 06</h2>
-            <h1 class="text-3xl font-bold text-white mb-8">Evrak ve Bürokrasi Master Takvimi</h1>
-            <p class="text-dark-400 mb-8">İtalya süreci uzun bir maratondur. Evrakları son dakikaya bırakırsan sistem tıkanır. İşte 2026 sonundan 2027 İtalya uçuşuna kadar neyi, ne zaman yapacağının kusursuz listesi.</p>
+        <section id="evrak-takvimi" class="content-section mb-24 pt-8 border-t border-dark-border/50">
+            <h2 class="text-2xl font-semibold text-white mb-2">Bürokrasi Master Takvimi (2026-2027)</h2>
+            <p class="text-sm text-dark-text mb-8">İtalya süreci bir maratondur. Evrak sırasını kaçırmak yılı kaybettirir.</p>
 
-            <div class="bg-dark-800 rounded-2xl border border-dark-700 overflow-hidden">
+            <div class="minimal-card overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                    <table class="w-full text-left text-sm whitespace-nowrap md:whitespace-normal">
                         <thead>
-                            <tr class="bg-dark-900 border-b border-dark-700">
-                                <th class="py-4 px-6 text-xs font-bold text-dark-400 uppercase tracking-wider">Tarih</th>
-                                <th class="py-4 px-6 text-xs font-bold text-dark-400 uppercase tracking-wider">Yapılacak İşlem / Alınacak Evrak</th>
-                                <th class="py-4 px-6 text-xs font-bold text-dark-400 uppercase tracking-wider">Kritik Detay</th>
+                            <tr class="bg-dark-bg border-b border-dark-border text-xs uppercase tracking-widest text-dark-text/70">
+                                <th class="py-4 px-6 font-medium">Tarih</th>
+                                <th class="py-4 px-6 font-medium">İşlem / Evrak</th>
+                                <th class="py-4 px-6 font-medium">Detay</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-dark-700 text-sm">
+                        <tbody class="divide-y divide-dark-border/50 text-dark-text">
                             
-                            <!-- Row 1 -->
-                            <tr class="hover:bg-dark-900/50 transition-colors">
-                                <td class="py-4 px-6 whitespace-nowrap font-mono text-brand-400">Aralık 2026</td>
-                                <td class="py-4 px-6 text-white font-medium">IELTS Sertifikası</td>
-                                <td class="py-4 px-6 text-dark-400">En az 5.5 puanlık PDF belgesi elinde olmalı.</td>
+                            <tr class="hover:bg-dark-bg/50 transition-colors">
+                                <td class="py-4 px-6 font-mono text-brand-base text-xs">Aralık 2026</td>
+                                <td class="py-4 px-6 text-white font-medium">IELTS Sınavı</td>
+                                <td class="py-4 px-6 text-xs leading-relaxed">En az 5.5 puanlık PDF belgesinin alınması.</td>
                             </tr>
 
-                            <!-- Row 2 -->
-                            <tr class="hover:bg-dark-900/50 transition-colors">
-                                <td class="py-4 px-6 whitespace-nowrap font-mono text-brand-400">Şubat - Nisan 2027</td>
-                                <td class="py-4 px-6 text-white font-medium">TOLC-I / TIL-I Sınavlarına Giriş</td>
-                                <td class="py-4 px-6 text-dark-400">Evden, online CISIA sistemi üzerinden kameralı girilir.</td>
+                            <tr class="hover:bg-dark-bg/50 transition-colors">
+                                <td class="py-4 px-6 font-mono text-brand-base text-xs">Şubat - Nisan 2027</td>
+                                <td class="py-4 px-6 text-white font-medium">TOLC Sınavları</td>
+                                <td class="py-4 px-6 text-xs leading-relaxed">Evden, online CISIA sistemi üzerinden kameralı gözetmen eşliğinde girilir.</td>
                             </tr>
 
-                            <!-- Row 3 -->
-                            <tr class="hover:bg-dark-900/50 transition-colors">
-                                <td class="py-4 px-6 whitespace-nowrap font-mono text-brand-400">Nisan - Mayıs 2027</td>
-                                <td class="py-4 px-6 text-white font-medium">DOV (Dichiarazione di Valore) Hazırlığı</td>
-                                <td class="py-4 px-6 text-dark-400">Lise diploması ve YKS Sonuç belgesi alınır. Kaymakamlıkta "Apostil" basılır. İtalyanca yeminli çeviri yaptırılıp Konsolosluğa Denklik (DOV) için verilir.</td>
+                            <tr class="hover:bg-dark-bg/50 transition-colors">
+                                <td class="py-4 px-6 font-mono text-brand-base text-xs">Nisan - Mayıs 2027</td>
+                                <td class="py-4 px-6 text-white font-medium">DOV (Denklik)</td>
+                                <td class="py-4 px-6 text-xs leading-relaxed">Lise diploması ve YKS Sonuç belgesine Kaymakamlıkta "Apostil" vurulur, İtalyancaya çevrilir.</td>
                             </tr>
 
-                            <!-- Row 4 -->
-                            <tr class="hover:bg-dark-900/50 transition-colors">
-                                <td class="py-4 px-6 whitespace-nowrap font-mono text-brand-400">Mayıs - Haziran 2027</td>
+                            <tr class="hover:bg-dark-bg/50 transition-colors">
+                                <td class="py-4 px-6 font-mono text-brand-base text-xs">Mayıs - Haz 2027</td>
                                 <td class="py-4 px-6 text-white font-medium">Universitaly Ön Kaydı</td>
-                                <td class="py-4 px-6 text-dark-400">İtalya devlet portalı Universitaly.it'ten bölüme başvuru yapılır. Okul "Pre-Enrollment" onayı verince Vize süreci açılır.</td>
+                                <td class="py-4 px-6 text-xs leading-relaxed">Devlet portalı Universitaly.it'ten bölüme başvuru yapılır. Vize için bu okul onayı şarttır.</td>
                             </tr>
 
-                            <!-- Row 5 -->
-                            <tr class="hover:bg-dark-900/50 transition-colors">
-                                <td class="py-4 px-6 whitespace-nowrap font-mono text-emerald-400 font-bold">Temmuz 2027</td>
-                                <td class="py-4 px-6 text-white font-medium">DSU Bursu (ISEE Parificato) Evrakları</td>
-                                <td class="py-4 px-6 text-dark-400">
-                                    <strong class="text-white block mb-1">En kritik aşama! Alınacaklar:</strong>
-                                    1. Anne-Baba maaş bordrosu/SGK dökümü<br>
-                                    2. Vukuatlı Nüfus Kayıt Örneği<br>
-                                    3. E-devletten Tapu ve Araç tescil bilgisi (Yoksa 'yoktur' belgesi).<br>
-                                    *Hepsi Apostilli ve İtalyanca çevirili olarak CAF ofislerine (veya EDISU'ya) ISEE hesaplaması için iletilir.
+                            <tr class="bg-brand-dark/10 hover:bg-brand-dark/20 transition-colors">
+                                <td class="py-4 px-6 font-mono text-white font-bold text-xs">Temmuz 2027</td>
+                                <td class="py-4 px-6 text-white font-bold">DSU Bursu (ISEE)</td>
+                                <td class="py-4 px-6 text-xs leading-relaxed text-white">
+                                    <span class="block mb-1 text-brand-light font-medium">Kritik Finansal Aşama:</span>
+                                    Apostilli Anne-Baba bordrosu, Vukuatlı Nüfus Örneği ve Tapu/Araç dökümleri CAF ofislerine ISEE hesaplaması için iletilir.
                                 </td>
                             </tr>
 
-                            <!-- Row 6 -->
-                            <tr class="hover:bg-dark-900/50 transition-colors">
-                                <td class="py-4 px-6 whitespace-nowrap font-mono text-brand-400">Ağustos 2027</td>
-                                <td class="py-4 px-6 text-white font-medium">Eğitim Vizesi Başvurusu</td>
-                                <td class="py-4 px-6 text-dark-400">Kabul mektubu, Universitaly onayı ve DOV belgesi ile İtalyan konsolosluğundan (iDATA) vize alınır.</td>
+                            <tr class="hover:bg-dark-bg/50 transition-colors">
+                                <td class="py-4 px-6 font-mono text-brand-base text-xs">Ağustos 2027</td>
+                                <td class="py-4 px-6 text-white font-medium">Vize Başvurusu</td>
+                                <td class="py-4 px-6 text-xs leading-relaxed">Kabul mektubu, Universitaly onayı ve DOV belgesi ile iDATA üzerinden vize alınır.</td>
                             </tr>
 
                         </tbody>
@@ -402,27 +400,27 @@
     </main>
 
     <script>
-        // Smooth scrolling for sidebar links
+        // Smooth scrolling & Sidebar highlight logic
         document.querySelectorAll('.nav-link').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
 
-        // Simple Mobile Menu Toggle
+        // Mobile Menu
         const menuBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar');
 
         menuBtn.addEventListener('click', () => {
             if (sidebar.classList.contains('hidden')) {
                 sidebar.classList.remove('hidden');
-                sidebar.classList.add('flex', 'fixed', 'inset-0', 'bg-dark-900', 'z-40');
+                sidebar.classList.add('flex', 'fixed', 'inset-0', 'bg-dark-bg', 'z-40');
+                document.body.style.overflow = 'hidden'; // prevent background scroll
             } else {
                 sidebar.classList.add('hidden');
                 sidebar.classList.remove('flex', 'fixed', 'inset-0');
+                document.body.style.overflow = '';
             }
         });
         
@@ -431,43 +429,28 @@
             link.addEventListener('click', () => {
                 if (window.innerWidth < 768) {
                     sidebar.classList.add('hidden');
+                    sidebar.classList.remove('flex', 'fixed', 'inset-0');
+                    document.body.style.overflow = '';
                 }
             });
         });
 
-        // Intersection Observer for highlighting active link in sidebar
+        // Scroll Spy
         const sections = document.querySelectorAll('.content-section');
         const navLinks = document.querySelectorAll('.nav-link');
-
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.2
-        };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Remove active from all
-                    navLinks.forEach(link => {
-                        link.classList.remove('active', 'text-white', 'bg-dark-700', 'border-r-2', 'border-brand-500');
-                        link.classList.add('text-dark-400');
-                    });
-                    
-                    // Add active to current
+                    navLinks.forEach(link => link.classList.remove('active'));
                     const activeId = entry.target.getAttribute('id');
                     const activeLink = document.querySelector(`.nav-link[href="#${activeId}"]`);
-                    if(activeLink) {
-                        activeLink.classList.remove('text-dark-400');
-                        activeLink.classList.add('active', 'text-white');
-                    }
+                    if(activeLink) activeLink.classList.add('active');
                 }
             });
-        }, observerOptions);
+        }, { rootMargin: '-20% 0px -60% 0px' }); // Adjusted for better triggering
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
