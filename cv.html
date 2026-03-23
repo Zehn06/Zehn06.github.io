@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ömer Faruk Memiş | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons for minimal clean icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zinc: {
+                            50: '#fafafa',
+                            100: '#f4f4f5',
+                            400: '#a1a1aa',
+                            500: '#71717a',
+                            800: '#27272a',
+                            900: '#18181b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal fade-in animation for elements as they scroll into view */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            visibility: hidden;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+            visibility: visible;
+        }
+        /* Custom selection color */
+        ::selection {
+            background-color: #27272a;
+            color: #fafafa;
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 font-sans antialiased selection:bg-zinc-900 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-zinc-50/80 backdrop-blur-md z-50 border-b border-zinc-200">
+        <div class="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-semibold text-lg tracking-tight hover:text-zinc-600 transition-colors">Ö.</a>
+            <div class="space-x-6 text-sm font-medium text-zinc-500">
+                <a href="#about" class="hover:text-zinc-900 transition-colors">About</a>
+                <a href="#education" class="hover:text-zinc-900 transition-colors">Education</a>
+                <a href="#skills" class="hover:text-zinc-900 transition-colors">Skills</a>
+                <a href="#contact" class="hover:text-zinc-900 transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-3xl mx-auto px-6 pt-32 pb-20">
+
+        <!-- Hero Section -->
+        <section id="hero" class="fade-in-section mt-10 mb-24">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-4">
+                Ömer Faruk Memiş
+            </h1>
+            <p class="text-xl text-zinc-500 font-light mb-8 max-w-xl leading-relaxed">
+                Computer Technology student. Focused on data annotation, hardware troubleshooting, and building a strong technical foundation for future studies in Europe.
+            </p>
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="px-5 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-md hover:bg-zinc-800 transition-colors">
+                    Get in touch
+                </a>
+                <a href="mailto:omrhrkmmf06@gmail.com" class="p-2.5 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200 rounded-md transition-all">
+                    <i class="ph ph-envelope-simple text-xl"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="fade-in-section mb-24 pt-10 border-t border-zinc-200">
+            <h2 class="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-6">About Me</h2>
+            <div class="prose prose-zinc max-w-none text-zinc-700 leading-relaxed space-y-4">
+                <p>
+                    I am a highly logical, detail-oriented student currently pursuing a degree in Computer Technology. I excel in environments that require focus, precision, and adherence to complex guidelines.
+                </p>
+                <p>
+                    My immediate professional focus involves remote data annotation and technical support tasks, leveraging my hardware knowledge and analytical mindset. My long-term objective is to further my computer science education at a university in Italy or Latvia.
+                </p>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="fade-in-section mb-24 pt-10 border-t border-zinc-200">
+            <h2 class="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-8">Education</h2>
+            
+            <div class="relative pl-6 border-l border-zinc-200">
+                <!-- Timeline Item -->
+                <div class="mb-10 relative">
+                    <div class="absolute -left-[31px] top-1.5 w-3 h-3 bg-zinc-200 border-2 border-zinc-50 rounded-full"></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                        <h3 class="text-lg font-semibold text-zinc-900">Ankara University</h3>
+                        <span class="text-sm text-zinc-500 font-mono mt-1 sm:mt-0">Present</span>
+                    </div>
+                    <p class="text-zinc-700 font-medium">Associate Degree in Computer Technology</p>
+                    <p class="text-sm text-zinc-500 mt-2">Distance Learning. Building core competencies in programming, web technologies, and systems architecture.</p>
+                </div>
+                
+                <!-- Timeline Item (High School / Previous - Optional, kept clean for now) -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 w-3 h-3 bg-zinc-200 border-2 border-zinc-50 rounded-full"></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                        <h3 class="text-lg font-semibold text-zinc-900">High School</h3>
+                        <span class="text-sm text-zinc-500 font-mono mt-1 sm:mt-0">Graduated</span>
+                    </div>
+                    <p class="text-zinc-700 font-medium">Science & Mathematics Focus</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="fade-in-section mb-24 pt-10 border-t border-zinc-200">
+            <h2 class="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-8">Technical & Language Skills</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-zinc-900 font-medium mb-4 flex items-center gap-2">
+                        <i class="ph ph-terminal-window text-lg"></i> Core Competencies
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">JavaScript (Basic)</span>
+                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Data Annotation</span>
+                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Hardware Troubleshooting</span>
+                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Web Navigation</span>
+                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Windows OS</span>
+                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">MS Office Suite (Basic)</span>
+                        <span class="px-3 py-1.5 bg-zinc-100 text-zinc-700 text-sm rounded-md border border-zinc-200">Adobe Software (Basic)</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-zinc-900 font-medium mb-4 flex items-center gap-2">
+                        <i class="ph ph-translate text-lg"></i> Languages
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between items-center pb-2 border-b border-zinc-100">
+                            <span class="text-zinc-700">Turkish</span>
+                            <span class="text-xs font-mono bg-zinc-800 text-white px-2 py-1 rounded">Native</span>
+                        </li>
+                        <li class="flex justify-between items-center pb-2 border-b border-zinc-100">
+                            <span class="text-zinc-700">English</span>
+                            <span class="text-xs font-mono bg-zinc-100 text-zinc-600 px-2 py-1 rounded border border-zinc-200">B1 Intermediate</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="fade-in-section pt-10 border-t border-zinc-200">
+            <div class="bg-zinc-100 rounded-2xl p-8 text-center border border-zinc-200">
+                <h2 class="text-2xl font-bold text-zinc-900 mb-2">Let's Connect</h2>
+                <p class="text-zinc-600 mb-6 max-w-md mx-auto">
+                    Currently open to remote data annotation, transcription, and testing roles. Reaching out regarding opportunities or academic collaborations.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="mailto:omrhrkmmf06@gmail.com" class="flex items-center gap-2 px-6 py-3 bg-zinc-900 text-white font-medium rounded-lg hover:bg-zinc-800 transition-colors w-full sm:w-auto">
+                        <i class="ph ph-paper-plane-tilt text-lg"></i>
+                        omrhrkmmf06@gmail.com
+                    </a>
+                    <a href="tel:+905510402013" class="flex items-center gap-2 px-6 py-3 bg-white text-zinc-700 font-medium rounded-lg border border-zinc-200 hover:bg-zinc-50 transition-colors w-full sm:w-auto">
+                        <i class="ph ph-phone text-lg"></i>
+                        +90 551 040 2013
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-200 mt-12 bg-zinc-50">
+        <div class="max-w-3xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-zinc-500">
+                © <span id="year"></span> Ömer Faruk Memiş. All rights reserved.
+            </p>
+            <div class="flex gap-4">
+                <!-- Add actual links when you have them -->
+                <a href="#" class="text-zinc-400 hover:text-zinc-900 transition-colors" title="LinkedIn"><i class="ph ph-linkedin-logo text-xl"></i></a>
+                <a href="#" class="text-zinc-400 hover:text-zinc-900 transition-colors" title="GitHub"><i class="ph ph-github-logo text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Intersection Observer Script for Fade-in Animations -->
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Scroll Animation Logic
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optional: Stop observing once it's visible so it doesn't fade out when scrolling up
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            const sections = document.querySelectorAll('.fade-in-section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Trigger immediately for elements already in viewport on load
+            setTimeout(() => {
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        section.classList.add('is-visible');
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
