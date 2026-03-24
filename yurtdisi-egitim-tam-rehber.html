@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEnT-S Eksiksiz Master Plan</title>
+    <title>CEnT-S Ultra Detaylı Master Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -23,11 +23,11 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-        /* Accordion CSS */
+        /* Accordion CSS - Updated for very long content */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .accordion-icon {
             transition: transform 0.3s ease;
@@ -36,21 +36,28 @@
             transform: rotate(180deg);
         }
 
-        /* Lists */
-        .subtopic ul li {
+        /* Micro-lists for extreme detail */
+        .micro-list li {
             position: relative;
-            padding-left: 14px;
-            margin-bottom: 6px;
-            font-size: 13px;
+            padding-left: 1.25rem;
+            margin-bottom: 0.35rem;
+            font-size: 0.85rem;
             color: #475569;
+            line-height: 1.5;
         }
-        .subtopic ul li::before {
+        .micro-list li::before {
             content: '•';
             position: absolute;
             left: 0;
-            top: 0;
+            top: -1px;
             color: #94a3b8;
             font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .hybrid-box {
+            background: linear-gradient(135deg, #fdf4ff 0%, #f3e8ff 100%);
+            border: 1px solid #e879f9;
         }
 
         /* Reveal Animation */
@@ -70,10 +77,8 @@
                 <a href="#yapi" class="text-slate-500 hover:text-indigo-600 transition">Sınav Yapısı</a>
                 <a href="#matematik" class="text-slate-500 hover:text-indigo-600 transition">Matematik</a>
                 <a href="#mantik" class="text-slate-500 hover:text-orange-600 transition">Mantık</a>
-                <a href="#biyoloji" class="text-slate-500 hover:text-emerald-600 transition">Biyoloji</a>
-                <a href="#kimya" class="text-slate-500 hover:text-yellow-600 transition">Kimya</a>
-                <a href="#fizik" class="text-slate-500 hover:text-blue-600 transition">Fizik</a>
-                <a href="#kaynaklar" class="text-slate-500 hover:text-indigo-600 transition">Kaynaklar</a>
+                <a href="#fen" class="text-slate-500 hover:text-emerald-600 transition">Fen Bilimleri</a>
+                <a href="#kaynaklar" class="text-slate-500 hover:text-indigo-600 transition">Kaynak Rotası</a>
             </nav>
         </div>
     </header>
@@ -81,62 +86,66 @@
     <!-- Hero -->
     <section class="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
         <div class="inline-block px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold tracking-wide uppercase mb-6">
-            İtalya Üniversiteleri Giriş Sınavı
+            Eksiksiz Mikro-Müfredat Analizi
         </div>
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
-            Eksiksiz <span class="text-indigo-600">Master Plan</span>
+            Ultra Detaylı <span class="text-indigo-600">Plan</span>
         </h1>
         <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-            % Ağırlıklı öncelik barları, tek tek ayrılmış alt başlıklar, çalışılmayacak konular ve "Türkçeden İngilizceye" eksiksiz kaynak rotası.
+            Sadece ana başlıklar değil; temel kavramlar, bilinmesi gereken yasa ve kurallar, "Hibrit Soru" mantığı ve çıkmayacak konuların en ince ayrıntısı.
         </p>
     </section>
 
     <main class="max-w-5xl mx-auto px-6 pb-24 space-y-24">
 
         <!-- ========================================== -->
-        <!-- 1. SINAV YAPISI                            -->
+        <!-- 1. SINAV YAPISI & HİBRİT MANTIĞI           -->
         <!-- ========================================== -->
         <section id="yapi" class="scroll-mt-24 reveal">
-            <h2 class="text-2xl font-bold text-slate-900 mb-2 border-b-2 border-slate-200 pb-2 font-lexend">Sınavın Mimarisi & Kurallar</h2>
+            <h2 class="text-2xl font-bold text-slate-900 mb-2 border-b-2 border-slate-200 pb-2 font-lexend">Sınav Yapısı & Hibrit Sorular</h2>
             
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6 mt-6">
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                     <div class="text-xs text-slate-500 font-medium mb-1">Matematik</div>
                     <div class="text-xl font-bold text-indigo-600 font-lexend">15 Soru</div>
-                    <div class="text-sm text-slate-700 mt-1">30 Dk</div>
-                    <div class="text-[10px] bg-indigo-50 text-indigo-600 rounded-full py-1 mt-2">2 dk/soru</div>
+                    <div class="text-[10px] bg-indigo-50 text-indigo-600 rounded-full py-1 mt-2">30 Dakika</div>
                 </div>
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                     <div class="text-xs text-slate-500 font-medium mb-1">Mantık & Veri</div>
                     <div class="text-xl font-bold text-orange-600 font-lexend">15 Soru</div>
-                    <div class="text-sm text-slate-700 mt-1">30 Dk</div>
-                    <div class="text-[10px] bg-orange-50 text-orange-600 rounded-full py-1 mt-2">2 dk/soru</div>
+                    <div class="text-[10px] bg-orange-50 text-orange-600 rounded-full py-1 mt-2">30 Dakika</div>
                 </div>
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                     <div class="text-xs text-slate-500 font-medium mb-1">Biyoloji</div>
                     <div class="text-xl font-bold text-emerald-600 font-lexend">10 Soru</div>
-                    <div class="text-sm text-slate-700 mt-1">20 Dk</div>
-                    <div class="text-[10px] bg-emerald-50 text-emerald-600 rounded-full py-1 mt-2">2 dk/soru</div>
+                    <div class="text-[10px] bg-emerald-50 text-emerald-600 rounded-full py-1 mt-2">20 Dakika</div>
                 </div>
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                     <div class="text-xs text-slate-500 font-medium mb-1">Kimya</div>
                     <div class="text-xl font-bold text-yellow-600 font-lexend">10 Soru</div>
-                    <div class="text-sm text-slate-700 mt-1">20 Dk</div>
-                    <div class="text-[10px] bg-yellow-50 text-yellow-600 rounded-full py-1 mt-2">2 dk/soru</div>
+                    <div class="text-[10px] bg-yellow-50 text-yellow-600 rounded-full py-1 mt-2">20 Dakika</div>
                 </div>
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center col-span-2 md:col-span-1">
                     <div class="text-xs text-slate-500 font-medium mb-1">Fizik</div>
                     <div class="text-xl font-bold text-blue-600 font-lexend">5 Soru</div>
-                    <div class="text-sm text-slate-700 mt-1">10 Dk</div>
-                    <div class="text-[10px] bg-blue-50 text-blue-600 rounded-full py-1 mt-2">2 dk/soru</div>
+                    <div class="text-[10px] bg-blue-50 text-blue-600 rounded-full py-1 mt-2">10 Dakika</div>
                 </div>
             </div>
 
-            <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl flex items-start gap-4 shadow-sm">
-                <span class="text-2xl mt-1">⚖️</span>
-                <div>
-                    <h3 class="text-amber-800 font-bold mb-1 font-lexend">Puanlama: +1 Doğru, -0.25 Yanlış, 0 Boş</h3>
-                    <p class="text-amber-900 text-sm">Bölümler arası <strong>geri dönüş yoktur.</strong> Sallamak bu sınavda intihardır. Süre çok kısıtlı olduğu için, uzun süreceğini veya bilmediğini anladığın soruyu anında boş bırak (0 Puan) ve -0.25 almaktan kurtul.</p>
+            <!-- HİBRİT SORU BİLGİSİ -->
+            <div class="hybrid-box p-6 rounded-2xl shadow-sm mt-8">
+                <h3 class="font-lexend font-bold text-purple-900 mb-2 flex items-center gap-2">
+                    <span class="text-xl">🧬</span> CEnT-S "Hibrit Soru" Mantığı Nedir?
+                </h3>
+                <p class="text-sm text-purple-800 mb-3">İtalya sisteminde (özellikle Matematik ve Fizikte) sorular "tek konulu" gelmeyebilir. Bir soruda 3 farklı konunun bilgisi aynı anda test edilir.</p>
+                <div class="bg-white/60 p-4 rounded-xl border border-purple-200">
+                    <strong class="text-sm text-purple-900 block mb-1">Örnek Hibrit Soru:</strong>
+                    <p class="text-xs text-purple-800 italic">"Tepe noktası y ekseni üzerinde olan f(x) parabolü ile y = log₂(x) fonksiyonunun kesişim noktası A'dır. A noktasından orijine çizilen doğrunun eğimi kaçtır?"</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="text-[10px] bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-semibold">1. Parabol Bilgisi</span>
+                        <span class="text-[10px] bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-semibold">2. Logaritma Denklemi</span>
+                        <span class="text-[10px] bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-semibold">3. Analitik Geometri (Eğim)</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -145,227 +154,147 @@
         <!-- 2. MATEMATİK                               -->
         <!-- ========================================== -->
         <section id="matematik" class="scroll-mt-24 reveal">
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-4 mb-6">
                 <div class="w-14 h-14 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center font-bold text-2xl shadow-sm">M</div>
                 <div>
                     <h2 class="text-3xl font-bold text-slate-900 font-lexend">Matematik</h2>
-                    <p class="text-sm text-slate-500 mt-1">15 Soru • 30 Dakika • Sınavın Kalbi</p>
+                    <p class="text-sm text-slate-500 mt-1">İğne Deliğine Kadar Tam Müfredat Listesi</p>
                 </div>
             </div>
 
-            <!-- Priority Bars -->
-            <div class="mb-8">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Konu Öncelik Sıralaması</h3>
+            <div class="space-y-4 mb-8">
                 
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Fonksiyonlar & Grafikler 👑</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-indigo-500" data-w="100"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-indigo-600">%100</span>
-                </div>
-                
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Denklemler & Eşitsizlikler</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-indigo-500" data-w="90"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-indigo-600">%90</span>
-                </div>
-
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Polinomlar & Çarpanlara A.</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-indigo-400" data-w="83"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-indigo-600">%83</span>
-                </div>
-
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Logaritma & Üstel Fonk.</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-indigo-400" data-w="78"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-indigo-600">%78</span>
-                </div>
-
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Analitik Geometri</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-indigo-300" data-w="74"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-indigo-600">%74</span>
-                </div>
-
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Trigonometri (Temel)</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-indigo-300" data-w="60"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-indigo-600">%60</span>
-                </div>
-
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Olasılık & Kombinasyon</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-indigo-200" data-w="55"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-indigo-600">%55</span>
-                </div>
-            </div>
-
-            <!-- Detailed Accordions -->
-            <div class="space-y-3 mb-8">
-                <!-- Topic 1 -->
+                <!-- Topic 1: Sayılar ve Cebir -->
                 <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                     <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">1</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 font-lexend">Fonksiyonlar & Grafikler</h4>
-                                <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full mt-1 inline-block">ZİRVE ÖNEM</span>
-                            </div>
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">1. Sayılar & Temel Cebir</h4>
+                            <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">TEMEL</span>
                         </div>
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content bg-slate-50 border-t border-slate-100">
-                        <div class="p-6 grid md:grid-cols-2 gap-4">
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3 flex items-center justify-between">Temel Kavramlar <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">TYT/AYT</span></h5>
-                                <ul>
-                                    <li>Domain (Tanım) ve Range (Değer) kümesi</li>
-                                    <li>Birebir, örten, içine fonksiyonlar</li>
-                                    <li>Bileşke fonksiyon: f(g(x))</li>
-                                    <li>Ters fonksiyon: f⁻¹(x)</li>
+                        <div class="p-6 grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-bold text-sm text-indigo-700 mb-2">Sayılar ve Aritmetik</h5>
+                                <ul class="micro-list">
+                                    <li>Tam sayılar, rasyonel ve ondalık sayılar (fractions/decimals).</li>
+                                    <li>Bilimsel gösterim (Scientific notation) ve basamak kavramı.</li>
+                                    <li>Oran-orantı (Proportions) ve Yüzde problemleri (Percentages).</li>
+                                    <li>Mutlak değerin tanımı ve basit denklemleri (|x| = a).</li>
                                 </ul>
                             </div>
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3 flex items-center justify-between">Grafik Dönüşümleri <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">AYT</span></h5>
-                                <ul>
-                                    <li>Öteleme: f(x−a)+b</li>
-                                    <li>Simetri: −f(x), f(−x)</li>
-                                    <li>Artan/azalan aralıklar</li>
-                                    <li>Parçalı ve mutlak değer grafikleri</li>
+                            <div>
+                                <h5 class="font-bold text-sm text-indigo-700 mb-2">Üslü, Köklü & Çarpanlara Ayırma</h5>
+                                <ul class="micro-list">
+                                    <li>Üslü sayılar çarpma/bölme/kuvvetin kuvveti kuralları.</li>
+                                    <li>Köklü sayılar, eşlenik alma (rationalizing the denominator).</li>
+                                    <li>Özdeşlikler: Tam kare (x±y)², İki kare farkı (x²-y²).</li>
+                                    <li>Basit polinomlarda bölme ve kalan bulma.</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Topic 2 -->
+                <!-- Topic 2: Denklemler & Fonksiyonlar -->
                 <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                     <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">2</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 font-lexend">Cebir & Denklemler</h4>
-                                <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full mt-1 inline-block">ÇOK YÜKSEK</span>
-                            </div>
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">2. Denklemler & Fonksiyonlar</h4>
+                            <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">EN YÜKSEK AĞIRLIK</span>
                         </div>
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content bg-slate-50 border-t border-slate-100">
-                        <div class="p-6 grid md:grid-cols-2 gap-4">
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3 flex items-center justify-between">Polinomlar & Üslü <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">TYT/AYT</span></h5>
-                                <ul>
-                                    <li>Çarpanlara ayırma (Tam kare, iki kare farkı)</li>
-                                    <li>Polinomlarda bölme ve kalan bulma</li>
-                                    <li>Üslü sayı kuralları ve üslü denklemler</li>
-                                    <li>Kök sadeleştirme ve eşlenik</li>
+                        <div class="p-6 grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-bold text-sm text-indigo-700 mb-2">Denklem & Eşitsizlikler</h5>
+                                <ul class="micro-list">
+                                    <li>1. Dereceden denklem sistemleri (2 bilinmeyenli).</li>
+                                    <li>2. Dereceden denklemler (Quadratic eq): Diskriminant (Δ) incelemesi ve kök bulma.</li>
+                                    <li>Kökler toplamı (x₁+x₂) ve çarpımı (x₁.x₂) - Vieta formülleri.</li>
+                                    <li>Eşitsizlik sistemleri tabloları (>, <, ≥, ≤).</li>
                                 </ul>
                             </div>
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3 flex items-center justify-between">Denklem & Eşitsizlik <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">TYT/AYT</span></h5>
-                                <ul>
-                                    <li>1. ve 2. Derece denklemler (Diskriminant)</li>
-                                    <li>Kökler toplamı / çarpımı (Vieta formülleri)</li>
-                                    <li>Linear ve quadratic eşitsizlikler</li>
-                                    <li>Mutlak değer eşitsizlikleri</li>
+                            <div>
+                                <h5 class="font-bold text-sm text-indigo-700 mb-2">Fonksiyonlar (Functions)</h5>
+                                <ul class="micro-list">
+                                    <li>Tanım (Domain) ve Değer (Range) kümesi kısıtlamaları (payda 0 olamaz, kök içi eksi olamaz).</li>
+                                    <li>Bileşke fonksiyon (Composite: f(g(x))) ve Ters fonksiyon (Inverse: f⁻¹(x)).</li>
+                                    <li>Grafik Okuma: Kökler (x-intercept), y-ekseni kesişimi, artan/azalan aralıklar.</li>
+                                    <li>Grafik Dönüşümleri: f(x±a), f(x)±a, -f(x), f(-x), |f(x)|.</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Topic 3 -->
+                <!-- Topic 3: Logaritma & Geometri -->
                 <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                     <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">3</div>
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">3. Logaritma, Geometri & Trigonometri</h4>
+                            <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">ORTA / YÜKSEK</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content bg-slate-50 border-t border-slate-100">
+                        <div class="p-6 grid md:grid-cols-2 gap-6">
                             <div>
-                                <h4 class="font-bold text-slate-800 font-lexend">Logaritma & Üstel Fonksiyonlar</h4>
-                                <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full mt-1 inline-block">YÜKSEK</span>
+                                <h5 class="font-bold text-sm text-indigo-700 mb-2">Logaritma & Üstel</h5>
+                                <ul class="micro-list">
+                                    <li>Üstel ve Logaritmik fonksiyon birbirinin tersidir mantığı.</li>
+                                    <li>Özellikler: log(a.b) = log(a)+log(b), taban değiştirme.</li>
+                                    <li>e sayısı ve Doğal logaritma (lnx).</li>
+                                    <li>Logaritmik denklemlerin çözüm kümeleri.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-sm text-indigo-700 mb-2">Geometri & Trigonometri</h5>
+                                <ul class="micro-list">
+                                    <li><strong>Analitik:</strong> İki nokta arası uzaklık, Orta nokta, Doğru denklemi (y=mx+n), Eğim (m), Paralel/Dik doğru şartları.</li>
+                                    <li><strong>Düzlem:</strong> Üçgende Pisagor, Thales teoremi (Benzerlik), Çemberin çevresi ve daire dilim alanı.</li>
+                                    <li><strong>Trigonometri:</strong> Dik üçgende Sin, Cos, Tan oranları. Birim çember. Temel özdeşlik: sin²x + cos²x = 1. Radyan-Derece.</li>
+                                </ul>
                             </div>
                         </div>
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+                
+                <!-- Topic 4: İstatistik & Olasılık -->
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                    <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
+                        <div class="flex items-center gap-4">
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">4. İstatistik & Olasılık</h4>
+                            <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">DÜŞÜK</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content bg-slate-50 border-t border-slate-100">
                         <div class="p-6">
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <ul>
-                                    <li>y = aˣ grafiği ve özellikleri, e sayısı ve doğal logaritma (ln)</li>
-                                    <li>Logaritma tanımı: logₐ(x) = üstel tersinin tersi</li>
-                                    <li>Çarpım, bölüm, kuvvet ve taban değiştirme kuralları</li>
-                                    <li>Basit logaritmik denklemler</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Topic 4 -->
-                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-                    <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">4</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 font-lexend">Geometri & Trigonometri</h4>
-                                <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full mt-1 inline-block">ORTA - YÜKSEK</span>
-                            </div>
-                        </div>
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="accordion-content bg-slate-50 border-t border-slate-100">
-                        <div class="p-6 grid md:grid-cols-2 gap-4">
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3">Analitik & Düzlem</h5>
-                                <ul>
-                                    <li>İki nokta arası uzaklık, Orta nokta, Doğru denklemi (y=mx+c)</li>
-                                    <li>Parabol (Tepe noktası, eksen kesişimleri)</li>
-                                    <li>Üçgenler (Pisagor, benzerlik), Çember (çevre, alan)</li>
-                                </ul>
-                            </div>
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3">Temel Trigonometri</h5>
-                                <ul>
-                                    <li>Radyan-Derece dönüşümü</li>
-                                    <li>Sin, Cos, Tan — birim çember üzerinde</li>
-                                    <li>sin²x + cos²x = 1</li>
-                                    <li>Sinüs ve Kosinüs teoremleri (İleri formüller yok)</li>
-                                </ul>
-                            </div>
+                            <ul class="micro-list">
+                                <li>Aritmetik ortalama (Mean), Medyan (Median), Mod (Mode) bulma.</li>
+                                <li>Sayma kuralları: Permütasyon (Sıralama) ve Kombinasyon (Seçme).</li>
+                                <li>Basit olasılık: İstenen durum / Tüm durumlar.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Red Zone -->
+            
             <div class="bg-red-50 border border-red-200 rounded-2xl p-6 shadow-sm">
                 <h3 class="font-lexend font-bold text-red-700 mb-2 uppercase tracking-wide text-sm flex items-center gap-2">
-                    <span class="text-xl">⊘</span> Kesinlikle Çalışılmayacaklar
+                    <span class="text-xl">⊘</span> Kesinlikle Yok (Çalışmayın)
                 </h3>
-                <p class="text-sm text-red-600 mb-4">Aşağıdaki 12. sınıf AYT konuları müfredatta yoktur. Vakit kaybetmeyin.</p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-white border border-red-100 text-red-700 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">Limit</span>
-                    <span class="bg-white border border-red-100 text-red-700 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">Süreklilik</span>
-                    <span class="bg-white border border-red-100 text-red-700 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">Türev</span>
-                    <span class="bg-white border border-red-100 text-red-700 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">İntegral</span>
-                    <span class="bg-white border border-red-100 text-red-700 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">Karmaşık Sayılar</span>
-                    <span class="bg-white border border-red-100 text-red-700 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">Diziler & Seriler</span>
-                    <span class="bg-white border border-red-100 text-red-700 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">İleri Trigonometri</span>
-                    <span class="bg-white border border-red-100 text-red-700 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">Vektörler & Matris</span>
-                </div>
+                <ul class="micro-list text-red-700 font-medium">
+                    <li>Limit ve Süreklilik kavramları.</li>
+                    <li>Türev (Türev alma kuralları, eğri çizimleri, maksimum-minimum problemleri yoktur).</li>
+                    <li>İntegral (Belirli, belirsiz integral, alan veya hacim hesabı yoktur).</li>
+                    <li>Karmaşık Sayılar (i² = -1 mantığı veya kutupsal biçim yoktur).</li>
+                    <li>Matrisler, Determinant, Uzay Geometrisi (Vektörler) yoktur.</li>
+                    <li>İleri Trigonometri (Toplam-Fark formülleri, Yarım Açı formülleri, karmaşık trigonometrik denklemler yoktur).</li>
+                </ul>
             </div>
         </section>
 
@@ -374,76 +303,58 @@
         <!-- 3. MANTIK & VERİ                           -->
         <!-- ========================================== -->
         <section id="mantik" class="scroll-mt-24 reveal">
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-4 mb-6">
                 <div class="w-14 h-14 bg-orange-100 text-orange-700 rounded-2xl flex items-center justify-center font-bold text-2xl shadow-sm">R</div>
                 <div>
                     <h2 class="text-3xl font-bold text-slate-900 font-lexend">Mantık & Veri (Reasoning)</h2>
-                    <p class="text-sm text-slate-500 mt-1">15 Soru • 30 Dakika • Sınavın Belirleyicisi</p>
+                    <p class="text-sm text-slate-500 mt-1">Okuduğunu Anlama • İstatistik Yorumlama • Tümdengelim</p>
                 </div>
             </div>
 
-            <div class="mb-8">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Konu Öncelik Sıralaması</h3>
+            <div class="space-y-4 mb-8">
                 
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Veri ve Grafik Okuma</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-orange-500" data-w="100"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-orange-600">%100</span>
-                </div>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Sözel Tümdengelim (Kıyas)</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-orange-500" data-w="95"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-orange-600">%95</span>
-                </div>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Metin Analizi (Okuma)</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-orange-400" data-w="85"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-orange-600">%85</span>
-                </div>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Koşullu Mantık (If-Then)</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-orange-300" data-w="70"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-orange-600">%70</span>
-                </div>
-            </div>
-
-            <!-- Detailed Accordions -->
-            <div class="space-y-3 mb-8">
                 <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                     <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center font-bold">1</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 font-lexend">Veri Yorumlama (Data Handling)</h4>
-                                <span class="text-[10px] font-semibold bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full mt-1 inline-block">KRİTİK</span>
-                            </div>
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">1. Veri Yorumlama (Data Handling)</h4>
+                            <span class="text-[10px] font-semibold bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">KRİTİK AĞIRLIK</span>
                         </div>
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content bg-slate-50 border-t border-slate-100">
-                        <div class="p-6 grid md:grid-cols-2 gap-4">
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3">Grafik Analizi</h5>
-                                <ul>
-                                    <li>Pasta, sütun, çizgi grafiklerini birleştirme</li>
-                                    <li>"Year-over-year" yüzde değişimleri hesaplama</li>
-                                    <li>Karışık tablolardan spesifik veriyi saniyeler içinde çekme</li>
+                        <div class="p-6">
+                            <ul class="micro-list">
+                                <li><strong>Grafik Dönüşümleri:</strong> Bir pasta grafiğindeki (pie chart) veriyi tabloya veya sütun grafiğine (bar chart) dönüştürebilme.</li>
+                                <li><strong>Büyüme/Küçülme Hızı:</strong> Tablolardan veya çizgi grafiklerden (line graph) yıl bazlı yüzde (%) değişimleri hesaplama.</li>
+                                <li><strong>Çapraz Tablo Okuma:</strong> Satır ve sütun verilerinin kesişiminden istenilen gizli spesifik veriyi matematiksel işlem yaparak bulma.</li>
+                                <li><strong>İstatistiksel Safsata Tespiti:</strong> Verilen veriden "Nedensellik" (Causation) mi çıkıyor yoksa sadece "Korelasyon" mu (Correlation) var bunu fark etme.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                    <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
+                        <div class="flex items-center gap-4">
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">2. Formel Mantık (Logic & Deduction)</h4>
+                            <span class="text-[10px] font-semibold bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">YÜKSEK AĞIRLIK</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content bg-slate-50 border-t border-slate-100">
+                        <div class="p-6 grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-bold text-sm text-orange-700 mb-2">Kıyas (Syllogisms)</h5>
+                                <ul class="micro-list">
+                                    <li>"Bütün A'lar B'dir", "Bazı C'ler A'dır" şeklindeki ifadeleri Venn şemasına döküp kesin doğruyu bulma.</li>
+                                    <li>"All", "Some", "None", "At least one" gibi sınırlandırıcı kelimelerin mantıksal karşılıkları.</li>
                                 </ul>
                             </div>
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3">İstatistiksel Hatalar</h5>
-                                <ul>
-                                    <li>Korelasyon vs. Nedensellik (Correlation ≠ Causation)</li>
-                                    <li>Örneklem hatası (Sampling bias) bulma</li>
-                                    <li>Veriden "kesin" vs "olabilir" çıkarımı yapma</li>
+                            <div>
+                                <h5 class="font-bold text-sm text-orange-700 mb-2">Koşullu Mantık</h5>
+                                <ul class="micro-list">
+                                    <li>If P, then Q (Eğer P ise Q'dur). Bu durumda "Q değilse, P değildir" kuralını uygulama.</li>
+                                    <li>Gerekli Şart (Necessary Condition) ve Yeterli Şart (Sufficient Condition) ayrımları.</li>
                                 </ul>
                             </div>
                         </div>
@@ -453,268 +364,285 @@
                 <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                     <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center font-bold">2</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 font-lexend">Formel Mantık & Çıkarım</h4>
-                                <span class="text-[10px] font-semibold bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full mt-1 inline-block">ÇOK YÜKSEK</span>
-                            </div>
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">3. Metin Analizi (Reading Comp.)</h4>
+                            <span class="text-[10px] font-semibold bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">ORTA AĞIRLIK</span>
                         </div>
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content bg-slate-50 border-t border-slate-100">
-                        <div class="p-6 grid md:grid-cols-2 gap-4">
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3">Syllogisms (Kıyas)</h5>
-                                <ul>
-                                    <li>"All A are B", "Some C are A" → Çıkarımlar</li>
-                                    <li>Venn şeması çizerek çözülmesi gereken önermeler</li>
-                                    <li>Every, none, at least one kelimelerine dikkat</li>
-                                </ul>
-                            </div>
-                            <div class="subtopic bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                                <h5 class="font-semibold text-sm mb-3">Koşullu Mantık</h5>
-                                <ul>
-                                    <li>If P then Q (P→Q). Q olmazsa P olmaz (~Q→~P)</li>
-                                    <li>Gerekli şart (Necessary condition)</li>
-                                    <li>Yeterli şart (Sufficient condition)</li>
-                                </ul>
-                            </div>
+                        <div class="p-6">
+                            <ul class="micro-list">
+                                <li><strong>Ana Fikir (Main Conclusion):</strong> Yazarın metni yazma amacını (tezini) tek cümlede özetleyen şıkkı bulma.</li>
+                                <li><strong>Varsayım (Implicit Assumption):</strong> Metinde yazılı olmayan ama yazarın sonucuna ulaşması için "doğru kabul ettiği" eksik parçayı tespit etme.</li>
+                                <li><strong>Mantıksal Hata (Flaw):</strong> Yazarın argümanındaki tutarsızlığı veya kanıtlanamayan zıplamayı eleştirme.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="bg-red-50 border border-red-200 rounded-2xl p-6 shadow-sm">
-                <h3 class="font-lexend font-bold text-red-700 mb-2 uppercase tracking-wide text-sm flex items-center gap-2">
-                    <span class="text-xl">⊘</span> Yanlış Refleksler
-                </h3>
-                <p class="text-sm text-red-600">TYT Türkçe'deki "paragrafta anlam" refleksinden çıkın. Metin "Güneş yeşildir" diyorsa, mantık zincirini buna göre kurmanız gerekir. Kendi bilginizi katmayın.</p>
+
             </div>
         </section>
 
 
         <!-- ========================================== -->
-        <!-- 4. FEN BİLİMLERİ (BIO, CHEM, PHYS)         -->
+        <!-- 4. FEN BİLİMLERİ                           -->
         <!-- ========================================== -->
         <section id="fen" class="scroll-mt-24 reveal">
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-4 mb-6">
                 <div class="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center font-bold text-2xl shadow-sm">F</div>
                 <div>
-                    <h2 class="text-3xl font-bold text-slate-900 font-lexend">Fen Bilimleri</h2>
-                    <p class="text-sm text-slate-500 mt-1">Biyoloji (10) • Kimya (10) • Fizik (5)</p>
+                    <h2 class="text-3xl font-bold text-slate-900 font-lexend">Fen Bilimleri (Biyoloji, Kimya, Fizik)</h2>
+                    <p class="text-sm text-slate-500 mt-1">Sınavın Belirleyici Yabancı Terim Alanı</p>
                 </div>
             </div>
 
-            <!-- Bio -->
-            <div class="mb-10">
-                <h3 class="text-lg font-bold text-emerald-700 mb-4 border-b border-slate-200 pb-2">🧬 Biyoloji</h3>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Hücre Biyolojisi</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-emerald-500" data-w="100"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-emerald-600">%100</span>
-                </div>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Genetik & Kalıtım</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-emerald-500" data-w="90"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-emerald-600">%90</span>
-                </div>
-                
-                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden mt-4">
-                    <button class="w-full text-left p-4 font-bold text-slate-800 flex justify-between items-center hover:bg-slate-50" onclick="toggleAcc(this)">
-                        Detaylı Biyoloji Alt Başlıkları
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <div class="space-y-4 mb-8">
+                <!-- BİYOLOJİ -->
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                    <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
+                        <div class="flex items-center gap-4">
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">🧬 Biyoloji Mikro-Müfredat (10 Soru)</h4>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content bg-slate-50 border-t border-slate-100">
-                        <div class="p-5 subtopic">
-                            <ul>
-                                <li><strong>Hücre:</strong> Organellerin görevleri, Hücre zarı taşınması (Osmoz, Aktif taşıma, Difüzyon).</li>
-                                <li><strong>Genetik:</strong> Mitoz/Mayoz bölünme, DNA/RNA yapısı, Mendel genetiği (Punnett karesi, soy ağaçları).</li>
-                                <li><strong>Enerji:</strong> Fotosentez ve Hücresel Solunum (sadece genel denklem ve süreçler, karmaşık reaksiyonlar yok).</li>
-                            </ul>
-                            <div class="mt-3 text-xs text-red-600 font-medium">⊘ Yok: Bitki Biyolojisi, Detaylı Taksonomi (Sınıflandırma), Ekoloji formülleri.</div>
+                        <div class="p-6 grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-bold text-sm text-emerald-700 mb-2">Yaşamın Kimyası & Hücre</h5>
+                                <ul class="micro-list">
+                                    <li>Karbonhidrat, Lipid, Protein, Nükleik Asit (DNA/RNA) genel yapıtaşları.</li>
+                                    <li>Prokaryot / Ökaryot farkları.</li>
+                                    <li>Organellerin tam listesi ve görevleri (Ribozom, Mitokondri, Kloroplast, Lizozom, Golgi, ER).</li>
+                                    <li>Hücre zarı yapısı (akıcı mozaik) ve madde geçişleri (Pasif: Osmoz, Difüzyon / Aktif: Pompalar, Endositoz, Ekzositoz).</li>
+                                </ul>
+                                <h5 class="font-bold text-sm text-emerald-700 mb-2 mt-4">Biyoenerjetik</h5>
+                                <ul class="micro-list">
+                                    <li>ATP yapısı ve Enzimlerin özellikleri (Aktivasyon enerjisi düşürme).</li>
+                                    <li>Fotosentez genel denklemi (Işık ve karanlık evrenin hücredeki yeri).</li>
+                                    <li>Hücresel Solunum (Glikoliz, Krebs çemberi, ETS - karmaşık formüller olmadan).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-sm text-emerald-700 mb-2">Kalıtım & Bölünme</h5>
+                                <ul class="micro-list">
+                                    <li>Kromozom, Kromatit, Sentromer kavramları.</li>
+                                    <li>Mitoz ve Mayoz evreleri (Profaz, Metafaz, Anafaz, Telofaz farkları).</li>
+                                    <li>Mendel Genetiği (Dominant, Resesif, Homo/Heterozigot, Punnett karesi hesapları).</li>
+                                    <li>Eş baskınlık (Kan grupları) ve cinsiyete bağlı kalıtım.</li>
+                                    <li>Santral dogma: Replikasyon -> Transkripsiyon -> Translasyon sıralaması.</li>
+                                    <li>Mutasyon türleri genel bilgi.</li>
+                                </ul>
+                                <h5 class="font-bold text-sm text-emerald-700 mb-2 mt-4">İnsan Anatomisi (Sadece Temel İşlevler)</h5>
+                                <ul class="micro-list">
+                                    <li>Sindirim (enzimlerin çalıştığı yerler), Solunum (alveoller), Dolaşım (Kalp odacıkları, damarlar), Boşaltım (nefron mantığı), Sinir Sistemi (nöron).</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Chem -->
-            <div class="mb-10">
-                <h3 class="text-lg font-bold text-yellow-600 mb-4 border-b border-slate-200 pb-2">🧪 Kimya</h3>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Atom & Periyodik Cetvel</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-yellow-500" data-w="100"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-yellow-600">%100</span>
-                </div>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Kimyasal Bağlar</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-yellow-500" data-w="90"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-yellow-600">%90</span>
-                </div>
-
-                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden mt-4">
-                    <button class="w-full text-left p-4 font-bold text-slate-800 flex justify-between items-center hover:bg-slate-50" onclick="toggleAcc(this)">
-                        Detaylı Kimya Alt Başlıkları
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <!-- KİMYA -->
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                    <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
+                        <div class="flex items-center gap-4">
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">🧪 Kimya Mikro-Müfredat (10 Soru)</h4>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content bg-slate-50 border-t border-slate-100">
-                        <div class="p-5 subtopic">
-                            <ul>
-                                <li><strong>Atom & Bağlar:</strong> İzotop/İyon, Elektron dizilimi, İyonik/Kovalent/Metalik bağlar.</li>
-                                <li><strong>Stokiyometri:</strong> Mol kavramı, Kimyasal tepkime denkleştirme, Sınırlayıcı bileşen hesapları.</li>
-                                <li><strong>Maddenin Halleri:</strong> İdeal gaz yasası (PV=nRT), Molarite hesapları, Asit-Baz pH tanımları.</li>
-                            </ul>
-                            <div class="mt-3 text-xs text-red-600 font-medium">⊘ Yok: Organik Kimya (sadece alkan/alken tanımı olabilir), Kimyasal Denge (Kç, Kp), Gelişmiş Elektrokimya/Pil.</div>
+                        <div class="p-6 grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-bold text-sm text-yellow-600 mb-2">Atom & Periyodik Tablo</h5>
+                                <ul class="micro-list">
+                                    <li>Maddenin halleri, Element/Bileşik/Karışım kavramları, Ayırma yöntemleri.</li>
+                                    <li>Proton, Nötron, Elektron, İzotop hesapları.</li>
+                                    <li>Bohr modeli ve Elektron dizilimi (s, p, d orbitalleri).</li>
+                                    <li>Periyodik tablo özellikleri: Grup, Periyot bulma. Elektronegatiflik, iyonlaşma enerjisi, atom çapı eğilimleri.</li>
+                                </ul>
+                                <h5 class="font-bold text-sm text-yellow-600 mb-2 mt-4">Bağlar</h5>
+                                <ul class="micro-list">
+                                    <li>İyonik (Metal-Ametal), Kovalent (Ametal-Ametal), Metalik bağ.</li>
+                                    <li>Polarite (Polar ve Apolar moleküller).</li>
+                                    <li>Zayıf Etkileşimler (Van der Waals, Hidrojen Bağı).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-sm text-yellow-600 mb-2">Stokiyometri (Kimyasal Hesap)</h5>
+                                <ul class="micro-list">
+                                    <li>Mol kavramı, Avogadro sayısı, Molar kütle.</li>
+                                    <li>Kimyasal tepkimelerin denkleştirilmesi.</li>
+                                    <li>Sınırlayıcı bileşen (Limiting reactant) ve % Verim bulma.</li>
+                                </ul>
+                                <h5 class="font-bold text-sm text-yellow-600 mb-2 mt-4">Çözeltiler, Asit-Baz & Termodinamik</h5>
+                                <ul class="micro-list">
+                                    <li>İdeal gaz yasası (PV=nRT).</li>
+                                    <li>Molarite hesapları (M=n/V) ve seyrelme (M1.V1=M2.V2).</li>
+                                    <li>Asit-Baz tanımları, pH hesaplama (sadece kuvvetli asit/baz için), nötrleşme.</li>
+                                    <li>Oksidasyon sayıları bulma ve basit Redoks tepkimelerini tanıma.</li>
+                                    <li>Endotermik ve Ekzotermik tepkime mantığı.</li>
+                                    <li>Organik: Alkan/Alken/Alkin genel özellikleri, fonksiyonel grupların (Alkol, Amin, Asit) görsel tespiti.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Physics -->
-            <div class="mb-6">
-                <h3 class="text-lg font-bold text-blue-600 mb-4 border-b border-slate-200 pb-2">⚛️ Fizik</h3>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Mekanik (Kinematik/Dinamik)</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-blue-500" data-w="100"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-blue-600">%100</span>
-                </div>
-                <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm">
-                    <span class="text-sm font-semibold w-48 shrink-0 text-slate-800">Enerji & İş</span>
-                    <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="pbar h-full rounded-full transition-all duration-1000 ease-out w-0 bg-blue-500" data-w="90"></div>
-                    </div>
-                    <span class="text-sm font-bold w-12 text-right text-blue-600">%90</span>
-                </div>
-
-                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden mt-4">
-                    <button class="w-full text-left p-4 font-bold text-slate-800 flex justify-between items-center hover:bg-slate-50" onclick="toggleAcc(this)">
-                        Detaylı Fizik Alt Başlıkları
-                        <svg class="w-5 h-5 text-slate-400 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <!-- FİZİK -->
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                    <button class="w-full text-left p-5 flex items-center justify-between hover:bg-slate-50 transition-colors" onclick="toggleAcc(this)">
+                        <div class="flex items-center gap-4">
+                            <h4 class="font-bold text-slate-800 font-lexend text-lg">⚛️ Fizik Mikro-Müfredat (5 Soru)</h4>
+                            <span class="text-[10px] font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full hidden sm:inline-block">10 DK SÜREYE DİKKAT</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 accordion-icon shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content bg-slate-50 border-t border-slate-100">
-                        <div class="p-5 subtopic">
-                            <ul>
-                                <li><strong>Mekanik:</strong> Vektörler, Hız-Zaman/Konum-Zaman grafikleri, Newton Yasaları (F=m.a), Serbest düşme.</li>
-                                <li><strong>Enerji:</strong> İş, Güç, Kinetik/Potansiyel enerji formülleri ve mekanik enerjinin korunumu.</li>
-                                <li><strong>Elektrik:</strong> Ohm Yasası (V=I.R), Seri ve paralel devre hesaplamaları.</li>
-                            </ul>
-                            <div class="mt-3 text-xs text-red-600 font-medium">⊘ Yok: Modern Fizik (Kuantum), Elektromanyetik İndüksiyon, Bobinler, Optik. <strong>Süre 10 dk olduğu için hesap uzunsa BOŞ bırakın.</strong></div>
+                        <div class="p-6 grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-bold text-sm text-blue-600 mb-2">Ölçüm & Kinematik (Hareket)</h5>
+                                <ul class="micro-list">
+                                    <li>Skaler ve Vektörel büyüklükler, SI birim sistemi.</li>
+                                    <li>Konum, yer değiştirme, hız, sürat, ivme.</li>
+                                    <li>Sabit hızlı ve Sabit İvmeli hareket formülleri (x=vt, v=v₀+at vb.).</li>
+                                    <li>x-t, v-t, a-t grafikleri (Eğim ve alan hesaplamaları).</li>
+                                    <li>Serbest düşme, limit hız, basit eğik/yatay atış.</li>
+                                    <li>Düzgün dairesel hareket (Periyot, frekans, çizgisel/açısal hız).</li>
+                                </ul>
+                                <h5 class="font-bold text-sm text-blue-600 mb-2 mt-4">Dinamik & Enerji</h5>
+                                <ul class="micro-list">
+                                    <li>Newton Yasaları: F=m.a, Etki-Tepki. Kütle vs Ağırlık.</li>
+                                    <li>Sürtünme Kuvveti (Statik ve Kinetik), Merkezcil kuvvet.</li>
+                                    <li>İş (W=F.x), Kinetik Enerji (1/2mv²), Potansiyel Enerji (mgh), Yay potansiyeli (1/2kx²).</li>
+                                    <li>Mekanik enerjinin korunumu (Sürtünmesiz sistemler) ve Güç (P=W/t).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-sm text-blue-600 mb-2">Madde, Termodinamik & Akışkanlar</h5>
+                                <ul class="micro-list">
+                                    <li>Özkütle (d=m/V).</li>
+                                    <li>Katı ve Sıvı basıncı (P=F/A, P=h.d.g), Pascal Prensibi.</li>
+                                    <li>Arşimet Prensibi (Kaldırma Kuvveti).</li>
+                                    <li>Isı ve Sıcaklık farkı. Q = m.c.ΔT ve Hal değişimi (Q = m.L). Termal denge.</li>
+                                </ul>
+                                <h5 class="font-bold text-sm text-blue-600 mb-2 mt-4">Elektrik</h5>
+                                <ul class="micro-list">
+                                    <li>Coulomb yasası (Elektriksel kuvvet), Elektrik alanı çizgileri.</li>
+                                    <li>Potansiyel fark (Voltaj), Ohm Yasası (V=I.R).</li>
+                                    <li>Seri ve Paralel devrelerde eşdeğer direnç (R_eq) hesaplama.</li>
+                                    <li>Elektriksel güç ve Joule etkisi (P=I²R).</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-red-50 p-4 border-t border-red-100 text-sm text-red-700 font-medium">
+                            <span class="text-xl inline-block align-middle mr-1">⊘</span> FİZİKTE KESİNLİKLE YOK: Modern Fizik (Kuantum, İzafiyet), Optik Sistem Çizimleri (Aynalar/Mercekler), İleri Elektromanyetizma (Bobinler, AC Devreler).
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
-
 
         <!-- ========================================== -->
         <!-- 5. KAYNAKLAR & ROTASI                      -->
         <!-- ========================================== -->
         <section id="kaynaklar" class="scroll-mt-24 reveal pt-8 border-t border-slate-200">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-slate-900 font-lexend mb-4">Kaynaklar & Geçiş Stratejisi</h2>
-                <p class="text-slate-600 max-w-2xl mx-auto">Doğrudan İngilizce kaynakla başlamak konuyu anlamanızı zorlaştırır. Formül basittir: <strong class="text-indigo-600">Önce Türkçe temel at, sonra İngilizce format çöz.</strong></p>
+                <h2 class="text-3xl font-bold text-slate-900 font-lexend mb-4">Kaynaklar & Çift Aşamalı Geçiş Stratejisi</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Sınava tam hazırlık formülü: <strong class="text-indigo-600">Önce Türkçe Temel Öğren ➔ Sonra İngilizce Formatı Çöz.</strong></p>
             </div>
 
-            <!-- Resource Cards -->
             <div class="space-y-6 mb-12">
-                <!-- Matematik -->
+                <!-- Matematik Kaynak -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col md:flex-row">
                     <div class="md:w-1/2 p-6 md:p-8 border-b md:border-b-0 md:border-r border-slate-200">
                         <div class="flex items-center gap-2 mb-4">
                             <span class="text-2xl">🇹🇷</span>
-                            <h3 class="font-bold text-slate-800 text-lg font-lexend">Aşama 1: Türkçe Temel</h3>
+                            <h3 class="font-bold text-slate-800 text-lg font-lexend">Adım 1: Türkçe Temel</h3>
                         </div>
-                        <ul class="list-disc pl-4 text-sm text-slate-600 space-y-2">
-                            <li><strong>Konu:</strong> Mert Hoca veya Eyüp B. (Sadece CEnT-S müfredatı).</li>
-                            <li><strong>Soru Bankası:</strong> 345 Yayınları TYT/AYT.</li>
+                        <ul class="micro-list text-slate-600">
+                            <li><strong>Konu Anlatım:</strong> YouTube'dan <em>Mert Hoca</em> veya <em>Eyüp B.</em> (Sadece yukarıdaki listede yer alan konular).</li>
+                            <li><strong>Pratik:</strong> <em>345 Yayınları TYT/AYT</em> (Klasik ve yeni nesil testleri mutlaka bitirilmeli).</li>
                         </ul>
                     </div>
                     <div class="md:w-1/2 p-6 md:p-8 bg-indigo-50/50">
                         <div class="flex items-center gap-2 mb-4">
                             <span class="text-2xl">🇬🇧</span>
-                            <h3 class="font-bold text-indigo-900 text-lg font-lexend">Aşama 2: İngilizce Format</h3>
+                            <h3 class="font-bold text-indigo-900 text-lg font-lexend">Adım 2: İngilizce Format</h3>
                         </div>
-                        <ul class="list-disc pl-4 text-sm text-slate-600 space-y-2">
-                            <li><strong>Eğitim:</strong> Khan Academy (EN) SAT Math -> "Heart of Algebra".</li>
-                            <li><strong>Deneme:</strong> College Board SAT Math ve TOLC-I Past Papers.</li>
+                        <ul class="micro-list text-slate-600">
+                            <li><strong>Terminoloji:</strong> Khan Academy (İngilizce versiyonu) <em>"SAT Math -> Heart of Algebra"</em> bölümündeki quizler.</li>
+                            <li><strong>Sınav Simülasyonu:</strong> College Board Official SAT Math denemeleri ve <em>TOLC-I Past Papers</em> (CISIA'nın geçmiş sınavları).</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Mantık -->
+                <!-- Mantık Kaynak -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col md:flex-row">
                     <div class="md:w-1/2 p-6 md:p-8 border-b md:border-b-0 md:border-r border-slate-200">
                         <div class="flex items-center gap-2 mb-4">
                             <span class="text-2xl">🇹🇷</span>
-                            <h3 class="font-bold text-slate-800 text-lg font-lexend">Aşama 1: Türkçe Temel</h3>
+                            <h3 class="font-bold text-slate-800 text-lg font-lexend">Adım 1: Türkçe Temel</h3>
                         </div>
-                        <ul class="list-disc pl-4 text-sm text-slate-600 space-y-2">
-                            <li><strong>Pratik:</strong> ALES Sayısal/Sözel Mantık. DGS Mantık (Sadece tablo okuma).</li>
+                        <ul class="micro-list text-slate-600">
+                            <li><strong>Pratik:</strong> Çıkmış ALES Sayısal/Sözel Mantık soruları ve DGS mantık kitapları (sadece tablo okuma becerisi kazanmak için).</li>
                         </ul>
                     </div>
                     <div class="md:w-1/2 p-6 md:p-8 bg-orange-50/50">
                         <div class="flex items-center gap-2 mb-4">
                             <span class="text-2xl">🇬🇧</span>
-                            <h3 class="font-bold text-orange-900 text-lg font-lexend">Aşama 2: İngilizce Format</h3>
+                            <h3 class="font-bold text-orange-900 text-lg font-lexend">Adım 2: İngilizce Format</h3>
                         </div>
-                        <ul class="list-disc pl-4 text-sm text-slate-600 space-y-2">
-                            <li><strong>Altın Kaynak:</strong> BMAT Section 1 (Problem Solving) Çıkmış Sorular.</li>
-                            <li><strong>Kıyas (Syllogism):</strong> TSA Oxford/Cambridge çıkmış sorular.</li>
+                        <ul class="micro-list text-slate-600">
+                            <li><strong>Altın Kaynak:</strong> <em>BMAT Section 1 (Problem Solving)</em> geçmiş sınav PDF'leri (CEnT-S mantık bölümünün aynısıdır).</li>
+                            <li><strong>Syllogism (Kıyas) İçin:</strong> <em>TSA (Oxford)</em> geçmiş testlerindeki mantık soruları.</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Fen -->
+                <!-- Fen Kaynak -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col md:flex-row">
                     <div class="md:w-1/2 p-6 md:p-8 border-b md:border-b-0 md:border-r border-slate-200">
                         <div class="flex items-center gap-2 mb-4">
                             <span class="text-2xl">🇹🇷</span>
-                            <h3 class="font-bold text-slate-800 text-lg font-lexend">Aşama 1: Türkçe Temel</h3>
+                            <h3 class="font-bold text-slate-800 text-lg font-lexend">Adım 1: Türkçe Temel</h3>
                         </div>
-                        <ul class="list-disc pl-4 text-sm text-slate-600 space-y-2">
-                            <li><strong>Konu Anlatım:</strong> Dr. Biyoloji, Görkem Şahin(Kimya), VIP Fizik. Sadece belirtilen başlıklar izlenmeli.</li>
+                        <ul class="micro-list text-slate-600">
+                            <li><strong>Bio:</strong> Dr. Biyoloji (Sadece hücre, kalıtım).</li>
+                            <li><strong>Kimya:</strong> Görkem Şahin (Atom, bağlar, mol, gazlar).</li>
+                            <li><strong>Fizik:</strong> VIP Fizik (Mekanik, enerji, basit elektrik).</li>
                         </ul>
                     </div>
                     <div class="md:w-1/2 p-6 md:p-8 bg-emerald-50/50">
                         <div class="flex items-center gap-2 mb-4">
                             <span class="text-2xl">🇬🇧</span>
-                            <h3 class="font-bold text-emerald-900 text-lg font-lexend">Aşama 2: İngilizce Format</h3>
+                            <h3 class="font-bold text-emerald-900 text-lg font-lexend">Adım 2: İngilizce Format</h3>
                         </div>
-                        <ul class="list-disc pl-4 text-sm text-slate-600 space-y-2">
-                            <li><strong>Pratik:</strong> Khan Academy High School Biology/Chemistry/Physics.</li>
-                            <li><strong>Deneme:</strong> TOLC-F (Eczacılık/Fen) ve TOLC-B eski denemeleri.</li>
+                        <ul class="micro-list text-slate-600">
+                            <li><strong>Terminoloji & Pratik:</strong> Khan Academy <em>High School Biology / Chemistry / Physics</em> bölümlerindeki ünite testleri (Unit Tests).</li>
+                            <li><strong>Simülasyon:</strong> <em>TOLC-F</em> (Eczacılık) ve <em>TOLC-B</em> (Biyoloji) İngilizce çıkmış soruları.</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Action Plan -->
-            <div class="bg-slate-900 rounded-3xl p-8 md:p-10 text-white shadow-xl">
-                <h3 class="text-2xl font-bold font-lexend mb-8 text-center">Çalışma Disiplini Özeti</h3>
+            <!-- Taktik Paneli -->
+            <div class="bg-slate-900 rounded-3xl p-8 md:p-10 text-white shadow-xl mt-12">
+                <h3 class="text-2xl font-bold font-lexend mb-8 text-center">Başarıyı Getirecek 3 Disiplin</h3>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div>
                         <div class="w-10 h-10 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold mb-4 font-lexend">1</div>
-                        <h4 class="font-bold text-lg mb-2">Acımasız Konu Elemesi</h4>
-                        <p class="text-sm text-slate-400">YKS kitaplarının içindekiler kısmını açın. CEnT-S'te olmayan (Türev, İntegral, Organik Kimya vb.) her şeyin üzerini çizin. Enerjinizi dağıtmayın.</p>
+                        <h4 class="font-bold text-lg mb-2">Acımasız Eleme</h4>
+                        <p class="text-sm text-slate-400">YKS kitaplarının içindekiler kısmını açın. Listemizde olmayan (Türev, İntegral, Bitki vb.) her şeyin üzerini çizin.</p>
                     </div>
                     <div>
                         <div class="w-10 h-10 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold mb-4 font-lexend">2</div>
                         <h4 class="font-bold text-lg mb-2">Terim Sözlüğü Tutun</h4>
-                        <p class="text-sm text-slate-400">Fen ve Matematikte soruyu yapamamanızın sebebi konuyu değil, İngilizce terimi (örn: "Integer") bilmemektir. Özel kelime defteri tutun.</p>
+                        <p class="text-sm text-slate-400">Soruyu yapamamanın en büyük sebebi formülü değil, İngilizce terimi (örn: "Velocity", "Equation") bilmemektir. Özel kelime defteri tutun.</p>
                     </div>
                     <div>
                         <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold mb-4 font-lexend">3</div>
-                        <h4 class="font-bold text-lg mb-2">Son 1 Ay: Kronometre</h4>
-                        <p class="text-sm text-slate-400">Son ay Türkçe kaynakları bırakın. Matematiğe 30, Fiziğe 10 dakika vererek İngilizce CEnT-S/TOLC simülasyonları yapın.</p>
+                        <h4 class="font-bold text-lg mb-2">Zamanlı Simülasyon</h4>
+                        <p class="text-sm text-slate-400">Son 1 ay Türkçe'yi bırakın. Matematiğe 30, Fiziğe 10 dk kronometre kurarak eski İngilizce TOLC denemelerini çözün. Asla süreyi esnetmeyin.</p>
                     </div>
                 </div>
             </div>
@@ -725,8 +653,8 @@
 
     <footer class="bg-white border-t border-slate-200 py-10 mt-12">
         <div class="max-w-4xl mx-auto px-6 text-center text-sm text-slate-500">
-            <p class="font-bold text-slate-700 mb-2 font-lexend">CEnT-S'i zor yapan konular değil, terminoloji ve süre baskısıdır.</p>
-            <p>Doğru kaynak, doğru eleme ve disiplinle kazanılır. Başarılar dileriz!</p>
+            <p class="font-bold text-slate-700 mb-2 font-lexend">Sınavı sadece çok çalışan değil, kuralları ve müfredatı en iyi yöneten kazanır.</p>
+            <p>Eksiksiz CEnT-S Rehberi. Başarılar Dileriz!</p>
         </div>
     </footer>
 
@@ -738,15 +666,23 @@
             const parent = btn.parentElement;
             
             if (content.style.maxHeight) {
+                // Kapat
                 content.style.maxHeight = null;
                 parent.classList.remove('topic-active');
             } else {
-                content.style.maxHeight = content.scrollHeight + "px";
+                // Tüm açık olanları kapat (Opsiyonel, sadece 1 tane açık kalsın istiyorsan)
+                // document.querySelectorAll('.accordion-content').forEach(el => {
+                //    el.style.maxHeight = null;
+                //    el.parentElement.classList.remove('topic-active');
+                // });
+                
+                // Tıklananı kendi yüksekliği (scrollHeight) kadar Aç
+                content.style.maxHeight = content.scrollHeight + 100 + "px"; // +100 paddingler için garanti payı
                 parent.classList.add('topic-active');
             }
         }
 
-        // Sayfa Kaydırıldıkça Barların Dolması ve Elementlerin Belirmesi (Intersection Observer)
+        // Sayfa Kaydırıldıkça Barların Dolması ve Elementlerin Belirmesi
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -757,7 +693,7 @@
                     pbars.forEach(bar => {
                         setTimeout(() => {
                             bar.style.width = bar.getAttribute('data-w') + '%';
-                        }, 200);
+                        }, 250);
                     });
                     
                     observer.unobserve(entry.target);
