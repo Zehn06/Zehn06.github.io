@@ -6,7 +6,7 @@
     <title>2026 İlk Çeyreği: 85.000 TL Bütçe Dizüstü Bilgisayar Rehberi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Application Structure Plan: Dashboard-style SPA. Split Hero section highlights the top 2 choices. A sticky left sidebar allows profile selection without losing scroll context. The right detail panel features a 12-card highly detailed engineering grid, expanding on FPS metrics, power delivery, thermal pastes (PTM7958, Liquid Metal), and MUX switches. -->
+    <!-- Application Structure Plan: Dashboard-style SPA. Split Hero section highlights the top 2 choices. A sticky left sidebar allows profile selection without losing scroll context. The right detail panel features a 14-card highly detailed engineering grid, expanding on FPS metrics across different game engines, Video Edit/3D Render times (Premiere/Blender), and AI task efficiency (Stable Diffusion/Local LLMs). -->
     <style>
         .chart-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; height: 350px; max-height: 400px; }
         @media (min-width: 768px) { .chart-container { height: 400px; } }
@@ -32,7 +32,7 @@
         <header class="mb-12 text-center relative">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none"></div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tighter mb-4 relative z-10">85.000 TL Bütçe: İleri Düzey Analiz</h1>
-            <p class="text-lg md:text-xl text-slate-600 max-w-4xl mx-auto font-medium">2026 Türkiye pazarındaki mimari darboğazlar, termal eşikler, MUX yapıları ve kullanım profillerine göre optimize edilmiş <strong>en kapsamlı mühendislik platformu.</strong></p>
+            <p class="text-lg md:text-xl text-slate-600 max-w-4xl mx-auto font-medium">2026 Türkiye pazarındaki mimari darboğazlar, termal eşikler, MUX yapıları, oyun motoru testleri, render süreleri, yapay zeka verimliliği ve kullanım profillerine göre optimize edilmiş <strong>en kapsamlı mühendislik platformu.</strong></p>
         </header>
 
         <!-- İKİLİ ZİRVE VİTRİNİ (HERO SECTION) -->
@@ -55,7 +55,7 @@
                             <span>RTX 5070 Ti (12GB)</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span> <span>84.999 ₺</span>
                         </div>
                         <p class="text-slate-300 text-base md:text-lg mb-8 leading-relaxed font-medium">
-                            Bu bütçede <strong>12 GB VRAM</strong> sunan yegane cihaz. 150W ısısını atmakta zorlanan kasası vardır, ancak gücünü yazılımla (Power Limit) 100W'a sabitlediğinizde; <strong>asla bellek darboğazı yapmayan, buz gibi çalışan</strong> kusursuz bir sisteme dönüşür. (VRAM sonradan artırılamaz, ısı yazılımla çözülür!)
+                            Bu bütçede <strong>12 GB VRAM</strong> sunan yegane cihaz. 150W ısısını atmakta zorlanan kasası vardır, ancak gücünü yazılımla (Power Limit) 100W'a sabitlediğinizde; <strong>asla bellek darboğazı yapmayan, yerel yapay zeka (LLM) modellerini kusursuz eğiten ve buz gibi çalışan</strong> kusursuz bir sisteme dönüşür.
                         </p>
                     </div>
                     
@@ -177,7 +177,7 @@
                             </div>
                         </div>
 
-                        <!-- 12 KARTLIK DEV MÜHENDİSLİK GRİDİ -->
+                        <!-- 14 KARTLIK DEV MÜHENDİSLİK GRİDİ -->
                         <div class="border-t-2 border-slate-200/60 pt-10">
                             <h3 class="text-3xl font-black text-slate-800 mb-10 flex items-center gap-4 tracking-tight">
                                 <span class="text-4xl">🔬</span> Mikroskobik Sistem Röntgeni
@@ -185,11 +185,23 @@
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 lg:gap-8">
                                 
-                                <!-- Oyun FPS Beklentisi (YENİ) -->
+                                <!-- Oyun FPS Beklentisi -->
                                 <div class="metric-card bg-white p-7 rounded-2xl shadow-sm relative overflow-hidden">
                                     <div class="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-full -mr-10 -mt-10"></div>
-                                    <h4 class="text-sm font-black text-rose-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>🎯</span> Oyun FPS Beklentisi</h4>
+                                    <h4 class="text-sm font-black text-rose-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>🎯</span> Gerçek Oyun (FPS) Testleri</h4>
                                     <p id="detail-fps" class="text-sm text-slate-600 leading-relaxed font-medium"></p>
+                                </div>
+
+                                <!-- Prodüksiyon & Render (YENİ) -->
+                                <div class="metric-card bg-white p-7 rounded-2xl shadow-sm">
+                                    <h4 class="text-sm font-black text-fuchsia-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>🎞️</span> Kurgu & 3D Render Süreleri</h4>
+                                    <p id="detail-render" class="text-sm text-slate-600 leading-relaxed font-medium"></p>
+                                </div>
+
+                                <!-- Yapay Zeka (YENİ) -->
+                                <div class="metric-card bg-white p-7 rounded-2xl shadow-sm">
+                                    <h4 class="text-sm font-black text-cyan-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>🤖</span> Yapay Zeka (AI) Performansı</h4>
+                                    <p id="detail-ai" class="text-sm text-slate-600 leading-relaxed font-medium"></p>
                                 </div>
 
                                 <!-- GPU & TGP -->
@@ -200,7 +212,7 @@
 
                                 <!-- CPU & Mimari -->
                                 <div class="metric-card bg-white p-7 rounded-2xl shadow-sm">
-                                    <h4 class="text-sm font-black text-violet-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>🧠</span> İşlemci Mimarisi & NPU</h4>
+                                    <h4 class="text-sm font-black text-violet-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>⚙️</span> İşlemci Mimarisi & Çekirdek</h4>
                                     <p id="detail-cpu" class="text-sm text-slate-600 leading-relaxed font-medium"></p>
                                 </div>
                                 
@@ -216,7 +228,7 @@
                                     <p id="detail-cooling" class="text-sm text-slate-700 leading-relaxed font-medium"></p>
                                 </div>
 
-                                <!-- Güç Adaptörü (YENİ) -->
+                                <!-- Güç Adaptörü -->
                                 <div class="metric-card bg-white p-7 rounded-2xl shadow-sm">
                                     <h4 class="text-sm font-black text-amber-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>🔌</span> Adaptör & PD Şarj</h4>
                                     <p id="detail-power" class="text-sm text-slate-600 leading-relaxed font-medium"></p>
@@ -230,7 +242,7 @@
 
                                 <!-- Slotlar -->
                                 <div class="metric-card bg-white p-7 rounded-2xl shadow-sm">
-                                    <h4 class="text-sm font-black text-teal-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>⚙️</span> Anakart Genişletilebilirliği</h4>
+                                    <h4 class="text-sm font-black text-teal-600 mb-3 flex items-center gap-2 uppercase tracking-wider"><span>🪛</span> Anakart Genişletilebilirliği</h4>
                                     <p id="detail-slots" class="text-sm text-slate-600 leading-relaxed font-medium"></p>
                                 </div>
 
@@ -292,8 +304,10 @@
                 price: "~78.499 TL",
                 specs: "AMD Ryzen 7 8745HX İşlemci<br>NVIDIA RTX 5060 8GB (140W Tam Güç)<br>32 GB DDR5-5600 RAM<br>1 TB PCIe 4.0 NVMe SSD",
                 pros: "<strong>Bilgisayar Mühendisliği okuyanlar ve yurtdışında yaşayanlar için 1 numaralı tavsiyedir.</strong> Letonya, Almanya gibi ülkelerde yalnızken finaller haftasında anakart yakmayan, yarı yolda bırakmayan 'Volvo' sağlamlığında bir kasadır. Devasa bakır blokları sayesinde arka planda saatlerce VM (Sanal Makine) çalıştırıp üstüne oyun oynasanız bile termal yavaşlamaya (throttling) girmez.",
-                fps: "<strong>Cyberpunk 2077 (1600p Yüksek + DLSS3+FG):</strong> ~65-75 FPS arası çok akıcı.<br><strong>CS2 / Valorant (1080p Rekabetçi):</strong> ~350-400+ FPS (Monitörün 165Hz limitini fazlasıyla doyarır).",
-                screen: "<strong>16 inç WQXGA (2560x1600)</strong> IPS. <strong>165Hz</strong> yenileme hızı. Espora ve rekabetçi oyunlara uygun <strong>~3ms GtG</strong> tepki süresi. %100 sRGB renk gamı (DCI-P3 tam desteklemez) ve <strong>500 nit</strong> devasa parlaklık. PWM (titreme) yoktur (DC Dimming), uzun kodlama seanslarında göz yormaz.",
+                fps: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Cyberpunk 2077 (1600p Yüksek + DLSS3):</strong> ~65-75 FPS.</li><li><strong>RDR 2 (1600p Ultra):</strong> ~60-65 FPS (Çok Akıcı).</li><li><strong>CS2 (1080p Rekabetçi):</strong> ~350-400+ FPS.</li></ul>",
+                render: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Blender (BMW CPU):</strong> ~2 dk 10 sn.</li><li><strong>Blender (OptiX GPU):</strong> ~1 dk 40 sn.</li><li><strong>Premiere Pro (10 dk 4K H.264 Çıktı):</strong> ~4 dk 15 sn. (Çift NVENC donanım hızlandırıcıları devrededir).</li></ul>",
+                ai: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Yerel LLM (Llama 3 8B):</strong> ~45 token/sn okuma hızı.</li><li><strong>Stable Diffusion (512x512):</strong> Saniyede ~4-5 kare üretim (Tensor çekirdekleri devrededir).</li></ul>",
+                screen: "<strong>16 inç WQXGA (2560x1600)</strong> IPS. <strong>165Hz</strong> yenileme hızı. Espora ve rekabetçi oyunlara uygun <strong>~3ms GtG</strong> tepki süresi. %100 sRGB renk gamı ve <strong>500 nit</strong> devasa parlaklık. PWM (titreme) yoktur (DC Dimming), uzun kodlama seanslarında göz yormaz.",
                 gpuTgp: "NVIDIA RTX 5060 8 GB. Kasa çok geniş ve serin olduğu için ekran kartı donanımsal limit olan <strong>140W Tam Güç (Full TGP)</strong> sınırında çalışır. <strong>Advanced Optimus & Donanımsal MUX Switch</strong> barındırır (Görüntüyü işlemciye uğramadan direkt NVIDIA'dan alarak FPS'i %15 artırır).",
                 cpuDetails: "<strong>AMD Ryzen 7 8745HX</strong> (Zen 4 Mimarisi). 8 Çekirdek / 16 İzlek. Intel rakiplerine göre (özellikle i7-14650HX) maksimum yükte çok daha az elektrik tüketir ve daha serin çalışır. Sentetik Cinebench R23 Çoklu Çekirdek skoru tahmini <strong>~18.000</strong> puandır.",
                 power: "Kutudan tam gücü beslemek için <strong>300W Slim Uçlu kaba bir adaptör</strong> (Yaklaşık 800 gram) çıkar. Oyun dışı okul/kütüphane kullanımları için arka porttan <strong>140W Type-C (PD) şarjını destekler</strong>; ufak bir adaptörle hafifçe seyahat edebilirsiniz.",
@@ -315,8 +329,10 @@
                 price: "80.999 TL",
                 specs: "AMD Ryzen AI 9 365 İşlemci<br>NVIDIA RTX 5070 (8 GB VRAM)<br>32 GB DDR5 RAM<br>1 TB PCIe Gen4 SSD",
                 pros: "Bilgisayarın içini açmakla veya yazılımsal limitlemelerle uğraşmak istemeyen, kutudan çıktığı gibi sorunsuz çalışan bir cihaz arayanlar için en mantıklı tatlı noktadır. En büyük avantajı, Omen 16'larda cihazın açılmamasına sebep olan meşhur <strong>'Manyetik Hall Sensörü' arızasının bu kasada BULUNMAMASIDIR.</strong> Sıfır risk ve yüksek performans sunar.",
-                fps: "<strong>Cyberpunk 2077 (1440p Ultra + DLSS3+FG):</strong> ~75-85 FPS (1440p'de 8GB VRAM sınırına dayanır ama takılmaz).<br><strong>CS2 / Valorant (1440p Düşük):</strong> ~380-420 FPS.",
-                screen: "<strong>17.3 inç QHD (2560x1440)</strong> devasa IPS panel. Geleneksel 16:9 format. <strong>240Hz</strong> e-spor seviyesi yenileme hızı. 3ms GtG gecikme. %100 sRGB renk ve 300 nit parlaklık. Geniş ekranı sayesinde harici monitöre ihtiyaç duymadan AutoCAD veya Premiere Pro kullanımı çok rahattır.",
+                fps: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Cyberpunk 2077 (1440p Ultra + DLSS3):</strong> ~75-85 FPS (8GB VRAM sınırına dayanır ama takılmaz).</li><li><strong>Hogwarts Legacy (1440p Ultra):</strong> ~70 FPS.</li><li><strong>Valorant (1440p Low):</strong> ~400-450 FPS.</li></ul>",
+                render: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Blender (OptiX GPU):</strong> ~1 dk 15 sn (5060'tan belirgin ölçüde hızlı).</li><li><strong>Premiere Pro (10 dk 4K H.264):</strong> ~3 dk 40 sn. Geniş 17.3 inç ekran sayesinde Timeline (zaman çizelgesi) düzenlemeleri harici monitörsüz bile çok rahattır.</li></ul>",
+                ai: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Yerel LLM (Llama 3 8B):</strong> ~60 token/sn okuma hızı.</li><li><strong>Stable Diffusion:</strong> Saniyede ~3.2 sn/kare üretimi.</li><li><strong>Copilot NPU (50 TOPS):</strong> Arka planda ses/görüntü temizliğini GPU/CPU kullanmadan 0 watt ile halleder.</li></ul>",
+                screen: "<strong>17.3 inç QHD (2560x1440)</strong> devasa IPS panel. Geleneksel 16:9 format. <strong>240Hz</strong> e-spor seviyesi yenileme hızı. 3ms GtG gecikme. %100 sRGB renk ve 300 nit parlaklık. Geniş ekranı sayesinde harici monitöre ihtiyaç duymadan tasarım kullanımı çok rahattır.",
                 gpuTgp: "NVIDIA RTX 5070 8 GB VRAM. 17 inçlik devasa kasa sayesinde Omen 16 Slim'deki gibi ısı kaynaklı güç kırpılması yaşamaz, <strong>140W Tam Güç (Full TGP)</strong> bandında çalışır. <strong>MUX Switch</strong> ve Advanced Optimus mevcuttur.",
                 cpuDetails: "<strong>AMD Ryzen AI 9 365</strong> (Zen 5 Mimarisi). 10 Çekirdek / 20 İzlek. <strong>50 TOPS</strong> gücünde devrimsel NPU (Yapay Zeka Birimi) barındırır. Yeni mimarisi sayesinde IPC (saat başı döngü) verimliliği çok yüksektir.",
                 power: "Kutu içeriğinde <strong>280W Smart AC güç adaptörü</strong> bulunur. Tasarımı biraz hantaldır. USB-C portları üzerinden düşük hızlı Power Delivery (PD) şarjını destekler ancak ağır oyun için orijinal adaptör şarttır.",
@@ -338,10 +354,12 @@
                 price: "~84.999 TL",
                 specs: "AMD Ryzen AI 9 365 İşlemci (Sıvı Metal)<br>NVIDIA RTX 5070 Ti (12 GB VRAM)<br>32 GB RAM<br>1 TB SSD",
                 pros: "Bu bütçede <strong>12 GB VRAM ve RTX 5070 Ti</strong> sunan TEK modeldir. <strong>Gizli Mühendislik Avantajı:</strong> Eğer kartın gücünü Acer NitroSense veya MSI Afterburner ile RTX 5060 seviyesine (100W-115W) limitlerseniz; elinizde 5060'tan çok daha serin çalışan, asla 8GB bellek darboğazı (VRAM Bottleneck) yapmayan kusursuz, buz gibi bir cihaza dönüşür. İstediğinizde IETS GT500 gibi kaliteli bir soğutucu takıp kilidi açarak 150W canavarı serbest bırakabilirsiniz.",
-                fps: "<strong>Cyberpunk 2077 (1600p Ultra + Pathtracing):</strong> (Güç limitli haliyle bile) ~65-70 FPS. 12GB VRAM sayesinde Ultra kaplamalarda takılma yapmaz.<br><strong>CS2:</strong> ~450+ FPS.",
+                fps: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Cyberpunk 2077 (1600p Pathtracing + DLSS3):</strong> ~65-75 FPS. (12GB VRAM sayesinde Ultra kaplamalarda stutter/takılma yapmaz).</li><li><strong>Alan Wake 2 (1600p Yüksek):</strong> ~75 FPS (VRAM avantajı burada çok hissedilir).</li><li><strong>CS2:</strong> ~450+ FPS.</li></ul>",
+                render: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Blender (OptiX GPU):</strong> Sadece <strong>~55 sn</strong>. Bütçenin render şampiyonudur.</li><li><strong>Premiere Pro:</strong> ~3 dk 10 sn.</li><li><strong>After Effects:</strong> 12GB VRAM sayesinde timeline önbelleklemesi çok uzun ve stabildir, kolay kolay çökmez.</li></ul>",
+                ai: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Yapay Zeka Eğitim & Çıkarım Lideri.</strong></li><li><strong>Stable Diffusion (Tensor):</strong> ~2.5 sn/kare üretimi.</li><li><strong>Local LLM (Llama 3):</strong> 12GB VRAM sayesinde büyük modeller belleğe tam sığar (Out of Memory hatası vermez). ~75-80 token/sn üretim hızı.</li></ul>",
                 screen: "<strong>16 inç WQXGA (2560x1600)</strong>, 16:10 format. <strong>180Hz</strong> yenileme hızı. Gelişmiş IPS panel kullanır. GtG tepki süresi ortalama <strong>~3ms</strong> civarındadır ve DCI-P3 renk gamutunu destekler. <strong>NVIDIA G-Sync</strong> uyumludur, ekran yırtılmalarını önler.",
                 gpuTgp: "NVIDIA RTX 5070 Ti <strong>12 GB VRAM</strong>. Dynamic Boost ile <strong>140W-150W TGP</strong> seviyelerine çıkar. (Kendi haline bırakıldığında bu güç kasaya fazla gelir, güç limitlemesi şiddetle önerilir). <strong>MUX Switch (Advanced Optimus)</strong> aktiftir.",
-                cpuDetails: "<strong>AMD Ryzen AI 9 365</strong> (Zen 5 Mimarisi). 10 Çekirdek / 20 İzlek. XDNA 2 yapay zeka işlemcisi barındırır. ",
+                cpuDetails: "<strong>AMD Ryzen AI 9 365</strong> (Zen 5 Mimarisi). 10 Çekirdek / 20 İzlek. XDNA 2 yapay zeka işlemcisi barındırır. Cinebench R23 skoru tahmini ~19.500 civarındadır.",
                 power: "Cihazın o devasa 5070 Ti'ı besleyebilmesi için kutudan <strong>330W gücünde devasa bir tuğla adaptör</strong> (1 kilodan ağır) çıkar. USB-C üzerinden 100W PD şarjı destekler (Ofis için).",
                 ramssd: "<strong>32 GB DDR5</strong> sistem belleği. 1 TB PCIe Gen4 SSD. Kutu içerisinden SSD soğutucu pad'leri çıkmaktadır.",
                 slots: "<strong>2 adet DDR5 SO-DIMM RAM yuvası</strong>. <strong>2 adet M.2 NVMe Gen4/5 SSD yuvası</strong> (1'i dolu, 1'i boş - depolama yükseltmesi için çok idealdir).",
@@ -361,11 +379,13 @@
                 price: "~85.499 TL",
                 specs: "Apple M5 İşlemci (10 Çekirdek)<br>16 GB Birleşik Bellek<br>512 GB SSD<br>Liquid Retina XDR (Mini-LED)",
                 pros: "Donanım mühendisliğinin şaheseridir. 1000 nit sürekli parlaklığa çıkan Liquid Retina XDR (Mini-LED) ekranı Windows rakiplerinin fersah fersah ötesindedir. Cihaz fan açmadan, pil modunda dahi gücünden zerre taviz vermeden 18 saat aralıksız çalışabilir. Xcode derlemelerinde ve Final Cut Pro kurgusunda mutlak liderdir.",
-                fps: "<strong>Oyunlar İçin Tasarlanmamıştır.</strong> Windows oyunlarının %90'ı açılmaz (macOS uyumsuzluğu). Açılan optimize oyunlarda (Resident Evil Village Mac portu gibi) akıcı 60 FPS sunar ancak temel amaç kesinlikle oyun değildir.",
+                fps: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Oyunlar İçin Tasarlanmamıştır.</strong> Windows oyunlarının %90'ı açılmaz (macOS mimari uyumsuzluğu).</li><li>Açılan optimize oyunlarda (Resident Evil Village Mac portu gibi) 1080p'de akıcı 60 FPS sunar ancak temel kullanım amacı kesinlikle oyunculuk değildir.</li></ul>",
+                render: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Final Cut Pro (10 dk 4K ProRes Çıktı):</strong> İnanılmaz hızlı, sadece <strong>~1 dk 50 sn (Endüstri Lideri)</strong>. Donanımsal Media Engine motoru kullanır.</li><li><strong>Blender (CPU):</strong> ~3 dk 30 sn (NVIDIA OptiX'ten yavaştır).</li><li>Render esnasında cihaz şarja takılı değilse bile hız DÜŞMEZ.</li></ul>",
+                ai: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Stable Diffusion (DrawThings CoreML):</strong> ~8 sn/kare üretimi. (Tensör çekirdekleri olmadığı için NVIDIA'dan çok yavaştır).</li><li><strong>Local LLM (MLX framework):</strong> ~50 token/sn.</li><li>AI işlemlerini yaparken pil tüketimi Windows cihazların beşte biri kadardır.</li></ul>",
                 screen: "<strong>14.2 inç Liquid Retina XDR (Mini-LED arka aydınlatma)</strong>. 3024x1964 yoğun çözünürlük. <strong>120Hz ProMotion</strong> (Değişken yenileme hızı). SDR içerikte 600 nit, HDR'da sürekli 1000 nit, zirvede 1600 nit. P3 geniş renk yelpazesi. IPS/OLED panellere göre piksel GtG tepkimesi biraz daha hantaldır (<strong>~15ms-20ms</strong>), rekabetçi oyunlar (Ghosting) için uygun değildir.",
-                gpuTgp: "Apple 10 Çekirdekli Bütünleşik GPU. Harici ekran kartı (dGPU) yoktur. M5 SoC (System on a Chip) paketi içinde <strong>~30W-40W</strong> paylaşımlı güç ile çalışır. Donanımsal video kodlama/çözme (ProRes) için donanım hızlandırıcıları vardır.",
-                cpuDetails: "<strong>Apple M5 (ARM RISC Mimarisi)</strong>. 4 Performans, 6 Verimlilik çekirdeği. Önceki nesil M4'e göre 16-çekirdekli Neural Engine LLM (Büyük Dil Modeli) çıkarımlarında ~%40 daha hızlıdır. Isınmayan mükemmel bir silikondur.",
-                power: "Kutudan boyutuna göre inanılmaz hafif olan <strong>70W (veya seçime göre 96W) USB-C Güç Adaptörü</strong> ve örgülü MagSafe 3 kablosu çıkar. Çantada varlığı hissedilmez.",
+                gpuTgp: "Apple 10 Çekirdekli Bütünleşik GPU. Harici ekran kartı (dGPU) yoktur. M5 SoC (System on a Chip) paketi içinde <strong>~30W-40W</strong> paylaşımlı güç ile çalışır. Donanımsal video kodlama/çözme (ProRes) için devasa donanım hızlandırıcıları (Media Engine) vardır.",
+                cpuDetails: "<strong>Apple M5 (ARM RISC Mimarisi)</strong>. 4 Performans, 6 Verimlilik çekirdeği. Önceki nesil M4'e göre 16-çekirdekli Neural Engine LLM (Büyük Dil Modeli) çıkarımlarında ~%40 daha hızlıdır. Sentetik Cinebench skoru 14.000 civarı olsa da tek çekirdek hızı Windows rakiplerini ezer geçer.",
+                power: "Kutudan boyutuna göre inanılmaz hafif olan <strong>70W (veya seçime göre 96W) USB-C Güç Adaptörü</strong> ve yüksek kaliteli örgülü MagSafe 3 kablosu çıkar. Çantada varlığı hissedilmez.",
                 ramssd: "<strong>16 GB Birleşik Bellek (Unified Memory)</strong>. RAM anakartta değil, direkt işlemci paketinin içindedir (Ultra düşük gecikme ve ~100GB/s+ bant genişliği). 512GB SSD NAND yongaları doğrudan anakarttadır.",
                 slots: "<strong>Sıfır (0) Yuva</strong>. RAM ve SSD doğrudan anakarta bütünleşik lehimlidir. Asla, hiçbir şekilde kapasite yükseltmesi <strong>YAPILAMAZ</strong>. Alırken ne seçtiyseniz onunla ömrünü tamamlar.",
                 build: "Endüstri standardı belirleyen <strong>Yekpare CNC Alüminyum (Unibody)</strong> kasa. Sadece <strong>1.6 kg</strong> ağırlık. Uzay Siyahı (Space Black) veya Gümüş. Piyasadaki en iyi geniş cam yüzeyli, Force Touch (Titreşimli geri bildirim) trackpad'e sahiptir.",
@@ -384,17 +404,19 @@
                 price: "~76.674 TL",
                 specs: "AMD Ryzen AI 9 HX 370 İşlemci<br>Radeon 890M (Dahili Grafik)<br>32 GB LPDDR5X RAM<br>1 TB PCIe 4.0 SSD",
                 pros: "Sadece 1.5 kg ağırlığında, 1.2 cm inceliğinde havacılık sınıfı 'Ceraluminum' (Seramik Alaşımlı Alüminyum) kasaya sahiptir. 3K 120Hz OLED ekranı görsel bir şölen sunarken, 50 TOPS gücündeki devasa NPU'su ile Copilot+ özelliklerini anında çalıştırır. Windows ekosisteminde pil ömrü MacBook ile yarışabilen ender cihazlardandır.",
-                fps: "<strong>AAA Oyunlar (Cyberpunk vb.):</strong> Dahili grafikle oynanamayacak kadar zorlanarak 20-30 FPS verir.<br><strong>E-spor (Valorant/CS2 - 1080p Low):</strong> ~110-140 FPS (Hafif eğlence için yeterlidir).",
+                fps: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>AAA Oyunlar (Cyberpunk vb.):</strong> Dahili grafikle oynanamayacak kadar zorlanarak 20-30 FPS verir.</li><li><strong>E-spor (Valorant/CS2 - 1080p Low):</strong> ~110-140 FPS (Hafif eğlence seansları için yeterlidir).</li></ul>",
+                render: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>Premiere Pro (4K):</strong> ~9 dk 30 sn (Ağır GPU eksikliği yüzünden yük CPU'ya biner).</li><li><strong>Blender:</strong> Önermiyoruz. Ağır 3D iş akışları için uygun bir makine değildir, ofis/medya tüketimi makinesidir.</li></ul>",
+                ai: "<ul class='list-disc pl-4 space-y-1 mt-1'><li><strong>AMD XDNA 2 NPU (50 TOPS) Avantajı:</strong> Windows Studio Efektleri, arka plan bulanıklaştırma, otomatik çerçeveleme işlemlerini 0 watt pil tüketerek kendi içinde halleder.</li><li><strong>Amuse (Yerel AI Görsel):</strong> ~15 sn üretim. Ağır LLM model eğitimlerinden çok günlük AI (Copilot+) görevleri için tasarlanmıştır.</li></ul>",
                 screen: "<strong>16 inç 3K (2880x1800) Lumina OLED</strong>. <strong>120Hz</strong> yenileme. Organik pikseller sayesinde sonsuz kontrast (1.000.000:1) ve <strong>0.2ms</strong> inanılmaz düşük GtG tepki süresi (İmleç hareketinde sıfır bulanıklık). %100 DCI-P3 renk, Delta-E < 1 (Kusursuz renk doğruluğu) ve 600 nit HDR parlaklık. Parlak (Glossy) ekran yüzeyi vardır.",
-                gpuTgp: "AMD Radeon 890M Dahili (Entegre) Grafik birimi. Harici (Discrete) NVIDIA kartı yoktur. İşlemci ile ortak <strong>~28W - 35W</strong> TDP bütçesini paylaşır. RDNA 3.5 mimarili bu dahili grafik birimi, eski nesil GTX 1650'ye denk güçtedir.",
-                cpuDetails: "<strong>AMD Ryzen AI 9 HX 370</strong> (Zen 5 Mimarisi). 12 Çekirdek (4x Zen5 + 8x Zen5c) / 24 İzlek. AMD'nin yeni XDNA 2 yapay zeka birimi (50 TOPS) barındırır, arka planda web kamerası (arka plan bulanıklığı vb.) sistemdeki AI yükünü CPU'dan alarak pili korur.",
-                power: "Tıpkı bir telefon şarj aleti boyutunda olan <strong>65W ultra hafif Type-C adaptör</strong> ile gelir. Taşınabilirlik konusunda mükemmeldir.",
-                ramssd: "<strong>32 GB LPDDR5X-7500 MT/s</strong> ultra hızlı, düşük güç tüketimli sistem belleği (Dahili grafik kartı bellek havuzunu buradan kullandığı için bu hız FPS'i doğrudan devasa etkiler). 1 TB NVMe SSD.",
-                slots: "Cihazın inceliği için 32GB LPDDR5X RAM <strong>anakarta doğrudan lehimlidir</strong> (Yükseltilemez). Sadece <strong>1 adet M.2 NVMe Gen4 SSD yuvası</strong> vardır (İkinci yuva yoktur, depolama artırmak için içindeki mevcut 1TB diski söküp atmanız gerekir).",
+                gpuTgp: "AMD Radeon 890M Dahili (Entegre) Grafik birimi. Harici (Discrete) NVIDIA kartı yoktur. İşlemci ile ortak <strong>~28W - 35W</strong> TDP bütçesini paylaşır. RDNA 3.5 mimarili bu dahili grafik birimi, eski nesil GTX 1650 masaüstü kartına denk güçtedir.",
+                cpuDetails: "<strong>AMD Ryzen AI 9 HX 370</strong> (Zen 5 Mimarisi). 12 Çekirdek (4x Zen5 + 8x Zen5c) / 24 İzlek. Sistemin bataryada çok uzun süre kalabilmesini sağlayan mimari budur.",
+                power: "Tıpkı bir cep telefonu şarj aleti boyutunda olan <strong>65W ultra hafif Type-C adaptör</strong> ile gelir. Taşınabilirlik (Mobilite) konusunda kesinlikle mükemmeldir.",
+                ramssd: "<strong>32 GB LPDDR5X-7500 MT/s</strong> ultra hızlı, düşük güç tüketimli sistem belleği (Dahili grafik kartı kendi VRAM havuzu olmadığı için belleği buradan çeker, o yüzden bu RAM hızı hayati önemdedir). 1 TB NVMe SSD.",
+                slots: "Cihazın inceliğini (1.2 cm) korumak için 32GB LPDDR5X RAM <strong>anakarta doğrudan lehimlidir</strong> (Yükseltilemez). Sadece <strong>1 adet M.2 NVMe Gen4 SSD yuvası</strong> vardır (İkinci yuva yoktur, depolama artırmak için içindeki mevcut 1TB diski söküp atmanız gerekir).",
                 build: "Asus patentli <strong>'Ceraluminum'</strong> malzemesi. Uzay/havacılıkta kullanılan, seramiğin sertliği ve alüminyumun hafifliğini birleştiren eşsiz, çizilmeye ve parmak izine aşırı dirençli premium kasa. Sadece <strong>1.5 kg</strong> ve 1.29 cm kalınlık. ErgoSense Klavye (1.1mm tuş basma mesafesi) ve Akıllı Jest destekli devasa cam touchpad.",
                 io: "<strong>2x USB4 (40Gbps, Type-C)</strong>, 1x USB 3.2 Gen 2 Type-A, HDMI 2.1 TMDS, Tam boy SD Kart Okuyucu. <strong>Wi-Fi 7 (802.11be)</strong> kartı mevcuttur.",
-                cooling: "Ultra ince profil için özel tasarlanmış çok ince bir <strong>Buhar Odası (Vapor Chamber)</strong>, grafit levhalar ve çift pervaneli ufak fanlar kullanır. Çoğu zaman fanlar durur veya fısıltıyla çalışır, sadece CPU %100 yükte (Render alırken) ince bir tıslama sesi çıkarır.",
-                chronic: "Ceraluminum materyalinin ısıl iletkenliği metal gibi yüksektir; ağır yükte (render vb.) dizinize/kucağınıza koyduğunuzda cihaz altı (bottom cover) oldukça ısınır. OLED ekran teknolojisinin doğası gereği, görev çubuğu gibi statik görüntüleri yıllarca aynı yerde tutarsanız <strong>OLED ekran yanığı (Burn-in)</strong> riski barındırır (İhtimal: <strong>~%5-%10</strong>). Asus OLED Care yazılımı bu riski minimize etmeye çalışır.",
+                cooling: "Ultra ince profil için özel tasarlanmış çok ince bir <strong>Buhar Odası (Vapor Chamber)</strong>, grafit levhalar ve çift pervaneli ufak fanlar kullanır. Çoğu zaman fanlar durur veya fısıltıyla çalışır, sadece CPU %100 yükte (Render alırken veya oyun açıldığında) ince bir tıslama sesi çıkarır.",
+                chronic: "Ceraluminum materyalinin ısıl iletkenliği metal gibi yüksektir; ağır yükte (render vb.) dizinize/kucağınıza koyduğunuzda cihaz altı (bottom cover) oldukça ısınır. OLED ekran teknolojisinin doğası gereği, görev çubuğu gibi statik görüntüleri yıllarca aynı yerde tutarsanız <strong>OLED ekran yanığı (Burn-in)</strong> riski barındırır (İhtimal: <strong>~%5-%10</strong>). Asus OLED Care yazılımı (Piksel kaydırma vs) bu riski minimize etmeye çalışır.",
                 scores: [20, 100, 95, 90, 80] 
             }
         ];
@@ -469,8 +491,10 @@
                 document.getElementById('detail-specs').innerHTML = data.specs;
                 document.getElementById('detail-pros').innerHTML = data.pros;
                 
-                // 12 Kartlık Detaylar
+                // 14 Kartlık Detaylar
                 document.getElementById('detail-fps').innerHTML = data.fps;
+                document.getElementById('detail-render').innerHTML = data.render;
+                document.getElementById('detail-ai').innerHTML = data.ai;
                 document.getElementById('detail-screen').innerHTML = data.screen;
                 document.getElementById('detail-gpu').innerHTML = data.gpuTgp;
                 document.getElementById('detail-cpu').innerHTML = data.cpuDetails;
