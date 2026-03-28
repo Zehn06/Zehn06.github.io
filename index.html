@@ -123,7 +123,7 @@
         <section id="profile-selector-section" class="mb-16 scroll-mt-8">
             <div class="mb-8 border-b border-slate-200 pb-4">
                 <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight">Eksiksiz Cihaz Laboratuvarı</h2>
-                <p class="text-slate-500 mt-2 text-lg">Soldan cihazı seçin, sağdaki sekmeler üzerinden piyasada bulamayacağınız mikroskobik donanım detaylarını inceleyin.</p>
+                <p class="text-slate-500 mt-2 text-lg">Soldan cihazı seçin, sağdaki sekmeler üzerinden piyasada bulamayacağınız mikroskobik donanım detaylarını inceleyin. <b class="text-indigo-600">Tüm cihazlar tamamen aynı oyun ve testlerle kıyaslanmıştır.</b></p>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 relative items-start">
@@ -164,7 +164,7 @@
                         <!-- TAB 1: Performans & AI -->
                         <div id="tab-gaming" class="tab-content active">
                             <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Oyun, Render ve Yapay Zeka Kapasitesi</h3>
+                                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Standartlaştırılmış Laboratuvar Testleri</h3>
                                 <div class="bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-black text-sm flex items-center gap-2 shadow-sm border border-indigo-200"><span>Skor:</span><span id="score-gaming">--/100</span></div>
                             </div>
                             <div id="content-gaming" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
@@ -243,18 +243,38 @@
                 tabs: {
                     gaming: `
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1600p Yüksek)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>DLSS 3.5 FG</span></div><div class='mt-1 text-sm'>Ort: <b class='text-emerald-600'>74 FPS</b> | 1% Low: <b class='text-rose-500'>61 FPS</b></div><div class='text-[10px] text-slate-500 mt-1 leading-tight'>*Kusursuz soğutma sayesinde 2 saatlik testte Frame Time sekmesi yaşanmaz.</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>Reflex On</span></div><div class='mt-1 text-sm'>Ort: <b class='text-emerald-600'>410+ FPS</b> | Gecikme: <b class='text-blue-500'>~4 ms</b></div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>DLSS On</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>75 FPS</b></div>
+                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*Kusursuz soğutma sayesinde %1 Low FPS (61 FPS) sabittir, uzun seanslarda takılma yaşatmaz.</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>E-Spor</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>410 FPS</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI Kapasitesi</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (Junk Shop)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>OptiX</span></div><div class='mt-1 text-sm'>Süre: <b class='text-indigo-600'>~34 saniye</b></div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Premiere Pro (4K Export)</span><span class='detail-badge bg-blue-100 text-blue-700'>NVENC</span></div><div class='mt-1 text-sm'>Süre: <b class='text-indigo-600'>~3 dk 40 saniye</b> (10 dk video)</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>Ollama</span></div><div class='mt-1 text-sm'>Üretim: <b class='text-emerald-600'>~55 Token/sn</b> (8GB VRAM sınırıdır).</div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-blue-100 text-blue-700'>GPU Render</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~18 saniye</b> (NVIDIA OptiX devrede)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-rose-100 text-rose-700'>H.264</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~3 dk 40 saniye</b> (Çift NVENC)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>AI Okuma</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-emerald-600'>~55 Token/sn</b> (8GB VRAM sınırıdır)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-cyan-100 text-cyan-700'>Görsel Üretim</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-blue-600'>~12 İterasyon/sn</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
@@ -365,19 +385,38 @@
                 tabs: {
                     gaming: `
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>DLSS 3.5 FG</span></div><div class='mt-1 text-sm'>Ort: <b class='text-emerald-600'>85 FPS</b> | 1% Low: <b class='text-rose-500'>68 FPS</b></div><div class='text-[10px] text-slate-500 mt-1 leading-tight'>*8GB VRAM sınırına çok yaklaşır ama 5070'in bant genişliği sayesinde kurtarır.</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Hogwarts Legacy (1440p High)</span><span class='detail-badge bg-amber-100 text-amber-700'>UE4</span></div><div class='mt-1 text-sm'>Ort: <b class='text-emerald-600'>~70 FPS</b></div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Valorant (1440p Düşük)</span></div><div class='mt-1 text-sm'>Ort: <b class='text-emerald-600'>400-450 FPS</b></div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>DLSS On</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>88 FPS</b></div>
+                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*8GB VRAM sınırına çok yaklaşır ama 5070'in bant genişliği sayesinde kurtarır (1% Low: 72 FPS).</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>E-Spor</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>450 FPS</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI Kapasitesi</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Blender (OptiX GPU Render)</span></div><div class='mt-1 text-sm'>Süre: <b class='text-indigo-600'>~28 saniye</b> (5060'a göre %25 hızlı)</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Premiere Pro Timeline</span></div><div class='text-[10px] text-slate-600 mt-1'>17.3 inç QHD ekran sayesinde <b>harici monitörsüz</b> çok katmanlı kurgu rahatça yapılır. AV1 Encode destekler.</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B)</span><span class='detail-badge bg-purple-100 text-purple-700'>GPU Offload</span></div><div class='mt-1 text-sm'>Üretim: <b class='text-emerald-600'>~75 Token/sn</b></div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-blue-100 text-blue-700'>GPU Render</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~14 saniye</b></div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-rose-100 text-rose-700'>H.264</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~3 dk 10 saniye</b></div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>AI Okuma</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-emerald-600'>~65 Token/sn</b></div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-cyan-100 text-cyan-700'>Görsel Üretim</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-blue-600'>~16 İterasyon/sn</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
@@ -396,7 +435,7 @@
                                     <div class='text-sm text-slate-700 font-bold mb-1'>AMD Ryzen AI 9 365</div>
                                     <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
                                         <li><b>Mimari:</b> Zen 5 | 10 Çekirdek (4x Zen5, 6x Zen5c) / 20 İzlek.</li>
-                                        <li><b>NPU (Yapay Zeka):</b> <b class='text-purple-600'>50 TOPS</b> XDNA 2 motoru. Arka plan AI işlemlerini (Göz takibi vb.) 0 Watt ile işler.</li>
+                                        <li><b>NPU (Yapay Zeka):</b> <b class='text-purple-600'>50 TOPS</b> XDNA 2 motoru. Arka plan AI işlemlerini 0 Watt ile işler.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -483,17 +522,38 @@
                 tabs: {
                     gaming: `
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (12GB VRAM Farkı)</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Cyberpunk (1600p Pathtracing)</span><span class='detail-badge bg-rose-100 text-rose-700'>Tam Işın İzleme</span></div><div class='mt-1 text-sm'>Ort: <b class='text-emerald-600'>~72 FPS</b> | VRAM Kullanımı: <b class='text-rose-500'>11.5 GB</b></div><div class='text-[10px] text-slate-500 mt-1 leading-tight'>*Eğer bu testi 8GB'lık 5070 ile yapsaydınız VRAM taştığı için oyun anlık donardı (Stuttering). Pürüzsüz frame time çizer.</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Alan Wake 2 (1600p Yüksek)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>Mesh Shaders</span></div><div class='mt-1 text-sm'>Ort: <b class='text-emerald-600'>~75 FPS</b></div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>DLSS On</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>105 FPS</b></div>
+                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*12GB VRAM sayesinde takılma (stutter) sıfırdır (1% Low: 85 FPS).</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>E-Spor</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>520 FPS</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI Kapasitesi</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Blender (BMW Sahnesi)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>OptiX</span></div><div class='mt-1 text-sm'>Süre: <b class='text-indigo-600'>Sadece ~55 sn!</b> (Bütçenin şampiyonu)</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Local LLM (Mixtral 8x7B)</span><span class='detail-badge bg-purple-100 text-purple-700'>12GB VRAM</span></div><div class='text-[10px] text-slate-600 mt-1'>Rakiplerin 8GB sınırında "Out of Memory" verdiği devasa modelleri tek başına belleğe sığdırır. <b>~85 Token/sn</b> okuma hızı.</div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-blue-100 text-blue-700'>GPU Render</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~11 saniye</b> (Bütçenin mutlak lideri)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-rose-100 text-rose-700'>H.264</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~2 dk 50 saniye</b></div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>AI Okuma</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-emerald-600'>~85 Token/sn</b> (Wider bus advantage)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-cyan-100 text-cyan-700'>Görsel Üretim</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-blue-600'>~22 İterasyon/sn</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
@@ -601,21 +661,42 @@
                 tabs: {
                     gaming: `
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (macOS Çeviri Katmanı)</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Windows Oyunları Uyumluluğu</span><span class='detail-badge bg-rose-100 text-rose-700'>Oyun İçin Değil</span></div><div class='text-[10px] text-slate-600 mt-1 leading-tight'>Windows (x86_64/DirectX) oyunlarının %90'ı native olarak açılmaz. Apple'ın <b>Game Porting Toolkit 2 (Crossover)</b> yazılımıyla zorlanarak çalıştırılır, FPS kaybı devasadır.</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Native (Mac Optimize) Oyunlar</span></div><div class='text-[10px] text-slate-600 mt-1 leading-tight'>Örn: Resident Evil Village. Donanımsal <b>MetalFX Upscaling</b> sayesinde 1080p'de cihaz ısınmadan akıcı ~60 FPS alınabilir.</div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-rose-100 text-rose-700'>Native Değil</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-rose-600'>Açılamaz (Hata Verir)</b></div>
+                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*Ancak Çeviri katmanıyla zorlanarak ~25 FPS alınabilir. MacOS mimarisi oyun için değildir.</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-rose-100 text-rose-700'>Uyumsuz</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-rose-600'>Açılamaz (macOS Uyumsuz)</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI Kapasitesi</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Final Cut Pro (ProRes Çıktı)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>Endüstri Lideri</span></div><div class='mt-1 text-sm'>10 Dk 4K RAW: <b class='text-emerald-600'>Sadece ~1 dk 50 sn</b></div><div class='text-[10px] text-slate-500 mt-1'>*Donanımsal 'Media Engine' hızlandırıcıları devrededir. Şarjda olmasa bile (pildeyken) zerre hız düşüşü yaşamaz.</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Local LLM (MLX Framework)</span><span class='detail-badge bg-purple-100 text-purple-700'>Unified Memory</span></div><div class='text-[10px] text-slate-600 mt-1'>RAM tamamen VRAM olduğu için devasa modelleri açabilir (16GB sınırları içinde). Llama 3 üretim hızı ~50 token/sn'dir.</div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-amber-100 text-amber-700'>Metal GPU</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-amber-600'>~45 saniye</b> (NVIDIA RT çekirdekleri olmadığı için yavaştır)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>Media Engine</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-emerald-600'>~1 dk 50 saniye</b> (Windows'u ezer geçer)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>MLX Okuma</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-emerald-600'>~50 Token/sn</b> (Unified Memory avantajı)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-cyan-100 text-cyan-700'>CoreML</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-amber-600'>~4 İterasyon/sn</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> CPU & GPU Mikromimarisi (SoC)</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> GPU & CPU Mikromimarisi (SoC)</h4>
                             <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
                                 <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
                                     <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>Bütünleşik GPU (10-Core)</strong>
@@ -714,21 +795,42 @@
                 tabs: {
                     gaming: `
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Dahili Grafik Sınırları)</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>AAA Oyunlar (Cyberpunk vb.)</span><span class='detail-badge bg-rose-100 text-rose-700'>IGPU Limit</span></div><div class='text-[10px] text-slate-600 mt-1 leading-tight'>Harici kart olmadığı için 1080p Low'da zorlanarak 20-30 FPS verir. <b>AMD FSR 3.1 + Frame Generation</b> yazılımsal algoritmaları açılmadan modern oyunları oynamak işkencedir.</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>E-spor (CS2 / Valorant)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>1080p Low</span></div><div class='mt-1 text-sm'>Ort: <b class='text-emerald-600'>~110-140 FPS</b>. Ofis yorgunluğunu atmak için tatmin edicidir.</div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-rose-100 text-rose-700'>Oynanamaz</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-rose-600'>~8 FPS</b></div>
+                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*Ancak 1080p Low ayarlarda FSR 3.1 ile ~35 FPS alınabilir.</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-amber-100 text-amber-700'>Gündelik</span></div>
+                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-amber-600'>~120 FPS</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI Kapasitesi</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
                             <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>Premiere Pro & Kurgu</span></div><div class='text-[10px] text-slate-600 mt-1 leading-tight'>Harici RTX kartın (CUDA/NVENC) yokluğunda video yükü tamamen CPU'ya biner. 4K export <b>~9 dk 30 sn</b> gibi uzun süreler alır. Sadece 1080p sosyal medya Reels/Shorts kurguları için uygundur. Blender gibi 3D işleri kasar.</div></li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'><div class='flex justify-between'><span class='text-xs font-bold text-slate-700'>AMD XDNA 2 NPU (50 TOPS)</span><span class='detail-badge bg-blue-100 text-blue-700'>Pil Dostu AI</span></div><div class='text-[10px] text-slate-600 mt-1 leading-tight'>Bu cihazın zekası NPU'dur. Windows Studio (arka plan bulanıklığı, göz teması) komutlarını CPU/GPU'yu hiç yormadan <b>0 Watt enerji harcayarak</b> işler. Pili saatlerce korur.</div></li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-rose-100 text-rose-700'>IGPU Render</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-rose-600'>~2 dk 15 saniye</b> (Zorlayıcıdır)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-rose-100 text-rose-700'>H.264</span></div>
+                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-rose-600'>~8 dk 30 saniye</b> (Yük CPU'ya biner)</div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-amber-100 text-amber-700'>AI Okuma</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-amber-600'>~15 Token/sn</b></div>
+                                </li>
+                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
+                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-rose-100 text-rose-700'>Görsel Üretim</span></div>
+                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-rose-600'>~1.5 İterasyon/sn</b></div>
+                                </li>
                             </ul>
                         </div>
                         <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> CPU & GPU Mikromimarisi</h4>
+                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> GPU & CPU Mikromimarisi</h4>
                             <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
                                 <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
                                     <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>Dahili Ekran Kartı (IGPU)</strong>
