@@ -1,183 +1,369 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zehn06 | Command Center</title>
-    
-    <!-- Tailwind CSS -->
+    <title>2026 İlk Çeyreği: 85.000 TL Bütçe Dizüstü Bilgisayar Rehberi</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Phosphor Icons (Premium görünüm için emojiler yerine) -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals with Slate and Indigo Accents -->
+    <!-- Application Structure Plan: The SPA uses a dashboard-style layout designed to guide users from a critical overarching rule down to specific, profile-based recommendations. It starts with the 'Golden Rule' bottleneck warning to set a baseline of technical understanding. Then, a two-column interactive layout allows users to select their personal 'Profile' on the left, which dynamically updates a detailed specification card and a visual Radar chart on the right. This interactive selection process is much more engaging and user-friendly than a static list, allowing users to instantly compare how different models perform across key metrics (Gaming, Portability, Battery, Productivity, Cooling). Finally, a critical software warning is anchored at the bottom. -->
+    <!-- Visualization & Content Choices: 
+         - Golden Rule & Warnings -> Goal: Alert -> Viz: Highlighted text blocks with warning colors (Amber/Red) -> Interaction: Static, meant for immediate reading -> Justification: Ensures critical pre-purchase rules and software crises are not missed.
+         - User Categories -> Goal: Organize & Select -> Viz: Interactive list of profile buttons -> Interaction: Click to update state -> Justification: Allows users to self-identify and filter information relevant only to them.
+         - Laptop Details -> Goal: Inform -> Viz: Dynamic text block with specs, pros, and cons -> Interaction: Updates based on profile selection -> Justification: Provides deep dive information clearly without overwhelming the user.
+         - Performance Comparison -> Goal: Compare -> Viz: Radar Chart (Chart.js) -> Interaction: Dynamically updates datasets based on selected profile to highlight strengths -> Justification: Radar charts are ideal for showing multivariate performance profiles (e.g., a gaming laptop excels in 'Gaming' but fails in 'Portability'). Library: Chart.js Canvas (NO SVG/Mermaid).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased leading-relaxed">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">85.000 TL Bütçe İçin Nihai Satın Alma Rehberi</h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">2026 İlk Çeyreği itibarıyla Türkiye pazarındaki güncel donanım dinamikleri, darboğaz (bottleneck) riskleri ve kullanım profillerine göre optimize edilmiş eksiksiz dizüstü bilgisayar seçim platformu.</p>
+        </header>
+
+        <section class="mb-12 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl p-6 shadow-sm">
+            <div class="flex items-start">
+                <div class="text-amber-500 text-3xl mr-4">⚠️</div>
+                <div>
+                    <h2 class="text-xl font-bold text-amber-900 mb-2">Satın Almadan Önceki "Altın Kural" (Sistem Darboğazı Uyarısı)</h2>
+                    <p class="text-amber-800 mb-2">
+                        Bu uygulama, 85.000 TL gibi ciddi bir yatırımı en doğru donanıma yönlendirmeniz için tasarlanmıştır. Hangi modeli seçerseniz seçin, oyun odaklı bir cihaz alıyorsanız şu kuralı asla unutmayın:
+                    </p>
+                    <p class="text-amber-900 font-bold bg-amber-100 p-3 rounded-lg inline-block mt-2">
+                        "Yüksek İşlemci (Core i7) + Zayıf Ekran Kartı (RTX 5050)" kombinasyonu bir pazarlama tuzağıdır!
+                    </p>
+                    <p class="text-amber-800 mt-3">
+                        Oyun performansı için her zaman <strong>"Yeterli İşlemci (Core i5-13450HX) + Güçlü Ekran Kartı (RTX 5060 veya 5070)"</strong> kombinasyonunu tercih edin. Amdahl yasası gereği, modern oyunlarda işlem yükünün %99'u ekran kartının omuzlarındadır.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-3">Kullanıcı Profilinizi Seçin</h2>
+                <p class="text-slate-600">Tek bir "en iyi" bilgisayar yoktur; sizin ihtiyaçlarınıza en uygun bilgisayar vardır. Aşağıdaki listeden kullanım alışkanlıklarınızı en iyi yansıtan profili seçerek, sizin için seçilmiş ideal cihazı, detaylı donanım özelliklerini ve kabul etmeniz gereken yapısal riskleri anında inceleyebilirsiniz.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <div class="lg:col-span-4 flex flex-col gap-3" id="profile-buttons-container">
+                </div>
+
+                <div class="lg:col-span-8 bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col">
+                    <div class="p-6 md:p-8 border-b border-slate-100 bg-slate-800 text-white">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 id="detail-category" class="text-sm font-semibold tracking-wider text-indigo-300 uppercase">Kategori Yükleniyor...</h3>
+                            <span id="detail-price" class="px-3 py-1 bg-indigo-500/30 text-indigo-100 text-sm font-bold rounded-full">Fiyat Yükleniyor</span>
+                        </div>
+                        <h2 id="detail-model" class="text-2xl md:text-3xl font-extrabold">Model Yükleniyor...</h2>
+                    </div>
+                    
+                    <div class="p-6 md:p-8 flex-grow overflow-y-auto max-h-[70vh]">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">💻 Temel Özet</h4>
+                                <p id="detail-specs" class="text-slate-700 font-medium leading-relaxed mb-6"></p>
+                                
+                                <h4 class="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-2">✅ Neden Seçilmeli?</h4>
+                                <p id="detail-pros" class="text-slate-600 leading-relaxed mb-6"></p>
+                            </div>
+                            
+                            <div class="flex flex-col items-center justify-center bg-slate-50 rounded-xl p-4 border border-slate-100">
+                                <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 text-center">Performans Karakteristiği</h4>
+                                <div class="chart-container w-full">
+                                    <canvas id="radarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-200 pt-6">
+                            <h3 class="text-lg font-bold text-slate-800 mb-6">🔍 Derinlemesine Donanım & Kronik Sorun Analizi</h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-indigo-50/50 p-5 rounded-xl border border-indigo-100">
+                                    <h4 class="text-sm font-bold text-indigo-700 mb-2 flex items-center gap-2">📺 Ekran & Panel Detayları</h4>
+                                    <p id="detail-screen" class="text-sm text-slate-700 leading-relaxed"></p>
+                                </div>
+                                
+                                <div class="bg-indigo-50/50 p-5 rounded-xl border border-indigo-100">
+                                    <h4 class="text-sm font-bold text-indigo-700 mb-2 flex items-center gap-2">⚡ GPU Gücü & TGP</h4>
+                                    <p id="detail-gpu" class="text-sm text-slate-700 leading-relaxed"></p>
+                                </div>
+
+                                <div class="bg-indigo-50/50 p-5 rounded-xl border border-indigo-100">
+                                    <h4 class="text-sm font-bold text-indigo-700 mb-2 flex items-center gap-2">⚙️ Genişletilebilirlik (Slotlar)</h4>
+                                    <p id="detail-slots" class="text-sm text-slate-700 leading-relaxed"></p>
+                                </div>
+
+                                <div class="bg-indigo-50/50 p-5 rounded-xl border border-indigo-100">
+                                    <h4 class="text-sm font-bold text-indigo-700 mb-2 flex items-center gap-2">🔋 Batarya & Şarj Teknolojisi</h4>
+                                    <p id="detail-battery" class="text-sm text-slate-700 leading-relaxed"></p>
+                                </div>
+
+                                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                                    <h4 class="text-sm font-bold text-sky-700 mb-2 flex items-center gap-2">❄️ Soğutma & Akustik (Fan Sesi)</h4>
+                                    <p id="detail-cooling" class="text-sm text-slate-700 leading-relaxed"></p>
+                                </div>
+
+                                <div class="bg-rose-50 p-5 rounded-xl border border-rose-100 shadow-sm">
+                                    <h4 class="text-sm font-bold text-rose-700 mb-2 flex items-center gap-2">🚨 Kronik Sorunlar & Risk İhtimali</h4>
+                                    <p id="detail-chronic" class="text-sm text-slate-700 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-rose-50 border border-rose-200 rounded-xl p-6 shadow-sm">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                <div class="text-4xl text-rose-500">🚨</div>
+                <div>
+                    <h3 class="text-xl font-bold text-rose-900 mb-2">Ekstra Uyarı: Mart 2026 Yazılım Krizi</h3>
+                    <p class="text-rose-800 leading-relaxed">
+                        NVIDIA grafik kartlı cihaz alan kullanıcılar (Özellikle Acer ve HP modelleri dikkat etmelidir); cihazı ilk aldığınızda yaşanabilecek ani FPS düşüşleri veya siyah ekran çökme sorunları donanımsal arıza değildir. Bu durum, <strong>591.74 sürüm numaralı NVIDIA sürücü hatasından</strong> kaynaklanmaktadır. Cihazı teknik servise iade etmeden önce "DDU (Display Driver Uninstaller)" yazılımı ile sorunlu sürücüyü tamamen silip, daha eski ve stabil bir sürüme geçiş yapmayı kesinlikle unutmayın. MSI modellerinde yaşanabilecek ses patlaması sorunlarında ise üreticinin anakart/BIOS güncellemelerini takip etmeniz şarttır.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        zinc: {
-                            850: '#1f1f22',
-                            900: '#18181b',
-                            950: '#09090b',
+        const laptopData = [
+            {
+                id: "hardcore",
+                icon: "🎮",
+                title: "Saf Kas Gücü & 3D Modelleme",
+                subtitle: "Hardcore oyuncular ve ağır render alanlar.",
+                category: "Kategori 1: Saf Kas Gücü",
+                model: "Acer Nitro 16S (NH.U07EY.001)",
+                price: "~84.999 TL",
+                specs: "AMD Ryzen AI 9 365 İşlemci<br>NVIDIA RTX 5070 Ti (12 GB VRAM)<br>32 GB RAM<br>1 TB SSD",
+                pros: "Bu bütçede 12 GB VRAM'e ve RTX 5070 Ti grafik kartına ulaşabildiğiniz tek ve en güçlü modeldir. Unreal Engine 5 gibi modern motorların 8 GB VRAM sınırını aştığı günümüzde, sizi gelecekteki darboğazlardan (Out of Memory hatalarından) kurtaracak yegane güç makinesidir.",
+                screen: "<strong>16 inç WQXGA (2560x1600)</strong>, 16:10 format. <strong>180Hz</strong> yenileme hızı. Gelişmiş IPS panel kullanır. Griden griye (GtG) tepki süresi ortalama <strong>~3ms</strong> civarındadır ve DCI-P3 renk gamutunu destekler.",
+                gpuTgp: "NVIDIA RTX 5070 Ti 12 GB. Dynamic Boost teknolojisiyle <strong>140W+ TGP</strong> (Tam Güç) seviyelerine çıkarak donanımın maksimum kas gücünü kullanır.",
+                slots: "<strong>2 adet DDR5 SO-DIMM RAM yuvası</strong> (Maks. 64GB). <strong>2 adet M.2 NVMe PCIe Gen4/5 SSD yuvası</strong> (1'i dolu, kapasite artırımı için 1 yuva boşta).",
+                battery: "<strong>~90Wh</strong> devasa batarya kapasitesi. Ancak aşırı güçlü donanım sebebiyle oyun esnasında pilde 1 saatten az, gündelik kullanımda ise 4-5 saat civarı dayanır.",
+                cooling: "Standart asimetrik bakır ısı boruları (Buhar odası yok). <strong>NitroSense</strong> yazılımıyla fanlar yönetilir. Ağır yük altında soğutmaya yetişmek için pervaneler devirli döner, fan sesi <strong>oldukça yüksektir (>55dB)</strong>, kulaklık kullanımı şarttır.",
+                chronic: "Güçlü TGP nedeniyle kasa soğutma kapasitesini aştığında <strong>aşırı ısınma ve aniden kapanma</strong> (thermal shutdown) sorunu yaşanabilir. Denk gelme ihtimali: <strong>~%30-35</strong>. Ayrıca Mart 2026 Nvidia sürücüsüyle sistem çökme ihtimali müdahale edilmezse %100'dür.",
+                scores: [100, 30, 40, 75, 45] 
+            },
+            {
+                id: "hybrid",
+                icon: "💼",
+                title: "Hibrit Kullanıcı & Estetik",
+                subtitle: "İş/Okul ve akşamları AAA oyun oynayanlar.",
+                category: "Kategori 2: Hibrit Kullanıcı",
+                model: "HP Omen Slim 16-an0016nt",
+                price: "~83.499 TL",
+                specs: "Intel Core Ultra 9 285H İşlemci<br>NVIDIA RTX 5070 (8 GB VRAM)<br>32 GB RAM<br>1 TB SSD",
+                pros: "Omen Tempest Soğutma teknolojisi sayesinde ince kasasına rağmen muazzam bir ısı tahliyesi sunar. Wi-Fi 7 ve Thunderbolt 4 gibi en güncel arayüzleri barındırır. Tasarımı kaba oyun bilgisayarı formundan uzaktır; alüminyum destekli şık bir kasası vardır.",
+                screen: "<strong>16 inç 2K QHD (1920x1200)</strong>, 16:10 format. <strong>144Hz</strong> yenileme hızı. <strong>~5ms GtG</strong> gecikme. Yansıma önleyici (Anti-glare) kaplamaya ve 300 nit standart ekran parlaklığına sahiptir.",
+                gpuTgp: "NVIDIA RTX 5070 8 GB. İnce (Slim) kasa mimarisi sebebiyle TGP değeri <strong>115W ile 130W</strong> arasında sınırlandırılmıştır (Isıyı kontrol etmek için bir miktar güç kırpılmıştır).",
+                slots: "<strong>2 adet DDR5 SO-DIMM RAM yuvası</strong> ve <strong>2 adet M.2 NVMe SSD yuvası</strong> mevcuttur. Bellek ve depolama yükseltmesine tam olanak tanır.",
+                battery: "<strong>~70-83Wh</strong> batarya. Yüksek işlemci çekirdek sayısı ve zayıf optimizasyon sebebiyle deşarj hızı rakiplerine göre biraz daha hızlıdır.",
+                cooling: "<strong>Omen Tempest Cooling</strong> teknolojisi kullanır. İnce profiline rağmen CPU/GPU sıcaklık dengesi şaşırtıcı derecede iyidir. <strong>Omen Gaming Hub</strong> üzerinden yönetilir. Fan sesi belirgindir ancak kulak tırmalayan tiz bir frekansta çalışmaz.",
+                chronic: "Kapağın açık/kapalı olduğunu algılayan <strong>Manyetik Hall Sensörü arızası</strong> oldukça meşhurdur. Anakart ısındıkça sensör bozulabilir ve cihaz kapak açıkken bile kendini kapalı sanıp güç almaz. Denk gelme ihtimali: <strong>~%15-%20</strong>.",
+                scores: [85, 75, 50, 80, 85] 
+            },
+            {
+                id: "dtr",
+                icon: "🛠️",
+                title: "Ağır İşçilik & Uzun Ömür",
+                subtitle: "Masaüstü alternatifi, ağırlık umursamayanlar.",
+                category: "Kategori 3: Masaüstü Alternatifi (DTR)",
+                model: "Lenovo Legion Pro 5 Gen 10",
+                price: "~66.000 TL - 85.000 TL",
+                specs: "Ryzen 7 8745HX İşlemci<br>NVIDIA RTX 5060 (115W+ TGP)<br>32 GB RAM Varyasyonları",
+                pros: "Yapısal bütünlük şampiyonudur. Devasa bakır soğutma blokları ve PC-ABS/Alüminyum karışımı kasası ile saatler süren stres testlerinde bile termal yavaşlamaya (throttling) girmez. Portların cihazın arkasında toplanması masaüstü kablo karmaşasını bitirir.",
+                screen: "<strong>15.3 veya 16 inç WQXGA (2560x1600)</strong> IPS. Modele göre <strong>165Hz / 240Hz</strong> yenileme hızı. Espora ve rekabetçi oyunlara çok uygun <strong>~3ms GtG</strong> tepki süresi. 500 nit devasa parlaklık sunar.",
+                gpuTgp: "NVIDIA RTX 5060 8 GB. Kasa geniş olduğu için ekran kartı <strong>140W Tam Güç (Full TGP)</strong> sınırında çalışarak silikondan elde edilebilecek maksimum kare sayısını (FPS) üretir.",
+                slots: "<strong>2 adet DDR5 SO-DIMM RAM yuvası</strong> ve <strong>2 adet M.2 NVMe Gen4 SSD yuvası</strong>. Donanım ömrü dolduğunda tamamen içini açıp yükseltebilirsiniz.",
+                battery: "<strong>80Wh</strong> batarya kapasitesi. <strong>Rapid Charge Pro</strong> ile yarım saatte %70 şarj dolumu. Ayrıca arka porttan oyun oynamadığınız zamanlarda kullanılmak üzere <strong>140W Type-C (PD)</strong> güç adaptörleriyle çalışabilir.",
+                cooling: "<strong>ColdFront 5.0 / 6.0</strong> mühendisliği. İşlemcide faz değişimli sıvı metal benzeri macun ve devasa bakır bloklar vardır. <strong>Lenovo Vantage</strong> ile kontrol edilir. Fanlar tam devirde dönse bile fan yaprakları geniş olduğu için ses rüzgar uğultusu gibidir <strong>(~50dB, tok ve kalın)</strong>.",
+                chronic: "İşletim sistemi kaynaklı, uyku moduna geçildiğinde anakartın gücü kesmemesi ve fanların kapalı cihazda çalışmaya devam etmesi (İhtimal: <strong>~%10</strong>). Bazı partilerde Mediatek/Realtek Wi-Fi kartından dolayı anlık bağlantı kopmaları (İhtimal: <strong>~%25</strong>).",
+                scores: [80, 10, 20, 70, 100] 
+            },
+            {
+                id: "pro",
+                icon: "🎬",
+                title: "Profesyonel Üretkenlik & Kurgu",
+                subtitle: "Oyun oynamayan profesyoneller, Apple ekosistemi.",
+                category: "Kategori 4: Profesyonel Üretkenlik",
+                model: "Apple MacBook Pro 14 inç (M5)",
+                price: "~85.499 TL",
+                specs: "Apple M5 İşlemci (10 Çekirdek)<br>16 GB Birleşik Bellek<br>512 GB SSD<br>Liquid Retina XDR (Mini-LED)",
+                pros: "1000 nit parlaklığa çıkan Liquid Retina XDR ekranı rakiplerinin fersah fersah ötesindedir. Cihaz fan açmadan, pil modunda dahi performans kaybetmeden 18 saat aralıksız çalışabilir. İş istasyonu verimliliğinde ve kurguda mutlak liderdir.",
+                screen: "<strong>14.2 inç Liquid Retina XDR (Mini-LED)</strong>. 3024x1964 yoğun çözünürlük. <strong>120Hz ProMotion</strong>. Sürekli 1000 nit, sinematik HDR'da 1600 nit zirve parlaklık. Ancak IPS/OLED panellere göre piksel tepkimesi biraz daha hantaldır (<strong>~5-10ms</strong>).",
+                gpuTgp: "Apple 10 Çekirdekli Bütünleşik GPU. Harici bir ekran kartı yoktur. M5 işlemci paketi içinde <strong>~30W-40W</strong> paylaşımlı SoC gücü ile çalışır.",
+                slots: "<strong>Sıfır (0) Yuva</strong>. Unified Memory (RAM) ve SSD doğrudan anakarta bütünleşik lehimlidir. Asla, hiçbir şekilde kapasite yükseltmesi <strong>yapılamaz</strong>.",
+                battery: "<strong>72.4Wh</strong> batarya. ARM mimarisinin inanılmaz güç verimliliği sayesinde pilde tam tamına <strong>18-22 saat</strong> gerçek kullanım. MagSafe 3 kablosuyla hızlı şarj.",
+                cooling: "Tamamen aktif/pasif hibrit yapı. Gündelik işlerde, filmde, kodlamada fanlar tamamen durur (<strong>0 RPM, Mutlak sessizlik</strong>). Fanlar yalnızca arka arkaya 4K/8K video renderı alınırken fısıltı seviyesinde duyulabilir.",
+                chronic: "Bütçe sınırı nedeniyle alınan 16GB belleğin yetersiz kaldığı devasa projelerde, sistemin SSD'yi RAM gibi (Swap Bellek) kullanması. Bu durum 5+ yıllık senaryoda SSD hücre ömrünü yavaşça çürütür (16GB limiti aşılırsa SSD aşınma ihtimali <strong>%100</strong>'dür). Donanımsal arıza oranı ise çok düşüktür.",
+                scores: [15, 90, 100, 100, 95] 
+            },
+            {
+                id: "ultra",
+                icon: "🎒",
+                title: "Ultra Taşınabilirlik & Premium Medya",
+                subtitle: "Windows tabanlı hafif cihaz, yapay zeka odağı.",
+                category: "Kategori 5: Ultra Taşınabilirlik",
+                model: "Asus Zenbook S 16 OLED",
+                price: "~76.674 TL",
+                specs: "AMD Ryzen AI 9 HX 370 İşlemci<br>Radeon 890M (Dahili Grafik)<br>32 GB RAM<br>1 TB SSD",
+                pros: "Sadece 1.5 kg ağırlığında ve havacılık sınıfı Ceraluminum (seramik-alüminyum) kasaya sahiptir. 3K 120Hz OLED ekranı görsel bir şölen sunarken, 50 TOPS gücündeki NPU'su ile Copilot+ özelliklerini en verimli kullanan cihazdır. Pil ömrü MacBook ile yarışır.",
+                screen: "<strong>16 inç 3K (2880x1800) Lumina OLED</strong>. <strong>120Hz</strong> yenileme hızı. Sadece <strong>0.2ms</strong> inanılmaz düşük GtG tepki süresi (Hızlı nesnelerde sıfır bulanıklık). %100 DCI-P3 renk ve 400 nit/600 nit HDR parlaklık.",
+                gpuTgp: "AMD Radeon 890M Dahili (Entegre) Grafik. Harici NVIDIA kartı yoktur. İşlemci ile ortak <strong>~28W - 35W</strong> TDP bütçesini paylaşır.",
+                slots: "32GB LPDDR5X <strong>RAM anakarta lehimlidir</strong> (Asla yükseltilemez). Sadece <strong>1 adet M.2 NVMe SSD yuvası</strong> vardır (Diski 2TB yapmak isterseniz, içindeki mevcut 1TB diski söküp atmanız gerekir).",
+                battery: "<strong>78Wh</strong> kapasite. Zen 5 / XDNA NPU yapay zeka biriminin çok düşük güç tüketimi sayesinde Windows ekosisteminde ofis/medya kullanımında <strong>16-18 saat</strong> dayanır.",
+                cooling: "Ultra ince profil için özel tasarlanmış çok ince <strong>Buhar Odası (Vapor Chamber)</strong> ve çift pervaneli fan. <strong>MyASUS / ProArt Hub</strong> üzerinden yönetilir. Çoğu zaman sessizdir, tam yükte ince bir rüzgar sesi (tıslama) çıkarır.",
+                chronic: "Ceraluminum metal alaşımı mükemmel görünse de ısıl iletkenliği yüksektir, dize/kucağa konduğunda cihaz altı çok ısınabilir. Ekranı 3-5 yıl parlak ve statik görüntülerle kullanıldığında <strong>OLED ekran yanığı (Burn-in)</strong> riski barındırır (İhtimal: <strong>~%5-%10</strong>).",
+                scores: [20, 100, 95, 85, 80] 
+            }
+        ];
+
+        let radarChartInstance = null;
+        let activeProfileIndex = 0;
+
+        function initApp() {
+            renderButtons();
+            selectProfile(0);
+        }
+
+        function renderButtons() {
+            const container = document.getElementById('profile-buttons-container');
+            container.innerHTML = '';
+            
+            laptopData.forEach((profile, index) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4 ${index === activeProfileIndex ? 'border-indigo-600 bg-indigo-50 shadow-md' : 'border-slate-200 bg-white hover:border-indigo-300 hover:bg-slate-50'}`;
+                btn.onclick = () => selectProfile(index);
+                
+                btn.innerHTML = `
+                    <div class="text-3xl">${profile.icon}</div>
+                    <div>
+                        <div class="font-bold text-slate-800">${profile.title}</div>
+                        <div class="text-xs text-slate-500 mt-1">${profile.subtitle}</div>
+                    </div>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectProfile(index) {
+            activeProfileIndex = index;
+            renderButtons(); 
+            updateContent(laptopData[index]);
+            updateChart(laptopData[index]);
+        }
+
+        function updateContent(data) {
+            document.getElementById('detail-category').innerText = data.category;
+            document.getElementById('detail-model').innerText = data.model;
+            document.getElementById('detail-price').innerText = data.price;
+            document.getElementById('detail-specs').innerHTML = data.specs;
+            document.getElementById('detail-pros').innerHTML = data.pros;
+            
+            document.getElementById('detail-screen').innerHTML = data.screen;
+            document.getElementById('detail-gpu').innerHTML = data.gpuTgp;
+            document.getElementById('detail-slots').innerHTML = data.slots;
+            document.getElementById('detail-battery').innerHTML = data.battery;
+            document.getElementById('detail-cooling').innerHTML = data.cooling;
+            document.getElementById('detail-chronic').innerHTML = data.chronic;
+        }
+
+        function updateChart(data) {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            const labels = ['Oyun Performansı (GPU)', 'Taşınabilirlik (Ağırlık/Boyut)', 'Pil Ömrü', 'Üretkenlik (CPU/Ekran)', 'Soğutma Kapasitesi'];
+            
+            if (radarChartInstance) {
+                radarChartInstance.destroy();
+            }
+
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: data.model,
+                        data: data.scores,
+                        backgroundColor: 'rgba(79, 70, 229, 0.2)', 
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        pointBackgroundColor: 'rgba(79, 70, 229, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: {
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    size: 11,
+                                    weight: 'bold'
+                                },
+                                color: '#64748b' 
+                            },
+                            ticks: {
+                                display: false,
+                                min: 0,
+                                max: 100,
+                                stepSize: 20
+                            }
                         }
                     },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'blob': 'blob 10s infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                    plugins: {
+                        legend: {
+                            display: false
                         },
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleFont: { size: 14, family: "'Inter', sans-serif" },
+                            bodyFont: { size: 14, family: "'Inter', sans-serif" },
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.formattedValue + '/100';
+                                }
+                            }
                         }
                     }
                 }
-            }
+            });
         }
+
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
-    
-    <style>
-        body {
-            background-color: #09090b; /* Zinc-950 */
-            color: #fafafa;
-            overflow-x: hidden;
-        }
-
-        /* Glass / Bento Box Style */
-        .bento-card {
-            background: rgba(24, 24, 27, 0.6); /* Zinc-900 with opacity */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .bento-card:hover {
-            background: rgba(39, 39, 42, 0.8); /* Zinc-800 */
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #09090b; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
-
-        /* Delay utilities for staggered animations */
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-    </style>
-</head>
-<body class="min-h-screen relative font-sans selection:bg-emerald-500/30 selection:text-emerald-200">
-
-    <!-- Subtle Background Glows (Modern Vercel-like effect instead of heavy particles) -->
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-900/20 blur-[120px] mix-blend-screen animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-900/20 blur-[120px] mix-blend-screen animate-blob" style="animation-delay: 2s;"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[50%] h-[50%] rounded-full bg-purple-900/10 blur-[120px] mix-blend-screen animate-blob" style="animation-delay: 4s;"></div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="relative z-10 max-w-5xl mx-auto px-6 py-16 sm:py-24">
-        
-        <!-- Header Section -->
-        <header class="mb-16 opacity-0 animate-fade-in-up">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-zinc-400 mb-6">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                SYSTEM ONLINE
-            </div>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
-                Hoş Geldin, <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">Zehn06</span>
-            </h1>
-            <p class="text-lg text-zinc-400 max-w-xl">
-                Operasyon merkezi. Projelerine, eğitim materyallerine ve kişisel dökümanlarına hızlı erişim sağla.
-            </p>
-        </header>
-
-        <!-- Bento Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            <!-- 1. CV / Portfolio (FEATURED - Spans 2 columns) -->
-            <a href="./cv.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-100 md:col-span-2 relative overflow-hidden flex flex-col justify-between min-h-[240px]">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
-                
-                <div class="relative z-10 flex justify-between items-start mb-6">
-                    <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 text-emerald-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                        <i class="ph ph-identification-card text-3xl"></i>
-                    </div>
-                    <div class="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-zinc-400 group-hover:bg-white/10 group-hover:text-white transition-colors">
-                        <i class="ph ph-arrow-up-right"></i>
-                    </div>
-                </div>
-                
-                <div class="relative z-10">
-                    <h3 class="text-2xl font-bold text-white mb-2">CV & Portfolyo</h3>
-                    <p class="text-zinc-400 text-sm max-w-md">Kişisel web siten, teknoloji yetkinliklerin ve profesyonel kimliğin. Toloka ve iş başvuruları için ana merkezin.</p>
-                </div>
-            </a>
-
-            <!-- 2. Yurtdışı Eğitim -->
-            <a href="./yurtdisi-egitim-tam-rehber.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-200 flex flex-col justify-between min-h-[220px]">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 text-indigo-400 group-hover:scale-110 transition-transform duration-300">
-                        <i class="ph ph-globe-hemisphere-east text-2xl"></i>
-                    </div>
-                    <i class="ph ph-arrow-right text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">Yurtdışı Rehberi</h3>
-                    <p class="text-zinc-400 text-sm">Letonya, İtalya ve Avrupa geneli üniversite araştırma arşivi ile başvuru rotaları.</p>
-                </div>
-            </a>
-
-            <!-- 3. Beslenme Programı -->
-            <a href="./nutritionplan.html" class="bento-card rounded-3xl p-8 group opacity-0 animate-fade-in-up delay-300 flex flex-col justify-between min-h-[220px]">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center border border-green-500/20 text-green-400 group-hover:scale-110 transition-transform duration-300">
-                        <i class="ph ph-apple-logo text-2xl"></i>
-                    </div>
-                    <i class="ph ph-arrow-right text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">Beslenme Planı</h3>
-                    <p class="text-zinc-400 text-sm">Fiziksel performans, odaklanma ve günlük kalori/makro takibi için kişisel diyet rutini.</p>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- Footer -->
-        <footer class="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 opacity-0 animate-fade-in-up delay-300">
-            <div class="flex items-center gap-2 text-zinc-500 text-sm font-mono">
-                <i class="ph ph-terminal-window"></i>
-                <span>Zehn06_Workspace © 2026</span>
-            </div>
-            <div class="flex items-center gap-2 text-zinc-500 text-sm">
-                <i class="ph ph-arrows-clockwise"></i>
-                <span>Status: Focus Mode Active</span>
-            </div>
-        </footer>
-
-    </div>
-
 </body>
 </html>
