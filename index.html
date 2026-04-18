@@ -1409,4 +1409,470 @@ body::after {
 const DEFAULTS = [
   { id:'t1', time:'08:00', name:'Güne Başlangıç', desc:'Kahvaltı, kedilerin bakımı ve zihni açma.', cat:'routine', icon:'fa-mug-saucer', color:'var(--accent-amber)', bg:'rgba(245,158,11,0.1)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' },
   { id:'t2', time:'08:30', name:'Matematik & Mantık', desc:'CEnT-S ve TIL-I sınavlarına yönelik derin çalışma bloğu.', cat:'math', icon:'fa-calculator', color:'var(--accent-red)', bg:'rgba(239,68,68,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
-  { id:'t3', time:'10:30', name:'
+    { id:'t3', time:'10:30', name:'Mola & Esneme', desc:'Ekrandan uzaklaş, hafif esneme hareketleri ve nefes egzersizi.', cat:'break', icon:'fa-spa', color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)', tag:'Sağlık', tagBg:'rgba(16,185,129,0.1)', tagBorder:'rgba(16,185,129,0.2)', tagColor:'#6ee7b7' },
+  { id:'t4', time:'11:00', name:'Fizik Çalışması', desc:'Mühendislik girişi için formül tekrarları ve soru çözümü.', cat:'physics', icon:'fa-atom', color:'var(--accent-orange)', bg:'rgba(249,115,22,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
+  { id:'t5', time:'13:00', name:'Öğle Arası', desc:'Yemek ve Segway ile kısa açık hava turu.', cat:'break', icon:'fa-utensils', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Deşarj', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
+  { id:'t6', time:'14:00', name:'Yazılım Geliştirme', desc:'Web dev projeleri, JavaScript/React pratikleri ve kod challenge.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd' },
+  { id:'t7', time:'16:30', name:'İngilizce Pratiği', desc:'B2 hedefine yönelik genel gramer ve dinleme egzersizi.', cat:'english', icon:'fa-language', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc' },
+  { id:'t8', time:'18:00', name:'Eğitimler & Kurslar', desc:'Bahçe bitkileri veya ANKUZEF uzaktan eğitim modülleri.', cat:'personal', icon:'fa-graduation-cap', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Akademi', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4' },
+  { id:'t9', time:'19:30', name:'Akşam Yemeği', desc:'Aile ile vakit geçirme ve günün değerlendirmesi.', cat:'routine', icon:'fa-house', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Sosyal', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
+  { id:'t10', time:'20:30', name:'Oyun & Eğlence', desc:'Elden Ring, CS2, Ghost of Tsushima veya Minecraft.', cat:'free', icon:'fa-gamepad', color:'var(--accent-purple)', bg:'rgba(139,92,246,0.1)', tag:'Ödül', tagBg:'rgba(139,92,246,0.1)', tagBorder:'rgba(139,92,246,0.2)', tagColor:'#c4b5fd' },
+  { id:'t11', time:'22:30', name:'Kişisel Okuma', desc:'Davranışsal psikoloji – Atomik Alışkanlıklar vb.', cat:'personal', icon:'fa-book-open', color:'var(--accent-cyan)', bg:'rgba(6,182,212,0.1)', tag:'Gelişim', tagBg:'rgba(6,182,212,0.1)', tagBorder:'rgba(6,182,212,0.2)', tagColor:'#67e8f9' },
+  { id:'t12', time:'23:15', name:'Kapanış & Planlama', desc:'Yarının hedeflerini not et ve uyku hazırlığı.', cat:'routine', icon:'fa-moon', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.08)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' }
+];
+
+const DEFAULT_MONTHLY = [
+  { id:'m1', name:'Web Dev Kampı – JavaScript Core Modülü', desc:'Tüm egzersizleri ve bitirme projesini tamamla.' },
+  { id:'m2', name:'TIL-I Deneme Sınavı (x2)', desc:'Süre tutarak 2 tam deneme çöz ve hata analizi yap.' },
+  { id:'m3', name:'İngilizce B2 Okuma Seti', desc:'Teknik makalelerden oluşan 5 parçalık okuma setini bitir.' },
+  { id:'m4', name:'ANKUZEF Vize Hazırlığı', desc:'Tüm modülleri gözden geçir ve özet notları çıkar.' },
+  { id:'m5', name:'Portfolio Web Sitesi v1', desc:'Kişisel tanıtım sayfası tasarla ve deploy et.' }
+];
+
+const QUOTES = [
+  "Başarı, her gün tekrarlanan küçük çabaların toplamıdır.",
+  "Zorluklar, sıradan insanları sıradışı başarılar için hazırlar.",
+  "Kod yazmak bir sanat, onu optimize etmek ise mühendisliktir.",
+  "Bugün hissettiğin acı, yarın hissedeceğin güç olacak.",
+  "Geleceği tahmin etmenin en iyi yolu, onu icat etmektir.",
+  "Tutarlılık, yetenekten daha önemlidir.",
+  "Motivasyon seni başlatır, disiplin ise devam etmeni sağlar.",
+  "Mazeretler bugünü kurtarır, disiplin ise geleceği inşa eder.",
+  "Büyük işler güçle değil, azimle ve kararlılıkla yapılır.",
+  "Rahatlık alanı güzel bir yerdir, ancak orada hiçbir şey büyümez.",
+  "Her usta bir zamanlar çıraktı. Her profesyonel bir zamanlar amatördü.",
+  "La disciplina è il ponte tra gli obiettivi e i risultati."
+];
+
+const CAT_META = {
+  math:     { icon:'fa-calculator', color:'var(--accent-red)',     bg:'rgba(239,68,68,0.1)',   tag:'Sınav',   tagBg:'rgba(239,68,68,0.1)',   tagBorder:'rgba(239,68,68,0.2)',   tagColor:'#fca5a5' },
+  physics:  { icon:'fa-atom',       color:'var(--accent-orange)',  bg:'rgba(249,115,22,0.1)',  tag:'Sınav',   tagBg:'rgba(249,115,22,0.1)',  tagBorder:'rgba(249,115,22,0.2)',  tagColor:'#fdba74' },
+  software: { icon:'fa-code',       color:'var(--accent-blue)',    bg:'rgba(59,130,246,0.1)',  tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)',  tagBorder:'rgba(59,130,246,0.2)',  tagColor:'#93c5fd' },
+  english:  { icon:'fa-language',   color:'var(--accent-indigo)',  bg:'rgba(99,102,241,0.1)',  tag:'Dil',     tagBg:'rgba(99,102,241,0.1)',  tagBorder:'rgba(99,102,241,0.2)',  tagColor:'#a5b4fc' },
+  break:    { icon:'fa-spa',        color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)',  tag:'Mola',    tagBg:'rgba(16,185,129,0.1)',  tagBorder:'rgba(16,185,129,0.2)',  tagColor:'#6ee7b7' },
+  free:     { icon:'fa-gamepad',    color:'var(--accent-purple)',  bg:'rgba(139,92,246,0.1)',  tag:'Serbest', tagBg:'rgba(139,92,246,0.1)',  tagBorder:'rgba(139,92,246,0.2)',  tagColor:'#c4b5fd' },
+  personal: { icon:'fa-book-open',  color:'var(--accent-cyan)',    bg:'rgba(6,182,212,0.1)',   tag:'Kişisel', tagBg:'rgba(6,182,212,0.1)',   tagBorder:'rgba(6,182,212,0.2)',   tagColor:'#67e8f9' },
+  routine:  { icon:'fa-mug-saucer', color:'var(--accent-amber)',   bg:'rgba(245,158,11,0.1)', tag:'Rutin',   tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' }
+};
+
+// ═══════════════════════════════
+// STATE
+// ═══════════════════════════════
+const todayKey = () => new Date().toISOString().split('T')[0];
+const storageKey = (k) => `ultra_${k}`;
+
+function load(key, fallback) {
+  try { const d = localStorage.getItem(storageKey(key)); return d ? JSON.parse(d) : fallback; }
+  catch { return fallback; }
+}
+function save(key, data) { localStorage.setItem(storageKey(key), JSON.stringify(data)); }
+
+// Daily reset check
+let lastDate = load('lastDate', '');
+if (lastDate !== todayKey()) {
+  save('dailyStatus', {});
+  save('lastDate', todayKey());
+}
+
+let dailyTasks = load('dailyTasks', DEFAULTS);
+let dailyStatus = load('dailyStatus', {});
+let monthlyTasks = load('monthlyTasks', DEFAULT_MONTHLY);
+let monthlyStatus = load('monthlyStatus', {});
+
+// ═══════════════════════════════
+// POMODORO
+// ═══════════════════════════════
+let pomoState = { running:false, seconds:25*60, total:25*60, interval:null, sessions:0 };
+
+function updatePomoDisplay() {
+  const m = Math.floor(pomoState.seconds / 60);
+  const s = pomoState.seconds % 60;
+  document.getElementById('pomoDisplay').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  
+  const pct = pomoState.total > 0 ? ((pomoState.total - pomoState.seconds) / pomoState.total) * 100 : 0;
+  document.getElementById('pomoFill').style.width = pct + '%';
+
+  // Dots
+  const dots = document.getElementById('pomoDots').children;
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].classList.toggle('filled', i < pomoState.sessions);
+  }
+}
+
+function togglePomo() {
+  if (pomoState.running) {
+    clearInterval(pomoState.interval);
+    pomoState.running = false;
+    document.getElementById('pomoBtnIcon').className = 'fa-solid fa-play';
+    document.getElementById('pomoBtnText').textContent = 'Devam';
+    document.getElementById('pomoBtn').className = 'pomo-btn pomo-btn-start';
+  } else {
+    pomoState.running = true;
+    document.getElementById('pomoBtnIcon').className = 'fa-solid fa-pause';
+    document.getElementById('pomoBtnText').textContent = 'Duraklat';
+    document.getElementById('pomoBtn').className = 'pomo-btn pomo-btn-pause';
+    
+    pomoState.interval = setInterval(() => {
+      if (pomoState.seconds <= 0) {
+        clearInterval(pomoState.interval);
+        pomoState.running = false;
+        pomoState.sessions = Math.min(pomoState.sessions + 1, 4);
+        
+        // Notification
+        if (Notification.permission === 'granted') {
+          new Notification('🍅 Pomodoro Tamamlandı!', { body: `${pomoState.sessions}/4 oturum bitti. Mola zamanı!` });
+        }
+        
+        // Alert fallback
+        alert(`🍅 Pomodoro #${pomoState.sessions} tamamlandı! Mola zamanı.`);
+        
+        // Auto reset timer
+        pomoState.seconds = 25 * 60;
+        pomoState.total = 25 * 60;
+        document.getElementById('pomoBtnIcon').className = 'fa-solid fa-play';
+        document.getElementById('pomoBtnText').textContent = 'Başlat';
+        document.getElementById('pomoBtn').className = 'pomo-btn pomo-btn-start';
+        updatePomoDisplay();
+        return;
+      }
+      pomoState.seconds--;
+      updatePomoDisplay();
+    }, 1000);
+  }
+}
+
+function resetPomo() {
+  clearInterval(pomoState.interval);
+  pomoState.running = false;
+  pomoState.seconds = 25 * 60;
+  pomoState.total = 25 * 60;
+  document.getElementById('pomoBtnIcon').className = 'fa-solid fa-play';
+  document.getElementById('pomoBtnText').textContent = 'Başlat';
+  document.getElementById('pomoBtn').className = 'pomo-btn pomo-btn-start';
+  updatePomoDisplay();
+}
+
+// Request notification permission
+if ('Notification' in window && Notification.permission === 'default') {
+  Notification.requestPermission();
+}
+
+// ═══════════════════════════════
+// HEADER
+// ═══════════════════════════════
+function renderHeader() {
+  // Date
+  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  document.getElementById('heroDate').innerHTML = `<i class="fa-regular fa-calendar"></i> ${new Date().toLocaleDateString('tr-TR', opts)}`;
+
+  // Greeting
+  const h = new Date().getHours();
+  let g = 'Merhaba';
+  if (h >= 5 && h < 12) g = 'Günaydın';
+  else if (h >= 12 && h < 18) g = 'İyi Günler';
+  else if (h >= 18 && h < 22) g = 'İyi Akşamlar';
+  else g = 'İyi Geceler';
+  document.getElementById('heroGreeting').textContent = g + '! 👋';
+
+  // Quote
+  document.getElementById('heroQuote').textContent = '"' + QUOTES[Math.floor(Math.random() * QUOTES.length)] + '"';
+}
+
+// ═══════════════════════════════
+// PROGRESS & STATS
+// ═══════════════════════════════
+function updateStats() {
+  const total = dailyTasks.length;
+  const done = dailyTasks.filter(t => dailyStatus[t.id]).length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+
+  // Ring
+  const circ = 326.726;
+  document.getElementById('ringProgress').style.strokeDashoffset = circ - (pct / 100) * circ;
+  document.getElementById('ringPct').textContent = pct + '%';
+
+  // Stats
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statTotal').textContent = total;
+
+  // Study hours (exclude break/free/routine)
+  let mins = 0;
+  dailyTasks.forEach(t => {
+    if (dailyStatus[t.id] && !['break','free','routine'].includes(t.cat)) {
+      // Estimate based on next task time gap or default 90min
+      const idx = dailyTasks.indexOf(t);
+      const next = dailyTasks[idx + 1];
+      if (t.time && next && next.time) {
+        const [h1,m1] = t.time.split(':').map(Number);
+        const [h2,m2] = next.time.split(':').map(Number);
+        mins += Math.max(0, (h2*60+m2) - (h1*60+m1));
+      } else {
+        mins += 60;
+      }
+    }
+  });
+  document.getElementById('statHours').textContent = (mins / 60).toFixed(1) + 'h';
+
+  // Streak
+  let streak = 0;
+  const d = new Date();
+  d.setDate(d.getDate() - 1); // Start from yesterday
+  while(true) {
+    const key = d.toISOString().split('T')[0];
+    const s = load(`streak_${key}`, null);
+    if (s === true) { streak++; d.setDate(d.getDate() - 1); }
+    else break;
+  }
+  // If today is 100%, count today too
+  if (pct === 100) streak++;
+  // Save today's completion
+  if (pct === 100) save(`streak_${todayKey()}`, true);
+  
+  document.getElementById('statStreak').textContent = streak;
+}
+
+// ═══════════════════════════════
+// DAILY RENDER
+// ═══════════════════════════════
+function renderDaily() {
+  const el = document.getElementById('dailyList');
+  el.innerHTML = '';
+
+  const sections = [
+    { name:'Sabah Bloğu', color:'var(--accent-orange)', filter: t => t.time && t.time < '12:00' },
+    { name:'Öğleden Sonra', color:'var(--accent-blue)', filter: t => t.time && t.time >= '12:00' && t.time < '18:00' },
+    { name:'Akşam', color:'var(--accent-purple)', filter: t => t.time && t.time >= '18:00' },
+    { name:'Zamansız', color:'var(--text-400)', filter: t => !t.time }
+  ];
+
+  sections.forEach(sec => {
+    const items = dailyTasks.filter(sec.filter);
+    if (!items.length) return;
+
+    el.innerHTML += `
+      <div class="section-divider">
+        <div class="section-dot" style="background:${sec.color}"></div>
+        <span class="section-name">${sec.name}</span>
+        <div class="section-line"></div>
+      </div>`;
+
+    items.forEach(t => {
+      const checked = dailyStatus[t.id] ? true : false;
+      const doneClass = checked ? 'done' : '';
+      el.innerHTML += `
+        <div class="glass task-card ${doneClass}" data-cat="${t.cat}" data-id="${t.id}" onclick="toggleDaily('${t.id}', event)">
+          <div class="cb-wrap">
+            <input type="checkbox" class="cb" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); toggleDaily('${t.id}', event)">
+            <i class="fa-solid fa-check cb-check"></i>
+          </div>
+          ${t.time ? `<span class="task-time">${t.time}</span>` : ''}
+          <div class="task-icon-wrap" style="background:${t.bg};color:${t.color}">
+            <i class="fa-solid ${t.icon}"></i>
+          </div>
+          <div class="task-body">
+            <div class="task-title">${t.name}</div>
+            ${t.desc ? `<div class="task-desc">${t.desc}</div>` : ''}
+          </div>
+          <span class="task-tag" style="background:${t.tagBg};border-color:${t.tagBorder};color:${t.tagColor}">${t.tag}</span>
+          <div class="task-delete" onclick="event.stopPropagation(); deleteDaily('${t.id}')">
+            <i class="fa-solid fa-trash"></i>
+          </div>
+        </div>`;
+    });
+  });
+
+  updateStats();
+}
+
+function toggleDaily(id, e) {
+  if (e && e.target.closest('.task-delete')) return;
+  dailyStatus[id] = !dailyStatus[id];
+  save('dailyStatus', dailyStatus);
+  renderDaily();
+}
+
+function deleteDaily(id) {
+  if (!confirm('Bu görevi silmek istediğine emin misin?')) return;
+  dailyTasks = dailyTasks.filter(t => t.id !== id);
+  delete dailyStatus[id];
+  save('dailyTasks', dailyTasks);
+  save('dailyStatus', dailyStatus);
+  renderDaily();
+}
+
+function resetDayChecks() {
+  if (!confirm('Bugünkü tüm tikleri sıfırlamak istediğine emin misin?')) return;
+  dailyStatus = {};
+  save('dailyStatus', dailyStatus);
+  renderDaily();
+}
+
+// ═══════════════════════════════
+// MONTHLY RENDER
+// ═══════════════════════════════
+function renderMonthly() {
+  const el = document.getElementById('monthlyList');
+  
+  if (!monthlyTasks.length) {
+    el.innerHTML = '<p style="text-align:center;color:var(--text-500);font-size:13px;padding:24px 0">Henüz aylık bir hedef eklemediniz.</p>';
+    return;
+  }
+
+  el.innerHTML = '';
+  monthlyTasks.forEach(t => {
+    const checked = monthlyStatus[t.id] ? true : false;
+    el.innerHTML += `
+      <div class="monthly-item ${checked ? 'done' : ''}">
+        <div class="cb-wrap" style="margin-top:2px">
+          <input type="checkbox" class="cb" style="width:20px;height:20px" ${checked ? 'checked' : ''} onchange="toggleMonthly('${t.id}')">
+          <i class="fa-solid fa-check cb-check" style="font-size:9px"></i>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div class="mi-title">${t.name}</div>
+          ${t.desc ? `<div class="mi-desc">${t.desc}</div>` : ''}
+        </div>
+        <button class="mi-delete" onclick="deleteMonthly('${t.id}')"><i class="fa-solid fa-xmark"></i></button>
+      </div>`;
+  });
+}
+
+function toggleMonthly(id) {
+  monthlyStatus[id] = !monthlyStatus[id];
+  save('monthlyStatus', monthlyStatus);
+  renderMonthly();
+}
+
+function deleteMonthly(id) {
+  if (!confirm('Bu hedefi silmek istediğine emin misin?')) return;
+  monthlyTasks = monthlyTasks.filter(t => t.id !== id);
+  delete monthlyStatus[id];
+  save('monthlyTasks', monthlyTasks);
+  save('monthlyStatus', monthlyStatus);
+  renderMonthly();
+}
+
+// ═══════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ═══════════════════════════════
+// MODAL
+// ═══════════════════════════════
+function openModal(type) {
+  const modal = document.getElementById('modal');
+  document.getElementById('modalType').value = type;
+  document.getElementById('modalTitle').textContent = type === 'daily' ? '➕ Yeni Günlük Görev' : '🎯 Yeni Aylık Hedef';
+  document.getElementById('modalTimeRow').style.display = type === 'daily' ? 'block' : 'none';
+  document.getElementById('modalCatRow').style.display = type === 'daily' ? 'block' : 'none';
+  document.getElementById('modalName').value = '';
+  document.getElementById('modalDesc').value = '';
+  document.getElementById('modalTime').value = '08:00';
+  
+  modal.classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+// Close on backdrop click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function saveFromModal() {
+  const type = document.getElementById('modalType').value;
+  const name = document.getElementById('modalName').value.trim();
+  const desc = document.getElementById('modalDesc').value.trim();
+  
+  if (!name) { alert('Lütfen bir başlık girin.'); return; }
+
+  if (type === 'daily') {
+    const time = document.getElementById('modalTime').value;
+    const cat = document.getElementById('modalCat').value;
+    const meta = CAT_META[cat];
+    
+    const newTask = {
+      id: 'c_' + Date.now(),
+      time: time || '',
+      name: name,
+      desc: desc,
+      cat: cat,
+      icon: meta.icon,
+      color: meta.color,
+      bg: meta.bg,
+      tag: meta.tag,
+      tagBg: meta.tagBg,
+      tagBorder: meta.tagBorder,
+      tagColor: meta.tagColor
+    };
+
+    dailyTasks.push(newTask);
+    dailyTasks.sort((a, b) => {
+      if (!a.time) return 1;
+      if (!b.time) return -1;
+      return a.time.localeCompare(b.time);
+    });
+    save('dailyTasks', dailyTasks);
+    renderDaily();
+  } else {
+    monthlyTasks.push({
+      id: 'm_' + Date.now(),
+      name: name,
+      desc: desc
+    });
+    save('monthlyTasks', monthlyTasks);
+    renderMonthly();
+  }
+
+  closeModal();
+}
+
+// ═══════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════
+document.addEventListener('keydown', (e) => {
+  // Escape to close modal
+  if (e.key === 'Escape') closeModal();
+  
+  // N to open new task (when not in input)
+  if (e.key === 'n' && !e.target.closest('input,textarea,select')) {
+    e.preventDefault();
+    openModal('daily');
+  }
+  
+  // 1,2,3 to switch tabs
+  if (e.key === '1' && !e.target.closest('input,textarea,select')) {
+    e.preventDefault();
+    switchTab('daily', document.querySelector('[data-tab="daily"]'));
+  }
+  if (e.key === '2' && !e.target.closest('input,textarea,select')) {
+    e.preventDefault();
+    switchTab('weekly', document.querySelector('[data-tab="weekly"]'));
+  }
+  if (e.key === '3' && !e.target.closest('input,textarea,select')) {
+    e.preventDefault();
+    switchTab('monthly', document.querySelector('[data-tab="monthly"]'));
+  }
+});
+
+// ═══════════════════════════════
+// INIT
+// ═══════════════════════════════
+function init() {
+  renderHeader();
+  renderDaily();
+  renderMonthly();
+  updatePomoDisplay();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
