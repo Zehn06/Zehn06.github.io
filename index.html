@@ -6,6 +6,9 @@
 <title>🎯 Başarı Dashboard'u | Ultra Premium</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Konfeti Efekti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <style>
 /* ═══════════════════════════════════════════
    DESIGN SYSTEM & CSS VARIABLES
@@ -95,7 +98,6 @@ body::after {
   opacity:0.4;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width:6px; }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background: var(--text-500); border-radius:10px; }
@@ -105,7 +107,6 @@ body::after {
    LAYOUT
    ═══════════════════════════════════════════ */
 .app { max-width:1280px; margin:0 auto; padding:16px; position:relative; z-index:1; }
-
 @media(min-width:768px) { .app { padding:24px 32px; } }
 
 /* ═══════════════════════════════════════════
@@ -121,402 +122,130 @@ body::after {
   transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base), background var(--transition-base);
 }
 
-.glass:hover {
-  border-color: var(--glass-border-hover);
-}
-
-.glass-elevated {
-  background: var(--bg-elevated);
-}
+.glass:hover { border-color: var(--glass-border-hover); }
+.glass-elevated { background: var(--bg-elevated); }
 
 /* ═══════════════════════════════════════════
    HERO / HEADER
    ═══════════════════════════════════════════ */
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-@media(min-width:768px) {
-  .hero-grid { grid-template-columns: 1fr 320px; gap: 20px; }
-}
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 20px; }
+@media(min-width:768px) { .hero-grid { grid-template-columns: 1fr 320px; gap: 20px; } }
 
-.hero-main {
-  padding: 32px;
-  position: relative;
-  overflow: hidden;
-}
-
+.hero-main { padding: 32px; position: relative; overflow: hidden; }
 .hero-main::before {
-  content:'';
-  position:absolute;
-  top:0; right:0;
-  width:300px; height:300px;
-  background: radial-gradient(circle, rgba(59,130,246,0.08), transparent 70%);
-  pointer-events:none;
+  content:''; position:absolute; top:0; right:0; width:300px; height:300px;
+  background: radial-gradient(circle, rgba(59,130,246,0.08), transparent 70%); pointer-events:none;
 }
 
 .hero-date {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 14px;
-  background: rgba(59,130,246,0.1);
-  border: 1px solid rgba(59,130,246,0.2);
-  border-radius: 50px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--accent-blue);
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  margin-bottom: 16px;
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px;
+  background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 50px; font-size: 11px; font-weight: 600; color: var(--accent-blue);
+  text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 16px;
 }
 
 .hero-greeting {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 12px;
-  background: var(--gradient-hero);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.2;
+  margin-bottom: 12px; background: var(--gradient-hero); background-size: 200% 200%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   animation: gradientShift 6s ease infinite;
 }
 
-@keyframes gradientShift {
-  0%,100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
+@keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
 .hero-quote {
-  color: var(--text-300);
-  font-size: 13px;
-  font-style: italic;
-  line-height: 1.6;
-  border-left: 2px solid var(--accent-emerald);
-  padding-left: 12px;
-  max-width: 500px;
+  color: var(--text-300); font-size: 13px; font-style: italic; line-height: 1.6;
+  border-left: 2px solid var(--accent-emerald); padding-left: 12px; max-width: 500px;
 }
 
 .hero-target {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 16px;
-  padding: 8px 16px;
-  background: rgba(16,185,129,0.08);
-  border: 1px solid rgba(16,185,129,0.15);
-  border-radius: var(--radius-md);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent-emerald);
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 8px 16px;
+  background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15);
+  border-radius: var(--radius-md); font-size: 12px; font-weight: 600; color: var(--accent-emerald);
 }
 
 /* PROGRESS RING */
-.progress-panel {
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
+.progress-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 28px;}
 .ring-container { position:relative; width:140px; height:140px; }
-
 .ring-svg { width:100%; height:100%; transform: rotate(-90deg); }
-
 .ring-bg { fill:none; stroke: rgba(255,255,255,0.04); stroke-width:7; }
 .ring-progress { fill:none; stroke: url(#ringGrad); stroke-width:7; stroke-linecap:round; transition: stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1); }
-
-.ring-center {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.ring-pct {
-  font-size: 32px;
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1;
-}
-
-.ring-label {
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-400);
-  font-weight: 700;
-  margin-top: 4px;
-}
+.ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring-pct { font-size: 32px; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
+.ring-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-400); font-weight: 700; margin-top: 4px; }
+.ring-pct.bump { animation: textBump 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes textBump { 0%{transform:scale(1);} 50%{transform:scale(1.2);} 100%{transform:scale(1);} }
 
 /* ═══════════════════════════════════════════
    STATS ROW
    ═══════════════════════════════════════════ */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-}
+.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
 @media(min-width:768px) { .stats-grid { grid-template-columns: repeat(4,1fr); } }
 
-.stat-card {
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.stat-card::before {
-  content:'';
-  position:absolute;
-  top:0; left:0; right:0;
-  height: 2px;
-}
-
+.stat-card { padding: 20px; position: relative; overflow: hidden; }
+.stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height: 2px; }
 .stat-card:nth-child(1)::before { background: var(--gradient-primary); }
 .stat-card:nth-child(2)::before { background: var(--gradient-success); }
 .stat-card:nth-child(3)::before { background: var(--gradient-warm); }
 .stat-card:nth-child(4)::before { background: linear-gradient(135deg, var(--accent-amber), var(--accent-emerald)); }
-
 .stat-card:hover { transform: translateY(-2px); }
 
-.stat-icon-wrap {
-  width: 40px; height: 40px;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  margin-bottom: 12px;
-}
+.stat-icon-wrap { width: 40px; height: 40px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; }
+.stat-value { font-size: 26px; font-weight: 800; line-height: 1; margin-bottom: 4px; transition: color 0.3s ease;}
+.stat-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-400); }
 
-.stat-value {
-  font-size: 26px;
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 4px;
+/* Streak Animation */
+@keyframes flameFlicker {
+    0%, 100% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+    50% { transform: scale(1.1) rotate(2deg); opacity: 1; text-shadow: 0 0 15px rgba(245, 158, 11, 0.6); }
 }
-
-.stat-label {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-400);
-}
+.streak-active { animation: flameFlicker 1.5s ease-in-out infinite; color: var(--accent-amber); }
 
 /* ═══════════════════════════════════════════
    POMODORO TIMER
    ═══════════════════════════════════════════ */
-.pomo-bar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.pomo-display {
-  font-size: 32px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-100);
-  min-width: 100px;
-  text-align: center;
-}
-
-.pomo-label {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-400);
-}
-
-.pomo-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 18px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--glass-border);
-  background: rgba(255,255,255,0.04);
-  color: var(--text-200);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
+.pomo-bar { display: flex; align-items: center; gap: 16px; padding: 16px 24px; margin-bottom: 20px; flex-wrap: wrap; }
+.pomo-display { font-size: 32px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text-100); min-width: 100px; text-align: center; }
+.pomo-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-400); }
+.pomo-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 18px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); background: rgba(255,255,255,0.04); color: var(--text-200); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; transition: all var(--transition-fast); }
 .pomo-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--glass-border-hover); }
-
-.pomo-btn-start {
-  background: rgba(59,130,246,0.15);
-  border-color: rgba(59,130,246,0.3);
-  color: var(--accent-blue);
-}
+.pomo-btn-start { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); color: var(--accent-blue); }
 .pomo-btn-start:hover { background: rgba(59,130,246,0.25); }
-
-.pomo-btn-pause {
-  background: rgba(249,115,22,0.15);
-  border-color: rgba(249,115,22,0.3);
-  color: var(--accent-orange);
-}
+.pomo-btn-pause { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.3); color: var(--accent-orange); }
 .pomo-btn-pause:hover { background: rgba(249,115,22,0.25); }
-
-.pomo-progress-track {
-  flex: 1;
-  min-width: 120px;
-  height: 4px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.pomo-progress-fill {
-  height: 100%;
-  border-radius: 10px;
-  background: var(--gradient-primary);
-  transition: width 1s linear;
-}
-
-.pomo-sessions {
-  display: flex;
-  gap: 6px;
-}
-
-.pomo-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  transition: all var(--transition-fast);
-}
-
+.pomo-progress-track { flex: 1; min-width: 120px; height: 4px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+.pomo-progress-fill { height: 100%; border-radius: 10px; background: var(--gradient-primary); transition: width 1s linear; }
+.pomo-sessions { display: flex; gap: 6px; }
+.pomo-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.08); transition: all var(--transition-fast); }
 .pomo-dot.filled { background: var(--accent-blue); box-shadow: 0 0 8px rgba(59,130,246,0.4); }
 
 /* ═══════════════════════════════════════════
    TAB NAVIGATION
    ═══════════════════════════════════════════ */
-.tab-nav {
-  display: flex;
-  gap: 4px;
-  padding: 4px;
-  background: rgba(10,14,26,0.8);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--glass-border);
-  margin-bottom: 20px;
-  overflow-x: auto;
-  backdrop-filter: blur(12px);
-}
-
-.tab-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border: none;
-  background: transparent;
-  color: var(--text-400);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition-base);
-  white-space: nowrap;
-  position: relative;
-}
-
+.tab-nav { display: flex; gap: 4px; padding: 4px; background: rgba(10,14,26,0.8); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); margin-bottom: 20px; overflow-x: auto; backdrop-filter: blur(12px); }
+.tab-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border: none; background: transparent; color: var(--text-400); font-family: inherit; font-size: 13px; font-weight: 600; border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-base); white-space: nowrap; position: relative; }
 .tab-btn:hover { color: var(--text-200); background: rgba(255,255,255,0.04); }
-
-.tab-btn.active {
-  color: #fff;
-  background: var(--gradient-primary);
-  box-shadow: 0 4px 15px rgba(59,130,246,0.3);
-}
-
-.tab-btn i { font-size: 14px; }
+.tab-btn.active { color: #fff; background: var(--gradient-primary); box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
 
 /* ═══════════════════════════════════════════
    TAB CONTENT
    ═══════════════════════════════════════════ */
 .tab-panel { display:none; }
 .tab-panel.active { display:block; animation: fadeSlideIn 0.35s ease forwards; }
-
-@keyframes fadeSlideIn {
-  from { opacity:0; transform:translateY(12px); }
-  to { opacity:1; transform:translateY(0); }
-}
+@keyframes fadeSlideIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
 /* ═══════════════════════════════════════════
    DAILY TASK CARDS
    ═══════════════════════════════════════════ */
-.section-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 24px 0 14px;
-}
-
+.section-divider { display: flex; align-items: center; gap: 12px; margin: 24px 0 14px; }
 .section-divider:first-child { margin-top: 0; }
-
-.section-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.section-name {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-400);
-}
-
+.section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.section-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-400); }
 .section-line { flex:1; height:1px; background: var(--glass-border); }
 
-.task-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.task-card::before {
-  content:'';
-  position: absolute;
-  left:0; top:0; bottom:0;
-  width: 3px;
-  border-radius: 0 3px 3px 0;
-  transition: opacity var(--transition-fast);
-}
-
-.task-card:hover {
-  transform: translateX(3px);
-  background: var(--bg-hover);
-  border-color: var(--glass-border-hover);
-}
+.task-card { display: flex; align-items: center; gap: 14px; padding: 14px 18px; margin-bottom: 8px; cursor: pointer; position: relative; overflow: hidden; }
+.task-card::before { content:''; position: absolute; left:0; top:0; bottom:0; width: 3px; border-radius: 0 3px 3px 0; transition: opacity var(--transition-fast); }
+.task-card:hover:not(.done):not(.just-completed) { transform: translateX(3px); background: var(--bg-hover); border-color: var(--glass-border-hover); }
 
 .task-card[data-cat="math"]::before { background: var(--accent-red); }
 .task-card[data-cat="physics"]::before { background: var(--accent-orange); }
@@ -527,303 +256,85 @@ body::after {
 .task-card[data-cat="personal"]::before { background: var(--accent-cyan); }
 .task-card[data-cat="routine"]::before { background: var(--accent-amber); }
 
-/* Checkbox */
+/* Custom Checkbox */
 .cb-wrap { position:relative; flex-shrink:0; }
-
-.cb {
-  appearance: none;
-  width: 24px; height: 24px;
-  border: 2px solid var(--text-500);
-  border-radius: 7px;
-  background: rgba(10,14,26,0.5);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  display: block;
-}
-
-.cb:hover { border-color: var(--accent-blue); background: rgba(59,130,246,0.08); }
-
-.cb:checked {
-  background: var(--accent-blue);
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 12px rgba(59,130,246,0.35);
-  animation: cbPop 0.3s ease;
-}
-
+.cb { appearance: none; width: 24px; height: 24px; border: 2px solid var(--text-500); border-radius: 7px; background: rgba(10,14,26,0.5); cursor: pointer; transition: all var(--transition-fast); display: block; }
+.cb:hover { border-color: var(--accent-emerald); background: rgba(16,185,129,0.08); transform:scale(1.05);}
+.cb:checked { background: var(--accent-emerald); border-color: var(--accent-emerald); box-shadow: 0 0 12px rgba(16,185,129,0.35); animation: cbPop 0.3s ease; }
 .cb:checked + .cb-check { opacity:1; transform:translate(-50%,-50%) scale(1); }
+.cb-check { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.5); color: #fff; font-size: 11px; pointer-events: none; opacity: 0; transition: all var(--transition-fast); }
+@keyframes cbPop { 0% { transform: scale(0.85); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.cb-check {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%) scale(0.5);
-  color: #fff;
-  font-size: 11px;
-  pointer-events: none;
-  opacity: 0;
-  transition: all var(--transition-fast);
+/* TATMİN EDİCİ BAŞARI ANİMASYONU */
+@keyframes successPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); border-color: rgba(16, 185, 129, 0.8); background: rgba(16, 185, 129, 0.15); }
+    50% { transform: scale(1.02); box-shadow: 0 0 25px 10px rgba(16, 185, 129, 0.0); border-color: rgba(16, 185, 129, 1); background: rgba(16, 185, 129, 0.2); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); border-color: var(--glass-border); }
 }
+.task-card.just-completed { animation: successPulse 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; z-index: 10; }
 
-@keyframes cbPop {
-  0% { transform: scale(0.85); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
+/* Completed State */
+.task-card.done { opacity:0.45; background: rgba(15, 23, 42, 0.3); border-color: transparent;}
+.task-card.done .task-title { text-decoration: line-through; color: var(--text-400); }
+.task-card.done .task-icon-wrap { filter: grayscale(100%); opacity: 0.5; }
 
-.task-time {
-  font-size: 11px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-500);
-  min-width: 45px;
-  flex-shrink: 0;
-}
-
-.task-icon-wrap {
-  width: 38px; height: 38px;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 15px;
-  transition: all var(--transition-fast);
-}
-
+.task-time { font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text-500); min-width: 45px; flex-shrink: 0; }
+.task-icon-wrap { width: 38px; height: 38px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; transition: all var(--transition-fast); }
 .task-body { flex:1; min-width:0; }
-
-.task-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-100);
-  margin-bottom: 2px;
-  transition: all var(--transition-fast);
-}
-
-.task-desc {
-  font-size: 12px;
-  color: var(--text-400);
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.task-tag {
-  font-size: 9px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 50px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border: 1px solid;
-  flex-shrink: 0;
-  display: none;
-}
+.task-title { font-size: 14px; font-weight: 600; color: var(--text-100); margin-bottom: 2px; transition: all var(--transition-fast); }
+.task-desc { font-size: 12px; color: var(--text-400); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.task-tag { font-size: 9px; font-weight: 700; padding: 3px 10px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid; flex-shrink: 0; display: none; }
 @media(min-width:640px) { .task-tag { display:inline-block; } }
-
-.task-delete {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  background: rgba(239,68,68,0.1);
-  border: 1px solid rgba(239,68,68,0.2);
-  color: var(--accent-red);
-  width: 32px; height: 32px;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 12px;
-  transition: all var(--transition-fast);
-}
-
+.task-delete { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); opacity: 0; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: var(--accent-red); width: 32px; height: 32px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; transition: all var(--transition-fast); }
 .task-card:hover .task-delete { opacity:1; }
 .task-delete:hover { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.4); }
-
-/* Completed state */
-.task-card.done { opacity:0.45; }
-.task-card.done .task-title { text-decoration: line-through; color: var(--text-400); }
-.task-card.done .task-icon-wrap { filter: grayscale(1) opacity(0.6); }
 
 /* ═══════════════════════════════════════════
    ADD TASK BUTTON
    ═══════════════════════════════════════════ */
-.add-btn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 14px;
-  border-radius: var(--radius-xl);
-  border: 2px dashed rgba(255,255,255,0.08);
-  background: transparent;
-  color: var(--text-500);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all var(--transition-base);
-}
-
-.add-btn:hover {
-  border-color: rgba(59,130,246,0.3);
-  color: var(--accent-blue);
-  background: rgba(59,130,246,0.04);
-}
-
+.add-btn { width: 100%; margin-top: 12px; padding: 14px; border-radius: var(--radius-xl); border: 2px dashed rgba(255,255,255,0.08); background: transparent; color: var(--text-500); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all var(--transition-base); }
+.add-btn:hover { border-color: rgba(16,185,129,0.3); color: var(--accent-emerald); background: rgba(16,185,129,0.04); }
 .add-btn i { transition: transform var(--transition-fast); }
 .add-btn:hover i { transform: scale(1.2) rotate(90deg); }
 
 /* ═══════════════════════════════════════════
    WEEKLY VIEW
    ═══════════════════════════════════════════ */
-.weekly-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
+.weekly-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media(min-width:768px) { .weekly-grid { grid-template-columns: repeat(3,1fr); } }
-
-.week-card {
-  padding: 24px;
-  position: relative;
-  overflow: hidden;
-}
-
-.week-card::before {
-  content:'';
-  position: absolute;
-  top:0; left:0; right:0;
-  height: 3px;
-}
-
+.week-card { padding: 24px; position: relative; overflow: hidden; }
+.week-card::before { content:''; position: absolute; top:0; left:0; right:0; height: 3px; }
 .week-card:nth-child(1)::before { background: var(--gradient-primary); }
 .week-card:nth-child(2)::before { background: var(--gradient-success); }
 .week-card:nth-child(3)::before { background: var(--gradient-warm); }
-
 .week-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow-blue); }
-
-.week-card-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.week-icon-wrap {
-  width: 42px; height: 42px;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: transform var(--transition-fast);
-}
-
+.week-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.week-icon-wrap { width: 42px; height: 42px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: transform var(--transition-fast); }
 .week-card:hover .week-icon-wrap { transform: scale(1.1) rotate(-5deg); }
-
 .week-title { font-size: 16px; font-weight: 700; }
-
-.week-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--glass-border);
-}
+.week-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--glass-border); }
 .week-item:last-child { border:none; }
-
 .week-item i { margin-top:3px; width:16px; text-align:center; flex-shrink:0; font-size:13px; }
-
 .week-item-title { font-size:13px; font-weight:600; color:var(--text-200); }
 .week-item-desc { font-size:11px; color:var(--text-400); margin-top:2px; }
 
 /* ═══════════════════════════════════════════
    MONTHLY VIEW
    ═══════════════════════════════════════════ */
-.monthly-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
+.monthly-layout { display: grid; grid-template-columns: 1fr; gap: 20px; }
 @media(min-width:1024px) { .monthly-layout { grid-template-columns: 1fr 1fr; } }
-
 .monthly-panel { padding: 28px; }
-
-.panel-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--glass-border);
-}
-
-.panel-title {
-  font-size: 18px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.panel-add-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(59,130,246,0.25);
-  background: rgba(59,130,246,0.1);
-  color: var(--accent-blue);
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
+.panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--glass-border); }
+.panel-title { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.panel-add-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: var(--radius-md); border: 1px solid rgba(59,130,246,0.25); background: rgba(59,130,246,0.1); color: var(--accent-blue); font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer; transition: all var(--transition-fast); }
 .panel-add-btn:hover { background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.4); }
-
-.monthly-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 16px;
-  border-radius: var(--radius-md);
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--glass-border);
-  margin-bottom: 8px;
-  transition: all var(--transition-fast);
-  position: relative;
-}
-
+.monthly-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: var(--radius-md); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); margin-bottom: 8px; transition: all var(--transition-fast); position: relative; }
 .monthly-item:hover { background: rgba(255,255,255,0.04); border-color: var(--glass-border-hover); }
-
 .monthly-item.done { opacity:0.4; }
 .monthly-item.done .mi-title { text-decoration: line-through; color: var(--text-400); }
-
 .mi-title { font-size:13px; font-weight:600; color:var(--text-200); }
 .mi-desc { font-size:11px; color:var(--text-400); margin-top:3px; }
-
-.mi-delete {
-  position:absolute;
-  right:10px; top:50%;
-  transform:translateY(-50%);
-  opacity:0;
-  color: var(--text-500);
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-size:14px;
-  transition:all var(--transition-fast);
-}
+.mi-delete { position:absolute; right:10px; top:50%; transform:translateY(-50%); opacity:0; color: var(--text-500); background:none; border:none; cursor:pointer; font-size:14px; transition:all var(--transition-fast); }
 .monthly-item:hover .mi-delete { opacity:1; }
 .mi-delete:hover { color: var(--accent-red); }
 
@@ -831,211 +342,42 @@ body::after {
    TIMELINE / ROADMAP
    ═══════════════════════════════════════════ */
 .timeline { position:relative; padding-left:24px; }
-
-.timeline::before {
-  content:'';
-  position:absolute;
-  left:11px; top:0; bottom:0;
-  width:2px;
-  background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), var(--accent-pink), transparent);
-  border-radius:2px;
-}
-
-.tl-item {
-  position:relative;
-  padding: 0 0 28px 20px;
-}
-
-.tl-dot {
-  position:absolute;
-  left:-18px; top:6px;
-  width:14px; height:14px;
-  border-radius:50%;
-  border:3px solid var(--bg-void);
-  z-index:2;
-}
-
-.tl-dot.pulse::after {
-  content:'';
-  position:absolute;
-  inset:-4px;
-  border-radius:50%;
-  border:2px solid currentColor;
-  opacity:0.3;
-  animation: pulse 2s ease-in-out infinite;
-}
-
+.timeline::before { content:''; position:absolute; left:11px; top:0; bottom:0; width:2px; background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), var(--accent-pink), transparent); border-radius:2px; }
+.tl-item { position:relative; padding: 0 0 28px 20px; }
+.tl-dot { position:absolute; left:-18px; top:6px; width:14px; height:14px; border-radius:50%; border:3px solid var(--bg-void); z-index:2; }
+.tl-dot.pulse::after { content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid currentColor; opacity:0.3; animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{transform:scale(1);opacity:0.3} 50%{transform:scale(1.3);opacity:0} }
-
-.tl-card {
-  padding: 18px 20px;
-  border-radius: var(--radius-lg);
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--glass-border);
-  transition: all var(--transition-base);
-}
-
+.tl-card { padding: 18px 20px; border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: all var(--transition-base); }
 .tl-card:hover { border-color: var(--glass-border-hover); transform:translateX(4px); }
-
 .tl-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px; }
-
 .tl-title { font-size:15px; font-weight:700; }
-
-.tl-badge {
-  font-size:9px;
-  font-weight:700;
-  padding:3px 10px;
-  border-radius:50px;
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-  border:1px solid;
-}
-
+.tl-badge { font-size:9px; font-weight:700; padding:3px 10px; border-radius:50px; text-transform:uppercase; letter-spacing:0.5px; border:1px solid; }
 .tl-desc { font-size:12px; color:var(--text-400); line-height:1.6; }
-
 .tl-tags { display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
-
-.tl-tag {
-  font-size:10px;
-  font-weight:600;
-  padding:3px 8px;
-  border-radius:var(--radius-sm);
-  background:rgba(255,255,255,0.04);
-  color:var(--text-300);
-  border:1px solid var(--glass-border);
-}
+.tl-tag { font-size:10px; font-weight:600; padding:3px 8px; border-radius:var(--radius-sm); background:rgba(255,255,255,0.04); color:var(--text-300); border:1px solid var(--glass-border); }
 
 /* ═══════════════════════════════════════════
    MODAL
    ═══════════════════════════════════════════ */
-.modal-backdrop {
-  position:fixed; inset:0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(6px);
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  transition: opacity 0.25s ease;
-}
-
+.modal-backdrop { position:fixed; inset:0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index:9999; display:none; align-items:center; justify-content:center; opacity:0; transition: opacity 0.25s ease; }
 .modal-backdrop.show { display:flex; opacity:1; }
-
-.modal-box {
-  width:92%; max-width:440px;
-  padding:28px;
-  border-radius: var(--radius-2xl);
-  background: var(--bg-base);
-  border:1px solid var(--glass-border);
-  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
-  transform: scale(0.95) translateY(10px);
-  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-
+.modal-box { width:92%; max-width:440px; padding:28px; border-radius: var(--radius-2xl); background: var(--bg-base); border:1px solid var(--glass-border); box-shadow: 0 24px 80px rgba(0,0,0,0.5); transform: scale(0.95) translateY(10px); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
 .modal-backdrop.show .modal-box { transform: scale(1) translateY(0); }
-
 .modal-title { font-size:18px; font-weight:700; margin-bottom:20px; }
-
-.form-label {
-  display:block;
-  font-size:10px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  color:var(--text-400);
-  margin-bottom:6px;
-}
-
-.form-input {
-  width:100%;
-  padding:10px 14px;
-  border-radius:var(--radius-md);
-  border:1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  color:var(--text-100);
-  font-family:inherit;
-  font-size:13px;
-  outline:none;
-  transition:border-color var(--transition-fast), box-shadow var(--transition-fast);
-  margin-bottom:14px;
-}
-
+.form-label { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-400); margin-bottom:6px; }
+.form-input { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color:var(--text-100); font-family:inherit; font-size:13px; outline:none; transition:border-color var(--transition-fast), box-shadow var(--transition-fast); margin-bottom:14px; }
 .form-input:focus { border-color:var(--accent-blue); box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
-
-.form-select {
-  width:100%;
-  padding:10px 14px;
-  border-radius:var(--radius-md);
-  border:1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  color:var(--text-100);
-  font-family:inherit;
-  font-size:13px;
-  outline:none;
-  margin-bottom:14px;
-  cursor:pointer;
-}
-
-.form-row { display:flex; gap:10px; }
-
+.form-select { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color:var(--text-100); font-family:inherit; font-size:13px; outline:none; margin-bottom:14px; cursor:pointer; }
 .modal-actions { display:flex; gap:10px; margin-top:6px; }
-
-.btn {
-  flex:1;
-  padding:11px 20px;
-  border-radius:var(--radius-md);
-  border:none;
-  font-family:inherit;
-  font-size:13px;
-  font-weight:600;
-  cursor:pointer;
-  transition:all var(--transition-fast);
-}
-
-.btn-ghost {
-  background: rgba(255,255,255,0.04);
-  color:var(--text-300);
-  border:1px solid var(--glass-border);
-}
-
+.btn { flex:1; padding:11px 20px; border-radius:var(--radius-md); border:none; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; transition:all var(--transition-fast); }
+.btn-ghost { background: rgba(255,255,255,0.04); color:var(--text-300); border:1px solid var(--glass-border); }
 .btn-ghost:hover { background: rgba(255,255,255,0.08); color:var(--text-100); }
-
-.btn-primary {
-  background: var(--gradient-primary);
-  color:#fff;
-  box-shadow:0 4px 15px rgba(59,130,246,0.25);
-}
-
+.btn-primary { background: var(--gradient-primary); color:#fff; box-shadow:0 4px 15px rgba(59,130,246,0.25); }
 .btn-primary:hover { box-shadow:0 6px 20px rgba(59,130,246,0.4); transform:translateY(-1px); }
 
-/* ═══════════════════════════════════════════
-   FAB
-   ═══════════════════════════════════════════ */
-.fab {
-  position:fixed;
-  bottom:24px; right:24px;
-  width:52px; height:52px;
-  border-radius:16px;
-  background:var(--gradient-primary);
-  border:none;
-  color:#fff;
-  font-size:20px;
-  cursor:pointer;
-  box-shadow:0 8px 30px rgba(59,130,246,0.35);
-  transition:all var(--transition-base);
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
+/* FAB */
+.fab { position:fixed; bottom:24px; right:24px; width:52px; height:52px; border-radius:16px; background:var(--gradient-primary); border:none; color:#fff; font-size:20px; cursor:pointer; box-shadow:0 8px 30px rgba(59,130,246,0.35); transition:all var(--transition-base); z-index:100; display:flex; align-items:center; justify-content:center; }
 .fab:hover { transform:translateY(-3px) scale(1.05); box-shadow:0 12px 40px rgba(59,130,246,0.45); }
-
-/* ═══════════════════════════════════════════
-   UTILITIES
-   ═══════════════════════════════════════════ */
-.sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
 </style>
 </head>
 <body>
@@ -1045,9 +387,7 @@ body::after {
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
 
-<!-- ═══════════════════════════════════════════
-     MODAL
-     ═══════════════════════════════════════════ -->
+<!-- MODAL -->
 <div class="modal-backdrop" id="modal">
   <div class="modal-box">
     <div class="modal-title" id="modalTitle">➕ Yeni Görev Ekle</div>
@@ -1059,10 +399,10 @@ body::after {
     </div>
 
     <label class="form-label">Başlık</label>
-    <input type="text" class="form-input" id="modalName" placeholder="Örn: React Context API">
+    <input type="text" class="form-input" id="modalName" placeholder="Örn: Limit/Türev Konu Çalışması">
 
     <label class="form-label">Açıklama (opsiyonel)</label>
-    <input type="text" class="form-input" id="modalDesc" placeholder="Örn: 2 modül bitirilecek">
+    <input type="text" class="form-input" id="modalDesc" placeholder="Örn: 2 test bitirilecek">
 
     <div id="modalCatRow">
       <label class="form-label">Kategori</label>
@@ -1085,9 +425,7 @@ body::after {
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     APP
-     ═══════════════════════════════════════════ -->
+<!-- APP -->
 <div class="app">
 
   <!-- HERO -->
@@ -1100,7 +438,7 @@ body::after {
         <span>🇹🇷</span>
         <i class="fa-solid fa-arrow-right" style="font-size:10px;opacity:0.5"></i>
         <span>🇮🇹</span>
-        <span style="margin-left:4px">CEnT-S & TIL-I hedefine odaklan</span>
+        <span style="margin-left:4px">14 Ay: CEnT-S, TIL-I & Yazılım hedefine odaklan</span>
       </div>
     </div>
 
@@ -1114,8 +452,7 @@ body::after {
             </linearGradient>
           </defs>
           <circle class="ring-bg" cx="60" cy="60" r="52"/>
-          <circle class="ring-progress" id="ringProgress" cx="60" cy="60" r="52"
-                  stroke-dasharray="326.726" stroke-dashoffset="326.726"/>
+          <circle class="ring-progress" id="ringProgress" cx="60" cy="60" r="52" stroke-dasharray="326.726" stroke-dashoffset="326.726"/>
         </svg>
         <div class="ring-center">
           <div class="ring-pct" id="ringPct">0%</div>
@@ -1150,10 +487,10 @@ body::after {
     </div>
     <div class="glass stat-card">
       <div class="stat-icon-wrap" style="background:rgba(245,158,11,0.1);color:var(--accent-amber)">
-        <i class="fa-solid fa-fire-flame-curved"></i>
+        <i class="fa-solid fa-fire-flame-curved" id="streakIcon"></i>
       </div>
       <div class="stat-value" id="statStreak" style="color:var(--accent-amber)">0</div>
-      <div class="stat-label">Gün Serisi</div>
+      <div class="stat-label">Gün Serisi (Streak)</div>
     </div>
   </div>
 
@@ -1187,7 +524,7 @@ body::after {
       <i class="fa-solid fa-bolt"></i> Günlük Akış
     </button>
     <button class="tab-btn" data-tab="weekly" onclick="switchTab('weekly',this)">
-      <i class="fa-solid fa-calendar-week"></i> Haftalık
+      <i class="fa-solid fa-calendar-week"></i> Haftalık Düzen
     </button>
     <button class="tab-btn" data-tab="monthly" onclick="switchTab('monthly',this)">
       <i class="fa-solid fa-rocket"></i> Aylık & Vizyon
@@ -1200,11 +537,6 @@ body::after {
     <button class="add-btn" onclick="openModal('daily')">
       <i class="fa-solid fa-plus"></i> Yeni Günlük Görev Ekle
     </button>
-    <div style="text-align:center;margin-top:16px">
-      <button onclick="resetDayChecks()" style="background:none;border:1px solid var(--glass-border);color:var(--text-500);padding:7px 18px;border-radius:var(--radius-md);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent-red)';this.style.color='var(--accent-red)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.color='var(--text-500)'">
-        <i class="fa-solid fa-rotate-right"></i> Günü Sıfırla
-      </button>
-    </div>
   </div>
 
   <!-- ═══════ WEEKLY PANEL ═══════ -->
@@ -1221,22 +553,22 @@ body::after {
         <div class="week-item">
           <i class="fa-solid fa-calculator" style="color:var(--accent-red)"></i>
           <div>
-            <div class="week-item-title">CEnT-S Odaklı Çalışma</div>
-            <div class="week-item-desc">Matematik ve Mantık pratikleri. Deneme analizi.</div>
+            <div class="week-item-title">Matematik & Mantık Temeli</div>
+            <div class="week-item-desc">CEnT-S/TIL-I için temel konular ve soru çözümü.</div>
           </div>
         </div>
         <div class="week-item">
           <i class="fa-brands fa-js" style="color:var(--accent-amber)"></i>
           <div>
             <div class="week-item-title">Yazılım Temelleri</div>
-            <div class="week-item-desc">JavaScript Core & React Component yapısı.</div>
+            <div class="week-item-desc">JavaScript Core & algoritma mantığını oturtma.</div>
           </div>
         </div>
         <div class="week-item">
           <i class="fa-solid fa-language" style="color:var(--accent-indigo)"></i>
           <div>
             <div class="week-item-title">İngilizce Pratiği</div>
-            <div class="week-item-desc">B2 hedefine yönelik gramer ve dinleme.</div>
+            <div class="week-item-desc">B2 hedefine yönelik teknik okuma ve kelime.</div>
           </div>
         </div>
       </div>
@@ -1251,22 +583,22 @@ body::after {
         <div class="week-item">
           <i class="fa-solid fa-atom" style="color:var(--accent-orange)"></i>
           <div>
-            <div class="week-item-title">Fizik Kampı</div>
-            <div class="week-item-desc">Formül kağıtları, enerji ve mekanik soruları.</div>
+            <div class="week-item-title">Fizik Konu Çalışması</div>
+            <div class="week-item-desc">Mekanik/Kinematik formül kağıtları ve pratik.</div>
           </div>
         </div>
         <div class="week-item">
           <i class="fa-solid fa-code" style="color:var(--accent-blue)"></i>
           <div>
             <div class="week-item-title">Proje Geliştirme</div>
-            <div class="week-item-desc">Kişisel web projesinde ilerleme kaydetme.</div>
+            <div class="week-item-desc">Web dev kampındaki pratikler, kişisel proje.</div>
           </div>
         </div>
         <div class="week-item">
           <i class="fa-solid fa-graduation-cap" style="color:var(--accent-teal)"></i>
           <div>
             <div class="week-item-title">ANKUZEF Modülleri</div>
-            <div class="week-item-desc">Uzaktan eğitim ders takibi ve ödevler.</div>
+            <div class="week-item-desc">Uzaktan eğitim ders takibi ve vize özetleri.</div>
           </div>
         </div>
       </div>
@@ -1279,10 +611,10 @@ body::after {
           <div class="week-title">Hafta Sonu</div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-stopwatch" style="color:var(--accent-red)"></i>
+          <i class="fa-solid fa-book-open" style="color:var(--accent-red)"></i>
           <div>
-            <div class="week-item-title">Genel Deneme Sınavı</div>
-            <div class="week-item-desc">TIL-I formatında süre tutarak sınav pratiği.</div>
+            <div class="week-item-title">Haftalık Konu Tekrarı</div>
+            <div class="week-item-desc">Hafta içi öğrenilen Mat ve Fizik konularının tekrarı.</div>
           </div>
         </div>
         <div class="week-item">
@@ -1313,7 +645,7 @@ body::after {
         <div class="panel-head">
           <div class="panel-title">
             <i class="fa-solid fa-calendar-check" style="color:var(--accent-blue)"></i>
-            Bu Ay Yapılacaklar
+            Bu Ay Planlanan Konular
           </div>
           <button class="panel-add-btn" onclick="openModal('monthly')">
             <i class="fa-solid fa-plus"></i> Ekle
@@ -1327,7 +659,7 @@ body::after {
         <div class="panel-head">
           <div class="panel-title">
             <i class="fa-solid fa-map-location-dot" style="color:var(--accent-emerald)"></i>
-            Yol Haritası & Vizyon
+            14 Aylık Uzun Yol Haritası
           </div>
         </div>
 
@@ -1340,7 +672,7 @@ body::after {
                 <div class="tl-title" style="color:#93c5fd">🤖 Mayıs AI Workshop</div>
                 <span class="tl-badge" style="color:#93c5fd;background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.2)">Yakın Hedef</span>
               </div>
-              <div class="tl-desc">Workshop öncesi JavaScript temelini sağlamlaştır ve algoritma mantığını tam oturt. Bootcamp bitirme projesi aşamasına gel.</div>
+              <div class="tl-desc">Workshop öncesi JavaScript temelini sağlamlaştır ve algoritma mantığını tam oturt. Bootcamp bitirme projesine gel.</div>
             </div>
           </div>
 
@@ -1351,7 +683,7 @@ body::after {
                 <div class="tl-title" style="color:#fca5a5">🇮🇹 İtalya Mühendislik Sınavları</div>
                 <span class="tl-badge" style="color:#fca5a5;background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.2)">Ana Odak</span>
               </div>
-              <div class="tl-desc">Politecnico di Torino (TIL-I) vb. sınavlar için Mat, Mantık ve Fizik konularını eksiksiz tamamla. İngilizce B2'de sabit tut.</div>
+              <div class="tl-desc">Sınavlara 14 ay var. Bu devasa sürede Politecnico di Torino (TIL-I) ve CEnT-S için Matematik ve Fizik konularını sular seller gibi bitir. B2 İngilizceyi koru.</div>
               <div class="tl-tags">
                 <span class="tl-tag">CEnT-S</span>
                 <span class="tl-tag">TIL-I</span>
@@ -1366,7 +698,7 @@ body::after {
               <div class="tl-head">
                 <div class="tl-title" style="color:#c4b5fd">🎓 ANKUZEF & Üniversite</div>
               </div>
-              <div class="tl-desc">Bilgisayar Teknolojisi ve Bahçe Bitkileri bölümlerindeki vizeler öncesi modüllerin haftalık takiplerinin aksatılmadan yapılması.</div>
+              <div class="tl-desc">Bilgisayar Teknolojisi ve Bahçe Bitkileri bölümlerindeki modüllerin ve vize takiplerinin yapılması.</div>
             </div>
           </div>
 
@@ -1377,7 +709,7 @@ body::after {
                 <div class="tl-title" style="color:#6ee7b7">💻 Yazılım Kariyer Hedefi</div>
                 <span class="tl-badge" style="color:#6ee7b7;background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.2)">Uzun Vade</span>
               </div>
-              <div class="tl-desc">Full-stack web geliştirme yetkinliğine ulaşmak. Portfolio sitesi oluşturmak. Freelance veya staj fırsatlarını değerlendirmek.</div>
+              <div class="tl-desc">Full-stack web geliştirme yetkinliğine ulaşmak. Portfolio sitesi oluşturmak.</div>
               <div class="tl-tags">
                 <span class="tl-tag">JavaScript</span>
                 <span class="tl-tag">React</span>
@@ -1399,34 +731,77 @@ body::after {
   <i class="fa-solid fa-plus"></i>
 </button>
 
-<!-- ═══════════════════════════════════════════
-     JAVASCRIPT
-     ═══════════════════════════════════════════ -->
 <script>
 // ═══════════════════════════════
-// DATA
+// SES EFEKTİ & KONFETİ (DOPAMİN ETKİSİ)
+// ═══════════════════════════════
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+let audioCtx;
+
+function playSuccessSound() {
+    if (!audioCtx) audioCtx = new AudioContext();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    // Tatmin edici "Ding" sesi (A5'ten A6'ya kayan notalar)
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
+    osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.1);
+    
+    // Fade in - Fade out
+    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.05);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+    
+    osc.start(audioCtx.currentTime);
+    osc.stop(audioCtx.currentTime + 0.3);
+}
+
+function fireConfetti(element) {
+    const rect = element.getBoundingClientRect();
+    const x = (rect.left + (rect.width / 2)) / window.innerWidth;
+    const y = (rect.top + (rect.height / 2)) / window.innerHeight;
+    
+    confetti({
+        particleCount: 60,
+        spread: 70,
+        origin: { x: x, y: y },
+        colors: ['#10b981', '#3b82f6', '#f59e0b'],
+        disableForReducedMotion: true,
+        zIndex: 100,
+        scalar: 0.8
+    });
+}
+
+// ═══════════════════════════════
+// DATA (14 Aylık Vizyona Uygun)
 // ═══════════════════════════════
 const DEFAULTS = [
   { id:'t1', time:'08:00', name:'Güne Başlangıç', desc:'Kahvaltı, kedilerin bakımı ve zihni açma.', cat:'routine', icon:'fa-mug-saucer', color:'var(--accent-amber)', bg:'rgba(245,158,11,0.1)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' },
-  { id:'t2', time:'08:30', name:'Matematik & Mantık', desc:'CEnT-S ve TIL-I sınavlarına yönelik derin çalışma bloğu.', cat:'math', icon:'fa-calculator', color:'var(--accent-red)', bg:'rgba(239,68,68,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
-    { id:'t3', time:'10:30', name:'Mola & Esneme', desc:'Ekrandan uzaklaş, hafif esneme hareketleri ve nefes egzersizi.', cat:'break', icon:'fa-spa', color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)', tag:'Sağlık', tagBg:'rgba(16,185,129,0.1)', tagBorder:'rgba(16,185,129,0.2)', tagColor:'#6ee7b7' },
-  { id:'t4', time:'11:00', name:'Fizik Çalışması', desc:'Mühendislik girişi için formül tekrarları ve soru çözümü.', cat:'physics', icon:'fa-atom', color:'var(--accent-orange)', bg:'rgba(249,115,22,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
+  { id:'t2', time:'08:30', name:'Matematik & Mantık', desc:'CEnT-S ve TIL-I hazırlığı. Temel konu çalışması ve pratik.', cat:'math', icon:'fa-calculator', color:'var(--accent-red)', bg:'rgba(239,68,68,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
+  { id:'t3', time:'10:30', name:'Mola & Esneme', desc:'Ekrandan uzaklaş, hafif esneme hareketleri ve nefes.', cat:'break', icon:'fa-spa', color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)', tag:'Sağlık', tagBg:'rgba(16,185,129,0.1)', tagBorder:'rgba(16,185,129,0.2)', tagColor:'#6ee7b7' },
+  { id:'t4', time:'11:00', name:'Fizik Temelleri', desc:'Mekanik/Kinematik konu anlatımı ve formül kağıdı çıkarma.', cat:'physics', icon:'fa-atom', color:'var(--accent-orange)', bg:'rgba(249,115,22,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
   { id:'t5', time:'13:00', name:'Öğle Arası', desc:'Yemek ve Segway ile kısa açık hava turu.', cat:'break', icon:'fa-utensils', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Deşarj', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
-  { id:'t6', time:'14:00', name:'Yazılım Geliştirme', desc:'Web dev projeleri, JavaScript/React pratikleri ve kod challenge.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd' },
-  { id:'t7', time:'16:30', name:'İngilizce Pratiği', desc:'B2 hedefine yönelik genel gramer ve dinleme egzersizi.', cat:'english', icon:'fa-language', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc' },
-  { id:'t8', time:'18:00', name:'Eğitimler & Kurslar', desc:'Bahçe bitkileri veya ANKUZEF uzaktan eğitim modülleri.', cat:'personal', icon:'fa-graduation-cap', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Akademi', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4' },
+  { id:'t6', time:'14:00', name:'Yazılım Geliştirme', desc:'Web dev projeleri, JavaScript/React pratikleri.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd' },
+  { id:'t7', time:'16:30', name:'İngilizce Sürekliliği', desc:'B2 seviyesini korumak için teknik okuma ve kelime.', cat:'english', icon:'fa-language', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc' },
+  { id:'t8', time:'18:00', name:'Üniversite & Kurslar', desc:'Bahçe bitkileri veya ANKUZEF uzaktan eğitim modülleri.', cat:'personal', icon:'fa-graduation-cap', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Akademi', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4' },
   { id:'t9', time:'19:30', name:'Akşam Yemeği', desc:'Aile ile vakit geçirme ve günün değerlendirmesi.', cat:'routine', icon:'fa-house', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Sosyal', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
-  { id:'t10', time:'20:30', name:'Oyun & Eğlence', desc:'Elden Ring, CS2, Ghost of Tsushima veya Minecraft.', cat:'free', icon:'fa-gamepad', color:'var(--accent-purple)', bg:'rgba(139,92,246,0.1)', tag:'Ödül', tagBg:'rgba(139,92,246,0.1)', tagBorder:'rgba(139,92,246,0.2)', tagColor:'#c4b5fd' },
+  { id:'t10', time:'20:30', name:'Oyun & Eğlence', desc:'Elden Ring, CS2 veya Ghost of Tsushima.', cat:'free', icon:'fa-gamepad', color:'var(--accent-purple)', bg:'rgba(139,92,246,0.1)', tag:'Ödül', tagBg:'rgba(139,92,246,0.1)', tagBorder:'rgba(139,92,246,0.2)', tagColor:'#c4b5fd' },
   { id:'t11', time:'22:30', name:'Kişisel Okuma', desc:'Davranışsal psikoloji – Atomik Alışkanlıklar vb.', cat:'personal', icon:'fa-book-open', color:'var(--accent-cyan)', bg:'rgba(6,182,212,0.1)', tag:'Gelişim', tagBg:'rgba(6,182,212,0.1)', tagBorder:'rgba(6,182,212,0.2)', tagColor:'#67e8f9' },
   { id:'t12', time:'23:15', name:'Kapanış & Planlama', desc:'Yarının hedeflerini not et ve uyku hazırlığı.', cat:'routine', icon:'fa-moon', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.08)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' }
 ];
 
 const DEFAULT_MONTHLY = [
-  { id:'m1', name:'Web Dev Kampı – JavaScript Core Modülü', desc:'Tüm egzersizleri ve bitirme projesini tamamla.' },
-  { id:'m2', name:'TIL-I Deneme Sınavı (x2)', desc:'Süre tutarak 2 tam deneme çöz ve hata analizi yap.' },
-  { id:'m3', name:'İngilizce B2 Okuma Seti', desc:'Teknik makalelerden oluşan 5 parçalık okuma setini bitir.' },
-  { id:'m4', name:'ANKUZEF Vize Hazırlığı', desc:'Tüm modülleri gözden geçir ve özet notları çıkar.' },
-  { id:'m5', name:'Portfolio Web Sitesi v1', desc:'Kişisel tanıtım sayfası tasarla ve deploy et.' }
+  { id:'m1', name:'Web Dev Kampı – JS Core', desc:'Modülleri izle ve pratik egzersizlerini kodla.' },
+  { id:'m2', name:'Matematik Temelleri', desc:'TIL-I / CEnT-S müfredatındaki Cebir ve Fonksiyonlar konusunu bitir.' },
+  { id:'m3', name:'Fizik Konu Anlatımı', desc:'Mekanik teorisini çalış, kendi formül özet kağıdını oluştur.' },
+  { id:'m4', name:'İngilizce B2 Okuma', desc:'Haftalık 3 teknik makale oku ve bilmediğin kelimeleri Anki\'ye ekle.' },
+  { id:'m5', name:'ANKUZEF Vize Özeti', desc:'Yaklaşan vizeler için güncel modüllerin özetlerini çıkar.' }
 ];
 
 const QUOTES = [
@@ -1440,8 +815,7 @@ const QUOTES = [
   "Mazeretler bugünü kurtarır, disiplin ise geleceği inşa eder.",
   "Büyük işler güçle değil, azimle ve kararlılıkla yapılır.",
   "Rahatlık alanı güzel bir yerdir, ancak orada hiçbir şey büyümez.",
-  "Her usta bir zamanlar çıraktı. Her profesyonel bir zamanlar amatördü.",
-  "La disciplina è il ponte tra gli obiettivi e i risultati."
+  "Sınavlara 14 ay olması rahatlamayı değil, kusursuzlaşmayı gerektirir."
 ];
 
 const CAT_META = {
@@ -1452,13 +826,13 @@ const CAT_META = {
   break:    { icon:'fa-spa',        color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)',  tag:'Mola',    tagBg:'rgba(16,185,129,0.1)',  tagBorder:'rgba(16,185,129,0.2)',  tagColor:'#6ee7b7' },
   free:     { icon:'fa-gamepad',    color:'var(--accent-purple)',  bg:'rgba(139,92,246,0.1)',  tag:'Serbest', tagBg:'rgba(139,92,246,0.1)',  tagBorder:'rgba(139,92,246,0.2)',  tagColor:'#c4b5fd' },
   personal: { icon:'fa-book-open',  color:'var(--accent-cyan)',    bg:'rgba(6,182,212,0.1)',   tag:'Kişisel', tagBg:'rgba(6,182,212,0.1)',   tagBorder:'rgba(6,182,212,0.2)',   tagColor:'#67e8f9' },
-  routine:  { icon:'fa-mug-saucer', color:'var(--accent-amber)',   bg:'rgba(245,158,11,0.1)', tag:'Rutin',   tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' }
+  routine:  { icon:'fa-mug-saucer', color:'var(--accent-amber)',   bg:'rgba(245,158,11,0.1)',  tag:'Rutin',   tagBg:'rgba(245,158,11,0.1)',  tagBorder:'rgba(245,158,11,0.2)',  tagColor:'#fcd34d' }
 };
 
 // ═══════════════════════════════
-// STATE
+// STATE & AUTO RESET
 // ═══════════════════════════════
-const todayKey = () => new Date().toISOString().split('T')[0];
+const todayKey = () => new Date().toISOString().split('T')[0]; // Kesin GMT gün formatı
 const storageKey = (k) => `ultra_${k}`;
 
 function load(key, fallback) {
@@ -1467,11 +841,11 @@ function load(key, fallback) {
 }
 function save(key, data) { localStorage.setItem(storageKey(key), JSON.stringify(data)); }
 
-// Daily reset check
+// Gün Dönümü Kontrolü (Otomatik Sıfırlama)
 let lastDate = load('lastDate', '');
 if (lastDate !== todayKey()) {
-  save('dailyStatus', {});
-  save('lastDate', todayKey());
+  save('dailyStatus', {}); // Sadece günlük onay işaretlerini siler
+  save('lastDate', todayKey()); // Tarihi günceller
 }
 
 let dailyTasks = load('dailyTasks', DEFAULTS);
@@ -1492,7 +866,6 @@ function updatePomoDisplay() {
   const pct = pomoState.total > 0 ? ((pomoState.total - pomoState.seconds) / pomoState.total) * 100 : 0;
   document.getElementById('pomoFill').style.width = pct + '%';
 
-  // Dots
   const dots = document.getElementById('pomoDots').children;
   for (let i = 0; i < dots.length; i++) {
     dots[i].classList.toggle('filled', i < pomoState.sessions);
@@ -1518,15 +891,13 @@ function togglePomo() {
         pomoState.running = false;
         pomoState.sessions = Math.min(pomoState.sessions + 1, 4);
         
-        // Notification
         if (Notification.permission === 'granted') {
           new Notification('🍅 Pomodoro Tamamlandı!', { body: `${pomoState.sessions}/4 oturum bitti. Mola zamanı!` });
         }
         
-        // Alert fallback
-        alert(`🍅 Pomodoro #${pomoState.sessions} tamamlandı! Mola zamanı.`);
+        playSuccessSound();
+        fireConfetti(document.getElementById('pomoBtn'));
         
-        // Auto reset timer
         pomoState.seconds = 25 * 60;
         pomoState.total = 25 * 60;
         document.getElementById('pomoBtnIcon').className = 'fa-solid fa-play';
@@ -1552,7 +923,6 @@ function resetPomo() {
   updatePomoDisplay();
 }
 
-// Request notification permission
 if ('Notification' in window && Notification.permission === 'default') {
   Notification.requestPermission();
 }
@@ -1561,11 +931,9 @@ if ('Notification' in window && Notification.permission === 'default') {
 // HEADER
 // ═══════════════════════════════
 function renderHeader() {
-  // Date
   const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
   document.getElementById('heroDate').innerHTML = `<i class="fa-regular fa-calendar"></i> ${new Date().toLocaleDateString('tr-TR', opts)}`;
 
-  // Greeting
   const h = new Date().getHours();
   let g = 'Merhaba';
   if (h >= 5 && h < 12) g = 'Günaydın';
@@ -1574,7 +942,6 @@ function renderHeader() {
   else g = 'İyi Geceler';
   document.getElementById('heroGreeting').textContent = g + '! 👋';
 
-  // Quote
   document.getElementById('heroQuote').textContent = '"' + QUOTES[Math.floor(Math.random() * QUOTES.length)] + '"';
 }
 
@@ -1586,20 +953,21 @@ function updateStats() {
   const done = dailyTasks.filter(t => dailyStatus[t.id]).length;
   const pct = total ? Math.round((done / total) * 100) : 0;
 
-  // Ring
   const circ = 326.726;
   document.getElementById('ringProgress').style.strokeDashoffset = circ - (pct / 100) * circ;
-  document.getElementById('ringPct').textContent = pct + '%';
+  
+  const pctEl = document.getElementById('ringPct');
+  pctEl.textContent = pct + '%';
+  pctEl.classList.remove('bump');
+  void pctEl.offsetWidth; // Reflow reset
+  pctEl.classList.add('bump');
 
-  // Stats
   document.getElementById('statDone').textContent = done;
   document.getElementById('statTotal').textContent = total;
 
-  // Study hours (exclude break/free/routine)
   let mins = 0;
   dailyTasks.forEach(t => {
     if (dailyStatus[t.id] && !['break','free','routine'].includes(t.cat)) {
-      // Estimate based on next task time gap or default 90min
       const idx = dailyTasks.indexOf(t);
       const next = dailyTasks[idx + 1];
       if (t.time && next && next.time) {
@@ -1613,26 +981,33 @@ function updateStats() {
   });
   document.getElementById('statHours').textContent = (mins / 60).toFixed(1) + 'h';
 
-  // Streak
+  // STREAK HESAPLAMA VE ANİMASYON
   let streak = 0;
   const d = new Date();
-  d.setDate(d.getDate() - 1); // Start from yesterday
+  d.setDate(d.getDate() - 1); // Dünden başla
   while(true) {
     const key = d.toISOString().split('T')[0];
     const s = load(`streak_${key}`, null);
     if (s === true) { streak++; d.setDate(d.getDate() - 1); }
     else break;
   }
-  // If today is 100%, count today too
-  if (pct === 100) streak++;
-  // Save today's completion
-  if (pct === 100) save(`streak_${todayKey()}`, true);
+  
+  if (pct === 100) streak++; // Eğer bugün de tamsa ekle
+  if (pct === 100) save(`streak_${todayKey()}`, true); // Bugünü kaydet
   
   document.getElementById('statStreak').textContent = streak;
+  
+  // Streak Motive Edici Görsel
+  const streakIcon = document.getElementById('streakIcon');
+  if(streak > 0 || pct === 100) {
+      streakIcon.classList.add('streak-active');
+  } else {
+      streakIcon.classList.remove('streak-active');
+  }
 }
 
 // ═══════════════════════════════
-// DAILY RENDER
+// DAILY RENDER & TATMİN EDİCİ EFEKTLER
 // ═══════════════════════════════
 function renderDaily() {
   const el = document.getElementById('dailyList');
@@ -1685,10 +1060,37 @@ function renderDaily() {
 }
 
 function toggleDaily(id, e) {
-  if (e && e.target.closest('.task-delete')) return;
-  dailyStatus[id] = !dailyStatus[id];
-  save('dailyStatus', dailyStatus);
-  renderDaily();
+    if (e && e.target.closest('.task-delete')) return;
+    
+    const card = document.querySelector(`.task-card[data-id="${id}"]`);
+    const cb = card.querySelector('.cb');
+
+    // Eğer karta tıklandıysa (checkbox'ın kendisine değilse) durumu tersine çevir
+    if (e && e.target !== cb && !e.target.closest('.cb-wrap')) {
+        cb.checked = !cb.checked;
+    }
+
+    const isChecked = cb.checked;
+    dailyStatus[id] = isChecked;
+    save('dailyStatus', dailyStatus);
+
+    if (isChecked) {
+        // TATMİN EDİCİ EFEKTLER BURADA!
+        playSuccessSound();
+        fireConfetti(cb);
+        
+        card.classList.remove('done');
+        card.classList.add('just-completed'); // Parlama animasyonu
+        
+        setTimeout(() => {
+            card.classList.remove('just-completed');
+            card.classList.add('done'); // Soluklaşma
+        }, 600); // Css animasyonu süresine eşit
+    } else {
+        card.classList.remove('done', 'just-completed');
+    }
+
+    updateStats();
 }
 
 function deleteDaily(id) {
@@ -1696,13 +1098,6 @@ function deleteDaily(id) {
   dailyTasks = dailyTasks.filter(t => t.id !== id);
   delete dailyStatus[id];
   save('dailyTasks', dailyTasks);
-  save('dailyStatus', dailyStatus);
-  renderDaily();
-}
-
-function resetDayChecks() {
-  if (!confirm('Bugünkü tüm tikleri sıfırlamak istediğine emin misin?')) return;
-  dailyStatus = {};
   save('dailyStatus', dailyStatus);
   renderDaily();
 }
@@ -1722,12 +1117,12 @@ function renderMonthly() {
   monthlyTasks.forEach(t => {
     const checked = monthlyStatus[t.id] ? true : false;
     el.innerHTML += `
-      <div class="monthly-item ${checked ? 'done' : ''}">
+      <div class="monthly-item ${checked ? 'done' : ''}" id="mcard-${t.id}">
         <div class="cb-wrap" style="margin-top:2px">
-          <input type="checkbox" class="cb" style="width:20px;height:20px" ${checked ? 'checked' : ''} onchange="toggleMonthly('${t.id}')">
+          <input type="checkbox" class="cb" id="mcb-${t.id}" style="width:20px;height:20px" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); toggleMonthly('${t.id}')">
           <i class="fa-solid fa-check cb-check" style="font-size:9px"></i>
         </div>
-        <div style="flex:1;min-width:0">
+        <div style="flex:1;min-width:0;cursor:pointer" onclick="document.getElementById('mcb-${t.id}').click()">
           <div class="mi-title">${t.name}</div>
           ${t.desc ? `<div class="mi-desc">${t.desc}</div>` : ''}
         </div>
@@ -1737,9 +1132,19 @@ function renderMonthly() {
 }
 
 function toggleMonthly(id) {
-  monthlyStatus[id] = !monthlyStatus[id];
-  save('monthlyStatus', monthlyStatus);
-  renderMonthly();
+    const cb = document.getElementById(`mcb-${id}`);
+    const card = document.getElementById(`mcard-${id}`);
+    
+    monthlyStatus[id] = cb.checked;
+    save('monthlyStatus', monthlyStatus);
+    
+    if (cb.checked) {
+        playSuccessSound();
+        fireConfetti(cb);
+        card.classList.add('done');
+    } else {
+        card.classList.remove('done');
+    }
 }
 
 function deleteMonthly(id) {
@@ -1781,7 +1186,6 @@ function closeModal() {
   document.getElementById('modal').classList.remove('show');
 }
 
-// Close on backdrop click
 document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
@@ -1834,31 +1238,10 @@ function saveFromModal() {
   closeModal();
 }
 
-// ═══════════════════════════════
-// KEYBOARD SHORTCUTS
-// ═══════════════════════════════
 document.addEventListener('keydown', (e) => {
-  // Escape to close modal
   if (e.key === 'Escape') closeModal();
-  
-  // N to open new task (when not in input)
   if (e.key === 'n' && !e.target.closest('input,textarea,select')) {
-    e.preventDefault();
-    openModal('daily');
-  }
-  
-  // 1,2,3 to switch tabs
-  if (e.key === '1' && !e.target.closest('input,textarea,select')) {
-    e.preventDefault();
-    switchTab('daily', document.querySelector('[data-tab="daily"]'));
-  }
-  if (e.key === '2' && !e.target.closest('input,textarea,select')) {
-    e.preventDefault();
-    switchTab('weekly', document.querySelector('[data-tab="weekly"]'));
-  }
-  if (e.key === '3' && !e.target.closest('input,textarea,select')) {
-    e.preventDefault();
-    switchTab('monthly', document.querySelector('[data-tab="monthly"]'));
+    e.preventDefault(); openModal('daily');
   }
 });
 
