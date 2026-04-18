@@ -104,14 +104,11 @@ body::after {
 ::-webkit-scrollbar-thumb:hover { background: var(--text-400); }
 
 /* ═══════════════════════════════════════════
-   LAYOUT
+   LAYOUT & PANELS
    ═══════════════════════════════════════════ */
 .app { max-width:1280px; margin:0 auto; padding:16px; position:relative; z-index:1; }
 @media(min-width:768px) { .app { padding:24px 32px; } }
 
-/* ═══════════════════════════════════════════
-   GLASS PANELS
-   ═══════════════════════════════════════════ */
 .glass {
   background: var(--bg-surface);
   backdrop-filter: blur(20px) saturate(130%);
@@ -121,9 +118,7 @@ body::after {
   box-shadow: var(--shadow-card);
   transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base), background var(--transition-base);
 }
-
 .glass:hover { border-color: var(--glass-border-hover); }
-.glass-elevated { background: var(--bg-elevated); }
 
 /* ═══════════════════════════════════════════
    HERO / HEADER
@@ -150,7 +145,6 @@ body::after {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   animation: gradientShift 6s ease infinite;
 }
-
 @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
 .hero-quote {
@@ -159,16 +153,13 @@ body::after {
 }
 
 .hero-targets-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-
 .hero-target {
   display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
   background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15);
   border-radius: var(--radius-md); font-size: 12px; font-weight: 600; color: var(--accent-emerald);
 }
 
-.sync-status {
-  background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: var(--accent-blue);
-}
+.sync-status { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: var(--accent-blue); }
 .sync-status.synced { color: var(--accent-emerald); border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.1); }
 
 /* PROGRESS RING */
@@ -255,6 +246,8 @@ body::after {
 /* ═══════════════════════════════════════════
    DAILY TASK CARDS
    ═══════════════════════════════════════════ */
+.day-subtitle { font-size: 14px; font-weight: 600; color: var(--accent-blue); margin-bottom: 16px; padding-left: 4px; border-left: 3px solid var(--accent-blue); }
+
 .section-divider { display: flex; align-items: center; gap: 12px; margin: 24px 0 14px; }
 .section-divider:first-child { margin-top: 0; }
 .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -436,9 +429,26 @@ body::after {
       </select>
     </div>
 
+    <!-- YENİ: GÜN SEÇİCİ -->
+    <div id="modalDaysRow" style="display: none;">
+      <label class="form-label">Hangi Günler?</label>
+      <select class="form-select" id="modalDays">
+        <option value="all">Her Gün</option>
+        <option value="weekdays">Hafta İçi (Pzt-Cum)</option>
+        <option value="weekends">Hafta Sonu (Cmt-Paz)</option>
+        <option value="1">Pazartesi</option>
+        <option value="2">Salı</option>
+        <option value="3">Çarşamba</option>
+        <option value="4">Perşembe</option>
+        <option value="5">Cuma</option>
+        <option value="6">Cumartesi</option>
+        <option value="0">Pazar</option>
+      </select>
+    </div>
+
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">İptal</button>
-      <button class="btn btn-primary" onclick="saveFromModal()">Kaydet</button>
+      <button class="btn btn-ghost" onclick="window.closeModal()">İptal</button>
+      <button class="btn btn-primary" onclick="window.saveFromModal()">Kaydet</button>
     </div>
   </div>
 </div>
@@ -463,7 +473,7 @@ body::after {
         <!-- BULUT SENKRONİZASYON DURUMU -->
         <div class="hero-target sync-status" id="cloudSyncStatus">
           <i class="fa-solid fa-cloud" id="syncIcon"></i>
-          <span id="syncText" style="margin-left:4px">Cihazlar Arası Senkronizasyon (Firebase)</span>
+          <span id="syncText" style="margin-left:4px">Cihazlar Arası Senkronizasyon</span>
         </div>
       </div>
     </div>
@@ -535,32 +545,33 @@ body::after {
       <div class="pomo-dot"></div>
       <div class="pomo-dot"></div>
     </div>
-    <button class="pomo-btn pomo-btn-start" id="pomoBtn" onclick="togglePomo()">
+    <button class="pomo-btn pomo-btn-start" id="pomoBtn" onclick="window.togglePomo()">
       <i class="fa-solid fa-play" id="pomoBtnIcon"></i>
       <span id="pomoBtnText">Başlat</span>
     </button>
-    <button class="pomo-btn" onclick="resetPomo()">
+    <button class="pomo-btn" onclick="window.resetPomo()">
       <i class="fa-solid fa-rotate-right"></i>
     </button>
   </div>
 
   <!-- TAB NAV -->
   <div class="tab-nav">
-    <button class="tab-btn active" data-tab="daily" onclick="switchTab('daily',this)">
+    <button class="tab-btn active" data-tab="daily" onclick="window.switchTab('daily',this)">
       <i class="fa-solid fa-bolt"></i> Günlük Akış
     </button>
-    <button class="tab-btn" data-tab="weekly" onclick="switchTab('weekly',this)">
+    <button class="tab-btn" data-tab="weekly" onclick="window.switchTab('weekly',this)">
       <i class="fa-solid fa-calendar-week"></i> Haftalık Düzen
     </button>
-    <button class="tab-btn" data-tab="monthly" onclick="switchTab('monthly',this)">
+    <button class="tab-btn" data-tab="monthly" onclick="window.switchTab('monthly',this)">
       <i class="fa-solid fa-rocket"></i> 14 Aylık Vizyon
     </button>
   </div>
 
   <!-- ═══════ DAILY PANEL ═══════ -->
   <div class="tab-panel active" id="panel-daily">
+    <div class="day-subtitle" id="dailySubtitle">Bugün: Günü Yükleniyor...</div>
     <div id="dailyList"></div>
-    <button class="add-btn" onclick="openModal('daily')">
+    <button class="add-btn" onclick="window.openModal('daily')">
       <i class="fa-solid fa-plus"></i> Yeni Günlük Görev Ekle
     </button>
   </div>
@@ -574,27 +585,27 @@ body::after {
           <div class="week-icon-wrap" style="background:rgba(59,130,246,0.1);color:var(--accent-blue)">
             <i class="fa-solid fa-calendar-day"></i>
           </div>
-          <div class="week-title">Pzt - Çarşamba - Cuma</div>
+          <div class="week-title">Pazartesi - Çarşamba - Cuma</div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-dumbbell" style="color:var(--accent-red)"></i>
+          <i class="fa-solid fa-calculator" style="color:var(--accent-red)"></i>
           <div>
-            <div class="week-item-title">Belediye Spor Salonu</div>
-            <div class="week-item-desc">Full Body antrenmanı, ağırlık makineleri ve kardiyo ile vücudu inşa et.</div>
+            <div class="week-item-title">Matematik & Mantık</div>
+            <div class="week-item-desc">Ağır konu öğrenimi ve soru bankası çözümü.</div>
           </div>
         </div>
         <div class="week-item">
           <i class="fa-brands fa-js" style="color:var(--accent-amber)"></i>
           <div>
             <div class="week-item-title">Yazılım Temelleri (40K Rotası)</div>
-            <div class="week-item-desc">JS Core / React ile projeler kodla. Algoritma pratiği yap.</div>
+            <div class="week-item-desc">JS Core / React ile projeler kodla. Algoritma pratiği.</div>
           </div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-calculator" style="color:var(--accent-indigo)"></i>
+          <i class="fa-solid fa-language" style="color:var(--accent-indigo)"></i>
           <div>
-            <div class="week-item-title">Ağır Matematik & Fizik</div>
-            <div class="week-item-desc">CEnT-S/TIL-I için yeni konu öğrenimi ve soru bankası eritme.</div>
+            <div class="week-item-title">İngilizce Gramer (Pzt-Çar) / Dizi (Cum)</div>
+            <div class="week-item-desc">Dil bilgisi pekiştirme ve listening.</div>
           </div>
         </div>
       </div>
@@ -607,24 +618,31 @@ body::after {
           <div class="week-title">Salı - Perşembe</div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-apple-whole" style="color:var(--accent-emerald)"></i>
+          <i class="fa-solid fa-dumbbell" style="color:var(--accent-emerald)"></i>
           <div>
-            <div class="week-item-title">Dinlenme & Makro Takibi</div>
-            <div class="week-item-desc">Kasların onarımı için protein odaklı beslen, yürüyüş/esneme yap.</div>
+            <div class="week-item-title">Belediye Spor Salonu</div>
+            <div class="week-item-desc">Full Body antrenman ve kas gelişimi.</div>
           </div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-film" style="color:var(--accent-blue)"></i>
+          <i class="fa-solid fa-atom" style="color:var(--accent-orange)"></i>
           <div>
-            <div class="week-item-title">Dizi ile İngilizce (B2)</div>
-            <div class="week-item-desc">Alice in Borderland vb. dizilerle İngilizce altyazılı listening pratiği.</div>
+            <div class="week-item-title">Fizik Temelleri</div>
+            <div class="week-item-desc">Mekanik, Kinematik ve formül analizleri.</div>
+          </div>
+        </div>
+        <div class="week-item">
+          <i class="fa-solid fa-code" style="color:var(--accent-blue)"></i>
+          <div>
+            <div class="week-item-title">Yazılım Proje Pratiği</div>
+            <div class="week-item-desc">Portföy oluşturma adımları, mini projeler.</div>
           </div>
         </div>
         <div class="week-item">
           <i class="fa-solid fa-brain" style="color:var(--accent-purple)"></i>
           <div>
             <div class="week-item-title">Zihinsel Gelişim & Terapi</div>
-            <div class="week-item-desc">Aynayla barışma, psikolojik farkındalık ve terapi/okuma süreci.</div>
+            <div class="week-item-desc">Aynayla barışma ve psikolojik farkındalık.</div>
           </div>
         </div>
       </div>
@@ -634,7 +652,14 @@ body::after {
           <div class="week-icon-wrap" style="background:rgba(16,185,129,0.1);color:var(--accent-emerald)">
             <i class="fa-solid fa-mug-hot"></i>
           </div>
-          <div class="week-title">Hafta Sonu</div>
+          <div class="week-title">Cumartesi - Pazar</div>
+        </div>
+        <div class="week-item">
+          <i class="fa-solid fa-dumbbell" style="color:var(--accent-emerald)"></i>
+          <div>
+            <div class="week-item-title">Spor Salonu (Sadece Cmt)</div>
+            <div class="week-item-desc">Haftanın son yoğun antrenmanı.</div>
+          </div>
         </div>
         <div class="week-item">
           <i class="fa-solid fa-book-open" style="color:var(--accent-red)"></i>
@@ -644,17 +669,17 @@ body::after {
           </div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-users" style="color:var(--accent-teal)"></i>
+          <i class="fa-solid fa-language" style="color:var(--accent-indigo)"></i>
           <div>
-            <div class="week-item-title">Sosyal Ortam & Özgüven</div>
-            <div class="week-item-desc">Dışarı çık, yeni insanlarla iletişim kur, çekingenliği kırma adımları at.</div>
+            <div class="week-item-title">İngilizce Reading & Anki</div>
+            <div class="week-item-desc">Teknik makaleler okuyup kelime ezberi yap.</div>
           </div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-gamepad" style="color:var(--accent-purple)"></i>
+          <i class="fa-solid fa-users" style="color:var(--accent-teal)"></i>
           <div>
-            <div class="week-item-title">Deşarj & Oyun</div>
-            <div class="week-item-desc">Ghost of Tsushima, CS2 ve zihinsel dinlenme zamanı.</div>
+            <div class="week-item-title">Sosyal Ortam & Özgüven (Pazar)</div>
+            <div class="week-item-desc">Dışarı çık, yeni insanlarla iletişim kur.</div>
           </div>
         </div>
       </div>
@@ -673,7 +698,7 @@ body::after {
             <i class="fa-solid fa-calendar-check" style="color:var(--accent-blue)"></i>
             Bu Ay Planlanan Konular
           </div>
-          <button class="panel-add-btn" onclick="openModal('monthly')">
+          <button class="panel-add-btn" onclick="window.openModal('monthly')">
             <i class="fa-solid fa-plus"></i> Ekle
           </button>
         </div>
@@ -767,7 +792,7 @@ body::after {
 </div>
 
 <!-- FAB -->
-<button class="fab" onclick="openModal('daily')" title="Yeni Görev Ekle">
+<button class="fab" onclick="window.openModal('daily')" title="Yeni Görev Ekle">
   <i class="fa-solid fa-plus"></i>
 </button>
 
@@ -822,20 +847,43 @@ function fireConfetti(element) {
 }
 
 // ═══════════════════════════════
-// DEFAULTS
+// DEFAULTS (Dinamik Günlerle)
 // ═══════════════════════════════
+// Günler İndeksi: 0:Pazar, 1:Pzt, 2:Salı, 3:Çar, 4:Per, 5:Cuma, 6:Cmt
 const DEFAULTS = [
-  { id:'t1', time:'08:00', name:'Güne Başlangıç & Beslenme', desc:'Protein ağırlıklı kahvaltı, makro (Karb/Yağ) takibi.', cat:'routine', icon:'fa-mug-saucer', color:'var(--accent-amber)', bg:'rgba(245,158,11,0.1)', tag:'Beslenme', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' },
-  { id:'t2', time:'08:30', name:'Matematik & Mantık', desc:'CEnT-S/TIL-I için sağlam temel. Konu çalışması ve soru.', cat:'math', icon:'fa-calculator', color:'var(--accent-red)', bg:'rgba(239,68,68,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
-  { id:'t3', time:'10:30', name:'Fizik Temelleri', desc:'Mekanik/Kinematik konu anlatımı ve formül kağıdı çıkarma.', cat:'physics', icon:'fa-atom', color:'var(--accent-orange)', bg:'rgba(249,115,22,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
-  { id:'t4', time:'12:30', name:'Belediye Spor Salonu', desc:'Full Body Antrenman. Ağırlık makineleri ve Kardiyo.', cat:'break', icon:'fa-dumbbell', color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)', tag:'Spor', tagBg:'rgba(16,185,129,0.1)', tagBorder:'rgba(16,185,129,0.2)', tagColor:'#6ee7b7' },
-  { id:'t5', time:'14:30', name:'Öğle Arası & Onarım', desc:'Proteinli beslenme (Tavuk/Yumurta) ve kas onarımı.', cat:'routine', icon:'fa-utensils', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Beslenme', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
-  { id:'t6', time:'15:30', name:'Yazılım (40K Rotası)', desc:'Web dev kampı JS/React, proje portföy adımları.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd' },
-  { id:'t7', time:'18:00', name:'Kişisel & Sosyal Gelişim', desc:'Çekingenliği kırmak için dışarı çık, insanlarla konuş, terapi.', cat:'personal', icon:'fa-brain', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Zihin', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4' },
-  { id:'t8', time:'19:30', name:'Akşam Yemeği', desc:'Günlük makro hedeflerini tamamla, aile ile vakit.', cat:'routine', icon:'fa-house', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Sosyal', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
-  { id:'t9', time:'20:30', name:'Dizi ile İngilizce (B2)', desc:'Alice in Borderland vb. diziler ile yabancı dil listening.', cat:'english', icon:'fa-film', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc' },
-  { id:'t10', time:'22:00', name:'Oyun & Deşarj', desc:'Elden Ring, CS2 veya Ghost of Tsushima oyna.', cat:'free', icon:'fa-gamepad', color:'var(--accent-purple)', bg:'rgba(139,92,246,0.1)', tag:'Ödül', tagBg:'rgba(139,92,246,0.1)', tagBorder:'rgba(139,92,246,0.2)', tagColor:'#c4b5fd' },
-  { id:'t11', time:'23:15', name:'Kapanış & Planlama', desc:'Yarının planını oluştur ve uyku hazırlığı.', cat:'routine', icon:'fa-moon', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.08)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' }
+  // HER GÜN
+  { id:'t_morn', time:'08:00', name:'Güne Başlangıç & Beslenme', desc:'Protein ağırlıklı kahvaltı, makro takibi.', cat:'routine', icon:'fa-mug-saucer', color:'var(--accent-amber)', bg:'rgba(245,158,11,0.1)', tag:'Beslenme', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d', days: [0,1,2,3,4,5,6] },
+  { id:'t_lunch', time:'14:00', name:'Öğle Arası & Onarım', desc:'Öğle öğünü, kas onarımı için beslenme.', cat:'routine', icon:'fa-utensils', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Beslenme', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8', days: [0,1,2,3,4,5,6] },
+  { id:'t_din', time:'19:30', name:'Akşam Yemeği', desc:'Günlük makro hedeflerini tamamla, aile ile vakit.', cat:'routine', icon:'fa-house', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Sosyal', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8', days: [0,1,2,3,4,5,6] },
+  { id:'t_game', time:'20:30', name:'Oyun & Deşarj', desc:'Elden Ring, CS2 veya Ghost of Tsushima oyna.', cat:'free', icon:'fa-gamepad', color:'var(--accent-purple)', bg:'rgba(139,92,246,0.1)', tag:'Ödül', tagBg:'rgba(139,92,246,0.1)', tagBorder:'rgba(139,92,246,0.2)', tagColor:'#c4b5fd', days: [0,1,2,3,4,5,6] },
+  { id:'t_read', time:'22:30', name:'Kişisel Okuma', desc:'Davranışsal psikoloji – Atomik Alışkanlıklar vb.', cat:'personal', icon:'fa-book-open', color:'var(--accent-cyan)', bg:'rgba(6,182,212,0.1)', tag:'Gelişim', tagBg:'rgba(6,182,212,0.1)', tagBorder:'rgba(6,182,212,0.2)', tagColor:'#67e8f9', days: [0,1,2,3,4,5,6] },
+  { id:'t_sleep', time:'23:15', name:'Kapanış & Planlama', desc:'Yarının planını oluştur ve uyku hazırlığı.', cat:'routine', icon:'fa-moon', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.08)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d', days: [0,1,2,3,4,5,6] },
+
+  // PAZARTESİ - ÇARŞAMBA - CUMA
+  { id:'t_math', time:'08:30', name:'Matematik & Mantık', desc:'CEnT-S/TIL-I için sağlam temel. Konu ve soru.', cat:'math', icon:'fa-calculator', color:'var(--accent-red)', bg:'rgba(239,68,68,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5', days: [1,3,5] },
+  { id:'t_soft1', time:'15:00', name:'Yazılım Temelleri (40K Rota)', desc:'Web dev kampı JS/React pratikleri, algoritma.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd', days: [1,3,5] },
+  
+  // İNGİLİZCE DAĞILIMI
+  { id:'t_eng1', time:'11:00', name:'İngilizce Gramer', desc:'B2 hedefine yönelik gramer ve kelime çalışması.', cat:'english', icon:'fa-language', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc', days: [1,3] },
+  { id:'t_eng2', time:'11:00', name:'Dizi ile İngilizce (Listening)', desc:'Alice in Borderland vb. diziler ile listening pratiği.', cat:'english', icon:'fa-film', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc', days: [2,4,5] },
+  { id:'t_eng3', time:'11:00', name:'İngilizce Reading & Anki', desc:'Teknik makale okuması ve kelime ezberi.', cat:'english', icon:'fa-language', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc', days: [0,6] },
+
+  // SPOR SALONU: SALI - PERŞEMBE - CUMARTESİ
+  { id:'t_gym', time:'12:30', name:'Belediye Spor Salonu', desc:'Full Body Antrenman. Ağırlık makineleri ve Kardiyo.', cat:'break', icon:'fa-dumbbell', color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)', tag:'Spor', tagBg:'rgba(16,185,129,0.1)', tagBorder:'rgba(16,185,129,0.2)', tagColor:'#6ee7b7', days: [2,4,6] },
+
+  // SALI - PERŞEMBE (Spor dışı)
+  { id:'t_phys', time:'08:30', name:'Fizik Temelleri', desc:'Mekanik/Kinematik konu anlatımı ve formül kağıdı çıkarma.', cat:'physics', icon:'fa-atom', color:'var(--accent-orange)', bg:'rgba(249,115,22,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5', days: [2,4] },
+  { id:'t_soft2', time:'15:00', name:'Yazılım Proje Pratiği', desc:'Portföy için mini projeler, öğrenilenleri koda dökme.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd', days: [2,4] },
+  { id:'t_ther', time:'18:00', name:'Zihinsel Gelişim & Terapi', desc:'Aynayla barışma, psikolojik farkındalık.', cat:'personal', icon:'fa-brain', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Zihin', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4', days: [2,4] },
+
+  // HAFTA SONU (Spor Cumartesi eklendi yukarıda)
+  { id:'t_rev', time:'09:00', name:'Haftalık Genel Tekrar', desc:'Hafta içi öğrenilen Mat ve Fizik konularının cilalanması.', cat:'math', icon:'fa-book-open', color:'var(--accent-red)', bg:'rgba(239,68,68,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5', days: [0,6] },
+  { id:'t_soft3', time:'15:00', name:'Serbest Kodlama / Algoritma', desc:'Eksik kaldığın konularda serbest pratik.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd', days: [6] },
+  { id:'t_soc', time:'15:00', name:'Sosyal Ortam & Özgüven', desc:'Dışarı çık, yeni insanlarla iletişim kur.', cat:'personal', icon:'fa-users', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Zihin', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4', days: [0] },
+  
+  // DİĞERLERİ
+  { id:'t_ank', time:'17:30', name:'ANKUZEF & Akademi', desc:'Bilgisayar/Bahçe Bitkileri vizeleri için modül okumaları.', cat:'personal', icon:'fa-graduation-cap', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Akademi', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4', days: [1,3,5,6,0] },
+  { id:'t_break', time:'10:30', name:'Esneme & Dinlenme', desc:'Ekrandan uzaklaş, nefes egzersizi.', cat:'break', icon:'fa-spa', color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)', tag:'Sağlık', tagBg:'rgba(16,185,129,0.1)', tagBorder:'rgba(16,185,129,0.2)', tagColor:'#6ee7b7', days: [1,3,5,0] }
 ];
 
 const DEFAULT_MONTHLY = [
@@ -868,7 +916,7 @@ const CAT_META = {
 };
 
 // ═══════════════════════════════
-// STATE & LOCAL STORAGE
+// STATE & LOCAL STORAGE (MIGRATION)
 // ═══════════════════════════════
 const todayKey = () => new Date().toISOString().split('T')[0];
 const storageKey = (k) => `ultra_${k}`;
@@ -879,7 +927,13 @@ function load(key, fallback) {
 }
 function saveLocal(key, data) { localStorage.setItem(storageKey(key), JSON.stringify(data)); }
 
-// Gün Dönümü Otomatik Sıfırlama
+// Versiyon güncellemesi: Eski yapısı olanların güncellenmesi için
+const DATA_VERSION = 3;
+if (load('dataVersion', 0) < DATA_VERSION) {
+    saveLocal('dailyTasks', DEFAULTS);
+    saveLocal('dataVersion', DATA_VERSION);
+}
+
 let lastDate = load('lastDate', '');
 if (lastDate !== todayKey()) {
   saveLocal('dailyStatus', {}); 
@@ -890,6 +944,11 @@ var dailyTasks = load('dailyTasks', DEFAULTS);
 var dailyStatus = load('dailyStatus', {});
 var monthlyTasks = load('monthlyTasks', DEFAULT_MONTHLY);
 var monthlyStatus = load('monthlyStatus', {});
+
+function getTodaysTasks() {
+    const currentDay = new Date().getDay(); // 0(Paz) - 6(Cmt)
+    return dailyTasks.filter(t => !t.days || t.days.includes(currentDay));
+}
 
 function updateSyncStatus(text, success = false) {
     const el = document.getElementById('cloudSyncStatus');
@@ -1019,8 +1078,9 @@ function renderHeader() {
 // PROGRESS, STATS & STREAK 
 // ═══════════════════════════════
 function updateStats() {
-  const total = dailyTasks.length;
-  const done = dailyTasks.filter(t => dailyStatus[t.id]).length;
+  const todaysTasks = getTodaysTasks();
+  const total = todaysTasks.length;
+  const done = todaysTasks.filter(t => dailyStatus[t.id]).length;
   const pct = total ? Math.round((done / total) * 100) : 0;
 
   const circ = 326.726;
@@ -1036,10 +1096,10 @@ function updateStats() {
   document.getElementById('statTotal').textContent = total;
 
   let mins = 0;
-  dailyTasks.forEach(t => {
+  todaysTasks.forEach(t => {
     if (dailyStatus[t.id] && !['break','free','routine'].includes(t.cat)) {
-      const idx = dailyTasks.indexOf(t);
-      const next = dailyTasks[idx + 1];
+      const idx = todaysTasks.indexOf(t);
+      const next = todaysTasks[idx + 1];
       if (t.time && next && next.time) {
         const [h1,m1] = t.time.split(':').map(Number);
         const [h2,m2] = next.time.split(':').map(Number);
@@ -1062,8 +1122,8 @@ function updateStats() {
     else break;
   }
   
-  if (pct === 100) streak++; 
-  if (pct === 100) localStorage.setItem(`streak_${todayKey()}`, "true"); 
+  if (pct === 100 && total > 0) streak++; 
+  if (pct === 100 && total > 0) localStorage.setItem(`streak_${todayKey()}`, "true"); 
   
   const streakNumEl = document.getElementById('statStreak');
   streakNumEl.textContent = streak;
@@ -1086,7 +1146,7 @@ function updateStats() {
       streakWrap.style.background = 'rgba(6,182,212,0.15)'; 
       streakNumEl.style.color = 'var(--accent-cyan)';
       streakLabel.textContent = "Mükemmel Seri";
-  } else if(streak > 0 || pct === 100) {
+  } else if(streak > 0 || (pct === 100 && total > 0)) {
       streakIcon.classList.add('streak-active');
       streakLabel.textContent = "Gün Serisi";
   } else {
@@ -1099,8 +1159,15 @@ function updateStats() {
 // ═══════════════════════════════
 function renderDaily() {
   const el = document.getElementById('dailyList');
+  const subtitleEl = document.getElementById('dailySubtitle');
   if(!el) return;
   el.innerHTML = '';
+
+  const dayNames = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+  const currentDayStr = dayNames[new Date().getDay()];
+  if(subtitleEl) subtitleEl.textContent = `Bugün: ${currentDayStr} - Size Özel Akışınız`;
+
+  const todaysTasks = getTodaysTasks();
 
   const sections = [
     { name:'Sabah Bloğu', color:'var(--accent-orange)', filter: t => t.time && t.time < '12:00' },
@@ -1110,7 +1177,7 @@ function renderDaily() {
   ];
 
   sections.forEach(sec => {
-    const items = dailyTasks.filter(sec.filter);
+    const items = todaysTasks.filter(sec.filter);
     if (!items.length) return;
 
     el.innerHTML += `
@@ -1124,9 +1191,9 @@ function renderDaily() {
       const checked = dailyStatus[t.id] ? true : false;
       const doneClass = checked ? 'done' : '';
       el.innerHTML += `
-        <div class="glass task-card ${doneClass}" data-cat="${t.cat}" data-id="${t.id}" onclick="toggleDaily('${t.id}', event)">
+        <div class="glass task-card ${doneClass}" data-cat="${t.cat}" data-id="${t.id}" onclick="window.toggleDaily('${t.id}', event)">
           <div class="cb-wrap">
-            <input type="checkbox" class="cb" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); toggleDaily('${t.id}', event)">
+            <input type="checkbox" class="cb" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); window.toggleDaily('${t.id}', event)">
             <i class="fa-solid fa-check cb-check"></i>
           </div>
           ${t.time ? `<span class="task-time">${t.time}</span>` : ''}
@@ -1138,7 +1205,7 @@ function renderDaily() {
             ${t.desc ? `<div class="task-desc">${t.desc}</div>` : ''}
           </div>
           <span class="task-tag" style="background:${t.tagBg};border-color:${t.tagBorder};color:${t.tagColor}">${t.tag}</span>
-          <div class="task-delete" onclick="event.stopPropagation(); deleteDaily('${t.id}')">
+          <div class="task-delete" onclick="event.stopPropagation(); window.deleteDaily('${t.id}')">
             <i class="fa-solid fa-trash"></i>
           </div>
         </div>`;
@@ -1206,14 +1273,14 @@ function renderMonthly() {
     el.innerHTML += `
       <div class="monthly-item ${checked ? 'done' : ''}" id="mcard-${t.id}">
         <div class="cb-wrap" style="margin-top:2px">
-          <input type="checkbox" class="cb" id="mcb-${t.id}" style="width:20px;height:20px" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); toggleMonthly('${t.id}')">
+          <input type="checkbox" class="cb" id="mcb-${t.id}" style="width:20px;height:20px" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); window.toggleMonthly('${t.id}')">
           <i class="fa-solid fa-check cb-check" style="font-size:9px"></i>
         </div>
         <div style="flex:1;min-width:0;cursor:pointer" onclick="document.getElementById('mcb-${t.id}').click()">
           <div class="mi-title">${t.name}</div>
           ${t.desc ? `<div class="mi-desc">${t.desc}</div>` : ''}
         </div>
-        <button class="mi-delete" onclick="deleteMonthly('${t.id}')"><i class="fa-solid fa-xmark"></i></button>
+        <button class="mi-delete" onclick="window.deleteMonthly('${t.id}')"><i class="fa-solid fa-xmark"></i></button>
       </div>`;
   });
 }
@@ -1264,6 +1331,7 @@ function openModal(type) {
   document.getElementById('modalTitle').textContent = type === 'daily' ? '➕ Yeni Günlük Görev' : '🎯 Yeni Aylık Hedef';
   document.getElementById('modalTimeRow').style.display = type === 'daily' ? 'block' : 'none';
   document.getElementById('modalCatRow').style.display = type === 'daily' ? 'block' : 'none';
+  document.getElementById('modalDaysRow').style.display = type === 'daily' ? 'block' : 'none'; // Gün seçici sadece günlükte
   document.getElementById('modalName').value = '';
   document.getElementById('modalDesc').value = '';
   document.getElementById('modalTime').value = '08:00';
@@ -1286,6 +1354,13 @@ function saveFromModal() {
     const cat = document.getElementById('modalCat').value;
     const meta = CAT_META[cat];
     
+    // Gün Seçimi Analizi
+    const daysVal = document.getElementById('modalDays').value;
+    let daysArr = [0,1,2,3,4,5,6];
+    if (daysVal === 'weekdays') daysArr = [1,2,3,4,5];
+    else if (daysVal === 'weekends') daysArr = [0,6];
+    else if (daysVal !== 'all') daysArr = [parseInt(daysVal)];
+    
     const newTask = {
       id: 'c_' + Date.now(),
       time: time || '',
@@ -1298,7 +1373,8 @@ function saveFromModal() {
       tag: meta.tag,
       tagBg: meta.tagBg,
       tagBorder: meta.tagBorder,
-      tagColor: meta.tagColor
+      tagColor: meta.tagColor,
+      days: daysArr
     };
 
     dailyTasks.push(newTask);
@@ -1324,11 +1400,23 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Sayfa yüklendiğinde lokal verilerle render et (Firebase yetişene kadar bekletmez)
+// Sayfa yüklendiğinde lokal verilerle render et 
 document.addEventListener('DOMContentLoaded', () => {
     renderAll();
     updatePomoDisplay();
 });
+
+// Fonksiyonları globalleştir
+window.toggleDaily = toggleDaily;
+window.deleteDaily = deleteDaily;
+window.toggleMonthly = toggleMonthly;
+window.deleteMonthly = deleteMonthly;
+window.switchTab = switchTab;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.saveFromModal = saveFromModal;
+window.togglePomo = togglePomo;
+window.resetPomo = resetPomo;
 </script>
 
 <!-- ═══════════════════════════════════════════
@@ -1341,10 +1429,9 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
 
 let db, auth, user, appId;
 
-// UI scriptinin tetikleyeceği bulut kaydetme fonksiyonu
 window.firebaseSaveToCloud = async function() {
     if (!user || !db) {
-        saveLocalFallback();
+        window.saveLocalFallback();
         return;
     }
     updateSyncStatus("Kaydediliyor...", false);
@@ -1355,7 +1442,7 @@ window.firebaseSaveToCloud = async function() {
             monthlyTasks: window.monthlyTasks,
             dailyStatus: window.dailyStatus,
             monthlyStatus: window.monthlyStatus,
-            lastDate: todayKey()
+            lastDate: new Date().toISOString().split('T')[0]
         }, { merge: true });
         updateSyncStatus("Bulut ile Senkronize", true);
     } catch(e) {
@@ -1363,6 +1450,22 @@ window.firebaseSaveToCloud = async function() {
         updateSyncStatus("Kayıt Başarısız", false);
     }
 };
+
+function updateSyncStatus(text, success = false) {
+    const el = document.getElementById('cloudSyncStatus');
+    const icon = document.getElementById('syncIcon');
+    const txt = document.getElementById('syncText');
+    if(!el) return;
+    
+    txt.textContent = text;
+    if(success) {
+        el.classList.add('synced');
+        icon.className = 'fa-solid fa-cloud-check';
+    } else {
+        el.classList.remove('synced');
+        icon.className = 'fa-solid fa-cloud-arrow-up';
+    }
+}
 
 async function initFirebase() {
     try {
@@ -1388,7 +1491,7 @@ async function initFirebase() {
             }
         });
     } catch(e) {
-        console.warn("Bulut bağlantısı kurulamadı. Yerel hafıza kullanılıyor.", e);
+        console.warn("Bulut bağlantısı kurulamadı. Yerel hafıza kullanılıyor.");
         updateSyncStatus("Yerel Hafıza", false);
     }
 }
@@ -1405,29 +1508,26 @@ function setupRealtimeSync() {
             window.dailyTasks = data.dailyTasks || window.dailyTasks;
             window.monthlyTasks = data.monthlyTasks || window.monthlyTasks;
             
-            // Otomatik Gün Sıfırlama Kontrolü (Cloud üzerinden)
-            if (data.lastDate !== todayKey()) {
+            const serverToday = new Date().toISOString().split('T')[0];
+            if (data.lastDate !== serverToday) {
                 window.dailyStatus = {}; // Yeni gün, tikleri temizle
-                window.firebaseSaveToCloud(); // Bulutu anında güncelle
+                window.firebaseSaveToCloud(); 
             } else {
                 window.dailyStatus = data.dailyStatus || {};
             }
             window.monthlyStatus = data.monthlyStatus || {};
             updateSyncStatus("Bulut ile Senkronize", true);
         } else {
-            // İlk giriş, veritabanını oluştur
             window.firebaseSaveToCloud();
         }
         
-        // Arayüzü tazele
-        if (typeof renderAll === 'function') renderAll();
+        if (typeof window.renderAll === 'function') window.renderAll();
     }, (error) => {
         console.error("Sync error: ", error);
         updateSyncStatus("Bağlantı Hatası", false);
     });
 }
 
-// Modül yüklenince Firebase'i başlat
 initFirebase();
 </script>
 </body>
