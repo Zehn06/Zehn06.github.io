@@ -1,1106 +1,743 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎯 Başarı Planlayıcısı</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-  :root {
-    --bg-primary: #0a0a0f;
-    --bg-secondary: #12121a;
-    --bg-card: #1a1a2e;
-    --bg-card-hover: #1f1f35;
-    --accent-blue: #4361ee;
-    --accent-purple: #7209b7;
-    --accent-pink: #f72585;
-    --accent-green: #06d6a0;
-    --accent-orange: #fb8500;
-    --accent-yellow: #ffbe0b;
-    --accent-red: #ef233c;
-    --accent-cyan: #00b4d8;
-    --text-primary: #e8e8f0;
-    --text-secondary: #8888a0;
-    --text-muted: #55556a;
-    --border: #2a2a40;
-    --glass: rgba(255,255,255,0.03);
-    --shadow: 0 8px 32px rgba(0,0,0,0.4);
-  }
-
-  * { margin:0; padding:0; box-sizing:border-box; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(ellipse at 20% 50%, rgba(67,97,238,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(114,9,183,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(247,37,133,0.04) 0%, transparent 50%);
-    z-index: -1;
-    animation: bgShift 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes bgShift {
-    0% { transform: translate(0,0) rotate(0deg); }
-    100% { transform: translate(-2%,-2%) rotate(3deg); }
-  }
-
-  .app-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-
-  /* HEADER */
-  .header {
-    text-align: center;
-    padding: 40px 20px 30px;
-    position: relative;
-  }
-
-  .header-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, rgba(67,97,238,0.15), rgba(114,9,183,0.15));
-    border: 1px solid rgba(67,97,238,0.3);
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent-blue);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 16px;
-  }
-
-  .header h1 {
-    font-size: 2.8rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, #4361ee, #7209b7, #f72585);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.2;
-    margin-bottom: 8px;
-  }
-
-  .header p {
-    color: var(--text-secondary);
-    font-size: 15px;
-    font-weight: 400;
-  }
-
-  .header .flag-row {
-    margin-top: 12px;
-    font-size: 24px;
-    letter-spacing: 8px;
-  }
-
-  /* TABS */
-  .tab-container {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin: 30px 0 24px;
-    background: var(--bg-secondary);
-    border-radius: 16px;
-    padding: 6px;
-    border: 1px solid var(--border);
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .tab-btn {
-    flex: 1;
-    padding: 12px 20px;
-    border: none;
-    background: transparent;
-    color: var(--text-secondary);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-
-  .tab-btn:hover { color: var(--text-primary); }
-
-  .tab-btn.active {
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(67,97,238,0.4);
-  }
-
-  .tab-btn .tab-icon { margin-right: 6px; }
-
-  /* STATS ROW */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .stat-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-
-  .stat-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent-blue);
-  }
-
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    border-radius: 16px 16px 0 0;
-  }
-
-  .stat-card:nth-child(1)::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)); }
-  .stat-card:nth-child(2)::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow)); }
-  .stat-card:nth-child(3)::before { background: linear-gradient(90deg, var(--accent-orange), var(--accent-red)); }
-  .stat-card:nth-child(4)::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); }
-
-  .stat-icon { font-size: 28px; margin-bottom: 8px; }
-  .stat-value { font-size: 28px; font-weight: 800; margin-bottom: 2px; }
-  .stat-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-
-  /* PROGRESS BAR */
-  .progress-section {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
-  }
-
-  .progress-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .progress-title { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
-  .progress-percent { font-size: 20px; font-weight: 800; }
-
-  .progress-bar-bg {
-    width: 100%;
-    height: 12px;
-    background: var(--bg-primary);
-    border-radius: 20px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    border-radius: 20px;
-    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
-    transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    position: relative;
-  }
-
-  .progress-bar-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    animation: shimmer 2s infinite;
-  }
-
-  @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-
-  /* MOTIVATION QUOTE */
-  .quote-box {
-    background: linear-gradient(135deg, rgba(67,97,238,0.1), rgba(114,9,183,0.1));
-    border: 1px solid rgba(67,97,238,0.2);
-    border-radius: 16px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .quote-icon { font-size: 32px; flex-shrink: 0; }
-
-  .quote-text {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-primary);
-    line-height: 1.6;
-    font-style: italic;
-  }
-
-  /* TASK LIST */
-  .task-section {
-    margin-bottom: 24px;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-    padding-left: 4px;
-  }
-
-  .section-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .section-title {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--text-secondary);
-  }
-
-  .section-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .task-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px 20px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .task-card:hover {
-    background: var(--bg-card-hover);
-    transform: translateX(4px);
-    border-color: rgba(67,97,238,0.3);
-  }
-
-  .task-card.completed {
-    opacity: 0.5;
-    background: rgba(6,214,160,0.03);
-    border-color: rgba(6,214,160,0.15);
-  }
-
-  .task-card.completed .task-name { text-decoration: line-through; }
-
-  .task-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-  }
-
-  .task-card[data-cat="math"]::before { background: var(--accent-red); }
-  .task-card[data-cat="physics"]::before { background: var(--accent-orange); }
-  .task-card[data-cat="software"]::before { background: var(--accent-blue); }
-  .task-card[data-cat="english"]::before { background: var(--accent-yellow); }
-  .task-card[data-cat="break"]::before { background: var(--accent-green); }
-  .task-card[data-cat="free"]::before { background: var(--accent-purple); }
-  .task-card[data-cat="personal"]::before { background: var(--accent-cyan); }
-
-  .task-checkbox {
-    width: 22px;
-    height: 22px;
-    border-radius: 6px;
-    border: 2px solid var(--text-muted);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s ease;
-    font-size: 12px;
-  }
-
-  .task-card.completed .task-checkbox {
-    background: var(--accent-green);
-    border-color: var(--accent-green);
-  }
-
-  .task-time {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-muted);
-    min-width: 110px;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .task-emoji { font-size: 20px; flex-shrink: 0; }
-
-  .task-info { flex: 1; }
-
-  .task-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-
-  .task-desc { font-size: 12px; color: var(--text-secondary); }
-
-  .task-tag {
-    font-size: 10px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .tag-math { background: rgba(239,35,60,0.15); color: var(--accent-red); }
-  .tag-physics { background: rgba(251,133,0,0.15); color: var(--accent-orange); }
-  .tag-software { background: rgba(67,97,238,0.15); color: var(--accent-blue); }
-  .tag-english { background: rgba(255,190,11,0.15); color: var(--accent-yellow); }
-  .tag-break { background: rgba(6,214,160,0.15); color: var(--accent-green); }
-  .tag-free { background: rgba(114,9,183,0.15); color: var(--accent-purple); }
-  .tag-personal { background: rgba(0,180,216,0.15); color: var(--accent-cyan); }
-
-  /* WEEKLY VIEW */
-  .weekly-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .day-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 18px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    text-align: center;
-  }
-
-  .day-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent-blue);
-    box-shadow: 0 8px 24px rgba(67,97,238,0.15);
-  }
-
-  .day-card.today {
-    border-color: var(--accent-blue);
-    background: linear-gradient(135deg, rgba(67,97,238,0.1), rgba(114,9,183,0.05));
-  }
-
-  .day-name { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 4px; }
-  .day-date { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
-
-  .day-progress-mini {
-    width: 100%;
-    height: 6px;
-    background: var(--bg-primary);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 8px;
-  }
-
-  .day-progress-fill {
-    height: 100%;
-    border-radius: 10px;
-    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-    transition: width 0.4s ease;
-  }
-
-  .day-task-count { font-size: 11px; color: var(--text-muted); font-weight: 600; }
-
-  /* MONTHLY VIEW */
-  .monthly-calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    margin-bottom: 24px;
-  }
-
-  .cal-header {
-    text-align: center;
-    padding: 10px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .cal-day {
-    aspect-ratio: 1;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-  }
-
-  .cal-day:hover { border-color: var(--accent-blue); transform: scale(1.05); }
-  .cal-day.today { border-color: var(--accent-blue); background: linear-gradient(135deg, rgba(67,97,238,0.15), rgba(114,9,183,0.1)); }
-  .cal-day.empty { background: transparent; border-color: transparent; cursor: default; }
-  .cal-day.empty:hover { transform: none; }
-
-  .cal-day .cal-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--accent-green);
-    margin-top: 4px;
-  }
-
-  .cal-day.has-tasks .cal-dot { background: var(--accent-blue); }
-
-  /* MONTH NAV */
-  .month-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-
-  .month-nav button {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.2s;
-  }
-
-  .month-nav button:hover { background: var(--accent-blue); border-color: var(--accent-blue); }
-
-  .month-nav .month-label { font-size: 18px; font-weight: 700; min-width: 180px; text-align: center; }
-
-  /* ADD TASK MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-    align-items: center;
-    justify-content: center;
-  }
-
-  .modal-overlay.show { display: flex; }
-
-  .modal {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 32px;
-    width: 90%;
-    max-width: 480px;
-    box-shadow: var(--shadow);
-  }
-
-  .modal h2 { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
-
-  .modal label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-  .modal input, .modal select, .modal textarea {
-    width: 100%;
-    padding: 10px 14px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    margin-bottom: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .modal input:focus, .modal select:focus, .modal textarea:focus { border-color: var(--accent-blue); }
-
-  .modal-btns { display: flex; gap: 10px; margin-top: 8px; }
-
-  .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    color: #fff;
-    flex: 1;
-  }
-
-  .btn-primary:hover { box-shadow: 0 4px 15px rgba(67,97,238,0.4); transform: translateY(-1px); }
-
-  .btn-secondary {
-    background: var(--bg-card);
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-    flex: 1;
-  }
-
-  .btn-secondary:hover { border-color: var(--text-muted); }
-
-  /* FAB */
-  .fab {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0 8px 24px rgba(67,97,238,0.4);
-    transition: all 0.25s ease;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 32px rgba(67,97,238,0.5); }
-
-  /* RESET BTN */
-  .reset-row {
-    text-align: center;
-    margin: 20px 0 40px;
-  }
-
-  .reset-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 8px 20px;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .reset-btn:hover { border-color: var(--accent-red); color: var(--accent-red); }
-
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
-  /* RESPONSIVE */
-  @media (max-width: 600px) {
-    .header h1 { font-size: 1.8rem; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .task-time { min-width: 80px; font-size: 11px; }
-    .task-tag { display: none; }
-    .weekly-grid { grid-template-columns: repeat(4, 1fr); }
-    .monthly-calendar { gap: 3px; }
-    .cal-day { border-radius: 8px; font-size: 12px; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Başarı Dashboard'u | Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0B1120',
+                            panel: 'rgba(30, 41, 59, 0.4)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B1120;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Ortam Işıkları (Ambient Background) */
+        .ambient-light-1 {
+            position: fixed;
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .ambient-light-2 {
+            position: fixed;
+            bottom: -10%; right: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Premium Cam Efekti */
+        .glass-panel {
+            background: var(--tw-colors-brand-panel);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--tw-colors-brand-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 1.25rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(30, 41, 59, 0.6);
+        }
+
+        /* Özel Checkbox */
+        .checkbox-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .custom-checkbox {
+            appearance: none;
+            width: 1.75rem;
+            height: 1.75rem;
+            border: 2px solid rgba(148, 163, 184, 0.4);
+            border-radius: 0.5rem;
+            background-color: rgba(15, 23, 42, 0.5);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-checkbox:hover {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .custom-checkbox:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59,130,246,0.4);
+            animation: popIn 0.3s ease;
+        }
+
+        .custom-checkbox:checked::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: white;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.9rem;
+        }
+
+        /* Görev Tamamlandı Stilleri */
+        .task-card.completed {
+            opacity: 0.6;
+        }
+        .task-card.completed .task-title {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+        .task-card.completed .task-icon {
+            filter: grayscale(100%);
+        }
+
+        /* Dairesel İlerleme */
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.8s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* Tab Menüsü Animasyonları */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen p-4 md:p-8">
 
-<div class="app-container">
+    <!-- Ortam Işıkları -->
+    <div class="ambient-light-1"></div>
+    <div class="ambient-light-2"></div>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-badge">🎯 Günlük Planlayıcı</div>
-    <h1>Başarı Rutini</h1>
-    <p>Matematik • Fizik • Yazılım • İngilizce</p>
-    <div class="flag-row">🇹🇷 → 🇮🇹</div>
-  </div>
-
-  <!-- TABS -->
-  <div class="tab-container">
-    <button class="tab-btn active" onclick="switchTab('daily')"><span class="tab-icon">📋</span>Günlük</button>
-    <button class="tab-btn" onclick="switchTab('weekly')"><span class="tab-icon">📅</span>Haftalık</button>
-    <button class="tab-btn" onclick="switchTab('monthly')"><span class="tab-icon">🗓️</span>Aylık</button>
-  </div>
-
-  <!-- ==================== DAILY TAB ==================== -->
-  <div id="tab-daily" class="tab-content active">
-
-    <!-- STATS -->
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-icon">✅</div>
-        <div class="stat-value" id="stat-done">0</div>
-        <div class="stat-label">Tamamlanan</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">📝</div>
-        <div class="stat-value" id="stat-total">0</div>
-        <div class="stat-label">Toplam Görev</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⏱️</div>
-        <div class="stat-value" id="stat-hours">0h</div>
-        <div class="stat-label">Çalışma Saati</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🔥</div>
-        <div class="stat-value" id="stat-streak">0</div>
-        <div class="stat-label">Gün Serisi</div>
-      </div>
-    </div>
-
-    <!-- PROGRESS -->
-    <div class="progress-section">
-      <div class="progress-header">
-        <span class="progress-title">Günlük İlerleme</span>
-        <span class="progress-percent" id="progress-pct">0%</span>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
-      </div>
-    </div>
-
-    <!-- QUOTE -->
-    <div class="quote-box">
-      <span class="quote-icon">🇮🇹</span>
-      <span class="quote-text" id="daily-quote">"CEnT-S, TIL-I sınavları ve Web Geliştirme hedeflerine doğru tavizsiz bir gün daha."</span>
-    </div>
-
-    <!-- TASKS -->
-    <div id="task-list"></div>
-
-    <div class="reset-row">
-      <button class="reset-btn" onclick="resetDay()">🔄 Günü Sıfırla</button>
-      <button class="reset-btn" onclick="resetAll()" style="margin-left:8px;">🗑️ Tümünü Temizle</button>
-    </div>
-  </div>
-
-  <!-- ==================== WEEKLY TAB ==================== -->
-  <div id="tab-weekly" class="tab-content">
-    <div class="weekly-grid" id="weekly-grid"></div>
-    <div id="weekly-detail"></div>
-  </div>
-
-  <!-- ==================== MONTHLY TAB ==================== -->
-  <div id="tab-monthly" class="tab-content">
-    <div class="month-nav">
-      <button onclick="changeMonth(-1)">‹</button>
-      <span class="month-label" id="month-label"></span>
-      <button onclick="changeMonth(1)">›</button>
-    </div>
-    <div class="monthly-calendar" id="monthly-calendar"></div>
-  </div>
-
-</div>
-
-<!-- FAB -->
-<button class="fab" onclick="openModal()">＋</button>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <h2>➕ Yeni Görev Ekle</h2>
-    <label>Görev Adı</label>
-    <input type="text" id="m-name" placeholder="Örn: Matematik soru çözümü">
-    <label>Açıklama</label>
-    <input type="text" id="m-desc" placeholder="Örn: CEnT-S integral konusu">
-    <label>Saat Aralığı</label>
-    <div style="display:flex;gap:8px;">
-      <input type="time" id="m-start" value="08:00">
-      <input type="time" id="m-end" value="09:00">
-    </div>
-    <label>Kategori</label>
-    <select id="m-cat">
-      <option value="math">📐 Matematik</option>
-      <option value="physics">⚛️ Fizik</option>
-      <option value="software">💻 Yazılım</option>
-      <option value="english">🇬🇧 İngilizce</option>
-      <option value="break">🧘 Mola / Dinlenme</option>
-      <option value="free">🎮 Serbest / Eğlence</option>
-      <option value="personal">📚 Kişisel Gelişim</option>
-    </select>
-    <label>Tarih</label>
-    <input type="date" id="m-date">
-    <div class="modal-btns">
-      <button class="btn btn-secondary" onclick="closeModal()">İptal</button>
-      <button class="btn btn-primary" onclick="addTask()">Ekle</button>
-    </div>
-  </div>
-</div>
-
-<script>
-// ===================== DATA =====================
-const DEFAULT_TASKS = [
-  { id:'d1', name:'Güne Başlangıç', desc:'Kahvaltı ve kedilerin bakımı', start:'08:00', end:'08:30', cat:'break', emoji:'🌅' },
-  { id:'d2', name:'Derin Çalışma: Matematik', desc:'CEnT-S / TIL-I sınav hazırlığı, mantık ve soru çözümü', start:'08:30', end:'10:30', cat:'math', emoji:'📐' },
-  { id:'d3', name:'Mola & Dinlenme', desc:'Ekrandan uzaklaş, hafif esneme hareketleri', start:'10:30', end:'11:00', cat:'break', emoji:'🧘' },
-  { id:'d4', name:'Temel Bilimler: Fizik', desc:'Mühendislik giriş sınavları – formül tekrarları ve pratik', start:'11:00', end:'13:00', cat:'physics', emoji:'⚛️' },
-  { id:'d5', name:'Öğle Arası & Deşarj', desc:'Yemek, Segway turu veya kedilerle vakit geçirme', start:'13:00', end:'14:00', cat:'break', emoji:'☀️' },
-  { id:'d6', name:'Yazılım Geliştirme', desc:'Web development kursu, JavaScript/React pratiği', start:'14:00', end:'16:30', cat:'software', emoji:'💻' },
-  { id:'d7', name:'İngilizce Pratiği', desc:'B2 hedefi – gramer, kelime, okuma/dinleme', start:'16:30', end:'18:00', cat:'english', emoji:'🇬🇧' },
-  { id:'d8', name:'Esnek Zaman / Eğitimler', desc:'Kurslar, ANKUZEF modülleri veya bahçe bitkileri', start:'18:00', end:'19:30', cat:'personal', emoji:'📚' },
-  { id:'d9', name:'Akşam Yemeği', desc:'Aile ile vakit geçirme ve dinlenme', start:'19:30', end:'20:30', cat:'break', emoji:'🍽️' },
-  { id:'d10', name:'Serbest Zaman & Eğlence', desc:'CS2, Elden Ring, Ghost of Tsushima', start:'20:30', end:'22:30', cat:'free', emoji:'🎮' },
-  { id:'d11', name:'Kişisel Okuma', desc:'Davranışsal psikoloji (Atomik Alışkanlıklar vb.)', start:'22:30', end:'23:15', cat:'personal', emoji:'📖' },
-  { id:'d12', name:'Kapanış & Planlama', desc:'Yarının hedeflerini not et, uyku hazırlığı', start:'23:15', end:'23:30', cat:'personal', emoji:'🌙' }
-];
-
-const CAT_LABELS = { math:'Matematik', physics:'Fizik', software:'Yazılım', english:'İngilizce', break:'Mola', free:'Serbest', personal:'Kişisel' };
-const EMOJIS = { math:'📐', physics:'⚛️', software:'💻', english:'🇬🇧', break:'🧘', free:'🎮', personal:'📚' };
-const QUOTES = [
-  '"Disiplin, motivasyon bittiğinde devreye giren şeydir."',
-  '"Her gün %1 gelişim, bir yılda 37 kat büyüme demek."',
-  '"Hayal ettiğin İtalya seni bekliyor. Bugün bir adım daha at."',
-  '"Kod yaz, formül çöz, kelime öğren. Tekrar et."',
-  '"Başarı bir günde gelmez ama her gün gelir."',
-  '"La disciplina è il ponte tra gli obiettivi e i risultati."',
-  '"Bugünkü çaban, yarının özgürlüğüdür."'
-];
-
-// ===================== STATE =====================
-let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
-
-function todayStr() { return new Date().toISOString().split('T')[0]; }
-function getKey(date) { return 'plan_' + date; }
-
-function loadDay(date) {
-  const raw = localStorage.getItem(getKey(date));
-  if (raw) return JSON.parse(raw);
-  // Return default tasks for the day
-  return DEFAULT_TASKS.map(t => ({ ...t, id: t.id + '_' + date, completed: false, date }));
-}
-
-function saveDay(date, tasks) {
-  localStorage.setItem(getKey(date), JSON.stringify(tasks));
-}
-
-function getStreak() {
-  let streak = 0;
-  let d = new Date();
-  while(true) {
-    const ds = d.toISOString().split('T')[0];
-    const tasks = loadDay(ds);
-    const total = tasks.length;
-    const done = tasks.filter(t => t.completed).length;
-    if (total > 0 && done === total) {
-      streak++;
-      d.setDate(d.getDate() - 1);
-    } else if (ds === todayStr()) {
-      d.setDate(d.getDate() - 1); // today might not be complete yet
-    } else {
-      break;
-    }
-  }
-  return streak;
-}
-
-// ===================== RENDER DAILY =====================
-function renderDaily() {
-  const date = todayStr();
-  const tasks = loadDay(date);
-  const total = tasks.length;
-  const done = tasks.filter(t => t.completed).length;
-  const pct = total ? Math.round((done/total)*100) : 0;
-
-  document.getElementById('stat-done').textContent = done;
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('progress-pct').textContent = pct + '%';
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('stat-streak').textContent = getStreak();
-
-  // Calculate study hours (exclude break/free)
-  let mins = 0;
-  tasks.forEach(t => {
-    if (t.completed && t.cat !== 'break' && t.cat !== 'free') {
-      const [sh,sm] = t.start.split(':').map(Number);
-      const [eh,em] = t.end.split(':').map(Number);
-      mins += (eh*60+em) - (sh*60+sm);
-    }
-  });
-  document.getElementById('stat-hours').textContent = (mins/60).toFixed(1) + 'h';
-
-  // Quote
-  const qi = Math.floor(Math.random() * QUOTES.length);
-  // only set once per page load
-  if (!window._quoteSet) {
-    document.getElementById('daily-quote').textContent = QUOTES[qi];
-    window._quoteSet = true;
-  }
-
-  // Group tasks by section
-  const sections = [
-    { title: 'Sabah Bloğu', color: 'var(--accent-orange)', filter: t => t.start < '12:00' },
-    { title: 'Öğleden Sonra', color: 'var(--accent-blue)', filter: t => t.start >= '12:00' && t.start < '18:00' },
-    { title: 'Akşam', color: 'var(--accent-purple)', filter: t => t.start >= '18:00' }
-  ];
-
-  let html = '';
-  sections.forEach(sec => {
-    const secTasks = tasks.filter(sec.filter);
-    if (secTasks.length === 0) return;
-    html += `<div class="task-section">
-      <div class="section-header">
-        <div class="section-dot" style="background:${sec.color}"></div>
-        <span class="section-title">${sec.title}</span>
-        <div class="section-line"></div>
-      </div>`;
-    secTasks.forEach(t => {
-      html += `<div class="task-card ${t.completed ? 'completed' : ''}" data-cat="${t.cat}" onclick="toggleTask('${date}','${t.id}')">
-        <div class="task-checkbox">${t.completed ? '✓' : ''}</div>
-        <span class="task-time">${t.start} – ${t.end}</span>
-        <span class="task-emoji">${t.emoji || EMOJIS[t.cat] || '📌'}</span>
-        <div class="task-info">
-          <div class="task-name">${t.name}</div>
-          <div class="task-desc">${t.desc}</div>
+    <!-- Modal: Yeni Görev Ekle -->
+    <div id="add-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 backdrop-blur-sm transition-opacity opacity-0 duration-200">
+        <div class="glass-panel p-6 w-[90%] max-w-md transform scale-95 transition-transform duration-200" id="add-modal-content">
+            <h3 class="text-xl font-bold mb-4 text-white" id="modal-title">Yeni Ekle</h3>
+            <input type="hidden" id="modal-type" value="daily">
+            
+            <div id="time-input-group" class="mb-4">
+                <label class="block text-xs text-slate-400 mb-1.5 uppercase tracking-wider font-semibold">Saat</label>
+                <input type="time" id="new-item-time" class="w-full bg-[#0F172A] p-3 rounded-lg border border-slate-700 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all">
+            </div>
+            
+            <div class="mb-4">
+                <label class="block text-xs text-slate-400 mb-1.5 uppercase tracking-wider font-semibold">Başlık</label>
+                <input type="text" id="new-item-title" placeholder="Örn: React Context API Çalışması" class="w-full bg-[#0F172A] p-3 rounded-lg border border-slate-700 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all">
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-xs text-slate-400 mb-1.5 uppercase tracking-wider font-semibold">Açıklama (Opsiyonel)</label>
+                <input type="text" id="new-item-desc" placeholder="Örn: 2 modül bitirilecek" class="w-full bg-[#0F172A] p-3 rounded-lg border border-slate-700 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all">
+            </div>
+            
+            <div class="flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-5 py-2.5 rounded-lg font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">İptal</button>
+                <button onclick="saveNewItem()" class="px-5 py-2.5 rounded-lg font-medium bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-400 transition-all shadow-lg shadow-blue-500/25">Kaydet</button>
+            </div>
         </div>
-        <span class="task-tag tag-${t.cat}">${CAT_LABELS[t.cat]}</span>
-      </div>`;
-    });
-    html += '</div>';
-  });
-
-  document.getElementById('task-list').innerHTML = html;
-}
-
-function toggleTask(date, id) {
-  const tasks = loadDay(date);
-  const t = tasks.find(x => x.id === id);
-  if (t) t.completed = !t.completed;
-  saveDay(date, tasks);
-  renderDaily();
-}
-
-function resetDay() {
-  if (!confirm('Bugünkü tüm tikleri sıfırlamak istediğine emin misin?')) return;
-  const date = todayStr();
-  const tasks = loadDay(date);
-  tasks.forEach(t => t.completed = false);
-  saveDay(date, tasks);
-  renderDaily();
-}
-
-function resetAll() {
-  if (!confirm('TÜM verileri silmek istediğine emin misin? Bu işlem geri alınamaz.')) return;
-  const keys = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key.startsWith('plan_')) keys.push(key);
-  }
-  keys.forEach(k => localStorage.removeItem(k));
-  renderDaily();
-}
-
-// ===================== WEEKLY =====================
-function renderWeekly() {
-  const today = new Date();
-  const dayOfWeek = today.getDay();
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));
-
-  const days = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
-  let html = '';
-
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    const ds = d.toISOString().split('T')[0];
-    const tasks = loadDay(ds);
-    const total = tasks.length;
-    const done = tasks.filter(t => t.completed).length;
-    const pct = total ? Math.round((done/total)*100) : 0;
-    const isToday = ds === todayStr();
-
-    html += `<div class="day-card ${isToday ? 'today' : ''}">
-      <div class="day-name">${days[i]}</div>
-      <div class="day-date">${d.getDate()}</div>
-      <div class="day-progress-mini"><div class="day-progress-fill" style="width:${pct}%"></div></div>
-      <div class="day-task-count">${done}/${total} görev</div>
-    </div>`;
-  }
-
-  document.getElementById('weekly-grid').innerHTML = html;
-
-  // Weekly summary
-  let totalTasks = 0, totalDone = 0;
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    const ds = d.toISOString().split('T')[0];
-    const tasks = loadDay(ds);
-    totalTasks += tasks.length;
-    totalDone += tasks.filter(t => t.completed).length;
-  }
-
-  const weekPct = totalTasks ? Math.round((totalDone/totalTasks)*100) : 0;
-  document.getElementById('weekly-detail').innerHTML = `
-    <div class="progress-section">
-      <div class="progress-header">
-        <span class="progress-title">Haftalık İlerleme</span>
-        <span class="progress-percent">${weekPct}%</span>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" style="width:${weekPct}%"></div>
-      </div>
     </div>
-    <div class="quote-box">
-      <span class="quote-icon">📊</span>
-      <span class="quote-text">Bu hafta toplam ${totalDone}/${totalTasks} görev tamamlandı. ${weekPct >= 70 ? 'Harika gidiyorsun! 🔥' : 'Hedefe devam! 💪'}</span>
-    </div>`;
-}
 
-// ===================== MONTHLY =====================
-function renderMonthly() {
-  const monthNames = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
-  document.getElementById('month-label').textContent = monthNames[currentMonth] + ' ' + currentYear;
+    <div class="max-w-6xl mx-auto space-y-8 relative z-10">
+        
+        <!-- ÜST BİLGİ PANELİ -->
+        <header class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Karşılama & Motivasyon -->
+            <div class="glass-panel p-8 md:col-span-2 flex flex-col justify-center relative overflow-hidden">
+                <!-- Dekoratif Arka Plan İkonu -->
+                <i class="fa-solid fa-code absolute -right-4 -bottom-4 text-9xl text-white opacity-5"></i>
+                
+                <div class="relative z-10">
+                    <p class="text-blue-400 font-medium mb-1 tracking-wide uppercase text-sm" id="current-date"></p>
+                    <h1 class="text-3xl md:text-4xl font-bold mb-3 text-white" id="greeting-text">
+                        Merhaba!
+                    </h1>
+                    <p class="text-slate-400 font-light italic border-l-2 border-emerald-500 pl-3 py-1" id="daily-quote">
+                        "Başarı, her gün tekrarlanan küçük çabaların toplamıdır."
+                    </p>
+                </div>
+            </div>
 
-  const firstDay = new Date(currentYear, currentMonth, 1);
-  const lastDay = new Date(currentYear, currentMonth + 1, 0);
-  const startDow = (firstDay.getDay() + 6) % 7; // Monday = 0
+            <!-- İlerleme Göstergesi -->
+            <div class="glass-panel p-6 flex flex-col items-center justify-center text-center">
+                <div class="relative w-32 h-32 flex items-center justify-center">
+                    <svg class="w-full h-full" viewBox="0 0 120 120">
+                        <!-- Arka plan halkası -->
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8" />
+                        <!-- İlerleme halkası -->
+                        <circle id="progress-circle" class="progress-ring__circle" cx="60" cy="60" r="54" fill="none" stroke="url(#gradient)" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292" />
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#3b82f6" />
+                                <stop offset="100%" stop-color="#10b981" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <!-- Ortadaki Yüzde -->
+                    <div class="absolute flex flex-col items-center">
+                        <span id="progress-text" class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">0%</span>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Tamamlandı</span>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-  const dayHeaders = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
-  let html = dayHeaders.map(d => `<div class="cal-header">${d}</div>`).join('');
+        <!-- KONTROL PANELİ & SEKMELER -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-[#0F172A]/80 p-2 rounded-xl border border-white/5 backdrop-blur-md">
+            <nav class="flex gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0 scrollbar-hide">
+                <button onclick="switchTab('daily')" id="btn-daily" class="flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium transition-all bg-blue-600/20 text-blue-400 border border-blue-500/30 whitespace-nowrap">
+                    <i class="fa-solid fa-list-check"></i> Günlük Akış
+                </button>
+                <button onclick="switchTab('weekly')" id="btn-weekly" class="flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium text-slate-400 hover:text-white transition-all hover:bg-slate-800 border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-calendar-week"></i> Haftalık Düzen
+                </button>
+                <button onclick="switchTab('monthly')" id="btn-monthly" class="flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium text-slate-400 hover:text-white transition-all hover:bg-slate-800 border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-rocket"></i> Aylık Plan & Vizyon
+                </button>
+            </nav>
+        </div>
 
-  for (let i = 0; i < startDow; i++) {
-    html += '<div class="cal-day empty"></div>';
-  }
+        <!-- 1. GÜNLÜK PLAN (Gelişmiş Kart Görünümü) -->
+        <main id="daily" class="tab-content active">
+            <div class="grid gap-4" id="task-list">
+                <!-- JavaScript ile görev kartları buraya yüklenecek -->
+            </div>
+            
+            <!-- Yeni Görev Ekleme Butonu -->
+            <button onclick="openModal('daily')" class="w-full mt-4 py-4 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 hover:text-blue-400 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all font-medium flex items-center justify-center gap-2 group">
+                <i class="fa-solid fa-plus group-hover:scale-110 transition-transform"></i> Yeni Günlük Görev Ekle
+            </button>
+        </main>
 
-  const todayDate = todayStr();
+        <!-- 2. HAFTALIK PLAN -->
+        <main id="weekly" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Gün Kartı Modeli -->
+                <div class="glass-panel p-6 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-400"></div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calendar-day text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Pzt - Çarşamba</h3>
+                    </div>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-calculator mt-1 text-red-400 w-4 text-center"></i>
+                            <div>
+                                <strong class="text-slate-200 block">CEnT-S Odaklı</strong>
+                                <span class="text-slate-400">Matematik ve Mantık pratikleri. Deneme analizi.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-brands fa-js mt-1 text-yellow-400 w-4 text-center"></i>
+                            <div>
+                                <strong class="text-slate-200 block">Yazılım Temelleri</strong>
+                                <span class="text-slate-400">JavaScript Core & React Component yapısı.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    const ds = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const tasks = loadDay(ds);
-    const done = tasks.filter(t => t.completed).length;
-    const total = tasks.length;
-    const isToday = ds === todayDate;
-    const hasTasks = total > 0 && done > 0;
+                <div class="glass-panel p-6 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calendar-days text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Perşembe - Cuma</h3>
+                    </div>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-atom mt-1 text-orange-400 w-4 text-center"></i>
+                            <div>
+                                <strong class="text-slate-200 block">Fizik Kampı</strong>
+                                <span class="text-slate-400">Formül kağıtları, enerji ve mekanik soru çözümleri.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-code mt-1 text-blue-400 w-4 text-center"></i>
+                            <div>
+                                <strong class="text-slate-200 block">Proje Geliştirme</strong>
+                                <span class="text-slate-400">Kişisel Web Dev projesinde ilerleme kaydetme.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    html += `<div class="cal-day ${isToday ? 'today' : ''} ${hasTasks ? 'has-tasks' : ''}">
-      ${d}
-      ${hasTasks ? '<div class="cal-dot"></div>' : ''}
-    </div>`;
-  }
+                <div class="glass-panel p-6 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-400"></div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-mug-hot text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Hafta Sonu</h3>
+                    </div>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-stopwatch mt-1 text-red-400 w-4 text-center"></i>
+                            <div>
+                                <strong class="text-slate-200 block">Genel Deneme</strong>
+                                <span class="text-slate-400">TIL-I formatında süre tutarak sınav pratiği.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-gamepad mt-1 text-indigo-400 w-4 text-center"></i>
+                            <div>
+                                <strong class="text-slate-200 block">Deşarj & Oyun</strong>
+                                <span class="text-slate-400">Ghost of Tsushima, CS2 ve zihinsel dinlenme.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-  document.getElementById('monthly-calendar').innerHTML = html;
-}
+        <!-- 3. AYLIK HEDEFLER & VİZYON -->
+        <main id="monthly" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- SOL: DİNAMİK AYLIK PLAN (Kullanıcının Ekleyip Çıkarabildiği) -->
+                <div class="glass-panel p-8 flex flex-col h-full">
+                    <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                        <h2 class="text-2xl font-bold flex items-center gap-3 text-white">
+                            <i class="fa-solid fa-calendar-check text-blue-400"></i>
+                            Bu Ay Yapılacaklar
+                        </h2>
+                        <button onclick="openModal('monthly')" class="text-sm bg-blue-500/20 text-blue-400 hover:bg-blue-500/40 px-3 py-1.5 rounded-lg transition border border-blue-500/30 flex items-center shadow-lg shadow-blue-500/10">
+                            <i class="fa-solid fa-plus mr-1.5"></i> Ekle
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-3 flex-1 overflow-y-auto pr-2 scrollbar-hide" id="monthly-list">
+                        <!-- JavaScript ile aylık hedefler buraya yüklenecek -->
+                    </div>
+                </div>
 
-function changeMonth(dir) {
-  currentMonth += dir;
-  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
-  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
-  renderMonthly();
-}
+                <!-- SAĞ: SABİT VİZYON VE KİLOMETRE TAŞLARI -->
+                <div class="glass-panel p-8 h-full">
+                    <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                        <i class="fa-solid fa-map-location-dot text-emerald-400"></i>
+                        Yol Haritası & Vizyon
+                    </h2>
+                    
+                    <div class="relative border-l border-slate-700 ml-4 space-y-10 pb-4">
+                        
+                        <!-- Hedef 1 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full bg-blue-900 border-4 border-[#0B1120] flex items-center justify-center">
+                                <div class="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse"></div>
+                            </div>
+                            <div class="glass-panel bg-slate-800/30 p-5 rounded-xl border-slate-700/50 hover:border-blue-500/30 transition-colors">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-bold text-lg text-blue-100">Mayıs Yapay Zeka Workshop'u</h3>
+                                    <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 text-[10px] font-bold rounded-full border border-blue-500/20">Yakın Hedef</span>
+                                </div>
+                                <p class="text-slate-400 text-xs leading-relaxed">
+                                    Workshop öncesi JavaScript temelini sağlamlaştırmak ve algoritma mantığını tam oturtmak. Bootcamp içerisindeki bitirme projesi aşamasına gelebilmek.
+                                </p>
+                            </div>
+                        </div>
 
-// ===================== TABS =====================
-function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  event.target.closest('.tab-btn').classList.add('active');
+                        <!-- Hedef 2 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full bg-red-900 border-4 border-[#0B1120] flex items-center justify-center">
+                                <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+                            </div>
+                            <div class="glass-panel bg-slate-800/30 p-5 rounded-xl border-slate-700/50 hover:border-red-500/30 transition-colors">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-bold text-lg text-red-100">İtalya Mühendislik Sınavları</h3>
+                                    <span class="px-2 py-0.5 bg-red-500/20 text-red-300 text-[10px] font-bold rounded-full border border-red-500/20">Ana Odak</span>
+                                </div>
+                                <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                                    Politecnico di Torino (TIL-I) vb. sınavlar için Matematik, Mantık ve Fizik konularını eksiksiz tamamlamak. İngilizce seviyesini B2'de sabit tutmak.
+                                </p>
+                                <div class="flex gap-2">
+                                    <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded">CEnT-S</span>
+                                    <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded">TIL-I</span>
+                                </div>
+                            </div>
+                        </div>
 
-  if (tab === 'daily') renderDaily();
-  if (tab === 'weekly') renderWeekly();
-  if (tab === 'monthly') renderMonthly();
-}
+                        <!-- Hedef 3 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full bg-purple-900 border-4 border-[#0B1120] flex items-center justify-center">
+                                <div class="w-2.5 h-2.5 rounded-full bg-purple-400"></div>
+                            </div>
+                            <div class="glass-panel bg-slate-800/30 p-5 rounded-xl border-slate-700/50 hover:border-purple-500/30 transition-colors">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-bold text-lg text-purple-100">ANKUZEF & Üniversite Süreci</h3>
+                                </div>
+                                <p class="text-slate-400 text-xs leading-relaxed">
+                                    Bilgisayar Teknolojisi ve Bahçe Bitkileri bölümlerindeki vizeler öncesi modüllerin haftalık takiplerinin aksatılmadan yapılması.
+                                </p>
+                            </div>
+                        </div>
 
-// ===================== MODAL =====================
-function openModal() {
-  document.getElementById('modal-overlay').classList.add('show');
-  document.getElementById('m-date').value = todayStr();
-}
+                    </div>
+                </div>
+            </div>
+        </main>
 
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('show');
-}
+    </div>
 
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
-}
+    <script>
+        // İhtiyaca Göre Zenginleştirilmiş Görev Verisi (Varsayılanlar)
+        const defaultTasks = [
+            { id: 1, time: "08:00", title: "Güne Başlangıç", desc: "Kahvaltı, kedilerin bakımı ve zihni açma.", icon: "fa-mug-saucer", color: "text-amber-400", bgIcon: "bg-amber-400/10", tag: "Rutin", tagColor: "text-amber-300 bg-amber-400/10 border-amber-400/20" },
+            { id: 2, time: "08:30", title: "Matematik & Mantık", desc: "CEnT-S ve TIL-I sınavlarına yönelik derin çalışma.", icon: "fa-calculator", color: "text-red-400", bgIcon: "bg-red-400/10", tag: "Sınav", tagColor: "text-red-300 bg-red-400/10 border-red-400/20" },
+            { id: 3, time: "10:30", title: "Mola & Esneme", desc: "Ekrandan uzaklaşma, bedeni rahatlatma.", icon: "fa-spa", color: "text-emerald-400", bgIcon: "bg-emerald-400/10", tag: "Sağlık", tagColor: "text-emerald-300 bg-emerald-400/10 border-emerald-400/20" },
+            { id: 4, time: "11:00", title: "Fizik Çalışması", desc: "Mühendislik girişi için formül tekrarları ve soru çözümü.", icon: "fa-atom", color: "text-orange-400", bgIcon: "bg-orange-400/10", tag: "Sınav", tagColor: "text-red-300 bg-red-400/10 border-red-400/20" },
+            { id: 5, time: "13:00", title: "Öğle Arası", desc: "Yemek ve Segway ile kısa açık hava turu.", icon: "fa-utensils", color: "text-slate-400", bgIcon: "bg-slate-400/10", tag: "Deşarj", tagColor: "text-slate-300 bg-slate-400/10 border-slate-400/20" },
+            { id: 6, time: "14:00", title: "Yazılım Geliştirme", desc: "Web dev projeleri, JavaScript/React pratikleri.", icon: "fa-code", color: "text-blue-400", bgIcon: "bg-blue-400/10", tag: "Kariyer", tagColor: "text-blue-300 bg-blue-400/10 border-blue-400/20" },
+            { id: 7, time: "16:30", title: "İngilizce Pratiği", desc: "B2 hedefine yönelik genel gramer ve dinleme.", icon: "fa-language", color: "text-indigo-400", bgIcon: "bg-indigo-400/10", tag: "Dil", tagColor: "text-indigo-300 bg-indigo-400/10 border-indigo-400/20" },
+            { id: 8, time: "18:00", title: "Eğitimler & Kurslar", desc: "Bahçe bitkileri veya ANKUZEF uzaktan eğitim.", icon: "fa-graduation-cap", color: "text-green-400", bgIcon: "bg-green-400/10", tag: "Akademi", tagColor: "text-green-300 bg-green-400/10 border-green-400/20" },
+            { id: 9, time: "19:30", title: "Akşam Yemeği", desc: "Aile ile vakit geçirme.", icon: "fa-house", color: "text-slate-400", bgIcon: "bg-slate-400/10", tag: "Sosyal", tagColor: "text-slate-300 bg-slate-400/10 border-slate-400/20" },
+            { id: 10, time: "20:30", title: "Oyun & Eğlence", desc: "Elden Ring, CS2 veya Ghost of Tsushima.", icon: "fa-gamepad", color: "text-purple-400", bgIcon: "bg-purple-400/10", tag: "Ödül", tagColor: "text-purple-300 bg-purple-400/10 border-purple-400/20" },
+            { id: 11, time: "22:30", title: "Kişisel Okuma", desc: "Davranışsal psikoloji, kitap okuma saati.", icon: "fa-book-open", color: "text-amber-200", bgIcon: "bg-amber-200/10", tag: "Gelişim", tagColor: "text-amber-200 bg-amber-400/10 border-amber-400/20" },
+            { id: 12, time: "23:15", title: "Kapanış", desc: "Yarının planı ve uyku hazırlığı.", icon: "fa-moon", color: "text-blue-200", bgIcon: "bg-blue-200/10", tag: "Rutin", tagColor: "text-amber-300 bg-amber-400/10 border-amber-400/20" }
+        ];
 
-function addTask() {
-  const name = document.getElementById('m-name').value.trim();
-  if (!name) { alert('Görev adı boş olamaz!'); return; }
+        // Varsayılan Aylık Görevler
+        const defaultMonthlyTasks = [
+            { id: 101, title: "Web Dev Kampı - JavaScript Core Modülü", desc: "Tüm egzersizleri ve bitirme projesini tamamla." },
+            { id: 102, title: "TIL-I Deneme Sınavı", desc: "Süre tutarak 2 tam deneme çöz ve analiz et." },
+            { id: 103, title: "İngilizce B2 Okuma", desc: "Teknik makalelerden oluşan 5 parçalık okuma setini bitir." }
+        ];
 
-  const date = document.getElementById('m-date').value;
-  const task = {
-    id: 'custom_' + Date.now(),
-    name: name,
-    desc: document.getElementById('m-desc').value.trim(),
-    start: document.getElementById('m-start').value,
-    end: document.getElementById('m-end').value,
-    cat: document.getElementById('m-cat').value,
-    emoji: EMOJIS[document.getElementById('m-cat').value],
-    completed: false,
-    date: date
-  };
+        // Motivasyon Sözleri
+        const quotes = [
+            "Başarı, her gün tekrarlanan küçük çabaların toplamıdır.",
+            "Zorluklar, sıradan insanları sıradışı başarılar için hazırlar.",
+            "Kod yazmak bir sanat, onu optimize etmek ise mühendisliktir.",
+            "Bugün hissettiğin acı, yarın hissedeceğin güç olacak.",
+            "Geleceği tahmin etmenin en iyi yolu, onu icat etmektir.",
+            "Tutarlılık, yetenekten daha önemlidir.",
+            "Motivasyon seni başlatır, disiplin ise devam etmeni sağlar.",
+            "Mazeretler bugünü kurtarır, disiplin ise geleceği inşa eder.",
+            "Büyük işler güçle değil, azimle ve kararlılıkla yapılır.",
+            "Rahatlık alanı güzel bir yerdir, ancak orada hiçbir şey büyümez."
+        ];
 
-  const tasks = loadDay(date);
-  tasks.push(task);
-  tasks.sort((a,b) => a.start.localeCompare(b.start));
-  saveDay(date, tasks);
+        // Local Storage'dan verileri çekme
+        let tasks = JSON.parse(localStorage.getItem('premiumTasks')) || defaultTasks;
+        let monthlyTasks = JSON.parse(localStorage.getItem('premiumMonthlyTasks')) || defaultMonthlyTasks;
+        let taskStatus = JSON.parse(localStorage.getItem('premiumDashboardStatus')) || {};
+        let monthlyTaskStatus = JSON.parse(localStorage.getItem('premiumMonthlyStatus')) || {};
+        
+        let savedDate = localStorage.getItem('premiumDashboardDate');
+        let currentDateStr = new Date().toDateString();
 
-  closeModal();
-  document.getElementById('m-name').value = '';
-  document.getElementById('m-desc').value = '';
-  renderDaily();
-}
+        // Yeni güne geçiş kontrolü (Sadece günlük görev işaretleri sıfırlanır, eklenen görevler kalır)
+        if (savedDate !== currentDateStr) {
+            taskStatus = {}; // İşaretleri sıfırla
+            localStorage.setItem('premiumDashboardStatus', JSON.stringify(taskStatus));
+            localStorage.setItem('premiumDashboardDate', currentDateStr);
+        }
 
-// ===================== INIT =====================
-renderDaily();
-</script>
+        function initializeApp() {
+            setDynamicHeader();
+            renderTasks();
+            renderMonthlyTasks();
+            setRandomQuote();
+        }
 
+        // Saat ve Karşılama Mantığı
+        function setDynamicHeader() {
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString('tr-TR', dateOptions);
+
+            const hour = new Date().getHours();
+            let greeting = "Merhaba!";
+            if (hour >= 5 && hour < 12) greeting = "Günaydın!";
+            else if (hour >= 12 && hour < 18) greeting = "İyi Günler!";
+            else if (hour >= 18 && hour < 22) greeting = "İyi Akşamlar!";
+            else greeting = "İyi Geceler!";
+            
+            document.getElementById('greeting-text').innerHTML = `${greeting} <span class="wave">👋</span>`;
+        }
+
+        function setRandomQuote() {
+            const random = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('daily-quote').textContent = `"${random}"`;
+        }
+
+        // GÜNLÜK GÖREVLERİ RENDER ETME
+        function renderTasks() {
+            const taskListEl = document.getElementById('task-list');
+            taskListEl.innerHTML = '';
+
+            tasks.forEach(task => {
+                const isChecked = taskStatus[task.id] ? 'checked' : '';
+                const isCompletedClass = taskStatus[task.id] ? 'completed' : '';
+
+                // Kullanıcının eklediği görevlerin ikonu yoksa varsayılan ikon
+                const iconClass = task.icon || "fa-thumbtack";
+                const colorClass = task.color || "text-blue-400";
+                const bgIconClass = task.bgIcon || "bg-blue-400/10";
+
+                const taskHtml = `
+                    <div class="task-card glass-panel p-4 flex items-center gap-4 ${isCompletedClass} relative group">
+                        <div class="checkbox-wrapper pl-2">
+                            <input type="checkbox" class="custom-checkbox" id="task-${task.id}" ${isChecked} onchange="toggleTask(${task.id})">
+                        </div>
+                        
+                        <div class="flex-1 cursor-pointer ml-2" onclick="document.getElementById('task-${task.id}').click()">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                                <div class="flex items-center gap-3">
+                                    ${task.time ? `<span class="font-mono font-bold text-blue-400 bg-blue-900/30 px-2 py-1 rounded text-sm">${task.time}</span>` : ''}
+                                    <h3 class="font-semibold text-white task-title text-lg pr-8">${task.title}</h3>
+                                </div>
+                                ${task.tag ? `<span class="text-xs font-semibold px-2.5 py-1 rounded-md border ${task.tagColor} w-fit">${task.tag}</span>` : ''}
+                            </div>
+                            ${task.desc ? `<p class="text-sm text-slate-400 mt-1.5 pr-8">${task.desc}</p>` : ''}
+                        </div>
+
+                        <div class="hidden md:flex w-12 h-12 rounded-xl ${bgIconClass} items-center justify-center shrink-0 task-icon transition-all">
+                            <i class="fa-solid ${iconClass} ${colorClass} text-xl"></i>
+                        </div>
+
+                        <!-- SİLME BUTONU -->
+                        <button onclick="deleteTask(${task.id}, 'daily')" title="Görevi Sil" class="opacity-0 md:group-hover:opacity-100 absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-red-400 transition-all p-2 bg-[#0B1120] border border-slate-700 hover:border-red-500/50 hover:bg-red-500/10 rounded-lg shadow-lg">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                taskListEl.insertAdjacentHTML('beforeend', taskHtml);
+            });
+
+            updateProgress();
+        }
+
+        // AYLIK GÖREVLERİ RENDER ETME
+        function renderMonthlyTasks() {
+            const monthlyListEl = document.getElementById('monthly-list');
+            monthlyListEl.innerHTML = '';
+
+            if (monthlyTasks.length === 0) {
+                monthlyListEl.innerHTML = '<p class="text-sm text-slate-500 text-center py-4">Henüz aylık bir hedef eklemediniz.</p>';
+            }
+
+            monthlyTasks.forEach(task => {
+                const isChecked = monthlyTaskStatus[task.id] ? 'checked' : '';
+                const isCompletedClass = monthlyTaskStatus[task.id] ? 'opacity-50 line-through text-slate-400' : 'text-slate-200';
+
+                const taskHtml = `
+                    <div class="flex items-start gap-3 p-3 bg-slate-800/30 hover:bg-slate-800/60 rounded-xl border border-slate-700/50 hover:border-slate-600 transition-all group relative">
+                        <input type="checkbox" class="mt-1 custom-checkbox w-5 h-5 shrink-0" id="monthly-task-${task.id}" ${isChecked} onchange="toggleMonthlyTask(${task.id})">
+                        <div class="flex-1 cursor-pointer pr-6" onclick="document.getElementById('monthly-task-${task.id}').click()">
+                            <h4 class="font-semibold ${isCompletedClass} transition-colors">${task.title}</h4>
+                            ${task.desc ? `<p class="text-xs text-slate-500 mt-1">${task.desc}</p>` : ''}
+                        </div>
+                        <button onclick="deleteTask(${task.id}, 'monthly')" title="Sil" class="opacity-0 group-hover:opacity-100 absolute right-3 top-3 text-slate-500 hover:text-red-400 transition-all">
+                            <i class="fa-solid fa-xmark fa-lg"></i>
+                        </button>
+                    </div>
+                `;
+                monthlyListEl.insertAdjacentHTML('beforeend', taskHtml);
+            });
+        }
+
+        // DURUM DEĞİŞTİRİCİLER (TOGGLE)
+        function toggleTask(id) {
+            const checkbox = document.getElementById(`task-${id}`);
+            taskStatus[id] = checkbox.checked;
+            localStorage.setItem('premiumDashboardStatus', JSON.stringify(taskStatus));
+            
+            const taskCard = checkbox.closest('.task-card');
+            if (checkbox.checked) taskCard.classList.add('completed');
+            else taskCard.classList.remove('completed');
+            
+            updateProgress();
+        }
+
+        function toggleMonthlyTask(id) {
+            const checkbox = document.getElementById(`monthly-task-${id}`);
+            monthlyTaskStatus[id] = checkbox.checked;
+            localStorage.setItem('premiumMonthlyStatus', JSON.stringify(monthlyTaskStatus));
+            renderMonthlyTasks();
+        }
+
+        // SVG Dairesel İlerleme Çubuğu Güncellemesi
+        function updateProgress() {
+            const total = tasks.length;
+            const completed = Object.values(taskStatus).filter(Boolean).length;
+            const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+            // Dairenin Çevresi (Circumference) = 2 * pi * r (r=54 -> ~339.292)
+            const circumference = 339.292;
+            const offset = circumference - (percentage / 100) * circumference;
+
+            const circle = document.getElementById('progress-circle');
+            circle.style.strokeDashoffset = offset;
+            
+            document.getElementById('progress-text').textContent = `${percentage}%`;
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            document.querySelectorAll('nav button').forEach(el => {
+                el.className = 'flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium text-slate-400 hover:text-white transition-all hover:bg-slate-800 border border-transparent whitespace-nowrap';
+            });
+            
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.className = 'flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium transition-all bg-blue-600/20 text-blue-400 border border-blue-500/30 whitespace-nowrap';
+        }
+
+        // --- MODAL VE EKLEME/SİLME İŞLEMLERİ ---
+        function openModal(type) {
+            document.getElementById('modal-type').value = type;
+            document.getElementById('modal-title').textContent = type === 'daily' ? 'Yeni Günlük Görev Ekle' : 'Yeni Aylık Hedef Ekle';
+            
+            // Saat girdisini sadece günlük görevlerde göster
+            document.getElementById('time-input-group').style.display = type === 'daily' ? 'block' : 'none';
+            
+            // İnputları temizle
+            document.getElementById('new-item-time').value = '';
+            document.getElementById('new-item-title').value = '';
+            document.getElementById('new-item-desc').value = '';
+
+            const modal = document.getElementById('add-modal');
+            const content = document.getElementById('add-modal-content');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Animasyon için küçük bir gecikme
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('add-modal');
+            const content = document.getElementById('add-modal-content');
+            
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+        }
+
+        function saveNewItem() {
+            const type = document.getElementById('modal-type').value;
+            const title = document.getElementById('new-item-title').value.trim();
+            const desc = document.getElementById('new-item-desc').value.trim();
+            const time = document.getElementById('new-item-time').value;
+
+            if(!title) {
+                alert("Lütfen bir başlık giriniz.");
+                return;
+            }
+
+            const newItem = {
+                id: Date.now(), // Benzersiz ID
+                title: title,
+                desc: desc
+            };
+
+            if(type === 'daily') {
+                newItem.time = time || ""; // Saat boş bırakılabilir
+                newItem.tag = "Kişisel";
+                newItem.tagColor = "text-blue-300 bg-blue-400/10 border-blue-400/20";
+                
+                tasks.push(newItem);
+                // Zamana göre sırala (Eğer saat girilmişse)
+                tasks.sort((a, b) => {
+                    if (!a.time) return 1;
+                    if (!b.time) return -1;
+                    return a.time.localeCompare(b.time);
+                });
+
+                localStorage.setItem('premiumTasks', JSON.stringify(tasks));
+                renderTasks();
+            } else {
+                monthlyTasks.push(newItem);
+                localStorage.setItem('premiumMonthlyTasks', JSON.stringify(monthlyTasks));
+                renderMonthlyTasks();
+            }
+
+            closeModal();
+        }
+
+        function deleteTask(id, type) {
+            if(!confirm("Bu görevi silmek istediğinize emin misiniz?")) return;
+
+            if(type === 'daily') {
+                tasks = tasks.filter(t => t.id !== id);
+                delete taskStatus[id];
+                localStorage.setItem('premiumTasks', JSON.stringify(tasks));
+                localStorage.setItem('premiumDashboardStatus', JSON.stringify(taskStatus));
+                renderTasks();
+            } else {
+                monthlyTasks = monthlyTasks.filter(t => t.id !== id);
+                delete monthlyTaskStatus[id];
+                localStorage.setItem('premiumMonthlyTasks', JSON.stringify(monthlyTasks));
+                localStorage.setItem('premiumMonthlyStatus', JSON.stringify(monthlyTaskStatus));
+                renderMonthlyTasks();
+            }
+        }
+
+        // Sayfa yüklendiğinde başlat
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+    </script>
 </body>
 </html>
