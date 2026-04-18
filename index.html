@@ -158,11 +158,18 @@ body::after {
   border-left: 2px solid var(--accent-emerald); padding-left: 12px; max-width: 500px;
 }
 
+.hero-targets-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+
 .hero-target {
-  display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 8px 16px;
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
   background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15);
   border-radius: var(--radius-md); font-size: 12px; font-weight: 600; color: var(--accent-emerald);
 }
+
+.sync-status {
+  background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: var(--accent-blue);
+}
+.sync-status.synced { color: var(--accent-emerald); border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.1); }
 
 /* PROGRESS RING */
 .progress-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 28px;}
@@ -422,10 +429,10 @@ body::after {
         <option value="physics">⚛️ Fizik</option>
         <option value="software">💻 Yazılım</option>
         <option value="english">🇬🇧 İngilizce</option>
-        <option value="break">🧘 Mola</option>
+        <option value="break">🧘 Mola & Spor</option>
         <option value="free">🎮 Serbest</option>
         <option value="personal">📚 Kişisel</option>
-        <option value="routine">☀️ Rutin</option>
+        <option value="routine">☀️ Rutin & Beslenme</option>
       </select>
     </div>
 
@@ -444,12 +451,20 @@ body::after {
     <div class="glass hero-main">
       <div class="hero-date" id="heroDate"></div>
       <div class="hero-greeting" id="heroGreeting">Merhaba! 👋</div>
-      <div class="hero-quote" id="heroQuote">"Disiplin, motivasyon bittiğinde devreye giren şeydir."</div>
-      <div class="hero-target">
-        <span>🇹🇷</span>
-        <i class="fa-solid fa-arrow-right" style="font-size:10px;opacity:0.5"></i>
-        <span>🇮🇹</span>
-        <span style="margin-left:4px">14 Ay Maratonu: CEnT-S, TIL-I & Yazılım</span>
+      <div class="hero-quote" id="heroQuote">"Senin en büyük engelin ayna değil, aynaya bakarken kafandan geçen düşünceler."</div>
+      
+      <div class="hero-targets-wrap">
+        <div class="hero-target">
+          <span>🇹🇷</span>
+          <i class="fa-solid fa-arrow-right" style="font-size:10px;opacity:0.5"></i>
+          <span>🇮🇹</span>
+          <span style="margin-left:4px">14 Ay: Sınav, Yazılım, Spor & Zihin</span>
+        </div>
+        <!-- BULUT SENKRONİZASYON DURUMU -->
+        <div class="hero-target sync-status" id="cloudSyncStatus">
+          <i class="fa-solid fa-cloud" id="syncIcon"></i>
+          <span id="syncText" style="margin-left:4px">Cihazlar Arası Senkronizasyon (Firebase)</span>
+        </div>
       </div>
     </div>
 
@@ -559,27 +574,27 @@ body::after {
           <div class="week-icon-wrap" style="background:rgba(59,130,246,0.1);color:var(--accent-blue)">
             <i class="fa-solid fa-calendar-day"></i>
           </div>
-          <div class="week-title">Pzt - Salı - Çarşamba</div>
+          <div class="week-title">Pzt - Çarşamba - Cuma</div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-calculator" style="color:var(--accent-red)"></i>
+          <i class="fa-solid fa-dumbbell" style="color:var(--accent-red)"></i>
           <div>
-            <div class="week-item-title">Ağır Matematik & Mantık</div>
-            <div class="week-item-desc">CEnT-S/TIL-I için yeni konu öğrenimi ve hemen ardından soru bankası eritme.</div>
+            <div class="week-item-title">Belediye Spor Salonu</div>
+            <div class="week-item-desc">Full Body antrenmanı, ağırlık makineleri ve kardiyo ile vücudu inşa et.</div>
           </div>
         </div>
         <div class="week-item">
           <i class="fa-brands fa-js" style="color:var(--accent-amber)"></i>
           <div>
-            <div class="week-item-title">Yazılım Temelleri</div>
-            <div class="week-item-desc">Web Dev kampı takibi, algoritmik düşünce pratiği.</div>
+            <div class="week-item-title">Yazılım Temelleri (40K Rotası)</div>
+            <div class="week-item-desc">JS Core / React ile projeler kodla. Algoritma pratiği yap.</div>
           </div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-language" style="color:var(--accent-indigo)"></i>
+          <i class="fa-solid fa-calculator" style="color:var(--accent-indigo)"></i>
           <div>
-            <div class="week-item-title">İngilizce (B2) Okuma</div>
-            <div class="week-item-desc">Anki ile teknik kelime ezberi ve 1 adet makale okuması.</div>
+            <div class="week-item-title">Ağır Matematik & Fizik</div>
+            <div class="week-item-desc">CEnT-S/TIL-I için yeni konu öğrenimi ve soru bankası eritme.</div>
           </div>
         </div>
       </div>
@@ -589,27 +604,27 @@ body::after {
           <div class="week-icon-wrap" style="background:rgba(249,115,22,0.1);color:var(--accent-orange)">
             <i class="fa-solid fa-calendar-days"></i>
           </div>
-          <div class="week-title">Perşembe - Cuma</div>
+          <div class="week-title">Salı - Perşembe</div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-atom" style="color:var(--accent-orange)"></i>
+          <i class="fa-solid fa-apple-whole" style="color:var(--accent-emerald)"></i>
           <div>
-            <div class="week-item-title">Fizik Kampı (Mekanik)</div>
-            <div class="week-item-desc">Konu anlatımı izleme, özet çıkarma ve formül kağıdı hazırlama.</div>
+            <div class="week-item-title">Dinlenme & Makro Takibi</div>
+            <div class="week-item-desc">Kasların onarımı için protein odaklı beslen, yürüyüş/esneme yap.</div>
           </div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-code" style="color:var(--accent-blue)"></i>
+          <i class="fa-solid fa-film" style="color:var(--accent-blue)"></i>
           <div>
-            <div class="week-item-title">Yazılım Proje Pratiği</div>
-            <div class="week-item-desc">Öğrenilenleri koda dökme, kişisel portföy için mini projeler.</div>
+            <div class="week-item-title">Dizi ile İngilizce (B2)</div>
+            <div class="week-item-desc">Alice in Borderland vb. dizilerle İngilizce altyazılı listening pratiği.</div>
           </div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-headphones" style="color:var(--accent-indigo)"></i>
+          <i class="fa-solid fa-brain" style="color:var(--accent-purple)"></i>
           <div>
-            <div class="week-item-title">İngilizce Dinleme</div>
-            <div class="week-item-desc">Podcast veya altyazısız dizi ile listening pratiği.</div>
+            <div class="week-item-title">Zihinsel Gelişim & Terapi</div>
+            <div class="week-item-desc">Aynayla barışma, psikolojik farkındalık ve terapi/okuma süreci.</div>
           </div>
         </div>
       </div>
@@ -629,10 +644,10 @@ body::after {
           </div>
         </div>
         <div class="week-item">
-          <i class="fa-solid fa-graduation-cap" style="color:var(--accent-teal)"></i>
+          <i class="fa-solid fa-users" style="color:var(--accent-teal)"></i>
           <div>
-            <div class="week-item-title">ANKUZEF & Akademi</div>
-            <div class="week-item-desc">Bilgisayar / Bahçe Bitkileri vizeleri için modül okumaları.</div>
+            <div class="week-item-title">Sosyal Ortam & Özgüven</div>
+            <div class="week-item-desc">Dışarı çık, yeni insanlarla iletişim kur, çekingenliği kırma adımları at.</div>
           </div>
         </div>
         <div class="week-item">
@@ -680,14 +695,15 @@ body::after {
             <div class="tl-dot pulse" style="background:var(--accent-blue);border-color:var(--bg-void)"></div>
             <div class="tl-card">
               <div class="tl-head">
-                <div class="tl-title" style="color:#93c5fd"><i class="fa-solid fa-layer-group"></i> Faz 1: Temel İnşaası</div>
+                <div class="tl-title" style="color:#93c5fd"><i class="fa-solid fa-layer-group"></i> Faz 1: Temel & Adaptasyon</div>
                 <span class="tl-badge" style="color:#93c5fd;background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.2)">Ay 1-4</span>
               </div>
-              <div class="tl-desc">Erken deneme çözmek yok. Sınavlara daha çok var, temeli kaya gibi sağlamlaştırma zamanı.</div>
+              <div class="tl-desc">Erken deneme çözmek yok. Sınavlara daha çok var. Spor salonuna adapte ol, temelleri kaya gibi sağlamlaştır, sosyalleşmeye başla.</div>
               <div class="tl-tags">
                 <span class="tl-tag">Matematik: Cebir, Fonksiyonlar, Logaritma</span>
                 <span class="tl-tag">Fizik: Mekanik, Kinematik, Dinamik</span>
-                <span class="tl-tag">Yazılım: JS Core, React Temelleri, Mayıs Workshop</span>
+                <span class="tl-tag">Yazılım: JS Core, React, Mayıs Workshop</span>
+                <span class="tl-tag">Gelişim: Spor Salonu Alışkanlığı & Özgüven</span>
               </div>
             </div>
           </div>
@@ -699,7 +715,7 @@ body::after {
                 <div class="tl-title" style="color:#fdba74"><i class="fa-solid fa-bolt"></i> Faz 2: Derinleşme & Hız</div>
                 <span class="tl-badge" style="color:#fdba74;background:rgba(249,115,22,0.1);border-color:rgba(249,115,22,0.2)">Ay 5-8</span>
               </div>
-              <div class="tl-desc">Matematik ve Fizik'te ağır konulara geçiş. İtalya Mantık soru tiplerini kavramaya başlama.</div>
+              <div class="tl-desc">Matematik ve Fizik'te ağır konulara geçiş. İtalya Mantık sorularını kavrama. Beslenme (Makro) düzenini optimize etme.</div>
               <div class="tl-tags">
                 <span class="tl-tag">Matematik: Türev, İntegral, Trigonometri</span>
                 <span class="tl-tag">Fizik: Elektrik, Manyetizma, Optik</span>
@@ -716,12 +732,12 @@ body::after {
                 <div class="tl-title" style="color:#c4b5fd"><i class="fa-solid fa-crosshairs"></i> Faz 3: Pratik & Proje Dönemi</div>
                 <span class="tl-badge" style="color:#c4b5fd;background:rgba(168,85,247,0.1);border-color:rgba(168,85,247,0.2)">Ay 9-12</span>
               </div>
-              <div class="tl-desc">Konular bitti. Artık soru bankalarını eritme ve CEnT-S / TIL-I çıkmış sorularını çözme zamanı.</div>
+              <div class="tl-desc">Konular bitti. Soru bankalarını eritme ve çıkmış sorular. 3 dili (TR, EN, IT) aktif kullanma. Full-Stack portföy bitişi.</div>
               <div class="tl-tags">
                 <span class="tl-tag">CEnT-S Konu Bazlı Denemeler</span>
                 <span class="tl-tag">TIL-I Formatına Alışma</span>
-                <span class="tl-tag">İngilizce B2 Seviyesini Sabitleme</span>
-                <span class="tl-tag">Yazılım: Full-Stack Portföy Projeleri</span>
+                <span class="tl-tag">İngilizce B2 & İtalyanca Temeli</span>
+                <span class="tl-tag">Yazılım: Full-Stack Portföy (40K Rotası)</span>
               </div>
             </div>
           </div>
@@ -730,14 +746,14 @@ body::after {
             <div class="tl-dot" style="background:var(--accent-emerald);border-color:var(--bg-void)"></div>
             <div class="tl-card">
               <div class="tl-head">
-                <div class="tl-title" style="color:#6ee7b7"><i class="fa-solid fa-plane-departure"></i> Faz 4: Final Hazırlık & İtalya</div>
+                <div class="tl-title" style="color:#6ee7b7"><i class="fa-solid fa-plane-departure"></i> Faz 4: Zirve & İtalya</div>
                 <span class="tl-badge" style="color:#6ee7b7;background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.2)">Ay 13-14</span>
               </div>
-              <div class="tl-desc">Sınav provaları, süre yönetimi ve Politecnico di Torino / İtalya üniversiteleri başvuru süreçleri.</div>
+              <div class="tl-desc">Fiziksel ve zihinsel zirve form ("O çekingen çocuk artık yok"). İtalya üniversite başvuruları, gerçek süreli sınav provaları ve iş başvuruları.</div>
               <div class="tl-tags">
                 <span class="tl-tag">Gerçek Süreli Genel Denemeler</span>
                 <span class="tl-tag">Üniversite Evrak / Başvuru Süreci</span>
-                <span class="tl-tag">Yazılım Kariyeri (Freelance/Staj Adımları)</span>
+                <span class="tl-tag">Yazılım: Freelance/Staj/İş Adımları</span>
               </div>
             </div>
           </div>
@@ -755,6 +771,9 @@ body::after {
   <i class="fa-solid fa-plus"></i>
 </button>
 
+<!-- ═══════════════════════════════════════════
+     APP UI & LOGIC JAVASCRIPT
+     ═══════════════════════════════════════════ -->
 <script>
 // ═══════════════════════════════
 // SES EFEKTİ & KONFETİ (DOPAMİN)
@@ -772,7 +791,6 @@ function playSuccessSound() {
     osc.connect(gainNode);
     gainNode.connect(audioCtx.destination);
     
-    // Tatmin edici ince "Ding" sesi (Pop/Coin efekti)
     osc.type = 'sine';
     osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
     osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.1);
@@ -790,41 +808,42 @@ function fireConfetti(element) {
     const x = (rect.left + (rect.width / 2)) / window.innerWidth;
     const y = (rect.top + (rect.height / 2)) / window.innerHeight;
     
-    confetti({
-        particleCount: 70,
-        spread: 80,
-        origin: { x: x, y: y },
-        colors: ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6'],
-        disableForReducedMotion: true,
-        zIndex: 100,
-        scalar: 0.9
-    });
+    if (typeof confetti !== 'undefined') {
+        confetti({
+            particleCount: 70,
+            spread: 80,
+            origin: { x: x, y: y },
+            colors: ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6'],
+            disableForReducedMotion: true,
+            zIndex: 100,
+            scalar: 0.9
+        });
+    }
 }
 
 // ═══════════════════════════════
-// DATA (14 Aylık Vizyona Uygun)
+// DEFAULTS
 // ═══════════════════════════════
 const DEFAULTS = [
-  { id:'t1', time:'08:00', name:'Güne Başlangıç', desc:'Kahvaltı, kedilerin bakımı ve zihni açma.', cat:'routine', icon:'fa-mug-saucer', color:'var(--accent-amber)', bg:'rgba(245,158,11,0.1)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' },
-  { id:'t2', time:'08:30', name:'Matematik & Mantık', desc:'CEnT-S ve TIL-I için sağlam temel. Konu çalışması ve soru çözümü.', cat:'math', icon:'fa-calculator', color:'var(--accent-red)', bg:'rgba(239,68,68,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
-  { id:'t3', time:'10:30', name:'Mola & Esneme', desc:'Ekrandan uzaklaş, hafif esneme hareketleri ve nefes.', cat:'break', icon:'fa-spa', color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)', tag:'Sağlık', tagBg:'rgba(16,185,129,0.1)', tagBorder:'rgba(16,185,129,0.2)', tagColor:'#6ee7b7' },
-  { id:'t4', time:'11:00', name:'Fizik Temelleri', desc:'Mekanik/Kinematik konu anlatımı ve formül kağıdı çıkarma.', cat:'physics', icon:'fa-atom', color:'var(--accent-orange)', bg:'rgba(249,115,22,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
-  { id:'t5', time:'13:00', name:'Öğle Arası', desc:'Yemek ve Segway ile kısa açık hava turu.', cat:'break', icon:'fa-utensils', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Deşarj', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
-  { id:'t6', time:'14:00', name:'Yazılım Geliştirme', desc:'Web dev kampı, JavaScript/React pratikleri.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd' },
-  { id:'t7', time:'16:30', name:'İngilizce Sürekliliği', desc:'B2 seviyesini korumak için teknik okuma, dinleme ve Anki.', cat:'english', icon:'fa-language', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc' },
-  { id:'t8', time:'18:00', name:'Üniversite & Kurslar', desc:'Bahçe bitkileri veya ANKUZEF uzaktan eğitim modülleri.', cat:'personal', icon:'fa-graduation-cap', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Akademi', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4' },
-  { id:'t9', time:'19:30', name:'Akşam Yemeği', desc:'Aile ile vakit geçirme ve günün değerlendirmesi.', cat:'routine', icon:'fa-house', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Sosyal', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
-  { id:'t10', time:'20:30', name:'Oyun & Eğlence', desc:'Elden Ring, CS2 veya Ghost of Tsushima.', cat:'free', icon:'fa-gamepad', color:'var(--accent-purple)', bg:'rgba(139,92,246,0.1)', tag:'Ödül', tagBg:'rgba(139,92,246,0.1)', tagBorder:'rgba(139,92,246,0.2)', tagColor:'#c4b5fd' },
-  { id:'t11', time:'22:30', name:'Kişisel Okuma', desc:'Davranışsal psikoloji – Atomik Alışkanlıklar vb.', cat:'personal', icon:'fa-book-open', color:'var(--accent-cyan)', bg:'rgba(6,182,212,0.1)', tag:'Gelişim', tagBg:'rgba(6,182,212,0.1)', tagBorder:'rgba(6,182,212,0.2)', tagColor:'#67e8f9' },
-  { id:'t12', time:'23:15', name:'Kapanış & Planlama', desc:'Yarının planını oluştur ve uyku hazırlığı.', cat:'routine', icon:'fa-moon', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.08)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' }
+  { id:'t1', time:'08:00', name:'Güne Başlangıç & Beslenme', desc:'Protein ağırlıklı kahvaltı, makro (Karb/Yağ) takibi.', cat:'routine', icon:'fa-mug-saucer', color:'var(--accent-amber)', bg:'rgba(245,158,11,0.1)', tag:'Beslenme', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' },
+  { id:'t2', time:'08:30', name:'Matematik & Mantık', desc:'CEnT-S/TIL-I için sağlam temel. Konu çalışması ve soru.', cat:'math', icon:'fa-calculator', color:'var(--accent-red)', bg:'rgba(239,68,68,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
+  { id:'t3', time:'10:30', name:'Fizik Temelleri', desc:'Mekanik/Kinematik konu anlatımı ve formül kağıdı çıkarma.', cat:'physics', icon:'fa-atom', color:'var(--accent-orange)', bg:'rgba(249,115,22,0.1)', tag:'Sınav', tagBg:'rgba(239,68,68,0.1)', tagBorder:'rgba(239,68,68,0.2)', tagColor:'#fca5a5' },
+  { id:'t4', time:'12:30', name:'Belediye Spor Salonu', desc:'Full Body Antrenman. Ağırlık makineleri ve Kardiyo.', cat:'break', icon:'fa-dumbbell', color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)', tag:'Spor', tagBg:'rgba(16,185,129,0.1)', tagBorder:'rgba(16,185,129,0.2)', tagColor:'#6ee7b7' },
+  { id:'t5', time:'14:30', name:'Öğle Arası & Onarım', desc:'Proteinli beslenme (Tavuk/Yumurta) ve kas onarımı.', cat:'routine', icon:'fa-utensils', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Beslenme', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
+  { id:'t6', time:'15:30', name:'Yazılım (40K Rotası)', desc:'Web dev kampı JS/React, proje portföy adımları.', cat:'software', icon:'fa-code', color:'var(--accent-blue)', bg:'rgba(59,130,246,0.1)', tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)', tagBorder:'rgba(59,130,246,0.2)', tagColor:'#93c5fd' },
+  { id:'t7', time:'18:00', name:'Kişisel & Sosyal Gelişim', desc:'Çekingenliği kırmak için dışarı çık, insanlarla konuş, terapi.', cat:'personal', icon:'fa-brain', color:'var(--accent-teal)', bg:'rgba(20,184,166,0.1)', tag:'Zihin', tagBg:'rgba(20,184,166,0.1)', tagBorder:'rgba(20,184,166,0.2)', tagColor:'#5eead4' },
+  { id:'t8', time:'19:30', name:'Akşam Yemeği', desc:'Günlük makro hedeflerini tamamla, aile ile vakit.', cat:'routine', icon:'fa-house', color:'var(--text-300)', bg:'rgba(148,163,184,0.08)', tag:'Sosyal', tagBg:'rgba(148,163,184,0.08)', tagBorder:'rgba(148,163,184,0.15)', tagColor:'#94a3b8' },
+  { id:'t9', time:'20:30', name:'Dizi ile İngilizce (B2)', desc:'Alice in Borderland vb. diziler ile yabancı dil listening.', cat:'english', icon:'fa-film', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.1)', tag:'Dil', tagBg:'rgba(99,102,241,0.1)', tagBorder:'rgba(99,102,241,0.2)', tagColor:'#a5b4fc' },
+  { id:'t10', time:'22:00', name:'Oyun & Deşarj', desc:'Elden Ring, CS2 veya Ghost of Tsushima oyna.', cat:'free', icon:'fa-gamepad', color:'var(--accent-purple)', bg:'rgba(139,92,246,0.1)', tag:'Ödül', tagBg:'rgba(139,92,246,0.1)', tagBorder:'rgba(139,92,246,0.2)', tagColor:'#c4b5fd' },
+  { id:'t11', time:'23:15', name:'Kapanış & Planlama', desc:'Yarının planını oluştur ve uyku hazırlığı.', cat:'routine', icon:'fa-moon', color:'var(--accent-indigo)', bg:'rgba(99,102,241,0.08)', tag:'Rutin', tagBg:'rgba(245,158,11,0.1)', tagBorder:'rgba(245,158,11,0.2)', tagColor:'#fcd34d' }
 ];
 
 const DEFAULT_MONTHLY = [
   { id:'m1', name:'Matematik Temelleri (Faz 1)', desc:'Cebir, Üslü Sayılar, Kök, Fonksiyonlar konularını sular seller gibi bitir.' },
   { id:'m2', name:'Fizik Mekanik (Faz 1)', desc:'Hareket, Dinamik, İş/Enerji konularının özetini çıkar, soru bankasından erit.' },
   { id:'m3', name:'Mayıs AI Workshop Hazırlığı', desc:'JavaScript Core modüllerini tamamla, React component mantığını oturt.' },
-  { id:'m4', name:'İngilizce B2 Sabitleme', desc:'Haftada 3 gün yabancı kaynak oku, Anki ile kelime tekrarı yap.' },
-  { id:'m5', name:'ANKUZEF Vize Çalışması', desc:'Güncel Bilgisayar ve Bahçe Bitkileri modüllerinin PDF özetlerini çıkar.' }
+  { id:'m4', name:'Fitness & Beslenme Adaptasyonu', desc:'Haftada 3 gün Full Body yap. Protein/Karb/Yağ dengesine vücudu alıştır.' },
+  { id:'m5', name:'İngilizce B2 & Sosyal Fobi', desc:'Haftada 3 gün yabancı kaynak/dizi. İnsanlarla iletişim kurma pratiği yap.' }
 ];
 
 const QUOTES = [
@@ -842,14 +861,14 @@ const CAT_META = {
   physics:  { icon:'fa-atom',       color:'var(--accent-orange)',  bg:'rgba(249,115,22,0.1)',  tag:'Sınav',   tagBg:'rgba(249,115,22,0.1)',  tagBorder:'rgba(249,115,22,0.2)',  tagColor:'#fdba74' },
   software: { icon:'fa-code',       color:'var(--accent-blue)',    bg:'rgba(59,130,246,0.1)',  tag:'Kariyer', tagBg:'rgba(59,130,246,0.1)',  tagBorder:'rgba(59,130,246,0.2)',  tagColor:'#93c5fd' },
   english:  { icon:'fa-language',   color:'var(--accent-indigo)',  bg:'rgba(99,102,241,0.1)',  tag:'Dil',     tagBg:'rgba(99,102,241,0.1)',  tagBorder:'rgba(99,102,241,0.2)',  tagColor:'#a5b4fc' },
-  break:    { icon:'fa-spa',        color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)',  tag:'Mola',    tagBg:'rgba(16,185,129,0.1)',  tagBorder:'rgba(16,185,129,0.2)',  tagColor:'#6ee7b7' },
+  break:    { icon:'fa-dumbbell',   color:'var(--accent-emerald)', bg:'rgba(16,185,129,0.1)',  tag:'Spor',    tagBg:'rgba(16,185,129,0.1)',  tagBorder:'rgba(16,185,129,0.2)',  tagColor:'#6ee7b7' },
   free:     { icon:'fa-gamepad',    color:'var(--accent-purple)',  bg:'rgba(139,92,246,0.1)',  tag:'Serbest', tagBg:'rgba(139,92,246,0.1)',  tagBorder:'rgba(139,92,246,0.2)',  tagColor:'#c4b5fd' },
-  personal: { icon:'fa-book-open',  color:'var(--accent-cyan)',    bg:'rgba(6,182,212,0.1)',   tag:'Kişisel', tagBg:'rgba(6,182,212,0.1)',   tagBorder:'rgba(6,182,212,0.2)',   tagColor:'#67e8f9' },
+  personal: { icon:'fa-brain',      color:'var(--accent-cyan)',    bg:'rgba(6,182,212,0.1)',   tag:'Kişisel', tagBg:'rgba(6,182,212,0.1)',   tagBorder:'rgba(6,182,212,0.2)',   tagColor:'#67e8f9' },
   routine:  { icon:'fa-mug-saucer', color:'var(--accent-amber)',   bg:'rgba(245,158,11,0.1)',  tag:'Rutin',   tagBg:'rgba(245,158,11,0.1)',  tagBorder:'rgba(245,158,11,0.2)',  tagColor:'#fcd34d' }
 };
 
 // ═══════════════════════════════
-// STATE & AUTO RESET
+// STATE & LOCAL STORAGE
 // ═══════════════════════════════
 const todayKey = () => new Date().toISOString().split('T')[0];
 const storageKey = (k) => `ultra_${k}`;
@@ -858,19 +877,51 @@ function load(key, fallback) {
   try { const d = localStorage.getItem(storageKey(key)); return d ? JSON.parse(d) : fallback; }
   catch { return fallback; }
 }
-function save(key, data) { localStorage.setItem(storageKey(key), JSON.stringify(data)); }
+function saveLocal(key, data) { localStorage.setItem(storageKey(key), JSON.stringify(data)); }
 
 // Gün Dönümü Otomatik Sıfırlama
 let lastDate = load('lastDate', '');
 if (lastDate !== todayKey()) {
-  save('dailyStatus', {}); 
-  save('lastDate', todayKey()); 
+  saveLocal('dailyStatus', {}); 
+  saveLocal('lastDate', todayKey()); 
 }
 
-let dailyTasks = load('dailyTasks', DEFAULTS);
-let dailyStatus = load('dailyStatus', {});
-let monthlyTasks = load('monthlyTasks', DEFAULT_MONTHLY);
-let monthlyStatus = load('monthlyStatus', {});
+var dailyTasks = load('dailyTasks', DEFAULTS);
+var dailyStatus = load('dailyStatus', {});
+var monthlyTasks = load('monthlyTasks', DEFAULT_MONTHLY);
+var monthlyStatus = load('monthlyStatus', {});
+
+function updateSyncStatus(text, success = false) {
+    const el = document.getElementById('cloudSyncStatus');
+    const icon = document.getElementById('syncIcon');
+    const txt = document.getElementById('syncText');
+    if(!el) return;
+    
+    txt.textContent = text;
+    if(success) {
+        el.classList.add('synced');
+        icon.className = 'fa-solid fa-cloud-check';
+    } else {
+        el.classList.remove('synced');
+        icon.className = 'fa-solid fa-cloud-arrow-up';
+    }
+}
+
+function saveLocalFallback() {
+    saveLocal('dailyTasks', dailyTasks);
+    saveLocal('monthlyTasks', monthlyTasks);
+    saveLocal('dailyStatus', dailyStatus);
+    saveLocal('monthlyStatus', monthlyStatus);
+    saveLocal('lastDate', todayKey());
+}
+
+function triggerSave() {
+    if (typeof window.firebaseSaveToCloud === 'function') {
+        window.firebaseSaveToCloud();
+    } else {
+        saveLocalFallback();
+    }
+}
 
 // ═══════════════════════════════
 // POMODORO
@@ -910,7 +961,7 @@ function togglePomo() {
         pomoState.running = false;
         pomoState.sessions = Math.min(pomoState.sessions + 1, 4);
         
-        if (Notification.permission === 'granted') {
+        if ('Notification' in window && Notification.permission === 'granted') {
           new Notification('🍅 Pomodoro Tamamlandı!', { body: `${pomoState.sessions}/4 odak seansı bitti. Mola zamanı!` });
         }
         
@@ -1003,44 +1054,39 @@ function updateStats() {
   // --- STREAK HESAPLAMA ---
   let streak = 0;
   const d = new Date();
-  d.setDate(d.getDate() - 1); // Dünden geriye say
+  d.setDate(d.getDate() - 1); 
   while(true) {
     const key = d.toISOString().split('T')[0];
-    const s = load(`streak_${key}`, null);
-    if (s === true) { streak++; d.setDate(d.getDate() - 1); }
+    const s = localStorage.getItem(`streak_${key}`);
+    if (s === "true") { streak++; d.setDate(d.getDate() - 1); }
     else break;
   }
   
-  if (pct === 100) streak++; // Bugün de tamsa ekle
-  if (pct === 100) save(`streak_${todayKey()}`, true); // Bugünü kaydet
+  if (pct === 100) streak++; 
+  if (pct === 100) localStorage.setItem(`streak_${todayKey()}`, "true"); 
   
   const streakNumEl = document.getElementById('statStreak');
   streakNumEl.textContent = streak;
   
-  // --- STREAK RENK/ALEV ANİMASYONLARI (DOPAMİN) ---
   const streakWrap = document.getElementById('streakIconWrap');
   const streakIcon = document.getElementById('streakIcon');
   const streakLabel = document.getElementById('statStreakLabel');
   
-  // Sınıfları temizle
   streakIcon.className = 'fa-solid fa-fire-flame-curved';
   streakWrap.style.background = 'rgba(245,158,11,0.1)';
   streakNumEl.style.color = 'var(--accent-amber)';
   
   if(streak > 30) {
-      // Epik Seviye
       streakIcon.classList.add('streak-epic');
-      streakWrap.style.background = 'rgba(139,92,246,0.15)'; // Mor arkaplan
+      streakWrap.style.background = 'rgba(139,92,246,0.15)'; 
       streakNumEl.style.color = 'var(--accent-purple)';
       streakLabel.textContent = "🔥 Epik Seri 🔥";
   } else if (streak > 7) {
-      // Ateşli Seviye
       streakIcon.classList.add('streak-hot');
-      streakWrap.style.background = 'rgba(6,182,212,0.15)'; // Mavi/Cyan arkaplan
+      streakWrap.style.background = 'rgba(6,182,212,0.15)'; 
       streakNumEl.style.color = 'var(--accent-cyan)';
       streakLabel.textContent = "Mükemmel Seri";
   } else if(streak > 0 || pct === 100) {
-      // Başlangıç Serisi
       streakIcon.classList.add('streak-active');
       streakLabel.textContent = "Gün Serisi";
   } else {
@@ -1053,6 +1099,7 @@ function updateStats() {
 // ═══════════════════════════════
 function renderDaily() {
   const el = document.getElementById('dailyList');
+  if(!el) return;
   el.innerHTML = '';
 
   const sections = [
@@ -1113,7 +1160,7 @@ function toggleDaily(id, e) {
 
     const isChecked = cb.checked;
     dailyStatus[id] = isChecked;
-    save('dailyStatus', dailyStatus);
+    triggerSave();
 
     if (isChecked) {
         playSuccessSound();
@@ -1137,8 +1184,7 @@ function deleteDaily(id) {
   if (!confirm('Bu görevi silmek istediğine emin misin?')) return;
   dailyTasks = dailyTasks.filter(t => t.id !== id);
   delete dailyStatus[id];
-  save('dailyTasks', dailyTasks);
-  save('dailyStatus', dailyStatus);
+  triggerSave();
   renderDaily();
 }
 
@@ -1147,6 +1193,7 @@ function deleteDaily(id) {
 // ═══════════════════════════════
 function renderMonthly() {
   const el = document.getElementById('monthlyList');
+  if(!el) return;
   
   if (!monthlyTasks.length) {
     el.innerHTML = '<p style="text-align:center;color:var(--text-500);font-size:13px;padding:24px 0">Henüz aylık bir hedef eklemediniz.</p>';
@@ -1176,7 +1223,7 @@ function toggleMonthly(id) {
     const card = document.getElementById(`mcard-${id}`);
     
     monthlyStatus[id] = cb.checked;
-    save('monthlyStatus', monthlyStatus);
+    triggerSave();
     
     if (cb.checked) {
         playSuccessSound();
@@ -1191,13 +1238,18 @@ function deleteMonthly(id) {
   if (!confirm('Bu hedefi silmek istediğine emin misin?')) return;
   monthlyTasks = monthlyTasks.filter(t => t.id !== id);
   delete monthlyStatus[id];
-  save('monthlyTasks', monthlyTasks);
-  save('monthlyStatus', monthlyStatus);
+  triggerSave();
   renderMonthly();
 }
 
+function renderAll() {
+    renderHeader();
+    renderDaily();
+    renderMonthly();
+}
+
 // ═══════════════════════════════
-// TAB SWITCHING
+// UI & MODAL ACTIONS
 // ═══════════════════════════════
 function switchTab(tab, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -1206,9 +1258,6 @@ function switchTab(tab, btn) {
   btn.classList.add('active');
 }
 
-// ═══════════════════════════════
-// MODAL
-// ═══════════════════════════════
 function openModal(type) {
   const modal = document.getElementById('modal');
   document.getElementById('modalType').value = type;
@@ -1218,17 +1267,12 @@ function openModal(type) {
   document.getElementById('modalName').value = '';
   document.getElementById('modalDesc').value = '';
   document.getElementById('modalTime').value = '08:00';
-  
   modal.classList.add('show');
 }
 
 function closeModal() {
   document.getElementById('modal').classList.remove('show');
 }
-
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
 
 function saveFromModal() {
   const type = document.getElementById('modalType').value;
@@ -1263,18 +1307,13 @@ function saveFromModal() {
       if (!b.time) return -1;
       return a.time.localeCompare(b.time);
     });
-    save('dailyTasks', dailyTasks);
+    triggerSave();
     renderDaily();
   } else {
-    monthlyTasks.push({
-      id: 'm_' + Date.now(),
-      name: name,
-      desc: desc
-    });
-    save('monthlyTasks', monthlyTasks);
+    monthlyTasks.push({ id: 'm_' + Date.now(), name: name, desc: desc });
+    triggerSave();
     renderMonthly();
   }
-
   closeModal();
 }
 
@@ -1285,17 +1324,111 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ═══════════════════════════════
-// INIT
-// ═══════════════════════════════
-function init() {
-  renderHeader();
-  renderDaily();
-  renderMonthly();
-  updatePomoDisplay();
+// Sayfa yüklendiğinde lokal verilerle render et (Firebase yetişene kadar bekletmez)
+document.addEventListener('DOMContentLoaded', () => {
+    renderAll();
+    updatePomoDisplay();
+});
+</script>
+
+<!-- ═══════════════════════════════════════════
+     FIREBASE CLOUD SYNC (MODULE SCRIPT)
+     ═══════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+let db, auth, user, appId;
+
+// UI scriptinin tetikleyeceği bulut kaydetme fonksiyonu
+window.firebaseSaveToCloud = async function() {
+    if (!user || !db) {
+        saveLocalFallback();
+        return;
+    }
+    updateSyncStatus("Kaydediliyor...", false);
+    const docRef = doc(db, 'artifacts', appId, 'users', user.uid, 'dashboardData', 'main');
+    try {
+        await setDoc(docRef, {
+            dailyTasks: window.dailyTasks,
+            monthlyTasks: window.monthlyTasks,
+            dailyStatus: window.dailyStatus,
+            monthlyStatus: window.monthlyStatus,
+            lastDate: todayKey()
+        }, { merge: true });
+        updateSyncStatus("Bulut ile Senkronize", true);
+    } catch(e) {
+        console.error("Save error: ", e);
+        updateSyncStatus("Kayıt Başarısız", false);
+    }
+};
+
+async function initFirebase() {
+    try {
+        const fbConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+        if (!fbConfigStr) throw new Error("Firebase config not found.");
+        
+        const firebaseConfig = JSON.parse(fbConfigStr);
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+        appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+            await signInAnonymously(auth);
+        }
+
+        onAuthStateChanged(auth, (u) => {
+            if (u) {
+                user = u;
+                setupRealtimeSync();
+            }
+        });
+    } catch(e) {
+        console.warn("Bulut bağlantısı kurulamadı. Yerel hafıza kullanılıyor.", e);
+        updateSyncStatus("Yerel Hafıza", false);
+    }
 }
 
-document.addEventListener('DOMContentLoaded', init);
+function setupRealtimeSync() {
+    if(!user || !db) return;
+    const docRef = doc(db, 'artifacts', appId, 'users', user.uid, 'dashboardData', 'main');
+    
+    onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            
+            // Global değişkenleri güncelle
+            window.dailyTasks = data.dailyTasks || window.dailyTasks;
+            window.monthlyTasks = data.monthlyTasks || window.monthlyTasks;
+            
+            // Otomatik Gün Sıfırlama Kontrolü (Cloud üzerinden)
+            if (data.lastDate !== todayKey()) {
+                window.dailyStatus = {}; // Yeni gün, tikleri temizle
+                window.firebaseSaveToCloud(); // Bulutu anında güncelle
+            } else {
+                window.dailyStatus = data.dailyStatus || {};
+            }
+            window.monthlyStatus = data.monthlyStatus || {};
+            updateSyncStatus("Bulut ile Senkronize", true);
+        } else {
+            // İlk giriş, veritabanını oluştur
+            window.firebaseSaveToCloud();
+        }
+        
+        // Arayüzü tazele
+        if (typeof renderAll === 'function') renderAll();
+    }, (error) => {
+        console.error("Sync error: ", error);
+        updateSyncStatus("Bağlantı Hatası", false);
+    });
+}
+
+// Modül yüklenince Firebase'i başlat
+initFirebase();
 </script>
 </body>
 </html>
