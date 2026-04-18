@@ -1,1086 +1,1106 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 İlk Çeyreği: 85.000 TL Bütçe Dizüstü Bilgisayar Laboratuvarı</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Application Structure Plan: Ultra-detailed Dashboard SPA. Uses a sticky sidebar for navigation. The main content area features a tabbed interface (Gaming, AI, Display, Build, Risks) with dynamically injected, highly structured grid content. Every single hardware micro-detail (ports, WiFi chip, thermal paste, key travel, nits, PD wattage) is mapped into visually distinct, minimal metric cards. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. ONLY UNICODE ICONS AND CANVAS. -->
-    <style>
-        .chart-container { position: relative; width: 100%; max-width: 450px; margin: 0 auto; height: 320px; max-height: 400px; }
-        @media (min-width: 1024px) { .chart-container { height: 380px; } }
-        
-        /* Modern Scrollbars */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 Başarı Planlayıcısı</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-        .glass-panel { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); }
-        
-        /* Animations */
-        .tab-content { display: none; animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .tab-content.active { display: block; }
-        
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #1a1a2e;
+    --bg-card-hover: #1f1f35;
+    --accent-blue: #4361ee;
+    --accent-purple: #7209b7;
+    --accent-pink: #f72585;
+    --accent-green: #06d6a0;
+    --accent-orange: #fb8500;
+    --accent-yellow: #ffbe0b;
+    --accent-red: #ef233c;
+    --accent-cyan: #00b4d8;
+    --text-primary: #e8e8f0;
+    --text-secondary: #8888a0;
+    --text-muted: #55556a;
+    --border: #2a2a40;
+    --glass: rgba(255,255,255,0.03);
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
 
-        .micro-card {
-            transition: all 0.25s ease;
-            border: 1px solid #e2e8f0;
-        }
-        .micro-card:hover {
-            border-color: #c7d2fe;
-            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        .detail-badge {
-            display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-        }
-    </style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 50%, rgba(67,97,238,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(114,9,183,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(247,37,133,0.04) 0%, transparent 50%);
+    z-index: -1;
+    animation: bgShift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgShift {
+    0% { transform: translate(0,0) rotate(0deg); }
+    100% { transform: translate(-2%,-2%) rotate(3deg); }
+  }
+
+  .app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    position: relative;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(67,97,238,0.15), rgba(114,9,183,0.15));
+    border: 1px solid rgba(67,97,238,0.3);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #4361ee, #7209b7, #f72585);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .header p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .header .flag-row {
+    margin-top: 12px;
+    font-size: 24px;
+    letter-spacing: 8px;
+  }
+
+  /* TABS */
+  .tab-container {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 30px 0 24px;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 6px;
+    border: 1px solid var(--border);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .tab-btn:hover { color: var(--text-primary); }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(67,97,238,0.4);
+  }
+
+  .tab-btn .tab-icon { margin-right: 6px; }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-blue);
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .stat-card:nth-child(1)::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)); }
+  .stat-card:nth-child(2)::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow)); }
+  .stat-card:nth-child(3)::before { background: linear-gradient(90deg, var(--accent-orange), var(--accent-red)); }
+  .stat-card:nth-child(4)::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); }
+
+  .stat-icon { font-size: 28px; margin-bottom: 8px; }
+  .stat-value { font-size: 28px; font-weight: 800; margin-bottom: 2px; }
+  .stat-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+  /* PROGRESS BAR */
+  .progress-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .progress-title { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+  .progress-percent { font-size: 20px; font-weight: 800; }
+
+  .progress-bar-bg {
+    width: 100%;
+    height: 12px;
+    background: var(--bg-primary);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+    transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+  }
+
+  .progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* MOTIVATION QUOTE */
+  .quote-box {
+    background: linear-gradient(135deg, rgba(67,97,238,0.1), rgba(114,9,183,0.1));
+    border: 1px solid rgba(67,97,238,0.2);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .quote-icon { font-size: 32px; flex-shrink: 0; }
+
+  .quote-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* TASK LIST */
+  .task-section {
+    margin-bottom: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-left: 4px;
+  }
+
+  .section-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .task-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .task-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateX(4px);
+    border-color: rgba(67,97,238,0.3);
+  }
+
+  .task-card.completed {
+    opacity: 0.5;
+    background: rgba(6,214,160,0.03);
+    border-color: rgba(6,214,160,0.15);
+  }
+
+  .task-card.completed .task-name { text-decoration: line-through; }
+
+  .task-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+  }
+
+  .task-card[data-cat="math"]::before { background: var(--accent-red); }
+  .task-card[data-cat="physics"]::before { background: var(--accent-orange); }
+  .task-card[data-cat="software"]::before { background: var(--accent-blue); }
+  .task-card[data-cat="english"]::before { background: var(--accent-yellow); }
+  .task-card[data-cat="break"]::before { background: var(--accent-green); }
+  .task-card[data-cat="free"]::before { background: var(--accent-purple); }
+  .task-card[data-cat="personal"]::before { background: var(--accent-cyan); }
+
+  .task-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--text-muted);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    font-size: 12px;
+  }
+
+  .task-card.completed .task-checkbox {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+  }
+
+  .task-time {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 110px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .task-emoji { font-size: 20px; flex-shrink: 0; }
+
+  .task-info { flex: 1; }
+
+  .task-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+
+  .task-desc { font-size: 12px; color: var(--text-secondary); }
+
+  .task-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-math { background: rgba(239,35,60,0.15); color: var(--accent-red); }
+  .tag-physics { background: rgba(251,133,0,0.15); color: var(--accent-orange); }
+  .tag-software { background: rgba(67,97,238,0.15); color: var(--accent-blue); }
+  .tag-english { background: rgba(255,190,11,0.15); color: var(--accent-yellow); }
+  .tag-break { background: rgba(6,214,160,0.15); color: var(--accent-green); }
+  .tag-free { background: rgba(114,9,183,0.15); color: var(--accent-purple); }
+  .tag-personal { background: rgba(0,180,216,0.15); color: var(--accent-cyan); }
+
+  /* WEEKLY VIEW */
+  .weekly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .day-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+  }
+
+  .day-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-blue);
+    box-shadow: 0 8px 24px rgba(67,97,238,0.15);
+  }
+
+  .day-card.today {
+    border-color: var(--accent-blue);
+    background: linear-gradient(135deg, rgba(67,97,238,0.1), rgba(114,9,183,0.05));
+  }
+
+  .day-name { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 4px; }
+  .day-date { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+
+  .day-progress-mini {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-primary);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .day-progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+    transition: width 0.4s ease;
+  }
+
+  .day-task-count { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+
+  /* MONTHLY VIEW */
+  .monthly-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .cal-header {
+    text-align: center;
+    padding: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .cal-day:hover { border-color: var(--accent-blue); transform: scale(1.05); }
+  .cal-day.today { border-color: var(--accent-blue); background: linear-gradient(135deg, rgba(67,97,238,0.15), rgba(114,9,183,0.1)); }
+  .cal-day.empty { background: transparent; border-color: transparent; cursor: default; }
+  .cal-day.empty:hover { transform: none; }
+
+  .cal-day .cal-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    margin-top: 4px;
+  }
+
+  .cal-day.has-tasks .cal-dot { background: var(--accent-blue); }
+
+  /* MONTH NAV */
+  .month-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .month-nav button {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+
+  .month-nav button:hover { background: var(--accent-blue); border-color: var(--accent-blue); }
+
+  .month-nav .month-label { font-size: 18px; font-weight: 700; min-width: 180px; text-align: center; }
+
+  /* ADD TASK MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: var(--shadow);
+  }
+
+  .modal h2 { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
+
+  .modal label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .modal input, .modal select, .modal textarea {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    margin-bottom: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .modal input:focus, .modal select:focus, .modal textarea:focus { border-color: var(--accent-blue); }
+
+  .modal-btns { display: flex; gap: 10px; margin-top: 8px; }
+
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: #fff;
+    flex: 1;
+  }
+
+  .btn-primary:hover { box-shadow: 0 4px 15px rgba(67,97,238,0.4); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    flex: 1;
+  }
+
+  .btn-secondary:hover { border-color: var(--text-muted); }
+
+  /* FAB */
+  .fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(67,97,238,0.4);
+    transition: all 0.25s ease;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 32px rgba(67,97,238,0.5); }
+
+  /* RESET BTN */
+  .reset-row {
+    text-align: center;
+    margin: 20px 0 40px;
+  }
+
+  .reset-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover { border-color: var(--accent-red); color: var(--accent-red); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.8rem; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .task-time { min-width: 80px; font-size: 11px; }
+    .task-tag { display: none; }
+    .weekly-grid { grid-template-columns: repeat(4, 1fr); }
+    .monthly-calendar { gap: 3px; }
+    .cal-day { border-radius: 8px; font-size: 12px; }
+  }
+</style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 font-sans antialiased leading-relaxed selection:bg-indigo-500 selection:text-white">
+<body>
 
-    <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        
-        <header class="mb-12 text-center relative">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-40 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none"></div>
-            <div class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-xs font-black tracking-widest uppercase mb-4 border border-indigo-200">2026 Q1 • Donanım Laboratuvarı</div>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter mb-5 relative z-10">85.000 ₺ Bütçe: Eksiksiz Analiz</h1>
-            <p class="text-lg text-slate-600 max-w-4xl mx-auto font-medium">Türkiye pazarındaki cihazların termal macun tiplerinden port veriyollarına, VRM fazlarından ekran PWM titreşimlerine kadar <strong>gizli kalmış tüm mikroskobik donanım verileri.</strong></p>
-        </header>
+<div class="app-container">
 
-        <!-- İKİLİ ZİRVE VİTRİNİ -->
-        <section class="mb-14 grid grid-cols-1 xl:grid-cols-2 gap-8">
-            <!-- 1. Seçim: Acer -->
-            <div class="group relative overflow-hidden rounded-[2.5rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] bg-gradient-to-br from-slate-900 via-slate-800 to-[#1e1b4b] text-white border border-indigo-500/30 flex flex-col h-full transform transition-all duration-300 hover:scale-[1.01] hover:border-indigo-400/50">
-                <div class="absolute top-0 right-0 -mt-10 -mr-10 opacity-[0.03] pointer-events-none transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12"><span class="text-[280px]">🥇</span></div>
-                <div class="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500"></div>
-                
-                <div class="relative z-10 p-8 md:p-10 flex flex-col flex-grow">
-                    <div>
-                        <div class="inline-block px-4 py-1.5 bg-amber-500/10 border border-amber-400/30 rounded-full text-amber-400 text-xs font-bold tracking-widest uppercase mb-5 backdrop-blur-sm">🥇 1. Tercih: Maksimum Potansiyel (Uzmanlar İçin)</div>
-                        <h2 class="text-4xl md:text-5xl font-black mb-3 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">ACER NITRO 16S</h2>
-                        <div class="text-2xl text-amber-400 font-extrabold mb-5 flex items-center gap-3">
-                            <span>RTX 5070 Ti (12GB)</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span> <span>84.999 ₺</span>
-                        </div>
-                        <p class="text-slate-300 text-base mb-8 leading-relaxed font-medium">Bu bütçede <strong>12 GB VRAM</strong> sunan yegane cihaz. Kutu çıkışı haliyle kasası o gücü atmakta zorlanır, ancak gücünü yazılımla 100W'a sabitlediğinizde; <strong>asla bellek darboğazı yapmayan, buz gibi çalışan</strong> kusursuz bir render/oyun sistemine dönüşür.</p>
-                    </div>
-                    <div class="mt-auto">
-                        <button onclick="document.getElementById('profile-selector-section').scrollIntoView({behavior: 'smooth', block: 'start'}); selectProfile(2);" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(79,70,229,0.3)] flex justify-center items-center gap-3 text-lg">
-                            <span>Laboratuvar Verilerini Gör</span><span class="text-2xl animate-bounce">👇</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">🎯 Günlük Planlayıcı</div>
+    <h1>Başarı Rutini</h1>
+    <p>Matematik • Fizik • Yazılım • İngilizce</p>
+    <div class="flag-row">🇹🇷 → 🇮🇹</div>
+  </div>
 
-            <!-- 2. Seçim: HP Omen 17 -->
-            <div class="group relative overflow-hidden rounded-[2.5rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] bg-gradient-to-br from-slate-900 via-slate-800 to-[#064e3b] text-white border border-emerald-500/30 flex flex-col h-full transform transition-all duration-300 hover:scale-[1.01] hover:border-emerald-400/50">
-                <div class="absolute top-0 right-0 -mt-10 -mr-10 opacity-[0.03] pointer-events-none transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12"><span class="text-[280px]">🥈</span></div>
-                <div class="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500"></div>
-                
-                <div class="relative z-10 p-8 md:p-10 flex flex-col flex-grow">
-                    <div>
-                        <div class="inline-block px-4 py-1.5 bg-emerald-500/10 border border-emerald-400/30 rounded-full text-emerald-400 text-xs font-bold tracking-widest uppercase mb-5 backdrop-blur-sm">🥈 2. Tercih: Risksiz Tak-Çalıştır (Konfor Arayanlar)</div>
-                        <h2 class="text-4xl md:text-5xl font-black mb-3 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">HP OMEN 17-DB1020NT</h2>
-                        <div class="text-2xl text-emerald-400 font-extrabold mb-5 flex items-center gap-3">
-                            <span>RTX 5070 (8GB)</span> <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span> <span>80.999 ₺</span>
-                        </div>
-                        <p class="text-slate-300 text-base mb-8 leading-relaxed font-medium">Yazılımsal limitlerle uğraşmak istemeyenler için en mantıklı alternatif. Omen 16'lardaki kronik anakart/sensör sorununu barındırmayan devasa kasasıyla <strong>140W Tam Güçte sorunsuz</strong> çalışır. Bütçeden artan 4000 TL ile muazzam bir Fiyat/Performans sunar.</p>
-                    </div>
-                    <div class="mt-auto">
-                        <button onclick="document.getElementById('profile-selector-section').scrollIntoView({behavior: 'smooth', block: 'start'}); selectProfile(1);" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] flex justify-center items-center gap-3 text-lg">
-                            <span>Laboratuvar Verilerini Gör</span><span class="text-2xl animate-bounce">👇</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- TABS -->
+  <div class="tab-container">
+    <button class="tab-btn active" onclick="switchTab('daily')"><span class="tab-icon">📋</span>Günlük</button>
+    <button class="tab-btn" onclick="switchTab('weekly')"><span class="tab-icon">📅</span>Haftalık</button>
+    <button class="tab-btn" onclick="switchTab('monthly')"><span class="tab-icon">🗓️</span>Aylık</button>
+  </div>
 
-        <!-- DARBOĞAZ KURALI -->
-        <section class="mb-14 bg-white border-l-[6px] border-amber-500 rounded-2xl p-8 shadow-sm">
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
-                <div class="text-amber-500 text-5xl md:text-6xl drop-shadow-sm">⚠️</div>
-                <div>
-                    <h2 class="text-2xl font-black text-slate-800 mb-2 tracking-tight">Sistem Darboğazı (Bottleneck) Altın Kuralı</h2>
-                    <p class="text-slate-600 text-base mb-3 font-medium">
-                        Oyun veya render odaklı bir cihaz alıyorsanız kural nettir: 
-                        <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded ml-1">"Yüksek İşlemci (Ultra 7) + Zayıf Ekran Kartı (RTX 5050)"</span> kombinasyonu bir tuzaktır! Modern oyun motorlarında render yükünün %90'ı GPU'dadır. Ekran kartından kısıp işlemciye para yatırmak, o işlemcinin oyun esnasında boşta yatıp sistemin VRAM sınırına takılması demektir. Yatırımınızın aslan payı <strong>her zaman GPU'ya (RTX 5060, 5070 veya 5070 Ti)</strong> ayrılmalıdır.
-                    </p>
-                </div>
-            </div>
-        </section>
+  <!-- ==================== DAILY TAB ==================== -->
+  <div id="tab-daily" class="tab-content active">
 
-        <!-- LABORATUVAR ALANI -->
-        <section id="profile-selector-section" class="mb-16 scroll-mt-8">
-            <div class="mb-8 border-b border-slate-200 pb-4">
-                <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight">Eksiksiz Cihaz Laboratuvarı</h2>
-                <p class="text-slate-500 mt-2 text-lg">Soldan cihazı seçin, sağdaki sekmeler üzerinden piyasada bulamayacağınız mikroskobik donanım detaylarını inceleyin. <b class="text-indigo-600">Tüm cihazlar tamamen aynı oyun ve testlerle kıyaslanmıştır.</b></p>
-            </div>
-
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 relative items-start">
-                
-                <!-- Sol Menü: STICKY (Yapışkan) Sidebar -->
-                <div class="xl:col-span-4 flex flex-col gap-4 xl:sticky xl:top-8 z-20" id="profile-buttons-container">
-                    <!-- JS ile doldurulacak -->
-                </div>
-
-                <!-- Sağ Panel: SEKME (TAB) SİSTEMİ -->
-                <div class="xl:col-span-8 glass-panel rounded-[2.5rem] shadow-xl border border-slate-200/80 overflow-hidden flex flex-col min-h-[900px]">
-                    
-                    <!-- Üst Başlık & Radar -->
-                    <div class="p-8 lg:p-10 border-b border-slate-100 flex flex-col lg:flex-row gap-8 items-center bg-white relative">
-                        <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-slate-50 to-transparent pointer-events-none"></div>
-                        <div class="flex-grow relative z-10 w-full">
-                            <span id="detail-price" class="inline-block px-5 py-1.5 bg-indigo-600 text-white text-sm font-black rounded-xl shadow-lg mb-4">-- ₺</span>
-                            <h2 id="detail-model" class="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter mb-3 text-slate-900 leading-none">Model...</h2>
-                            <p id="detail-specs-short" class="text-slate-500 font-bold text-sm bg-slate-100 px-3 py-1.5 rounded-lg inline-block border border-slate-200"></p>
-                        </div>
-                        <div class="w-full lg:w-72 h-56 flex-shrink-0 relative z-10 bg-slate-50 rounded-2xl p-2 border border-slate-100">
-                            <canvas id="radarChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <!-- SEKME BUTONLARI -->
-                    <div class="flex overflow-x-auto no-scrollbar border-b border-slate-200 bg-white sticky top-0 z-10 px-4 pt-2" id="tab-buttons">
-                        <button onclick="switchTab('tab-gaming')" class="tab-btn active px-6 py-4 text-sm font-bold text-indigo-600 border-b-2 border-indigo-600 flex items-center gap-2 whitespace-nowrap transition-colors"><span class="text-lg">🎮</span> Performans & AI</button>
-                        <button onclick="switchTab('tab-display')" class="tab-btn px-6 py-4 text-sm font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap transition-colors"><span class="text-lg">📺</span> Ekran & Medya</button>
-                        <button onclick="switchTab('tab-build')" class="tab-btn px-6 py-4 text-sm font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap transition-colors"><span class="text-lg">⚙️</span> Anakart & Kasa</button>
-                        <button onclick="switchTab('tab-cooling')" class="tab-btn px-6 py-4 text-sm font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap transition-colors"><span class="text-lg">❄️</span> Soğutma & Pil</button>
-                        <button onclick="switchTab('tab-risks')" class="tab-btn px-6 py-4 text-sm font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap transition-colors"><span class="text-lg">🚨</span> Kronik Riskler</button>
-                    </div>
-
-                    <!-- SEKME İÇERİKLERİ -->
-                    <div class="p-6 md:p-8 flex-grow bg-slate-50/50 overflow-y-auto">
-                        
-                        <!-- TAB 1: Performans & AI -->
-                        <div id="tab-gaming" class="tab-content active">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Standartlaştırılmış Laboratuvar Testleri</h3>
-                                <div class="bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-black text-sm flex items-center gap-2 shadow-sm border border-indigo-200"><span>Skor:</span><span id="score-gaming">--/100</span></div>
-                            </div>
-                            <div id="content-gaming" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
-                        </div>
-
-                        <!-- TAB 2: Ekran & Medya -->
-                        <div id="tab-display" class="tab-content">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Panel Detayları ve Ses Mühendisliği</h3>
-                                <div class="bg-fuchsia-100 text-fuchsia-800 px-4 py-1.5 rounded-full font-black text-sm flex items-center gap-2 shadow-sm border border-fuchsia-200"><span>Skor:</span><span id="score-display">--/100</span></div>
-                            </div>
-                            <div id="content-display" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
-                        </div>
-
-                        <!-- TAB 3: Anakart & Kasa -->
-                        <div id="tab-build" class="tab-content">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-2xl font-black text-slate-800 tracking-tight">İç Donanım, Portlar ve Ergonomi</h3>
-                                <div class="bg-emerald-100 text-emerald-800 px-4 py-1.5 rounded-full font-black text-sm flex items-center gap-2 shadow-sm border border-emerald-200"><span>Skor:</span><span id="score-build">--/100</span></div>
-                            </div>
-                            <div id="content-build" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
-                        </div>
-
-                        <!-- TAB 4: Soğutma & Pil -->
-                        <div id="tab-cooling" class="tab-content">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Termal Tahliye, Macun ve Enerji Ağı</h3>
-                                <div class="bg-sky-100 text-sky-800 px-4 py-1.5 rounded-full font-black text-sm flex items-center gap-2 shadow-sm border border-sky-200"><span>Skor:</span><span id="score-cooling">--/100</span></div>
-                            </div>
-                            <div id="content-cooling" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
-                        </div>
-
-                        <!-- TAB 5: Kronik Riskler -->
-                        <div id="tab-risks" class="tab-content">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-2xl font-black text-slate-800 tracking-tight">Donanımsal ve Yazılımsal Risk Raporu</h3>
-                                <div class="bg-rose-100 text-rose-800 px-4 py-1.5 rounded-full font-black text-sm flex items-center gap-2 shadow-sm border border-rose-200"><span>Güvenlik:</span><span id="score-risks">--/100</span></div>
-                            </div>
-                            <div id="content-risks" class="grid grid-cols-1 gap-5"></div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Mart 2026 NVIDIA Sürücü Krizi -->
-        <section class="bg-slate-900 text-slate-300 border border-slate-800 rounded-[2.5rem] p-10 lg:p-14 shadow-2xl relative overflow-hidden mt-12">
-            <div class="absolute -right-10 -top-20 text-[200px] opacity-5 pointer-events-none transform -rotate-12">🐞</div>
-            <div class="flex flex-col md:flex-row items-center md:items-start gap-10 relative z-10">
-                <div class="text-7xl text-rose-500 animate-pulse bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-inner flex-shrink-0">⚠️</div>
-                <div>
-                    <h3 class="text-3xl lg:text-4xl font-black text-white mb-5 tracking-tight">Küresel Uyarı: Mart 2026 NVIDIA Sürücü Krizi</h3>
-                    <p class="leading-relaxed text-slate-300 mb-6 text-lg lg:text-xl font-medium">
-                        NVIDIA grafik kartlı cihaz alan kullanıcılar (Özellikle Acer ve HP modelleri); cihazı ilk aldığınızda oyunlarda yaşanabilecek %50 FPS düşüşleri, bellek sızıntıları veya oyuna girdikten 15 dakika sonra sistemin kendini yeniden başlatması (Black Screen) sorunları <strong class="text-rose-400">donanımsal bir arıza DEĞİLDİR.</strong> Cihazınız bozuk değildir. Bu kriz, hatalı kodlanmış <strong>591.74 sürüm numaralı NVIDIA sürücü paketinden</strong> kaynaklanmaktadır.
-                    </p>
-                    <div class="bg-slate-950/50 p-6 rounded-2xl border border-emerald-500/30 inline-block shadow-inner backdrop-blur-sm">
-                        <span class="text-emerald-400 font-black text-xl block mb-3 uppercase tracking-widest">🛠️ Acil Eylem Planı (Çözüm):</span> 
-                        <span class="text-slate-300 text-lg leading-relaxed">Cihazı teknik servise iade etmeden önce Windows Güvenli Kip'e girerek <strong>"DDU (Display Driver Uninstaller)"</strong> yazılımı ile sorunlu sürücüyü tamamen silin. Ardından internet bağlantısını keserek manuel olarak daha eski ve stabil olan <strong class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded text-emerald-900">475.14</strong> sürüm numaralı NVIDIA sürücüsünü kurun. Tüm stabilite sorunları anında ortadan kalkacaktır.</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-value" id="stat-done">0</div>
+        <div class="stat-label">Tamamlanan</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label">Toplam Görev</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-value" id="stat-hours">0h</div>
+        <div class="stat-label">Çalışma Saati</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-value" id="stat-streak">0</div>
+        <div class="stat-label">Gün Serisi</div>
+      </div>
     </div>
 
-    <script>
-        const laptopData = [
-            {
-                id: "dtr", icon: "🎓", 
-                title: "Mühendis / Öğrenci Garantisi", subtitle: "Lenovo Legion Pro 5 Gen 10 (16AHP10)",
-                price: "78.499 ₺",
-                specsShort: "Ryzen 7 8745HX | RTX 5060 (140W) | 32GB RAM | 1TB SSD",
-                radarScores: [85, 20, 30, 75, 100],
-                tabScores: { gaming: 85, display: 85, build: 95, cooling: 100, risks: 90 },
-                tabs: {
-                    gaming: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>DLSS On</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>75 FPS</b></div>
-                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*Kusursuz soğutma sayesinde %1 Low FPS (61 FPS) sabittir, uzun seanslarda takılma yaşatmaz.</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>E-Spor</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>410 FPS</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-blue-100 text-blue-700'>GPU Render</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~18 saniye</b> (NVIDIA OptiX devrede)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-rose-100 text-rose-700'>H.264</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~3 dk 40 saniye</b> (Çift NVENC)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>AI Okuma</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-emerald-600'>~55 Token/sn</b> (8GB VRAM sınırıdır)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-cyan-100 text-cyan-700'>Görsel Üretim</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-blue-600'>~12 İterasyon/sn</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> GPU & CPU Mikromimarisi</h4>
-                            <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>Ekran Kartı (GPU)</strong>
-                                    <div class='text-sm text-slate-700 font-bold mb-1'>NVIDIA RTX 5060 (8GB GDDR7)</div>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>TGP:</b> 115W + 25W = <b class='text-rose-600'>140W (Full Güç)</b></li>
-                                        <li><b>Bant Genişliği:</b> 128-bit / ~320 GB/s</li>
-                                        <li><b>MUX Switch:</b> <b>Advanced Optimus</b> donanımsal olarak mevcuttur (Yeniden başlatmadan IGPU bypass).</li>
-                                    </ul>
-                                </div>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>İşlemci (CPU)</strong>
-                                    <div class='text-sm text-slate-700 font-bold mb-1'>AMD Ryzen 7 8745HX</div>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>Mimari:</b> Zen 4 (4nm Node) | 8 Çekirdek / 16 İzlek</li>
-                                        <li><b>Performans:</b> Cinebench R23: ~18.000. Intel 14650HX'e göre daha az güç çekerek aynı render skorunu verir.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>`,
-                    display: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>📺</span> Panel Dinamikleri</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Çözünürlük & En/Boy</span> <b class='text-slate-800'>16" WQXGA (2560x1600) 16:10</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Tazeleme & GtG Gecikme</span> <b class='text-slate-800'>165Hz / ~3ms</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Parlaklık & Renk</span> <b class='text-slate-800'>500 nits / %100 sRGB</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Ekran Yüzeyi</span> <b class='text-slate-800'>Anti-glare (Mat)</b></li>
-                                <li class='flex justify-between pb-1'><span>Göz Sağlığı (PWM)</span> <b class='text-emerald-600'>DC Dimming (Titreşimsiz)</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎤</span> Ses, Kamera ve Güvenlik</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Hoparlör Donanımı</span> <b class='text-slate-800 text-right'>2x 2W Stereo<br><span class='text-[10px] text-slate-400'>Nahimic Audio</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Webcam Çözünürlüğü</span> <b class='text-slate-800'>1080p FHD</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Donanımsal Kamera Kapatıcı</span> <b class='text-emerald-600'>E-Shutter Anahtarı (Sağda)</b></li>
-                                <li class='flex justify-between pb-1'><span>Biyometrik Güvenlik</span> <b class='text-rose-500'>Windows Hello IR Yok</b></li>
-                            </ul>
-                        </div>`,
-                    build: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🪛</span> Anakart & Genişletilebilirlik</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Sistem Belleği (RAM)</span> <b class='text-slate-800 text-right'>32GB (2x16) DDR5-5600<br><span class='text-[10px] text-emerald-600'>2x SO-DIMM Yuvası (Maks 64GB)</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Kalıcı Depolama (SSD)</span> <b class='text-slate-800 text-right'>1TB PCIe 4.0 NVMe<br><span class='text-[10px] text-emerald-600'>2x M.2 2280 Yuvası (Biri boş)</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Wi-Fi Modülü</span> <b class='text-slate-800 text-right'>Wi-Fi 6E (802.11ax) 2x2<br><span class='text-[10px] text-rose-500'>Realtek/Mediatek Riski</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Bluetooth Sürümü</span> <b class='text-slate-800'>Bluetooth 5.3</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🌐</span> Port Veriyolları & Ergonomi</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Type-C Portları (Arka/Sol)</span> <b class='text-slate-800 text-right'>2x USB-C 3.2 Gen 2<br><span class='text-[10px] text-slate-400'>DP 1.4 & 140W PD Destekli</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Görüntü Çıkışı</span> <b class='text-slate-800 text-right'>HDMI 2.1<br><span class='text-[10px] text-slate-400'>48Gbps Tam Bant</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Kasa Materyali</span> <b class='text-slate-800 text-right'>Üst: Alüminyum<br>Alt: PC-ABS Plastik</b></li>
-                                <li class='flex justify-between pb-1'><span>Klavye (Legion TrueStrike)</span> <b class='text-slate-800 text-right'>1.5mm Key Travel<br><span class='text-[10px] text-slate-400'>4-Zone RGB, 100% Anti-Ghosting</span></b></li>
-                            </ul>
-                        </div>`,
-                    cooling: `
-                        <div class='micro-card bg-sky-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-sky-800 mb-4 flex items-center gap-2'><span class='text-lg'>❄️</span> Termal Mimari (ColdFront 5.0)</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Termal Macun Tipi</span> <b class='text-sky-900 text-right'>Honeywell PTM7958<br><span class='text-[10px] text-sky-700'>Faz Değişimli Katı (Asla Kurumaz)</span></b></li>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Fan Yapısı</span> <b class='text-sky-900'>Çift Fan, 4 Hava Çıkışı</b></li>
-                                <li class='flex justify-between pb-1'><span>Maks Yükte Akustik (Gürültü)</span> <b class='text-sky-900'>~50dB (Tok rüzgar sesi)</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-amber-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-amber-800 mb-4 flex items-center gap-2'><span class='text-lg'>🔋</span> Enerji & Güç Beslemesi</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Batarya Hücresi</span> <b class='text-amber-900 text-right'>80 Wh<br><span class='text-[10px] text-amber-700'>Rapid Charge Pro (%70 / 30dk)</span></b></li>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Ana Güç Adaptörü</span> <b class='text-amber-900 text-right'>300W Slim-Tip<br><span class='text-[10px] text-amber-700'>Ağırlık: ~800 gram</span></b></li>
-                                <li class='flex justify-between pb-1'><span>USB-C PD Mobil Şarj</span> <b class='text-emerald-700 font-bold'>Destekler (Maks 140W)</b></li>
-                            </ul>
-                        </div>`,
-                    risks: `
-                        <div class='micro-card bg-rose-50/80 p-6 rounded-2xl border border-rose-200 shadow-sm'>
-                            <h4 class='text-base font-black text-rose-800 mb-4 flex items-center gap-2 uppercase tracking-widest'><span class='text-xl'>🚨</span> Laboratuvar Risk Raporu</h4>
-                            <ul class='space-y-4 text-sm text-slate-800'>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-rose-100'>
-                                    <div class='text-rose-500 font-black text-lg'>1</div>
-                                    <div><b class='block text-slate-900 mb-1'>Uyku Modu (Modern Standby) Bug'ı: <span class='text-rose-600'>(İhtimal: ~%10)</span></b>Kapağı kapattığınızda Windows S0 statüsüne geçer ancak anakart gücü kesmediği için fanlar çantanızda dönmeye devam edebilir. <b>Çözüm:</b> Vantage uygulamasından Fast Startup kapatılmalı veya cihaz 'Hibernate' (Hazırda Beklet) moduna alınmalıdır.</div>
-                                </li>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-rose-100'>
-                                    <div class='text-rose-500 font-black text-lg'>2</div>
-                                    <div><b class='block text-slate-900 mb-1'>Wi-Fi Modül Piyangosu: <span class='text-amber-500'>(İhtimal: ~%20)</span></b>Cihazlar fabrikadan Intel AX211 veya Realtek RTL8852CE kartıyla çıkabilir. Realtek gelirse rekabetçi oyunlarda saniyelik ping sıçramaları yapabilir. Modül arkadan kolayca Intel ile değiştirilebilir.</div>
-                                </li>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-rose-100'>
-                                    <div class='text-slate-400 font-black text-lg'>3</div>
-                                    <div><b class='block text-slate-900 mb-1'>Ağırlık Faktörü:</b>Adaptör ile birlikte sırtınızda 3.2 kg taşırsınız. Ultrabook arayanlar için işkencedir.</div>
-                                </li>
-                            </ul>
-                        </div>`
-                }
-            },
-            {
-                id: "hybrid", icon: "⚖️", 
-                title: "Risksiz Tak-Çalıştır Dengesi", subtitle: "HP OMEN 17-DB1020NT (CD5N0EA)",
-                price: "80.999 ₺",
-                specsShort: "Ryzen AI 9 365 | RTX 5070 (140W) | 32GB RAM | 17.3\" 240Hz",
-                radarScores: [90, 10, 35, 85, 85],
-                tabScores: { gaming: 90, display: 90, build: 85, cooling: 85, risks: 90 },
-                tabs: {
-                    gaming: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>DLSS On</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>88 FPS</b></div>
-                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*8GB VRAM sınırına çok yaklaşır ama 5070'in bant genişliği sayesinde kurtarır (1% Low: 72 FPS).</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>E-Spor</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>450 FPS</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-blue-100 text-blue-700'>GPU Render</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~14 saniye</b></div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-rose-100 text-rose-700'>H.264</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~3 dk 10 saniye</b></div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>AI Okuma</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-emerald-600'>~65 Token/sn</b></div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-cyan-100 text-cyan-700'>Görsel Üretim</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-blue-600'>~16 İterasyon/sn</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> GPU & CPU Mikromimarisi</h4>
-                            <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>Ekran Kartı (GPU)</strong>
-                                    <div class='text-sm text-slate-700 font-bold mb-1'>NVIDIA RTX 5070 (8GB GDDR7)</div>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>TGP:</b> <b class='text-emerald-600'>140W (Full Güç)</b>. Omen 16'lardaki 115W kısıtlaması bu devasa kasada yoktur.</li>
-                                        <li><b>MUX Switch:</b> Donanımsal MUX ve Advanced Optimus mevcuttur.</li>
-                                    </ul>
-                                </div>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>İşlemci (CPU)</strong>
-                                    <div class='text-sm text-slate-700 font-bold mb-1'>AMD Ryzen AI 9 365</div>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>Mimari:</b> Zen 5 | 10 Çekirdek (4x Zen5, 6x Zen5c) / 20 İzlek.</li>
-                                        <li><b>NPU (Yapay Zeka):</b> <b class='text-purple-600'>50 TOPS</b> XDNA 2 motoru. Arka plan AI işlemlerini 0 Watt ile işler.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>`,
-                    display: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>📺</span> Panel Dinamikleri</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Çözünürlük & En/Boy</span> <b class='text-slate-800'>17.3" QHD (2560x1440) 16:9</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Tazeleme & GtG Gecikme</span> <b class='text-slate-800'>240Hz / 3ms</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Parlaklık & Renk</span> <b class='text-slate-800'>300 nits / %100 sRGB</b></li>
-                                <li class='flex justify-between pb-1'><span>Ekran Yüzeyi</span> <b class='text-slate-800'>Anti-glare (Mat)</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎤</span> Ses, Kamera ve Klavye</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Hoparlör Donanımı</span> <b class='text-slate-800 text-right'>Çift Hoparlör<br><span class='text-[10px] text-slate-400'>HyperX Audio Kalibrasyonu</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Webcam</span> <b class='text-slate-800 text-right'>1080p FHD True Vision<br><span class='text-[10px] text-slate-400'>Fiziksel Gizlilik Kapağı Var</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Klavye Özellikleri</span> <b class='text-slate-800 text-right'>Optik-Mekanik Hissiyat<br><span class='text-[10px] text-indigo-500'>Per-Key (Her Tuş Bağımsız) RGB</span></b></li>
-                            </ul>
-                        </div>`,
-                    build: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🪛</span> Anakart & Genişletilebilirlik</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Sistem Belleği (RAM)</span> <b class='text-slate-800 text-right'>32GB (2x16) DDR5-5600<br><span class='text-[10px] text-emerald-600'>2x SO-DIMM Yuvası</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Kalıcı Depolama (SSD)</span> <b class='text-slate-800 text-right'>1TB PCIe 4.0 NVMe TLC<br><span class='text-[10px] text-emerald-600'>2x M.2 2280 Yuvası</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Kablosuz Ağ Modülü</span> <b class='text-slate-800 text-right'>Wi-Fi 7 (802.11be)<br><span class='text-[10px] text-indigo-500'>2026 Gelecek Standardı</span></b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🌐</span> Port Veriyolları & Ergonomi</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Type-C Portları</span> <b class='text-slate-800 text-right'>2x USB-C 10Gbps<br><span class='text-[10px] text-slate-400'>DP 1.4a & PD Şarj Destekli</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Type-A Portları</span> <b class='text-slate-800 text-right'>2x USB-A 5Gbps</b></li>
-                                <li class='flex justify-between pb-1'><span>Kasa Materyali</span> <b class='text-slate-800 text-right'>Alt/İç: Alüminyum<br>Ekran Kapağı: Plastik</b></li>
-                            </ul>
-                        </div>`,
-                    cooling: `
-                        <div class='micro-card bg-sky-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-sky-800 mb-4 flex items-center gap-2'><span class='text-lg'>❄️</span> Termal Mimari (Omen Tempest)</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Soğutma Yüzeyi</span> <b class='text-sky-900 text-right'>Devasa 17" Radyatör Alanı<br><span class='text-[10px] text-sky-700'>16" modele göre çok daha rahat</span></b></li>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Termal Macun</span> <b class='text-sky-900'>Standart Yüksek Kalite Silikon</b></li>
-                                <li class='flex justify-between pb-1'><span>Akustik</span> <b class='text-sky-900'>Düşük devir, rahatsız etmez</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-amber-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-amber-800 mb-4 flex items-center gap-2'><span class='text-lg'>🔋</span> Enerji & Güç Beslemesi</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Batarya Hücresi</span> <b class='text-amber-900'>83 Wh Lityum İyon</b></li>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Ana Güç Adaptörü</span> <b class='text-amber-900 text-right'>280W Smart AC<br><span class='text-[10px] text-amber-700'>Tasarımı oldukça hantaldır</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Cihaz Ağırlığı</span> <b class='text-amber-900 font-bold'>~2.8 kg (Adaptör hariç)</b></li>
-                            </ul>
-                        </div>`,
-                    risks: `
-                        <div class='micro-card bg-rose-50/80 p-6 rounded-2xl border border-rose-200 shadow-sm'>
-                            <h4 class='text-base font-black text-rose-800 mb-4 flex items-center gap-2 uppercase tracking-widest'><span class='text-xl'>🚨</span> Laboratuvar Risk Raporu</h4>
-                            <ul class='space-y-4 text-sm text-slate-800'>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-emerald-100'>
-                                    <div class='text-emerald-500 font-black text-lg'>✓</div>
-                                    <div><b class='block text-slate-900 mb-1'>SIFIR SENSÖR RİSKİ (Güvenli):</b>Omen 16 kasalarının açılmamasına sebep olan o meşhur "Hall Sensörü erimesi" arızası <b>bu 17 inçlik yeni anakart tasarımında tamamen düzeltilmiştir.</b> En büyük satın alma sebebi budur.</div>
-                                </li>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-amber-100'>
-                                    <div class='text-amber-500 font-black text-lg'>!</div>
-                                    <div><b class='block text-slate-900 mb-1'>Kapak Esnemesi (Screen Wobble):</b>17.3 inç devasa bir ekran kapağı plastikten üretildiği ve menteşeler ortada toplandığı için, klavyede sert yazı yazarken ekran kapağı sağa sola sallanabilir.</div>
-                                </li>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-rose-100'>
-                                    <div class='text-rose-500 font-black text-lg'>X</div>
-                                    <div><b class='block text-slate-900 mb-1'>NVIDIA Sürücü Krizi:</b>Mart 2026'daki 591.74 sürücüsü kurulursa sistem bellek sızıntısı yapar. Orijinal fabrika sürücüsünde (475.14) kalınmalıdır.</div>
-                                </li>
-                            </ul>
-                        </div>`
-                }
-            },
-            {
-                id: "hardcore", icon: "🏎️", 
-                title: "Uzman Seçimi: Maksimum Potansiyel", subtitle: "Acer Nitro 16S (NH.U07EY.001)",
-                price: "84.999 ₺",
-                specsShort: "Ryzen AI 9 365 | RTX 5070 Ti 12GB | 32GB RAM | 16\" WQXGA 180Hz",
-                radarScores: [100, 25, 40, 75, 45],
-                tabScores: { gaming: 98, display: 85, build: 70, cooling: 40, risks: 40 },
-                tabs: {
-                    gaming: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-indigo-100 text-indigo-700'>DLSS On</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>105 FPS</b></div>
-                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*12GB VRAM sayesinde takılma (stutter) sıfırdır (1% Low: 85 FPS).</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>E-Spor</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-emerald-600'>520 FPS</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-blue-100 text-blue-700'>GPU Render</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~11 saniye</b> (Bütçenin mutlak lideri)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-rose-100 text-rose-700'>H.264</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-indigo-600'>~2 dk 50 saniye</b></div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>AI Okuma</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-emerald-600'>~85 Token/sn</b> (Wider bus advantage)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-cyan-100 text-cyan-700'>Görsel Üretim</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-blue-600'>~22 İterasyon/sn</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> GPU & CPU Mikromimarisi</h4>
-                            <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>Ekran Kartı (GPU)</strong>
-                                    <div class='text-sm text-slate-700 font-bold mb-1'>NVIDIA RTX 5070 Ti (12GB)</div>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>TGP:</b> <b class='text-rose-600'>Maksimum 140-150W TGP</b></li>
-                                        <li><b>Veriyolu:</b> <b class='text-indigo-600'>192-bit / ~480 GB/s</b> (5060'ı ezer).</li>
-                                        <li><b>MUX Switch:</b> Advanced Optimus aktiftir.</li>
-                                    </ul>
-                                </div>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>İşlemci (CPU)</strong>
-                                    <div class='text-sm text-slate-700 font-bold mb-1'>AMD Ryzen AI 9 365</div>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>Mimari:</b> Zen 5 | 10 Çekirdek / 20 İzlek</li>
-                                        <li><b>Performans:</b> Cinebench R23: ~19.500. İşlemciyle GPU arasındaki iletişim PCIe Gen4 x8 hızındadır.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>`,
-                    display: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>📺</span> Panel Dinamikleri</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Çözünürlük & En/Boy</span> <b class='text-slate-800'>16" WQXGA (2560x1600) 16:10</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Tazeleme & GtG Gecikme</span> <b class='text-slate-800'>180Hz / ~3ms</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Renk Gamutu & Parlaklık</span> <b class='text-slate-800'>%100 DCI-P3 / ~400 nits</b></li>
-                                <li class='flex justify-between pb-1'><span>Donanımsal Senkronizasyon</span> <b class='text-emerald-600'>NVIDIA G-Sync Uyumluluğu</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎤</span> Ses, Kamera ve Klavye</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Hoparlör Donanımı</span> <b class='text-slate-800 text-right'>Çift Hoparlör<br><span class='text-[10px] text-slate-400'>DTS:X Ultra (Ses Seviyesi Düşük)</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Webcam Çözünürlüğü</span> <b class='text-rose-500 text-right'>Sadece 720p HD<br><span class='text-[10px] text-slate-400'>Rakiplerinin yanında çamurlu görüntü</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Klavye Özellikleri</span> <b class='text-slate-800 text-right'>Membran, 4-Zone RGB<br><span class='text-[10px] text-slate-400'>Özel NitroSense Tuşu</span></b></li>
-                            </ul>
-                        </div>`,
-                    build: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🪛</span> Anakart & Genişletilebilirlik</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Sistem Belleği (RAM)</span> <b class='text-slate-800 text-right'>32GB DDR5 SO-DIMM<br><span class='text-[10px] text-emerald-600'>Maksimum 64GB Destekler</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Kalıcı Depolama (SSD)</span> <b class='text-slate-800 text-right'>1TB PCIe Gen4 NVMe<br><span class='text-[10px] text-emerald-600'>2x M.2 Yuvası (Biri Gen5 Destekli)</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Kablosuz Ağ Modülü</span> <b class='text-slate-800 text-right'>Wi-Fi 7 (MediaTek MT7925)</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🌐</span> Port Veriyolları & Ergonomi</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Hızlı Veriyolu</span> <b class='text-indigo-600 text-right font-bold'>1x USB4 (40Gbps)</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Medya Kart Okuyucu</span> <b class='text-emerald-600 text-right font-bold'>MicroSD Kart Okuyucu Var</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Diğer Portlar</span> <b class='text-slate-800 text-right'>1x USB-C Gen2, 3x USB-A, HDMI 2.1</b></li>
-                                <li class='flex justify-between pb-1'><span>Kasa Materyali</span> <b class='text-rose-500 text-right'>Tamamen PC-ABS Plastik<br><span class='text-[10px] text-slate-400'>Metal barındırmaz, esneyebilir</span></b></li>
-                            </ul>
-                        </div>`,
-                    cooling: `
-                        <div class='micro-card bg-sky-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-sky-800 mb-4 flex items-center gap-2'><span class='text-lg'>❄️</span> Termal Mimari (Limitlerde)</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>İşlemci Termal Arayüzü</span> <b class='text-indigo-700 text-right font-bold'>Liquid Metal (Sıvı Metal)<br><span class='text-[10px] text-sky-700'>Fabrikasyon uygulamalı</span></b></li>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Kasa Termal Doygunluğu</span> <b class='text-rose-600 font-bold'>Yetersiz (Orta segment kasa)</b></li>
-                                <li class='flex justify-between pb-1'><span>Maks Yükte Akustik</span> <b class='text-rose-600 font-bold'>>55dB (Matkap gibi tiz ve rahatsız edici)</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-amber-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-amber-800 mb-4 flex items-center gap-2'><span class='text-lg'>🔋</span> Enerji & Güç Beslemesi</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Batarya Hücresi</span> <b class='text-amber-900'>~90 Wh Dev Batarya</b></li>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Ana Güç Adaptörü</span> <b class='text-rose-600 text-right font-bold'>330W Devasa Tuğla Adaptör<br><span class='text-[10px] text-amber-700'>>1 Kilogram Ağırlık</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Cihaz Ağırlığı</span> <b class='text-amber-900'>~2.5 kg</b></li>
-                            </ul>
-                        </div>`,
-                    risks: `
-                        <div class='micro-card bg-rose-50/80 p-6 rounded-2xl border border-rose-200 shadow-sm'>
-                            <h4 class='text-base font-black text-rose-800 mb-4 flex items-center gap-2 uppercase tracking-widest'><span class='text-xl'>🚨</span> Laboratuvar Risk Raporu</h4>
-                            <ul class='space-y-4 text-sm text-slate-800'>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-rose-100'>
-                                    <div class='text-rose-500 font-black text-lg'>1</div>
-                                    <div><b class='block text-slate-900 mb-1'>Termal Kapanma (Thermal Shutdown): <span class='text-rose-600'>(Risk: Yüksek)</span></b>Cihazı kutudan çıktığı gibi, 150 Watt ekran kartı gücüyle saatlerce ağır oyunlara sokarsanız, plastik kasa ısıyı atamaz. Anakart donanımı yakmamak için elektriği aniden keserek çöker.</div>
-                                </li>
-                                <li class='flex gap-3 bg-white p-4 rounded-lg border-2 border-indigo-200 shadow-md'>
-                                    <div class='text-indigo-500 font-black text-xl'>💡</div>
-                                    <div><b class='block text-indigo-900 mb-1 text-base'>MÜHENDİSLİK ÇÖZÜMÜ (ŞARTTIR):</b>Acer NitroSense yazılımı veya MSI Afterburner kullanarak ekran kartı gücünü <b>100W</b> seviyesine kısıtlamalısınız. 100 Watt çeken bir 5070 Ti, hem 5060'tan güçlü çalışır, hem buz gibi kalır, hem de fanlar susar. <b>Bu işlem cihazı piyasanın kralı yapar.</b></div>
-                                </li>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-amber-100'>
-                                    <div class='text-amber-500 font-black text-lg'>!</div>
-                                    <div><b class='block text-slate-900 mb-1'>Kasa Kalitesi:</b>Premium his vermez, tamamen plastiktir. 720p kamerası çağdışıdır.</div>
-                                </li>
-                            </ul>
-                        </div>`
-                }
-            },
-            {
-                id: "pro", icon: "🎬", 
-                title: "Sıfır Ses, Maksimum İş İstasyonu", subtitle: "Apple MacBook Pro 14 inç (M5)",
-                price: "85.499 ₺",
-                specsShort: "Apple M5 | 16GB Birleşik RAM | 512GB SSD | XDR",
-                radarScores: [10, 95, 100, 95, 100],
-                tabScores: { gaming: 15, display: 100, build: 100, cooling: 100, risks: 80 },
-                tabs: {
-                    gaming: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-rose-100 text-rose-700'>Native Değil</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-rose-600'>Açılamaz (Hata Verir)</b></div>
-                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*Ancak Çeviri katmanıyla zorlanarak ~25 FPS alınabilir. MacOS mimarisi oyun için değildir.</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-rose-100 text-rose-700'>Uyumsuz</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-rose-600'>Açılamaz (macOS Uyumsuz)</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-amber-100 text-amber-700'>Metal GPU</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-amber-600'>~45 saniye</b> (NVIDIA RT çekirdekleri olmadığı için yavaştır)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-emerald-100 text-emerald-700'>Media Engine</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-emerald-600'>~1 dk 50 saniye</b> (Windows'u ezer geçer)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-purple-100 text-purple-700'>MLX Okuma</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-emerald-600'>~50 Token/sn</b> (Unified Memory avantajı)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-cyan-100 text-cyan-700'>CoreML</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-amber-600'>~4 İterasyon/sn</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> GPU & CPU Mikromimarisi (SoC)</h4>
-                            <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>Bütünleşik GPU (10-Core)</strong>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>Tüketim:</b> Tüm sistem <b class='text-emerald-600'>~30W-40W</b> çeker. (Bir NVIDIA kartının 4'te 1'i).</li>
-                                        <li><b>API:</b> Metal 3 Grafik API'sini kullanır.</li>
-                                        <li>Harici kart yoktur, belleği 120GB/s hızla işlemciyle paylaşır.</li>
-                                    </ul>
-                                </div>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>İşlemci (Apple M5)</strong>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>Mimari:</b> ARM RISC | 4 Performans, 6 Verimlilik çekirdeği.</li>
-                                        <li><b>NPU:</b> 16-çekirdekli Neural Engine (M4'e göre %40 hızlı).</li>
-                                        <li>Cinebench skoru 14K civarı olsa da <b>tek çekirdek hızı Windows rakiplerini ezer geçer.</b></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>`,
-                    display: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>📺</span> Panel Dinamikleri (XDR)</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Teknoloji</span> <b class='text-indigo-600 text-right font-bold'>Liquid Retina XDR (Mini-LED)<br><span class='text-[10px] text-slate-400'>Windows dünyasında dengi yoktur</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Çözünürlük & Tazeleme</span> <b class='text-slate-800 text-right'>3024x1964 (14.2")<br>120Hz ProMotion</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Parlaklık (Nits)</span> <b class='text-slate-800 text-right'>SDR: 600 | HDR: 1000 Sürekli<br><span class='text-[10px] text-emerald-600'>Zirvede 1600 nit patlama</span></b></li>
-                                <li class='flex justify-between pb-1'><span>GtG Gecikme Kusuru</span> <b class='text-rose-500 text-right font-bold'>~15ms-20ms Hantal Gecikme<br><span class='text-[10px] text-slate-400'>Hızlı harekette gölge/iz yapabilir</span></b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎤</span> Multimedya (Endüstri Lideri)</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Hoparlör Donanımı</span> <b class='text-emerald-600 font-bold text-right'>6-Hoparlör Ses Sistemi<br><span class='text-[10px] text-slate-400'>İptal edici Woofer + Uzamsal Ses</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Webcam (Çentik)</span> <b class='text-slate-800 text-right'>1080p FaceTime HD<br><span class='text-[10px] text-slate-400'>Gelişmiş Görüntü Sinyal İşlemcisi</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Trackpad</span> <b class='text-slate-800 text-right'>Devasa Cam Yüzey<br><span class='text-[10px] text-indigo-500'>Force Touch (Sanal Titreşim)</span></b></li>
-                            </ul>
-                        </div>`,
-                    build: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🪛</span> Anakart (Tamamen Kapalı Kutu)</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Sistem Belleği (RAM)</span> <b class='text-rose-600 text-right font-bold'>16GB Unified Memory<br><span class='text-[10px]'>Doğrudan Çipte / YÜKSELTİLEMEZ</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Kalıcı Depolama (SSD)</span> <b class='text-rose-600 text-right font-bold'>512GB NAND Yongası<br><span class='text-[10px]'>Anakarta Lehimli / YÜKSELTİLEMEZ</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Kablosuz Ağ Modülü</span> <b class='text-slate-800 text-right'>Wi-Fi 6E + Bluetooth 5.3<br><span class='text-[10px] text-slate-400'>(Wi-Fi 7 sadece Pro/Max çiplerde)</span></b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🌐</span> Port Veriyolları & Ergonomi</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Type-C Portları</span> <b class='text-indigo-600 text-right font-bold'>3x Thunderbolt 5 (veya TB4)<br><span class='text-[10px] text-slate-400'>40/80 Gbps</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Özel Portlar</span> <b class='text-emerald-600 text-right font-bold'>SDXC Kart Okuyucu<br><span class='text-[10px] text-slate-400'>MagSafe 3 Manyetik Şarj</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Ses Çıkışı</span> <b class='text-slate-800 text-right'>3.5mm Jak<br><span class='text-[10px] text-slate-400'>Yüksek Empedans DAC Destekli</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Kasa Materyali</span> <b class='text-slate-800 font-bold'>Yekpare CNC Alüminyum</b></li>
-                            </ul>
-                        </div>`,
-                    cooling: `
-                        <div class='micro-card bg-sky-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-sky-800 mb-4 flex items-center gap-2'><span class='text-lg'>❄️</span> Termal Mimari (Sıfır Ses)</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Soğutma Yapısı</span> <b class='text-sky-900'>Aktif/Pasif Hibrit</b></li>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Gündelik Akustik (Ofis/Kod)</span> <b class='text-emerald-600 font-bold'>0 RPM (Mutlak Sessizlik)</b></li>
-                                <li class='flex justify-between pb-1'><span>Maks Yükte Akustik (4K Render)</span> <b class='text-sky-900'>Sadece fısıltı seviyesi</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-amber-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-amber-800 mb-4 flex items-center gap-2'><span class='text-lg'>🔋</span> Enerji & Güç Beslemesi</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Batarya Hücresi</span> <b class='text-amber-900 text-right'>72.4 Wh Li-Po<br><span class='text-[10px] text-amber-700'>18-22 Saat Gerçek Kullanım Süresi!</span></b></li>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Ana Güç Adaptörü</span> <b class='text-emerald-700 font-bold text-right'>Sadece 70W USB-C<br><span class='text-[10px] text-emerald-600'>Çantada varlığı hissedilmez</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Cihaz Ağırlığı</span> <b class='text-amber-900 font-bold'>Sadece 1.6 kg</b></li>
-                            </ul>
-                        </div>`,
-                    risks: `
-                        <div class='micro-card bg-rose-50/80 p-6 rounded-2xl border border-rose-200 shadow-sm'>
-                            <h4 class='text-base font-black text-rose-800 mb-4 flex items-center gap-2 uppercase tracking-widest'><span class='text-xl'>🚨</span> Laboratuvar Risk Raporu</h4>
-                            <ul class='space-y-4 text-sm text-slate-800'>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-rose-100'>
-                                    <div class='text-rose-500 font-black text-lg'>1</div>
-                                    <div><b class='block text-slate-900 mb-1'>SSD Swap Yıpranması (Hücre Ölümü): <span class='text-rose-600'>(Risk: Yüksek)</span></b>Bütçe sınırı nedeniyle alınan <b>16GB RAM'in yetersiz kaldığı devasa Docker veya kurgu projelerinde, macOS cihazı dondurmamak için SSD'yi RAM gibi (Swap Bellek) kullanır.</b> Bu sürekli okuma/yazma döngüsü 5 yıllık senaryoda SSD'nin hücre ömrünü (TBW) yavaşça çürütür. Depolama anakarta lehimli olduğu için SSD ölürse tüm bilgisayar çöpe gider.</div>
-                                </li>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-amber-100'>
-                                    <div class='text-amber-500 font-black text-lg'>2</div>
-                                    <div><b class='block text-slate-900 mb-1'>Kapalı Kutu Ekosistemi:</b>Bozulan hiçbir parçayı sanayide/mahalle bilgisayarcısında tamir ettiremezsiniz. Kırılan bir ekranın yetkili servis faturası, cihazın yenisini alma fiyatına yaklaşır.</div>
-                                </li>
-                            </ul>
-                        </div>`
-                }
-            },
-            {
-                id: "ultra", icon: "🎒", 
-                title: "Ultra Taşınabilir Seramik", subtitle: "Asus Zenbook S 16 OLED (UM5606WA)",
-                price: "76.674 ₺",
-                specsShort: "Ryzen AI 9 HX 370 | IGPU (890M) | 32GB RAM | 1TB SSD | OLED",
-                radarScores: [20, 100, 95, 90, 80],
-                tabScores: { gaming: 25, display: 95, build: 90, cooling: 80, risks: 80 },
-                tabs: {
-                    gaming: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎯</span> FPS Analizi (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Cyberpunk 2077 (1440p Ultra)</span><span class='detail-badge bg-rose-100 text-rose-700'>Oynanamaz</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-rose-600'>~8 FPS</b></div>
-                                    <div class='text-[10px] text-slate-500 mt-1 leading-tight'>*Ancak 1080p Low ayarlarda FSR 3.1 ile ~35 FPS alınabilir.</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>CS2 (1080p Düşük)</span><span class='detail-badge bg-amber-100 text-amber-700'>Gündelik</span></div>
-                                    <div class='mt-1.5 text-sm'>Ortalama: <b class='text-amber-600'>~120 FPS</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎞️</span> Prodüksiyon & AI (Standart Testler)</h4>
-                            <ul class='space-y-3'>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Blender 4.0 (BMW Sahnesi)</span><span class='detail-badge bg-rose-100 text-rose-700'>IGPU Render</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-rose-600'>~2 dk 15 saniye</b> (Zorlayıcıdır)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Premiere Pro (10 Dk 4K Export)</span><span class='detail-badge bg-rose-100 text-rose-700'>H.264</span></div>
-                                    <div class='mt-1.5 text-sm'>Süre: <b class='text-rose-600'>~8 dk 30 saniye</b> (Yük CPU'ya biner)</div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Local LLM (Llama 3 8B Q4)</span><span class='detail-badge bg-amber-100 text-amber-700'>AI Okuma</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-amber-600'>~15 Token/sn</b></div>
-                                </li>
-                                <li class='bg-slate-50 p-3 rounded-lg border border-slate-100'>
-                                    <div class='flex justify-between items-center'><span class='text-xs font-bold text-slate-700'>Stable Diff. (v1.5 512x512)</span><span class='detail-badge bg-rose-100 text-rose-700'>Görsel Üretim</span></div>
-                                    <div class='mt-1.5 text-sm'>Hız: <b class='text-rose-600'>~1.5 İterasyon/sn</b></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl md:col-span-2'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>⚡</span> GPU & CPU Mikromimarisi</h4>
-                            <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>Dahili Ekran Kartı (IGPU)</strong>
-                                    <div class='text-sm text-slate-700 font-bold mb-1'>AMD Radeon 890M</div>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>TGP:</b> Harici NVIDIA kartı YOKTUR. İşlemci ile ortak <b>~28W-35W</b> çeker.</li>
-                                        <li><b>Mimari:</b> RDNA 3.5 (16 Hesaplama Birimi). Masaüstü GTX 1650 gücündedir. Belleğini cihazın LPDDR5X RAM'inden çeker.</li>
-                                    </ul>
-                                </div>
-                                <div class='bg-slate-50 p-4 rounded-xl border border-slate-100'>
-                                    <strong class='text-xs text-slate-500 uppercase tracking-widest block mb-2'>İşlemci (CPU)</strong>
-                                    <div class='text-sm text-slate-700 font-bold mb-1'>AMD Ryzen AI 9 HX 370</div>
-                                    <ul class='text-xs text-slate-600 space-y-1 list-disc pl-4'>
-                                        <li><b>Mimari:</b> Zen 5 | 12 Çekirdek (4x Zen5 + 8x Zen5c) / 24 İzlek.</li>
-                                        <li>Sistemin bataryada çok uzun süre kalabilmesini sağlayan, Intel'i verimlilikte ezen harika mimaridir.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>`,
-                    display: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>📺</span> Lumina OLED Paneli Teknolojisi</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Çözünürlük & Kontrast</span> <b class='text-slate-800 text-right'>16" 3K (2880x1800)<br><span class='text-[10px] text-indigo-600'>1.000.000:1 Sonsuz Kontrast</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Tazeleme & GtG Gecikme</span> <b class='text-emerald-600 font-bold text-right'>120Hz / 0.2ms<br><span class='text-[10px] text-emerald-800'>Sıfır Bulanıklık/Ghosting</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Parlaklık & Renk</span> <b class='text-slate-800 text-right'>600 nits HDR / %100 DCI-P3<br><span class='text-[10px] text-slate-400'>Delta-E < 1 (Matbaa Doğruluğu)</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Ekran Yüzeyi</span> <b class='text-slate-800'>Parlak (Glossy) Cam</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🎤</span> Ses, Kamera ve Klavye</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Hoparlör Donanımı</span> <b class='text-emerald-600 font-bold text-right'>6 Hoparlörlü Sistem<br><span class='text-[10px] text-emerald-800'>(4 Woofer + 2 Tweeter) Harman Kardon</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Kamera & Güvenlik</span> <b class='text-slate-800 text-right'>1080p FHD IR Kamera<br><span class='text-[10px] text-indigo-500'>Windows Hello Yüz Tanıma</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Touchpad & Klavye</span> <b class='text-slate-800 text-right'>ErgoSense (1.1mm Sığ Tuş)<br><span class='text-[10px] text-slate-400'>Akıllı Jest Destekli Dev Cam Touchpad</span></b></li>
-                            </ul>
-                        </div>`,
-                    build: `
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🪛</span> Anakart & Genişletilebilirlik</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Sistem Belleği (RAM)</span> <b class='text-rose-600 text-right font-bold'>32GB LPDDR5X-7500<br><span class='text-[10px]'>Anakarta LEHİMLİDİR (Yükseltilemez)</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Kalıcı Depolama (SSD)</span> <b class='text-slate-800 text-right'>1TB PCIe 4.0 NVMe<br><span class='text-[10px] text-rose-500'>Sadece 1 Yuva Var (2. Yuva Yok)</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Kablosuz Ağ Modülü</span> <b class='text-slate-800 text-right'>Wi-Fi 7 (802.11be)<br><span class='text-[10px] text-indigo-500'>2026 Gelecek Standardı</span></b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-white p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-slate-800 mb-4 flex items-center gap-2'><span class='text-lg'>🌐</span> Port Veriyolları & Ergonomi</h4>
-                            <ul class='space-y-3 text-sm text-slate-600'>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Hızlı Veriyolu (Type-C)</span> <b class='text-indigo-600 text-right font-bold'>2x USB4 (40Gbps)<br><span class='text-[10px] text-slate-400'>Thunderbolt Dengi</span></b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Özel Portlar</span> <b class='text-emerald-600 text-right font-bold'>Tam Boy SD Kart Okuyucu</b></li>
-                                <li class='flex justify-between border-b border-slate-100 pb-2'><span>Kasa Materyali</span> <b class='text-slate-800 text-right font-bold'>Ceraluminum (Seramik-Alüminyum)<br><span class='text-[10px] text-slate-400'>Uzay/havacılık standardı çizilmez yüzey</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Cihaz Kalınlığı</span> <b class='text-slate-800 font-bold'>Sadece 1.29 cm</b></li>
-                            </ul>
-                        </div>`,
-                    cooling: `
-                        <div class='micro-card bg-sky-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-sky-800 mb-4 flex items-center gap-2'><span class='text-lg'>❄️</span> Termal Mimari</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Soğutma Yapısı</span> <b class='text-sky-900 text-right'>Çok İnce Buhar Odası<br><span class='text-[10px] text-sky-700'>(Vapor Chamber) + Grafit Levhalar</span></b></li>
-                                <li class='flex justify-between border-b border-sky-100 pb-2'><span>Gündelik Akustik</span> <b class='text-emerald-600 font-bold'>Çoğu zaman 0 RPM (Sessiz)</b></li>
-                                <li class='flex justify-between pb-1'><span>Maks Yükte Akustik</span> <b class='text-sky-900'>İnce bir tıslama sesi</b></li>
-                            </ul>
-                        </div>
-                        <div class='micro-card bg-amber-50/50 p-6 rounded-2xl'>
-                            <h4 class='text-sm font-black text-amber-800 mb-4 flex items-center gap-2'><span class='text-lg'>🔋</span> Enerji & Güç Beslemesi</h4>
-                            <ul class='space-y-3 text-sm text-slate-700'>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Batarya Hücresi</span> <b class='text-amber-900 text-right'>78 Wh<br><span class='text-[10px] text-amber-700'>16-18 Saat Windows Ofis Süresi!</span></b></li>
-                                <li class='flex justify-between border-b border-amber-100 pb-2'><span>Ana Güç Adaptörü</span> <b class='text-emerald-700 font-bold text-right'>65W Type-C<br><span class='text-[10px] text-emerald-600'>Telefon şarj aleti büyüklüğünde</span></b></li>
-                                <li class='flex justify-between pb-1'><span>Cihaz Ağırlığı</span> <b class='text-amber-900 font-bold'>Sadece 1.5 kg</b></li>
-                            </ul>
-                        </div>`,
-                    risks: `
-                        <div class='micro-card bg-rose-50/80 p-6 rounded-2xl border border-rose-200 shadow-sm'>
-                            <h4 class='text-base font-black text-rose-800 mb-4 flex items-center gap-2 uppercase tracking-widest'><span class='text-xl'>🚨</span> Laboratuvar Risk Raporu</h4>
-                            <ul class='space-y-4 text-sm text-slate-800'>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-rose-100'>
-                                    <div class='text-rose-500 font-black text-lg'>1</div>
-                                    <div><b class='block text-slate-900 mb-1'>OLED Ekran Yanığı (Burn-in) Riski: <span class='text-rose-600'>(Risk: %10)</span></b>Ekran teknolojisinin doğası gereği, Windows görev çubuğu veya Chrome sekmeleri gibi statik (hareketsiz) görüntüleri ekran parlaklığı fullde yıllarca aynı yerde tutarsanız piksellerde ölü doku (gölge) oluşur. Asus OLED Care yazılımı arka planda pikselleri kaydırarak bu riski minimuma indirmeye çalışır ancak karanlık mod kullanımı şarttır.</div>
-                                </li>
-                                <li class='flex gap-3 bg-white p-3 rounded-lg border border-amber-100'>
-                                    <div class='text-amber-500 font-black text-lg'>2</div>
-                                    <div><b class='block text-slate-900 mb-1'>Ceraluminum Isı İletimi:</b>Kasa materyalinin ısıl iletkenliği çok yüksektir (ısıyı direkt emer). Cihazı çok ağır bir işlemde (render/yükleme) dizinize veya kucağınıza koyduğunuzda cihazın altı (D cover) çıplak teninizi oldukça rahatsız edecek seviyede ısınır. Masaüstünde kullanılmalıdır.</div>
-                                </li>
-                            </ul>
-                        </div>`
-                }
-            }
-        ];
+    <!-- PROGRESS -->
+    <div class="progress-section">
+      <div class="progress-header">
+        <span class="progress-title">Günlük İlerleme</span>
+        <span class="progress-percent" id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
 
-        let radarChartInstance = null;
-        let activeProfileIndex = 0;
+    <!-- QUOTE -->
+    <div class="quote-box">
+      <span class="quote-icon">🇮🇹</span>
+      <span class="quote-text" id="daily-quote">"CEnT-S, TIL-I sınavları ve Web Geliştirme hedeflerine doğru tavizsiz bir gün daha."</span>
+    </div>
 
-        function initApp() {
-            renderButtons();
-            // Default select Acer (index 2)
-            selectProfile(2); 
-        }
+    <!-- TASKS -->
+    <div id="task-list"></div>
 
-        function renderButtons() {
-            const container = document.getElementById('profile-buttons-container');
-            container.innerHTML = '';
-            
-            laptopData.forEach((profile, index) => {
-                const btn = document.createElement('button');
-                const isActive = index === activeProfileIndex;
-                
-                btn.className = `w-full text-left p-5 rounded-[1.5rem] border transition-all duration-300 flex items-center gap-5 group relative overflow-hidden
-                    ${isActive ? 'border-indigo-500 bg-white shadow-[0_10px_30px_-5px_rgba(99,102,241,0.25)] ring-4 ring-indigo-50 transform scale-[1.02]' : 'border-slate-200/60 bg-white/80 shadow-sm hover:border-indigo-300 hover:shadow-md hover:bg-white'}`;
-                btn.onclick = () => selectProfile(index);
-                
-                if(isActive) {
-                    btn.innerHTML += `<div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-transparent pointer-events-none"></div>
-                                      <div class="absolute left-0 top-0 w-1.5 h-full bg-indigo-500 rounded-l-[1.5rem]"></div>`;
-                }
+    <div class="reset-row">
+      <button class="reset-btn" onclick="resetDay()">🔄 Günü Sıfırla</button>
+      <button class="reset-btn" onclick="resetAll()" style="margin-left:8px;">🗑️ Tümünü Temizle</button>
+    </div>
+  </div>
 
-                let badgeHTML = '';
-                if(profile.id === 'dtr') badgeHTML = '<span class="px-2 py-0.5 bg-rose-100 text-rose-700 text-[10px] font-extrabold rounded uppercase tracking-widest mt-1.5 inline-block shadow-sm border border-rose-200">👑 Mühendis Garantisi</span>';
-                if(profile.id === 'hybrid') badgeHTML = '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-extrabold rounded uppercase tracking-widest mt-1.5 inline-block shadow-sm border border-emerald-200">⚖️ Risksiz Tak-Çalıştır</span>';
-                if(profile.id === 'hardcore') badgeHTML = '<span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-extrabold rounded uppercase tracking-widest mt-1.5 inline-block shadow-sm border border-amber-200">🏆 Uzman Seçimi (12GB)</span>';
+  <!-- ==================== WEEKLY TAB ==================== -->
+  <div id="tab-weekly" class="tab-content">
+    <div class="weekly-grid" id="weekly-grid"></div>
+    <div id="weekly-detail"></div>
+  </div>
 
-                btn.innerHTML += `
-                    <div class="text-4xl lg:text-5xl transition-transform duration-500 ${isActive ? 'scale-110 drop-shadow-lg translate-x-1' : 'group-hover:scale-110 opacity-80'} z-10">${profile.icon}</div>
-                    <div class="flex-grow z-10">
-                        <div class="font-extrabold text-slate-800 text-sm lg:text-base mb-0.5 tracking-tight">${profile.title}</div>
-                        <div class="text-[11px] lg:text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium pr-2">${profile.subtitle}</div>
-                        ${badgeHTML}
-                    </div>
-                `;
-                container.appendChild(btn);
-            });
-        }
+  <!-- ==================== MONTHLY TAB ==================== -->
+  <div id="tab-monthly" class="tab-content">
+    <div class="month-nav">
+      <button onclick="changeMonth(-1)">‹</button>
+      <span class="month-label" id="month-label"></span>
+      <button onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="monthly-calendar" id="monthly-calendar"></div>
+  </div>
 
-        function selectProfile(index) {
-            activeProfileIndex = index;
-            renderButtons(); 
-            updateContent(laptopData[index]);
-            updateChart(laptopData[index]);
-            // Varsayılan sekmeyi tetikle
-            switchTab('tab-gaming', false);
-        }
+</div>
 
-        function updateContent(data) {
-            const contentArea = document.getElementById('detail-model').parentElement.parentElement;
-            
-            // Minimal Fade in effect for header
-            contentArea.style.opacity = '0.5';
-            contentArea.style.transition = 'opacity 0.2s ease';
-            
-            setTimeout(() => {
-                document.getElementById('detail-price').innerText = data.price;
-                document.getElementById('detail-model').innerText = data.model;
-                document.getElementById('detail-specs-short').innerText = data.specsShort;
-                
-                // HTML içeriklerini aktar
-                document.getElementById('content-gaming').innerHTML = data.tabs.gaming;
-                document.getElementById('content-display').innerHTML = data.tabs.display;
-                document.getElementById('content-build').innerHTML = data.tabs.build;
-                document.getElementById('content-cooling').innerHTML = data.tabs.cooling;
-                document.getElementById('content-risks').innerHTML = data.tabs.risks;
-                
-                // Tab Skorlarını Güncelle (Minimal Rozetler)
-                document.getElementById('score-gaming').innerText = data.tabScores.gaming;
-                document.getElementById('score-display').innerText = data.tabScores.display;
-                document.getElementById('score-build').innerText = data.tabScores.build;
-                document.getElementById('score-cooling').innerText = data.tabScores.cooling;
-                document.getElementById('score-risks').innerText = data.tabScores.risks;
-                
-                contentArea.style.opacity = '1';
-            }, 100);
-        }
+<!-- FAB -->
+<button class="fab" onclick="openModal()">＋</button>
 
-        // Animasyonlu Tab Değiştirme Sistemi
-        function switchTab(tabId, animate = true) {
-            // Butonların CSS'ini güncelle
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('text-indigo-600', 'border-indigo-600');
-                btn.classList.add('text-slate-500', 'border-transparent');
-                if(btn.getAttribute('onclick').includes(tabId)) {
-                    btn.classList.remove('text-slate-500', 'border-transparent');
-                    btn.classList.add('text-indigo-600', 'border-indigo-600');
-                }
-            });
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <h2>➕ Yeni Görev Ekle</h2>
+    <label>Görev Adı</label>
+    <input type="text" id="m-name" placeholder="Örn: Matematik soru çözümü">
+    <label>Açıklama</label>
+    <input type="text" id="m-desc" placeholder="Örn: CEnT-S integral konusu">
+    <label>Saat Aralığı</label>
+    <div style="display:flex;gap:8px;">
+      <input type="time" id="m-start" value="08:00">
+      <input type="time" id="m-end" value="09:00">
+    </div>
+    <label>Kategori</label>
+    <select id="m-cat">
+      <option value="math">📐 Matematik</option>
+      <option value="physics">⚛️ Fizik</option>
+      <option value="software">💻 Yazılım</option>
+      <option value="english">🇬🇧 İngilizce</option>
+      <option value="break">🧘 Mola / Dinlenme</option>
+      <option value="free">🎮 Serbest / Eğlence</option>
+      <option value="personal">📚 Kişisel Gelişim</option>
+    </select>
+    <label>Tarih</label>
+    <input type="date" id="m-date">
+    <div class="modal-btns">
+      <button class="btn btn-secondary" onclick="closeModal()">İptal</button>
+      <button class="btn btn-primary" onclick="addTask()">Ekle</button>
+    </div>
+  </div>
+</div>
 
-            // İçerikleri (Section'ları) güncelle
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {
-                content.classList.remove('active');
-                if(content.id === tabId) {
-                    if(!animate) { content.style.animation = 'none'; } 
-                    else { content.style.animation = ''; } 
-                    content.classList.add('active');
-                }
-            });
-        }
+<script>
+// ===================== DATA =====================
+const DEFAULT_TASKS = [
+  { id:'d1', name:'Güne Başlangıç', desc:'Kahvaltı ve kedilerin bakımı', start:'08:00', end:'08:30', cat:'break', emoji:'🌅' },
+  { id:'d2', name:'Derin Çalışma: Matematik', desc:'CEnT-S / TIL-I sınav hazırlığı, mantık ve soru çözümü', start:'08:30', end:'10:30', cat:'math', emoji:'📐' },
+  { id:'d3', name:'Mola & Dinlenme', desc:'Ekrandan uzaklaş, hafif esneme hareketleri', start:'10:30', end:'11:00', cat:'break', emoji:'🧘' },
+  { id:'d4', name:'Temel Bilimler: Fizik', desc:'Mühendislik giriş sınavları – formül tekrarları ve pratik', start:'11:00', end:'13:00', cat:'physics', emoji:'⚛️' },
+  { id:'d5', name:'Öğle Arası & Deşarj', desc:'Yemek, Segway turu veya kedilerle vakit geçirme', start:'13:00', end:'14:00', cat:'break', emoji:'☀️' },
+  { id:'d6', name:'Yazılım Geliştirme', desc:'Web development kursu, JavaScript/React pratiği', start:'14:00', end:'16:30', cat:'software', emoji:'💻' },
+  { id:'d7', name:'İngilizce Pratiği', desc:'B2 hedefi – gramer, kelime, okuma/dinleme', start:'16:30', end:'18:00', cat:'english', emoji:'🇬🇧' },
+  { id:'d8', name:'Esnek Zaman / Eğitimler', desc:'Kurslar, ANKUZEF modülleri veya bahçe bitkileri', start:'18:00', end:'19:30', cat:'personal', emoji:'📚' },
+  { id:'d9', name:'Akşam Yemeği', desc:'Aile ile vakit geçirme ve dinlenme', start:'19:30', end:'20:30', cat:'break', emoji:'🍽️' },
+  { id:'d10', name:'Serbest Zaman & Eğlence', desc:'CS2, Elden Ring, Ghost of Tsushima', start:'20:30', end:'22:30', cat:'free', emoji:'🎮' },
+  { id:'d11', name:'Kişisel Okuma', desc:'Davranışsal psikoloji (Atomik Alışkanlıklar vb.)', start:'22:30', end:'23:15', cat:'personal', emoji:'📖' },
+  { id:'d12', name:'Kapanış & Planlama', desc:'Yarının hedeflerini not et, uyku hazırlığı', start:'23:15', end:'23:30', cat:'personal', emoji:'🌙' }
+];
 
-        function updateChart(data) {
-            const ctx = document.getElementById('radarChart').getContext('2d');
-            const labels = ['Oyun(GPU)', 'Taşınabilirlik', 'Batarya', 'Render(CPU)', 'Soğutma'];
-            
-            if (radarChartInstance) {
-                radarChartInstance.destroy();
-            }
+const CAT_LABELS = { math:'Matematik', physics:'Fizik', software:'Yazılım', english:'İngilizce', break:'Mola', free:'Serbest', personal:'Kişisel' };
+const EMOJIS = { math:'📐', physics:'⚛️', software:'💻', english:'🇬🇧', break:'🧘', free:'🎮', personal:'📚' };
+const QUOTES = [
+  '"Disiplin, motivasyon bittiğinde devreye giren şeydir."',
+  '"Her gün %1 gelişim, bir yılda 37 kat büyüme demek."',
+  '"Hayal ettiğin İtalya seni bekliyor. Bugün bir adım daha at."',
+  '"Kod yaz, formül çöz, kelime öğren. Tekrar et."',
+  '"Başarı bir günde gelmez ama her gün gelir."',
+  '"La disciplina è il ponte tra gli obiettivi e i risultati."',
+  '"Bugünkü çaban, yarının özgürlüğüdür."'
+];
 
-            radarChartInstance = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Kapasite',
-                        data: data.radarScores,
-                        backgroundColor: 'rgba(99, 102, 241, 0.15)', 
-                        borderColor: 'rgba(79, 70, 229, 0.9)',      
-                        pointBackgroundColor: 'rgba(67, 56, 202, 1)', 
-                        pointBorderColor: '#fff',
-                        pointRadius: 4,
-                        borderWidth: 2,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            angleLines: { color: 'rgba(148, 163, 184, 0.2)' }, 
-                            grid: { color: 'rgba(148, 163, 184, 0.2)', circular: true },
-                            pointLabels: {
-                                font: { family: "'Inter', sans-serif", size: 10, weight: '800' },
-                                color: '#64748b', padding: 8
-                            },
-                            ticks: { display: false, min: 0, max: 100 }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: true }
-                    }
-                }
-            });
-        }
+// ===================== STATE =====================
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
 
-        window.addEventListener('resize', () => {
-            if(activeProfileIndex !== null && laptopData[activeProfileIndex]) {
-               updateChart(laptopData[activeProfileIndex]);
-            }
-        });
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function getKey(date) { return 'plan_' + date; }
 
-        document.addEventListener('DOMContentLoaded', initApp);
-    </script>
+function loadDay(date) {
+  const raw = localStorage.getItem(getKey(date));
+  if (raw) return JSON.parse(raw);
+  // Return default tasks for the day
+  return DEFAULT_TASKS.map(t => ({ ...t, id: t.id + '_' + date, completed: false, date }));
+}
+
+function saveDay(date, tasks) {
+  localStorage.setItem(getKey(date), JSON.stringify(tasks));
+}
+
+function getStreak() {
+  let streak = 0;
+  let d = new Date();
+  while(true) {
+    const ds = d.toISOString().split('T')[0];
+    const tasks = loadDay(ds);
+    const total = tasks.length;
+    const done = tasks.filter(t => t.completed).length;
+    if (total > 0 && done === total) {
+      streak++;
+      d.setDate(d.getDate() - 1);
+    } else if (ds === todayStr()) {
+      d.setDate(d.getDate() - 1); // today might not be complete yet
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
+
+// ===================== RENDER DAILY =====================
+function renderDaily() {
+  const date = todayStr();
+  const tasks = loadDay(date);
+  const total = tasks.length;
+  const done = tasks.filter(t => t.completed).length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+
+  document.getElementById('stat-done').textContent = done;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('stat-streak').textContent = getStreak();
+
+  // Calculate study hours (exclude break/free)
+  let mins = 0;
+  tasks.forEach(t => {
+    if (t.completed && t.cat !== 'break' && t.cat !== 'free') {
+      const [sh,sm] = t.start.split(':').map(Number);
+      const [eh,em] = t.end.split(':').map(Number);
+      mins += (eh*60+em) - (sh*60+sm);
+    }
+  });
+  document.getElementById('stat-hours').textContent = (mins/60).toFixed(1) + 'h';
+
+  // Quote
+  const qi = Math.floor(Math.random() * QUOTES.length);
+  // only set once per page load
+  if (!window._quoteSet) {
+    document.getElementById('daily-quote').textContent = QUOTES[qi];
+    window._quoteSet = true;
+  }
+
+  // Group tasks by section
+  const sections = [
+    { title: 'Sabah Bloğu', color: 'var(--accent-orange)', filter: t => t.start < '12:00' },
+    { title: 'Öğleden Sonra', color: 'var(--accent-blue)', filter: t => t.start >= '12:00' && t.start < '18:00' },
+    { title: 'Akşam', color: 'var(--accent-purple)', filter: t => t.start >= '18:00' }
+  ];
+
+  let html = '';
+  sections.forEach(sec => {
+    const secTasks = tasks.filter(sec.filter);
+    if (secTasks.length === 0) return;
+    html += `<div class="task-section">
+      <div class="section-header">
+        <div class="section-dot" style="background:${sec.color}"></div>
+        <span class="section-title">${sec.title}</span>
+        <div class="section-line"></div>
+      </div>`;
+    secTasks.forEach(t => {
+      html += `<div class="task-card ${t.completed ? 'completed' : ''}" data-cat="${t.cat}" onclick="toggleTask('${date}','${t.id}')">
+        <div class="task-checkbox">${t.completed ? '✓' : ''}</div>
+        <span class="task-time">${t.start} – ${t.end}</span>
+        <span class="task-emoji">${t.emoji || EMOJIS[t.cat] || '📌'}</span>
+        <div class="task-info">
+          <div class="task-name">${t.name}</div>
+          <div class="task-desc">${t.desc}</div>
+        </div>
+        <span class="task-tag tag-${t.cat}">${CAT_LABELS[t.cat]}</span>
+      </div>`;
+    });
+    html += '</div>';
+  });
+
+  document.getElementById('task-list').innerHTML = html;
+}
+
+function toggleTask(date, id) {
+  const tasks = loadDay(date);
+  const t = tasks.find(x => x.id === id);
+  if (t) t.completed = !t.completed;
+  saveDay(date, tasks);
+  renderDaily();
+}
+
+function resetDay() {
+  if (!confirm('Bugünkü tüm tikleri sıfırlamak istediğine emin misin?')) return;
+  const date = todayStr();
+  const tasks = loadDay(date);
+  tasks.forEach(t => t.completed = false);
+  saveDay(date, tasks);
+  renderDaily();
+}
+
+function resetAll() {
+  if (!confirm('TÜM verileri silmek istediğine emin misin? Bu işlem geri alınamaz.')) return;
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('plan_')) keys.push(key);
+  }
+  keys.forEach(k => localStorage.removeItem(k));
+  renderDaily();
+}
+
+// ===================== WEEKLY =====================
+function renderWeekly() {
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));
+
+  const days = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+  let html = '';
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    const ds = d.toISOString().split('T')[0];
+    const tasks = loadDay(ds);
+    const total = tasks.length;
+    const done = tasks.filter(t => t.completed).length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    const isToday = ds === todayStr();
+
+    html += `<div class="day-card ${isToday ? 'today' : ''}">
+      <div class="day-name">${days[i]}</div>
+      <div class="day-date">${d.getDate()}</div>
+      <div class="day-progress-mini"><div class="day-progress-fill" style="width:${pct}%"></div></div>
+      <div class="day-task-count">${done}/${total} görev</div>
+    </div>`;
+  }
+
+  document.getElementById('weekly-grid').innerHTML = html;
+
+  // Weekly summary
+  let totalTasks = 0, totalDone = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    const ds = d.toISOString().split('T')[0];
+    const tasks = loadDay(ds);
+    totalTasks += tasks.length;
+    totalDone += tasks.filter(t => t.completed).length;
+  }
+
+  const weekPct = totalTasks ? Math.round((totalDone/totalTasks)*100) : 0;
+  document.getElementById('weekly-detail').innerHTML = `
+    <div class="progress-section">
+      <div class="progress-header">
+        <span class="progress-title">Haftalık İlerleme</span>
+        <span class="progress-percent">${weekPct}%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width:${weekPct}%"></div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <span class="quote-icon">📊</span>
+      <span class="quote-text">Bu hafta toplam ${totalDone}/${totalTasks} görev tamamlandı. ${weekPct >= 70 ? 'Harika gidiyorsun! 🔥' : 'Hedefe devam! 💪'}</span>
+    </div>`;
+}
+
+// ===================== MONTHLY =====================
+function renderMonthly() {
+  const monthNames = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  document.getElementById('month-label').textContent = monthNames[currentMonth] + ' ' + currentYear;
+
+  const firstDay = new Date(currentYear, currentMonth, 1);
+  const lastDay = new Date(currentYear, currentMonth + 1, 0);
+  const startDow = (firstDay.getDay() + 6) % 7; // Monday = 0
+
+  const dayHeaders = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+  let html = dayHeaders.map(d => `<div class="cal-header">${d}</div>`).join('');
+
+  for (let i = 0; i < startDow; i++) {
+    html += '<div class="cal-day empty"></div>';
+  }
+
+  const todayDate = todayStr();
+
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const ds = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const tasks = loadDay(ds);
+    const done = tasks.filter(t => t.completed).length;
+    const total = tasks.length;
+    const isToday = ds === todayDate;
+    const hasTasks = total > 0 && done > 0;
+
+    html += `<div class="cal-day ${isToday ? 'today' : ''} ${hasTasks ? 'has-tasks' : ''}">
+      ${d}
+      ${hasTasks ? '<div class="cal-dot"></div>' : ''}
+    </div>`;
+  }
+
+  document.getElementById('monthly-calendar').innerHTML = html;
+}
+
+function changeMonth(dir) {
+  currentMonth += dir;
+  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  renderMonthly();
+}
+
+// ===================== TABS =====================
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.closest('.tab-btn').classList.add('active');
+
+  if (tab === 'daily') renderDaily();
+  if (tab === 'weekly') renderWeekly();
+  if (tab === 'monthly') renderMonthly();
+}
+
+// ===================== MODAL =====================
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('show');
+  document.getElementById('m-date').value = todayStr();
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function addTask() {
+  const name = document.getElementById('m-name').value.trim();
+  if (!name) { alert('Görev adı boş olamaz!'); return; }
+
+  const date = document.getElementById('m-date').value;
+  const task = {
+    id: 'custom_' + Date.now(),
+    name: name,
+    desc: document.getElementById('m-desc').value.trim(),
+    start: document.getElementById('m-start').value,
+    end: document.getElementById('m-end').value,
+    cat: document.getElementById('m-cat').value,
+    emoji: EMOJIS[document.getElementById('m-cat').value],
+    completed: false,
+    date: date
+  };
+
+  const tasks = loadDay(date);
+  tasks.push(task);
+  tasks.sort((a,b) => a.start.localeCompare(b.start));
+  saveDay(date, tasks);
+
+  closeModal();
+  document.getElementById('m-name').value = '';
+  document.getElementById('m-desc').value = '';
+  renderDaily();
+}
+
+// ===================== INIT =====================
+renderDaily();
+</script>
+
 </body>
 </html>
