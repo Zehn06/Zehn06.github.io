@@ -56,10 +56,24 @@
     body {
       min-height: 100vh;
       background:
-        radial-gradient(circle at 12% 16%, rgba(79, 70, 229, 0.11), transparent 24rem),
-        radial-gradient(circle at 88% 8%, rgba(15, 23, 42, 0.055), transparent 24rem),
-        linear-gradient(180deg, #faf9f6 0%, var(--base) 100%);
+        radial-gradient(circle at 12% 16%, rgba(79, 70, 229, 0.12), transparent 24rem),
+        radial-gradient(circle at 88% 8%, rgba(15, 23, 42, 0.06), transparent 24rem),
+        linear-gradient(180deg, #fbfaf7 0%, var(--base) 100%);
       color: var(--ink);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.42;
+      background-image:
+        linear-gradient(rgba(16, 16, 20, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 16, 20, 0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
     }
 
     .paper {
@@ -121,6 +135,51 @@
       font-weight: 800;
       letter-spacing: 0.18em;
       text-transform: uppercase;
+    }
+
+    .hero-avatar {
+      background:
+        radial-gradient(circle at 32% 24%, rgba(255,255,255,.18), transparent 32%),
+        linear-gradient(135deg, #101014 0%, #252532 100%);
+    }
+
+    .education-spotlight {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 254, 250, 0.94), rgba(246, 245, 242, 0.78)),
+        radial-gradient(circle at 85% 15%, rgba(79, 70, 229, 0.16), transparent 22rem);
+    }
+
+    .education-spotlight::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, var(--accent), rgba(79,70,229,.25), transparent 58%);
+      height: 4px;
+    }
+
+    .education-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border-radius: 999px;
+      padding: .58rem .9rem;
+      background: #101014;
+      color: #fff;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      box-shadow: 0 16px 45px -28px rgba(16,16,20,.8);
+    }
+
+    .focus-card {
+      border: 1px solid rgba(230, 225, 216, 0.95);
+      background: rgba(255, 254, 250, 0.74);
+      border-radius: 1.45rem;
+      padding: 1rem;
     }
 
     .timeline::before {
@@ -217,7 +276,7 @@
     <section class="reveal grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch">
       <aside class="paper rounded-[2.1rem] p-6 md:p-8 print-compact">
         <div class="flex items-start justify-between gap-6">
-          <div class="grid h-24 w-24 place-items-center overflow-hidden rounded-[2rem] bg-ink text-4xl font-extrabold text-white shadow-lift">
+          <div class="hero-avatar grid h-24 w-24 place-items-center overflow-hidden rounded-[2rem] text-4xl font-extrabold text-white shadow-lift">
             L
           </div>
           <div class="no-print flex gap-2">
@@ -254,7 +313,7 @@
 
         <div class="mt-7 space-y-5 text-[1.02rem] font-light leading-8 text-zinc-700">
           <p class="print-text">
-            I am a passionate student preparing for the İstanbul Cerrahpaşa Üniversitesi Adli Bilişim / Digital Forensics certificate path. My main learning areas are Python, C#, SQL, cybersecurity fundamentals, and secure software development.
+            I am a passionate student preparing for a Digital Forensics / Adli Bilişim certificate path at İstanbul University-Cerrahpaşa. My main learning areas are Python, C#, SQL, cybersecurity fundamentals, and secure software development.
           </p>
           <p class="print-text">
             I also gain hands-on experience with Unity simulations and Roblox Studio game development, focusing on modeling, map design, and lighting. My objective is to combine technical knowledge with security best practices and create efficient, reliable, and impactful systems.
@@ -395,37 +454,74 @@
     </section>
 
     <!-- Education -->
-    <section id="education" class="reveal mt-16 grid gap-4 lg:grid-cols-2">
-      <article class="paper rounded-[2rem] p-7 md:p-8 print-compact">
-        <p class="section-kicker">Education</p>
-        <h2 class="mt-3 text-2xl font-extrabold tracking-[-0.035em] text-ink">Certificate focus</h2>
-        <div class="mt-6 rounded-3xl border border-line bg-paper/70 p-5">
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <h3 class="font-extrabold text-ink">Digital Forensics Certificate Path</h3>
-            <span class="rounded-full bg-ink px-3 py-1 text-xs font-extrabold text-white">Preparing</span>
-          </div>
-          <p class="print-text mt-3 text-sm leading-6 text-muted">Preparing for İstanbul Cerrahpaşa Üniversitesi Adli Bilişim / Digital Forensics certificate studies.</p>
+    <section id="education" class="reveal mt-16">
+      <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div>
+          <p class="section-kicker">Education</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-[-0.045em] text-ink md:text-4xl">Education & certification focus</h2>
         </div>
-      </article>
+        <p class="max-w-lg text-sm leading-6 text-muted">A clearer, more focused education section that highlights the certificate goal as a serious career direction.</p>
+      </div>
 
-      <article class="paper rounded-[2rem] p-7 md:p-8 print-compact">
-        <p class="section-kicker">Roadmap</p>
-        <h2 class="mt-3 text-2xl font-extrabold tracking-[-0.035em] text-ink">Next steps</h2>
-        <div class="timeline relative mt-6 space-y-5 pl-8">
-          <div class="relative">
-            <span class="timeline-dot"></span>
-            <h3 class="font-extrabold text-ink">Deepen programming</h3>
-            <p class="print-text mt-1 text-sm leading-6 text-muted">Python, C#, SQL, and secure development patterns.</p>
+      <article class="paper education-spotlight rounded-[2.2rem] p-7 md:p-10 print-compact">
+        <div class="relative grid gap-8 lg:grid-cols-[1.08fr_.92fr] lg:items-start">
+          <div>
+            <span class="education-badge"><i class="ph ph-certificate text-base"></i> Preparing</span>
+            <h3 class="mt-6 max-w-2xl text-3xl font-extrabold tracking-[-0.045em] text-ink md:text-5xl">
+              Digital Forensics / Adli Bilişim Certificate Path
+            </h3>
+            <p class="print-text mt-5 max-w-2xl text-base font-light leading-8 text-zinc-700">
+              Preparing for a certificate-oriented study path connected to İstanbul University-Cerrahpaşa, with a focus on cybersecurity foundations, evidence analysis, secure systems, and technical investigation workflows.
+            </p>
+
+            <div class="mt-7 flex flex-wrap gap-2.5">
+              <span class="chip"><i class="ph ph-shield-check"></i> Security fundamentals</span>
+              <span class="chip"><i class="ph ph-fingerprint"></i> Evidence analysis</span>
+              <span class="chip"><i class="ph ph-file-search"></i> Investigation workflow</span>
+              <span class="chip"><i class="ph ph-code"></i> Python · C# · SQL</span>
+            </div>
           </div>
-          <div class="relative">
-            <span class="timeline-dot"></span>
-            <h3 class="font-extrabold text-ink">Build practical projects</h3>
-            <p class="print-text mt-1 text-sm leading-6 text-muted">Small security tools, documentation, and interactive 3D environments.</p>
+
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            <div class="focus-card">
+              <div class="flex items-center gap-3">
+                <span class="grid h-10 w-10 place-items-center rounded-2xl bg-accent text-white"><i class="ph ph-target"></i></span>
+                <div>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-muted">Main goal</p>
+                  <h4 class="font-extrabold text-ink">Cybersecurity specialization</h4>
+                </div>
+              </div>
+              <p class="print-text mt-3 text-sm leading-6 text-muted">Build a practical foundation for threat detection, incident response, and secure software thinking.</p>
+            </div>
+
+            <div class="focus-card">
+              <div class="flex items-center gap-3">
+                <span class="grid h-10 w-10 place-items-center rounded-2xl bg-ink text-white"><i class="ph ph-database"></i></span>
+                <div>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-muted">Technical base</p>
+                  <h4 class="font-extrabold text-ink">Programming & data</h4>
+                </div>
+              </div>
+              <p class="print-text mt-3 text-sm leading-6 text-muted">Strengthen Python, C#, SQL, documentation habits, and structured problem-solving.</p>
+            </div>
           </div>
-          <div class="relative">
-            <span class="timeline-dot"></span>
-            <h3 class="font-extrabold text-ink">Specialize in security</h3>
-            <p class="print-text mt-1 text-sm leading-6 text-muted">Threat detection, incident response, and evidence analysis.</p>
+        </div>
+
+        <div class="relative mt-8 grid gap-4 md:grid-cols-3">
+          <div class="thin-card rounded-[1.6rem] p-5 print-compact">
+            <p class="text-sm font-extrabold uppercase tracking-[0.18em] text-accent">Step 01</p>
+            <h4 class="mt-2 font-extrabold text-ink">Learn the foundations</h4>
+            <p class="print-text mt-2 text-sm leading-6 text-muted">Security concepts, operating systems, databases, and programming fundamentals.</p>
+          </div>
+          <div class="thin-card rounded-[1.6rem] p-5 print-compact">
+            <p class="text-sm font-extrabold uppercase tracking-[0.18em] text-accent">Step 02</p>
+            <h4 class="mt-2 font-extrabold text-ink">Practice with projects</h4>
+            <p class="print-text mt-2 text-sm leading-6 text-muted">Small tools, secure login systems, forensic notes, and documented lab-style exercises.</p>
+          </div>
+          <div class="thin-card rounded-[1.6rem] p-5 print-compact">
+            <p class="text-sm font-extrabold uppercase tracking-[0.18em] text-accent">Step 03</p>
+            <h4 class="mt-2 font-extrabold text-ink">Build a portfolio</h4>
+            <p class="print-text mt-2 text-sm leading-6 text-muted">Showcase security, programming, documentation, and investigation-oriented work clearly.</p>
           </div>
         </div>
       </article>
