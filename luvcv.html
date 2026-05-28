@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Luv — Student, Cybersecurity and Digital Forensics enthusiast focused on Python, C#, SQL, secure development, and practical systems." />
+  <title>Luv | Minimal CV</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            base: '#f6f5f2',
+            paper: '#fffefa',
+            ink: '#101014',
+            muted: '#6f7178',
+            line: '#e6e1d8',
+            accent: '#4f46e5',
+          },
+          boxShadow: {
+            soft: '0 24px 80px -56px rgba(16, 16, 20, 0.45)',
+            lift: '0 22px 50px -36px rgba(16, 16, 20, 0.55)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --paper: #fffefa;
+      --base: #f6f5f2;
+      --ink: #101014;
+      --muted: #6f7178;
+      --line: #e6e1d8;
+      --accent: #4f46e5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(79, 70, 229, 0.11), transparent 24rem),
+        radial-gradient(circle at 88% 8%, rgba(15, 23, 42, 0.055), transparent 24rem),
+        linear-gradient(180deg, #faf9f6 0%, var(--base) 100%);
+      color: var(--ink);
+    }
+
+    .paper {
+      background: rgba(255, 254, 250, 0.78);
+      border: 1px solid rgba(230, 225, 216, 0.92);
+      box-shadow: 0 24px 80px -56px rgba(16, 16, 20, 0.5);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .thin-card {
+      background: rgba(255, 254, 250, 0.62);
+      border: 1px solid rgba(230, 225, 216, 0.92);
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    .thin-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(79, 70, 229, 0.22);
+      background: rgba(255, 254, 250, 0.86);
+    }
+
+    .nav-glass {
+      background: rgba(246, 245, 242, 0.72);
+      border-bottom: 1px solid rgba(230, 225, 216, 0.86);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 700ms cubic-bezier(.16,1,.3,1), transform 700ms cubic-bezier(.16,1,.3,1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border: 1px solid rgba(230, 225, 216, 0.95);
+      background: rgba(255, 254, 250, 0.72);
+      color: #34343b;
+      border-radius: 999px;
+      padding: 0.55rem 0.8rem;
+      font-size: 0.78rem;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .section-kicker {
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0.25rem;
+      bottom: 0.25rem;
+      left: 0.45rem;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(79,70,229,.38), rgba(230,225,216,.9), transparent);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 0.18rem;
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 999px;
+      background: var(--paper);
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .thin-card { transition: none !important; transform: none !important; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 1.05cm; }
+
+      html, body {
+        background: #fff !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      nav, .no-print { display: none !important; }
+
+      main {
+        max-width: none !important;
+        padding: 0 !important;
+      }
+
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .paper, .thin-card {
+        background: #fff !important;
+        border: 1px solid #d8d4cc !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .print-compact { padding: 1rem !important; }
+      .print-title { font-size: 28pt !important; line-height: 1.02 !important; }
+      .print-text { font-size: 9.6pt !important; line-height: 1.48 !important; }
+      .chip { padding: 0.32rem 0.5rem !important; font-size: 8.2pt !important; }
+      section { margin-top: 0.85rem !important; }
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-accent selection:text-white">
+  <!-- Navigation -->
+  <nav id="nav" class="nav-glass fixed inset-x-0 top-0 z-50">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
+      <a href="#top" class="group inline-flex items-center gap-3">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-ink text-sm font-extrabold text-white shadow-lift transition group-hover:scale-105">L</span>
+        <span class="font-extrabold tracking-tight text-ink">Luv</span>
+      </a>
+
+      <div class="hidden items-center gap-7 text-sm font-bold text-muted md:flex">
+        <a href="#about" class="transition hover:text-ink">About</a>
+        <a href="#skills" class="transition hover:text-ink">Skills</a>
+        <a href="#projects" class="transition hover:text-ink">Projects</a>
+        <a href="#education" class="transition hover:text-ink">Education</a>
+        <a href="#contact" class="transition hover:text-ink">Contact</a>
+      </div>
+
+      <button onclick="window.print()" class="no-print inline-flex items-center gap-2 rounded-full border border-line bg-paper/80 px-4 py-2 text-sm font-bold text-ink shadow-sm transition hover:bg-white">
+        <i class="ph ph-download-simple text-base"></i>
+        Save PDF
+      </button>
+    </div>
+  </nav>
+
+  <main id="top" class="mx-auto max-w-6xl px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
+    <!-- Hero -->
+    <section class="reveal grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch">
+      <aside class="paper rounded-[2.1rem] p-6 md:p-8 print-compact">
+        <div class="flex items-start justify-between gap-6">
+          <div class="grid h-24 w-24 place-items-center overflow-hidden rounded-[2rem] bg-ink text-4xl font-extrabold text-white shadow-lift">
+            L
+          </div>
+          <div class="no-print flex gap-2">
+            <a href="#" aria-label="GitHub" class="grid h-11 w-11 place-items-center rounded-2xl border border-line bg-paper text-ink transition hover:bg-white"><i class="ph ph-github-logo text-xl"></i></a>
+            <a href="#" aria-label="Portfolio" class="grid h-11 w-11 place-items-center rounded-2xl border border-line bg-paper text-ink transition hover:bg-white"><i class="ph ph-code text-xl"></i></a>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <p class="section-kicker">Student</p>
+          <h1 class="print-title mt-4 text-6xl font-extrabold tracking-[-0.075em] text-ink md:text-7xl">Luv</h1>
+          <p class="mt-5 max-w-md text-base leading-7 text-muted print-text">
+            Cybersecurity & Digital Forensics enthusiast focused on practical systems, secure development, and continuous technical improvement.
+          </p>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-2.5">
+          <span class="chip"><i class="ph ph-shield-check"></i> Cybersecurity</span>
+          <span class="chip"><i class="ph ph-fingerprint"></i> Digital Forensics</span>
+          <span class="chip"><i class="ph ph-code"></i> Python · C# · SQL</span>
+        </div>
+      </aside>
+
+      <section class="paper rounded-[2.1rem] p-7 md:p-10 print-compact">
+        <div class="mb-8 flex flex-wrap items-center gap-2">
+          <span class="chip bg-white"><i class="ph ph-certificate"></i> Certificate Candidate</span>
+          <span class="chip bg-white"><i class="ph ph-lock-key"></i> Secure Development</span>
+          <span class="chip bg-white"><i class="ph ph-game-controller"></i> Unity / Roblox Studio</span>
+        </div>
+
+        <h2 class="max-w-3xl text-3xl font-extrabold tracking-[-0.04em] text-ink md:text-5xl">
+          Building technical range from code to security analysis.
+        </h2>
+
+        <div class="mt-7 space-y-5 text-[1.02rem] font-light leading-8 text-zinc-700">
+          <p class="print-text">
+            I am a passionate student preparing for the İstanbul Cerrahpaşa Üniversitesi Adli Bilişim / Digital Forensics certificate path. My main learning areas are Python, C#, SQL, cybersecurity fundamentals, and secure software development.
+          </p>
+          <p class="print-text">
+            I also gain hands-on experience with Unity simulations and Roblox Studio game development, focusing on modeling, map design, and lighting. My objective is to combine technical knowledge with security best practices and create efficient, reliable, and impactful systems.
+          </p>
+        </div>
+
+        <div class="mt-8 grid gap-3 sm:grid-cols-3">
+          <div class="thin-card rounded-3xl p-4">
+            <p class="text-2xl font-extrabold tracking-tight text-ink">01</p>
+            <p class="mt-1 text-sm font-bold text-muted">Threat detection</p>
+          </div>
+          <div class="thin-card rounded-3xl p-4">
+            <p class="text-2xl font-extrabold tracking-tight text-ink">02</p>
+            <p class="mt-1 text-sm font-bold text-muted">Incident response</p>
+          </div>
+          <div class="thin-card rounded-3xl p-4">
+            <p class="text-2xl font-extrabold tracking-tight text-ink">03</p>
+            <p class="mt-1 text-sm font-bold text-muted">Evidence analysis</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="reveal mt-16 grid gap-6 lg:grid-cols-[0.75fr_1.25fr]">
+      <div>
+        <p class="section-kicker">Profile</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-[-0.045em] text-ink md:text-4xl">Minimal, technical, focused.</h2>
+      </div>
+
+      <div class="thin-card rounded-[2rem] p-7 md:p-9 print-compact">
+        <p class="print-text text-base font-light leading-8 text-zinc-700">
+          I am developing a multidisciplinary foundation across programming, databases, cybersecurity, digital forensics, and interactive 3D environments. My learning style is practical: I prefer building small systems, testing ideas, documenting what works, and improving through real projects.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-2.5">
+          <span class="chip">Analytical thinking</span>
+          <span class="chip">Practical learning</span>
+          <span class="chip">Security mindset</span>
+          <span class="chip">Technical curiosity</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="reveal mt-16">
+      <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div>
+          <p class="section-kicker">Skills</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-[-0.045em] text-ink md:text-4xl">Technical stack</h2>
+        </div>
+        <p class="max-w-lg text-sm leading-6 text-muted">A clean overview of the technologies and disciplines currently being learned and practiced.</p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-2xl bg-ink text-white"><i class="ph ph-code text-xl"></i></div>
+          <h3 class="text-lg font-extrabold text-ink">Programming</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-muted">Learning to build efficient and secure systems with practical coding fundamentals.</p>
+          <div class="mt-5 flex flex-wrap gap-2"><span class="chip">Python</span><span class="chip">C#</span><span class="chip">HTML</span><span class="chip">CSS</span></div>
+        </article>
+
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-2xl bg-accent text-white"><i class="ph ph-database text-xl"></i></div>
+          <h3 class="text-lg font-extrabold text-ink">Data & SQL</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-muted">Database fundamentals, data management, and structured querying for technical projects.</p>
+          <div class="mt-5 flex flex-wrap gap-2"><span class="chip">SQL</span><span class="chip">Data Management</span><span class="chip">Analysis</span></div>
+        </article>
+
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-2xl bg-ink text-white"><i class="ph ph-shield-warning text-xl"></i></div>
+          <h3 class="text-lg font-extrabold text-ink">Cybersecurity</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-muted">Security principles, threat detection, incident response, and secure software thinking.</p>
+          <div class="mt-5 flex flex-wrap gap-2"><span class="chip">Threat Detection</span><span class="chip">Secure Dev</span><span class="chip">Response</span></div>
+        </article>
+
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-2xl bg-ink text-white"><i class="ph ph-fingerprint text-xl"></i></div>
+          <h3 class="text-lg font-extrabold text-ink">Digital Forensics</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-muted">Interest in evidence analysis, investigation workflow, and technical documentation.</p>
+          <div class="mt-5 flex flex-wrap gap-2"><span class="chip">Evidence</span><span class="chip">Investigation</span><span class="chip">Reports</span></div>
+        </article>
+
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-2xl bg-accent text-white"><i class="ph ph-cube-focus text-xl"></i></div>
+          <h3 class="text-lg font-extrabold text-ink">3D & Game Tools</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-muted">Hands-on practice with simulations, modeling, environment design, lighting, and maps.</p>
+          <div class="mt-5 flex flex-wrap gap-2"><span class="chip">Unity</span><span class="chip">Roblox Studio</span><span class="chip">Lighting</span></div>
+        </article>
+
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="mb-5 grid h-11 w-11 place-items-center rounded-2xl bg-ink text-white"><i class="ph ph-books text-xl"></i></div>
+          <h3 class="text-lg font-extrabold text-ink">Learning Method</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-muted">Continuous improvement through projects, research, practice, and structured self-study.</p>
+          <div class="mt-5 flex flex-wrap gap-2"><span class="chip">Research</span><span class="chip">Practice</span><span class="chip">Documentation</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="reveal mt-16 grid gap-6 lg:grid-cols-[0.75fr_1.25fr]">
+      <div>
+        <p class="section-kicker">Projects</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-[-0.045em] text-ink md:text-4xl">Portfolio ideas</h2>
+        <p class="mt-4 text-sm leading-6 text-muted">These can be replaced with real project links once completed.</p>
+      </div>
+
+      <div class="grid gap-4">
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h3 class="text-lg font-extrabold text-ink">Digital Forensics Notes</h3>
+              <p class="print-text mt-2 text-sm leading-6 text-muted">A structured learning archive for evidence handling, investigation concepts, threat types, and response workflow.</p>
+            </div>
+            <span class="chip shrink-0">Documentation</span>
+          </div>
+        </article>
+
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h3 class="text-lg font-extrabold text-ink">Secure Login System</h3>
+              <p class="print-text mt-2 text-sm leading-6 text-muted">A small Python or C# project focused on authentication logic, validation, logging, and secure coding habits.</p>
+            </div>
+            <span class="chip shrink-0">Python / C#</span>
+          </div>
+        </article>
+
+        <article class="thin-card rounded-[2rem] p-6 print-compact">
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h3 class="text-lg font-extrabold text-ink">Roblox / Unity Environment</h3>
+              <p class="print-text mt-2 text-sm leading-6 text-muted">A polished scene demonstrating map design, lighting, atmosphere, and interactive environment thinking.</p>
+            </div>
+            <span class="chip shrink-0">3D / Game Dev</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="reveal mt-16 grid gap-4 lg:grid-cols-2">
+      <article class="paper rounded-[2rem] p-7 md:p-8 print-compact">
+        <p class="section-kicker">Education</p>
+        <h2 class="mt-3 text-2xl font-extrabold tracking-[-0.035em] text-ink">Certificate focus</h2>
+        <div class="mt-6 rounded-3xl border border-line bg-paper/70 p-5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h3 class="font-extrabold text-ink">Digital Forensics Certificate Path</h3>
+            <span class="rounded-full bg-ink px-3 py-1 text-xs font-extrabold text-white">Preparing</span>
+          </div>
+          <p class="print-text mt-3 text-sm leading-6 text-muted">Preparing for İstanbul Cerrahpaşa Üniversitesi Adli Bilişim / Digital Forensics certificate studies.</p>
+        </div>
+      </article>
+
+      <article class="paper rounded-[2rem] p-7 md:p-8 print-compact">
+        <p class="section-kicker">Roadmap</p>
+        <h2 class="mt-3 text-2xl font-extrabold tracking-[-0.035em] text-ink">Next steps</h2>
+        <div class="timeline relative mt-6 space-y-5 pl-8">
+          <div class="relative">
+            <span class="timeline-dot"></span>
+            <h3 class="font-extrabold text-ink">Deepen programming</h3>
+            <p class="print-text mt-1 text-sm leading-6 text-muted">Python, C#, SQL, and secure development patterns.</p>
+          </div>
+          <div class="relative">
+            <span class="timeline-dot"></span>
+            <h3 class="font-extrabold text-ink">Build practical projects</h3>
+            <p class="print-text mt-1 text-sm leading-6 text-muted">Small security tools, documentation, and interactive 3D environments.</p>
+          </div>
+          <div class="relative">
+            <span class="timeline-dot"></span>
+            <h3 class="font-extrabold text-ink">Specialize in security</h3>
+            <p class="print-text mt-1 text-sm leading-6 text-muted">Threat detection, incident response, and evidence analysis.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="reveal mt-16">
+      <div class="paper rounded-[2.2rem] p-7 md:p-10 print-compact">
+        <div class="grid gap-8 md:grid-cols-[1.15fr_.85fr] md:items-center">
+          <div>
+            <p class="section-kicker">Contact</p>
+            <h2 class="mt-3 text-3xl font-extrabold tracking-[-0.045em] text-ink md:text-4xl">Open to learning, building, and improving.</h2>
+            <p class="print-text mt-4 max-w-2xl text-base font-light leading-8 text-zinc-700">Available for junior learning projects, small development tasks, cybersecurity practice projects, and portfolio collaborations.</p>
+          </div>
+
+          <div class="space-y-3">
+            <a href="mailto:example@email.com" class="flex items-center gap-3 rounded-3xl border border-line bg-paper/70 p-4 text-sm font-bold text-ink transition hover:bg-white">
+              <span class="grid h-10 w-10 place-items-center rounded-2xl bg-ink text-white"><i class="ph ph-envelope-simple"></i></span>
+              <span>example@email.com</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 rounded-3xl border border-line bg-paper/70 p-4 text-sm font-bold text-ink transition hover:bg-white">
+              <span class="grid h-10 w-10 place-items-center rounded-2xl bg-accent text-white"><i class="ph ph-github-logo"></i></span>
+              <span>github.com/username</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 rounded-3xl border border-line bg-paper/70 p-4 text-sm font-bold text-ink transition hover:bg-white">
+              <span class="grid h-10 w-10 place-items-center rounded-2xl bg-ink text-white"><i class="ph ph-link"></i></span>
+              <span>portfolio link</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="no-print border-t border-line bg-paper/40">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-7 text-sm text-muted md:flex-row md:px-8">
+      <p class="font-extrabold text-ink">Luv</p>
+      <p>© <span id="year"></span> · Minimal cybersecurity CV</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((section) => observer.observe(section));
+
+    setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach((section) => {
+        if (section.getBoundingClientRect().top < window.innerHeight) section.classList.add('is-visible');
+      });
+    }, 90);
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('shadow-sm', window.scrollY > 8);
+    });
+  </script>
+</body>
+</html>
