@@ -1,370 +1,612 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ömer Faruk Memiş | Portfolio</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        zinc: {
-                            50: '#fafafa',
-                            100: '#f4f4f5',
-                            200: '#e4e4e7',
-                            300: '#d4d4d8',
-                            400: '#a1a1aa',
-                            500: '#71717a',
-                            600: '#52525b',
-                            800: '#27272a',
-                            900: '#18181b',
-                        }
-                    },
-                    boxShadow: {
-                        'soft': '0 4px 40px -2px rgba(0, 0, 0, 0.04)',
-                        'hover': '0 10px 50px -5px rgba(0, 0, 0, 0.08)',
-                    }
-                }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ömer Faruk Memiş — Computer Technology student focused on web development, data annotation, technical troubleshooting, and future computer engineering studies in Europe." />
+  <title>Ömer Faruk Memiş | CV & Portfolio</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            ink: '#111113',
+            soft: '#f7f7f8',
+            line: '#e7e7ea',
+            muted: '#6f6f76',
+            zinc: {
+              50: '#fafafa',
+              100: '#f4f4f5',
+              200: '#e4e4e7',
+              300: '#d4d4d8',
+              400: '#a1a1aa',
+              500: '#71717a',
+              600: '#52525b',
+              700: '#3f3f46',
+              800: '#27272a',
+              900: '#18181b',
+              950: '#09090b',
             }
+          },
+          boxShadow: {
+            soft: '0 24px 80px -42px rgba(24, 24, 27, 0.34)',
+            subtle: '0 1px 0 rgba(24, 24, 27, 0.04), 0 10px 35px -28px rgba(24, 24, 27, 0.7)',
+          }
         }
-    </script>
-    
-    <style>
-        body {
-            background-color: #f8fafc;
-            color: #18181b;
-        }
+      }
+    }
+  </script>
 
-        /* Smooth reveal animation */
-        .reveal-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-        
-        .reveal-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: rgba(255, 255, 255, 0.78);
+      --ink: #18181b;
+      --muted: #71717a;
+      --line: rgba(24, 24, 27, 0.08);
+    }
 
-        /* Glassmorphism Navbar */
-        .glass-nav {
-            background: rgba(248, 250, 252, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
+    * { box-sizing: border-box; }
 
-        /* Modern Card Style */
-        .premium-card {
-            background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            border-radius: 24px;
-            box-shadow: 0 4px 40px -2px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s ease;
-        }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(125, 211, 252, 0.18), transparent 32rem),
+        radial-gradient(circle at 85% 0%, rgba(196, 181, 253, 0.16), transparent 30rem),
+        linear-gradient(180deg, #fbfbfc 0%, #f4f6f8 48%, #fbfbfc 100%);
+      color: var(--ink);
+    }
 
-        .premium-card:hover {
-            box-shadow: 0 10px 50px -5px rgba(0, 0, 0, 0.06);
-            transform: translateY(-2px);
-        }
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
 
-        /* =========================================
-           PRINT CSS (PDF ÇIKTISI İÇİN ÖZEL AYARLAR)
-           ========================================= */
-        @media print {
-            @page { margin: 1cm; size: A4; }
-            
-            body { 
-                background-color: white !important; 
-                -webkit-print-color-adjust: exact;
-                color: black !important;
-            }
+    .glass-nav {
+      background: rgba(248, 250, 252, 0.74);
+      border-bottom: 1px solid rgba(24, 24, 27, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
 
-            /* Gizlenecek web elementleri (Navigasyon, Butonlar, Arkaplan efektleri) */
-            nav, .no-print, .bg-decoration { 
-                display: none !important; 
-            }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 80px -56px rgba(24, 24, 27, 0.42);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    }
 
-            /* Animasyonları sıfırla (PDF'te görünmez olmamaları için) */
-            .reveal-section { 
-                opacity: 1 !important; 
-                transform: none !important; 
-                transition: none !important; 
-            }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(24, 24, 27, 0.14);
+      box-shadow: 0 28px 90px -54px rgba(24, 24, 27, 0.54);
+    }
 
-            /* Sayfa boşluklarını PDF'e uygun daralt */
-            main { 
-                padding-top: 0 !important; 
-                padding-bottom: 0 !important; 
-            }
-            .space-y-24 > :not([hidden]) ~ :not([hidden]) { 
-                margin-top: 2rem !important; 
-            }
-            
-            /* Kart gölgelerini kaldır, düz ve resmi çizgilere çevir */
-            .premium-card {
-                box-shadow: none !important;
-                border: 1px solid #d4d4d8 !important;
-                border-radius: 8px !important;
-                padding: 1.5rem !important;
-                page-break-inside: avoid; /* Kartın yarısının diğer sayfaya geçmesini engeller */
-                transform: none !important;
-            }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 700ms cubic-bezier(.16,1,.3,1), transform 700ms cubic-bezier(.16,1,.3,1);
+    }
 
-            /* Yazı boyutlarını ve hizalamaları A4'e göre ayarla */
-            #hero { text-align: left !important; margin-bottom: 1rem !important; }
-            #hero h1 { font-size: 28pt !important; margin-bottom: 0.5rem !important; }
-            #hero p { font-size: 11pt !important; max-width: 100% !important; margin-bottom: 1rem !important; }
-            
-            h2 { font-size: 16pt !important; margin-bottom: 0.5rem !important; }
-            h3 { font-size: 12pt !important; }
-            p { font-size: 10pt !important; color: #333 !important; }
-            
-            /* Yetenek haplarını (pills) basitleştir */
-            .bg-zinc-50 { background-color: transparent !important; border-color: #a1a1aa !important; }
-        }
-    </style>
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border: 1px solid rgba(24, 24, 27, 0.09);
+      background: rgba(255, 255, 255, 0.72);
+      color: #3f3f46;
+      border-radius: 999px;
+      padding: 0.55rem 0.82rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1;
+      box-shadow: 0 1px 0 rgba(24, 24, 27, 0.03);
+    }
+
+    .timeline-line::before {
+      content: "";
+      position: absolute;
+      left: 0.5rem;
+      top: 0.4rem;
+      bottom: 0.4rem;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(24,24,27,.18), transparent);
+    }
+
+    .dot {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 999px;
+      border: 3px solid #fff;
+      background: #18181b;
+      box-shadow: 0 0 0 1px rgba(24,24,27,.12);
+      flex: 0 0 auto;
+      margin-top: 0.28rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .card { transition: none !important; transform: none !important; }
+    }
+
+    @media print {
+      @page { margin: 1.05cm; size: A4; }
+
+      html, body {
+        background: #fff !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .no-print, nav, .noise, .print-hide { display: none !important; }
+
+      main {
+        max-width: none !important;
+        padding: 0 !important;
+      }
+
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .card {
+        background: #fff !important;
+        border: 1px solid #d4d4d8 !important;
+        box-shadow: none !important;
+        border-radius: 14px !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .print-compact { padding: 1.15rem !important; }
+      .print-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 0.75rem !important; }
+      .print-text { font-size: 9.5pt !important; line-height: 1.45 !important; }
+      .print-title { font-size: 24pt !important; line-height: 1.08 !important; }
+      .print-subtitle { font-size: 10.5pt !important; }
+      h2 { font-size: 13.5pt !important; }
+      h3 { font-size: 11pt !important; }
+      .chip { box-shadow: none !important; padding: 0.35rem 0.55rem !important; font-size: 8.5pt !important; }
+      section { margin-top: 1rem !important; }
+    }
+  </style>
 </head>
-<body class="antialiased selection:bg-zinc-900 selection:text-white relative">
 
-    <!-- Background Decoration -->
-    <div class="bg-decoration fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-100/50 blur-[100px]"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-100/50 blur-[100px]"></div>
+<body class="antialiased selection:bg-zinc-900 selection:text-white">
+  <div class="noise"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 inset-x-0 z-50 glass-nav">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
+      <a href="#top" class="group inline-flex items-center gap-3 font-bold tracking-tight text-zinc-950">
+        <span class="grid h-9 w-9 place-items-center rounded-2xl bg-zinc-950 text-sm text-white shadow-subtle transition-transform group-hover:-rotate-6">Ö</span>
+        <span class="hidden sm:inline">Ömer Faruk Memiş</span>
+      </a>
+
+      <div class="hidden items-center gap-7 text-sm font-semibold text-zinc-500 md:flex">
+        <a href="#profile" class="transition hover:text-zinc-950">Profile</a>
+        <a href="#skills" class="transition hover:text-zinc-950">Skills</a>
+        <a href="#projects" class="transition hover:text-zinc-950">Projects</a>
+        <a href="#education" class="transition hover:text-zinc-950">Education</a>
+        <a href="#contact" class="transition hover:text-zinc-950">Contact</a>
+      </div>
+
+      <button onclick="window.print()" class="no-print inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/75 px-4 py-2 text-sm font-semibold text-zinc-800 shadow-sm transition hover:bg-white hover:shadow-subtle">
+        <i class="ph ph-download-simple text-base"></i>
+        <span class="hidden sm:inline">Save PDF</span>
+      </button>
     </div>
+  </nav>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
-        <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="font-bold text-xl tracking-tighter text-zinc-900">ÖFM.</a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-zinc-500">
-                <a href="#about" class="hover:text-zinc-900 transition-colors">About</a>
-                <a href="#education" class="hover:text-zinc-900 transition-colors">Education</a>
-                <a href="#skills" class="hover:text-zinc-900 transition-colors">Skills</a>
-            </div>
-            <!-- Header'daki küçük PDF butonu -->
-            <button onclick="window.print()" class="no-print flex items-center gap-2 px-4 py-2 bg-zinc-100 text-zinc-800 text-sm font-medium rounded-full hover:bg-zinc-200 transition-colors border border-zinc-200">
-                <i class="ph ph-file-pdf text-red-500"></i>
-                <span class="hidden sm:inline">Save PDF</span>
-            </button>
+  <main id="top" class="relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
+    <!-- Hero -->
+    <section class="reveal grid gap-8 md:grid-cols-[1.3fr_.7fr] md:items-end">
+      <div>
+        <div class="no-print mb-7 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-zinc-500 shadow-sm">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+          Open to remote junior work
         </div>
-    </nav>
 
-    <!-- Main Content Container -->
-    <main class="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-24 space-y-24">
+        <h1 class="print-title max-w-4xl text-5xl font-extrabold tracking-[-0.055em] text-zinc-950 md:text-7xl lg:text-8xl">
+          Practical tech mind with a clean, focused workflow.
+        </h1>
 
-        <!-- Hero Section -->
-        <section id="hero" class="reveal-section text-center max-w-2xl mx-auto mb-10">
-            <div class="no-print inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-200 text-xs font-semibold text-zinc-600 mb-8 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                Available for remote work
-            </div>
-            <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-zinc-900 mb-6 leading-tight">
-                Ömer Faruk <span class="text-zinc-400">Memiş</span>
-            </h1>
-            <p class="text-lg md:text-xl text-zinc-500 font-light mb-10 leading-relaxed">
-                Computer Technology student. Focused on data annotation, hardware troubleshooting, and building a strong foundation for academic studies in Europe.
-            </p>
-            
-            <!-- Contact & Action Buttons -->
-            <div class="no-print flex flex-wrap justify-center items-center gap-4">
-                <a href="mailto:omrhrkmmf06@gmail.com" class="flex items-center gap-2 px-6 py-3.5 bg-zinc-900 text-white font-medium rounded-full hover:bg-zinc-800 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                    <i class="ph ph-envelope-simple text-lg"></i>
-                    Send Email
-                </a>
-                <a href="tel:+905510402013" class="flex items-center gap-2 px-6 py-3.5 bg-white text-zinc-800 font-medium rounded-full border border-zinc-200 hover:bg-zinc-50 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5">
-                    <i class="ph ph-phone text-lg"></i>
-                    +90 551 040 2013
-                </a>
-                <!-- Ana PDF İndirme Butonu -->
-                <button onclick="window.print()" class="flex items-center gap-2 px-6 py-3.5 bg-red-50 text-red-700 font-medium rounded-full border border-red-200 hover:bg-red-100 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5">
-                    <i class="ph ph-download-simple text-lg font-bold"></i>
-                    Download PDF
-                </button>
-            </div>
+        <p class="print-subtitle mt-7 max-w-2xl text-lg font-light leading-8 text-zinc-600 md:text-xl">
+          Computer Technology student based in Ankara, focused on web development, data annotation, technical troubleshooting, and long-term Computer Science / Computer Engineering studies in Europe.
+        </p>
 
-            <!-- PDF formatında çıkacak iletişim bilgileri (Ekranda gizli) -->
-            <div class="hidden print:block text-zinc-600 mt-2 text-sm">
-                Ankara, Turkey | omrhrkmmf06@gmail.com | +90 551 040 2013
-            </div>
-        </section>
-
-        <!-- About Card -->
-        <section id="about" class="reveal-section">
-            <div class="premium-card p-8 md:p-12">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600">
-                        <i class="ph ph-user text-xl"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-zinc-900">About Me</h2>
-                </div>
-                <div class="text-zinc-600 leading-relaxed space-y-5 text-lg font-light">
-                    <p>
-                        I am a highly logical, detail-oriented student currently pursuing a degree in Computer Technology. I excel in environments that require focus, precision, and adherence to complex guidelines.
-                    </p>
-                    <p>
-                        My immediate professional focus involves remote data annotation and technical support tasks, leveraging my hardware knowledge and analytical mindset. My long-term objective is to further my computer science education at a university in Italy or Latvia.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Card -->
-        <section id="education" class="reveal-section">
-            <div class="premium-card p-8 md:p-12">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600">
-                        <i class="ph ph-graduation-cap text-xl"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-zinc-900">Education</h2>
-                </div>
-                
-                <div class="relative">
-                    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
-                        <div class="md:w-1/4 pt-1">
-                            <span class="px-3 py-1 bg-zinc-100 text-zinc-600 text-sm font-semibold rounded-full border border-zinc-200">
-                                Present
-                            </span>
-                        </div>
-                        <div class="md:w-3/4">
-                            <h3 class="text-xl font-bold text-zinc-900 mb-1">Ankara University</h3>
-                            <p class="text-zinc-800 font-medium mb-3">Associate Degree in Computer Technology</p>
-                            <p class="text-zinc-500 leading-relaxed font-light">
-                                Distance Learning. Building core competencies in programming, web technologies, systems architecture, and database management. Developing self-discipline and independent research skills.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Grid Cards -->
-        <section id="skills" class="reveal-section">
-            <div class="flex items-center gap-3 mb-8 px-2">
-                <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-zinc-700 shadow-sm">
-                    <i class="ph ph-lightning text-xl"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-zinc-900">Core Expertise</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Tech Skills -->
-                <div class="premium-card p-8">
-                    <h3 class="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2 border-b border-zinc-100 pb-4">
-                        <i class="ph ph-terminal-window text-zinc-400"></i> Technical Skills
-                    </h3>
-                    <div class="flex flex-wrap gap-2.5">
-                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">JavaScript</span>
-                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Data Annotation</span>
-                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">PC Hardware</span>
-                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Windows OS</span>
-                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Troubleshooting</span>
-                    </div>
-                </div>
-
-                <!-- Tools & Software -->
-                <div class="premium-card p-8">
-                    <h3 class="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2 border-b border-zinc-100 pb-4">
-                        <i class="ph ph-app-window text-zinc-400"></i> Tools & Software
-                    </h3>
-                    <div class="flex flex-wrap gap-2.5">
-                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">MS Office Suite</span>
-                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Adobe Creative Cloud</span>
-                        <span class="px-4 py-2 bg-zinc-50 text-zinc-700 text-sm font-medium rounded-xl border border-zinc-200 shadow-sm">Web Navigation</span>
-                    </div>
-                </div>
-
-                <!-- Languages -->
-                <div class="premium-card p-8 md:col-span-2">
-                    <h3 class="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2 border-b border-zinc-100 pb-4">
-                        <i class="ph ph-translate text-zinc-400"></i> Languages
-                    </h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="flex justify-between items-center p-4 rounded-xl bg-zinc-50 border border-zinc-100">
-                            <div class="flex items-center gap-3">
-                                <span class="text-2xl no-print">🇹🇷</span>
-                                <span class="font-medium text-zinc-800">Turkish</span>
-                            </div>
-                            <span class="text-xs font-bold uppercase tracking-wider bg-zinc-900 text-white px-3 py-1 rounded-full no-print">Native</span>
-                            <span class="hidden print:inline font-bold text-sm">Native</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 rounded-xl bg-zinc-50 border border-zinc-100">
-                            <div class="flex items-center gap-3">
-                                <span class="text-2xl no-print">🇬🇧</span>
-                                <span class="font-medium text-zinc-800">English</span>
-                            </div>
-                            <span class="text-xs font-bold uppercase tracking-wider bg-white text-zinc-600 border border-zinc-200 px-3 py-1 rounded-full shadow-sm no-print">B1 Intermediate</span>
-                            <span class="hidden print:inline font-bold text-sm">B1 Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-zinc-200 bg-white mt-12 no-print">
-        <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-2 text-zinc-900 font-bold">
-                ÖFM.
-            </div>
-            <p class="text-sm text-zinc-500 font-light">
-                © <span id="year"></span> Ömer Faruk Memiş. All rights reserved.
-            </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="mailto:omrhrkmmf06@gmail.com" class="no-print inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-zinc-800">
+            <i class="ph ph-envelope-simple text-lg"></i>
+            Email me
+          </a>
+          <a href="tel:+905510402013" class="no-print inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/80 px-5 py-3 text-sm font-semibold text-zinc-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-white">
+            <i class="ph ph-phone text-lg"></i>
+            +90 551 040 2013
+          </a>
+          <a href="#projects" class="no-print inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/55 px-5 py-3 text-sm font-semibold text-zinc-800 transition hover:bg-white">
+            <i class="ph ph-folder-open text-lg"></i>
+            View focus areas
+          </a>
         </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
+        <div class="hidden print:block mt-4 text-[10pt] text-zinc-700">
+          Ankara, Türkiye · omrhrkmmf06@gmail.com · +90 551 040 2013
+        </div>
+      </div>
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+      <aside class="card rounded-[2rem] p-6 md:p-7 print-compact">
+        <p class="text-sm font-bold uppercase tracking-[0.18em] text-zinc-400">Current focus</p>
+        <div class="mt-5 space-y-4">
+          <div class="flex gap-3">
+            <span class="mt-1 grid h-9 w-9 place-items-center rounded-2xl bg-zinc-950 text-white"><i class="ph ph-code"></i></span>
+            <div>
+              <h2 class="font-bold text-zinc-950">Web & JavaScript</h2>
+              <p class="print-text mt-1 text-sm leading-6 text-zinc-600">Building a practical foundation for responsive websites, dashboards, and Discord bot interfaces.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="mt-1 grid h-9 w-9 place-items-center rounded-2xl bg-zinc-100 text-zinc-700"><i class="ph ph-cpu"></i></span>
+            <div>
+              <h2 class="font-bold text-zinc-950">Hardware & systems</h2>
+              <p class="print-text mt-1 text-sm leading-6 text-zinc-600">Comfortable with PC hardware, OS setup, troubleshooting, and everyday technical support.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="mt-1 grid h-9 w-9 place-items-center rounded-2xl bg-zinc-100 text-zinc-700"><i class="ph ph-robot"></i></span>
+            <div>
+              <h2 class="font-bold text-zinc-950">Future direction</h2>
+              <p class="print-text mt-1 text-sm leading-6 text-zinc-600">Interested in embedded systems, product-oriented engineering, and intelligent technical devices.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, observerOptions);
+    <!-- Stats / Snapshot -->
+    <section class="reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="card rounded-3xl p-5 print-compact">
+        <p class="text-3xl font-extrabold tracking-tight text-zinc-950">TR</p>
+        <p class="mt-1 text-sm font-medium text-zinc-500">Native Turkish</p>
+      </div>
+      <div class="card rounded-3xl p-5 print-compact">
+        <p class="text-3xl font-extrabold tracking-tight text-zinc-950">B1</p>
+        <p class="mt-1 text-sm font-medium text-zinc-500">English, improving toward academic use</p>
+      </div>
+      <div class="card rounded-3xl p-5 print-compact">
+        <p class="text-3xl font-extrabold tracking-tight text-zinc-950">JS</p>
+        <p class="mt-1 text-sm font-medium text-zinc-500">Primary practical coding path</p>
+      </div>
+      <div class="card rounded-3xl p-5 print-compact">
+        <p class="text-3xl font-extrabold tracking-tight text-zinc-950">EU</p>
+        <p class="mt-1 text-sm font-medium text-zinc-500">Preparing for studies in Europe</p>
+      </div>
+    </section>
 
-            const sections = document.querySelectorAll('.reveal-section');
-            sections.forEach(section => observer.observe(section));
-            
-            setTimeout(() => {
-                sections.forEach(section => {
-                    if (section.getBoundingClientRect().top < window.innerHeight) {
-                        section.classList.add('is-visible');
-                    }
-                });
-            }, 100);
-        });
+    <!-- Profile -->
+    <section id="profile" class="reveal mt-20 grid gap-6 lg:grid-cols-[.8fr_1.2fr]">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-[0.2em] text-zinc-400">Profile</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-zinc-950 md:text-4xl">About me</h2>
+      </div>
 
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 10) nav.classList.add('shadow-sm');
-            else nav.classList.remove('shadow-sm');
-        });
-    </script>
+      <div class="card rounded-[2rem] p-7 md:p-9 print-compact">
+        <div class="space-y-5 text-[1.03rem] font-light leading-8 text-zinc-600">
+          <p class="print-text">
+            I am a Computer Technology student with a strong interest in software, computer hardware, and practical engineering. I learn best by building, comparing options, troubleshooting real problems, and turning complex information into clear systems.
+          </p>
+          <p class="print-text">
+            My short-term goal is to become useful in remote technical roles such as data annotation, QA-style checking, basic web development, and technical support. My long-term goal is to study Computer Science / Computer Engineering abroad and develop the skills needed to build software-connected technological products.
+          </p>
+        </div>
+
+        <div class="mt-7 flex flex-wrap gap-2.5">
+          <span class="chip"><i class="ph ph-check-circle"></i> Detail-oriented</span>
+          <span class="chip"><i class="ph ph-brain"></i> Logical learner</span>
+          <span class="chip"><i class="ph ph-wrench"></i> Troubleshooting mindset</span>
+          <span class="chip"><i class="ph ph-target"></i> Self-directed study</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="reveal mt-20">
+      <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.2em] text-zinc-400">Skills</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-zinc-950 md:text-4xl">Core competencies</h2>
+        </div>
+        <p class="max-w-xl text-sm leading-6 text-zinc-500">A realistic skill profile: practical foundations now, with a clear direction toward deeper software and engineering capability.</p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <article class="card rounded-[2rem] p-7 print-compact">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-950 text-white"><i class="ph ph-browser text-xl"></i></div>
+          <h3 class="text-lg font-bold text-zinc-950">Web Development</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-zinc-600">HTML, CSS, Tailwind CSS, JavaScript fundamentals, responsive layout thinking, and clean UI structure.</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Tailwind</span><span class="chip">JavaScript</span>
+          </div>
+        </article>
+
+        <article class="card rounded-[2rem] p-7 print-compact">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-database text-xl"></i></div>
+          <h3 class="text-lg font-bold text-zinc-950">Data & Annotation</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-zinc-600">Careful reading, guideline-following, labeling consistency, error spotting, and structured evaluation.</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="chip">Data Annotation</span><span class="chip">QA</span><span class="chip">Research</span>
+          </div>
+        </article>
+
+        <article class="card rounded-[2rem] p-7 print-compact">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-desktop-tower text-xl"></i></div>
+          <h3 class="text-lg font-bold text-zinc-950">Hardware & OS</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-zinc-600">PC components, Windows setup, performance issues, device comparisons, basic diagnostics, and user support.</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="chip">PC Hardware</span><span class="chip">Windows</span><span class="chip">Linux basics</span>
+          </div>
+        </article>
+
+        <article class="card rounded-[2rem] p-7 print-compact">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-robot text-xl"></i></div>
+          <h3 class="text-lg font-bold text-zinc-950">Automation & Bots</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-zinc-600">Learning path focused on Discord bots, dashboards, APIs, JavaScript/Node.js, and useful automation tools.</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="chip">Discord.js path</span><span class="chip">APIs</span><span class="chip">Dashboards</span>
+          </div>
+        </article>
+
+        <article class="card rounded-[2rem] p-7 print-compact">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-cube text-xl"></i></div>
+          <h3 class="text-lg font-bold text-zinc-950">Engineering Interest</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-zinc-600">Exploring embedded systems, mechanical thinking, 3D modeling, and product-oriented technology development.</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="chip">Embedded systems</span><span class="chip">Fusion 360</span><span class="chip">3D modeling</span>
+          </div>
+        </article>
+
+        <article class="card rounded-[2rem] p-7 print-compact">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-student text-xl"></i></div>
+          <h3 class="text-lg font-bold text-zinc-950">Study Discipline</h3>
+          <p class="print-text mt-3 text-sm leading-6 text-zinc-600">Self-study routines for English, programming, mathematics fundamentals, and international university preparation.</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="chip">IELTS prep</span><span class="chip">Math basics</span><span class="chip">Independent learning</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects / Focus Areas -->
+    <section id="projects" class="reveal mt-20 grid gap-6 lg:grid-cols-[.8fr_1.2fr]">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-[0.2em] text-zinc-400">Portfolio direction</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-zinc-950 md:text-4xl">Projects to build next</h2>
+        <p class="mt-4 max-w-md text-sm leading-6 text-zinc-500">This section keeps the CV honest while showing clear technical direction. Replace these with live links as projects are completed.</p>
+      </div>
+
+      <div class="space-y-4">
+        <article class="card rounded-[2rem] p-6 print-compact">
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-zinc-950">Minimal CV / Portfolio Website</h3>
+              <p class="print-text mt-2 text-sm leading-6 text-zinc-600">A clean personal website designed to work both as a modern landing page and printable PDF CV.</p>
+            </div>
+            <span class="chip shrink-0">HTML · Tailwind · JS</span>
+          </div>
+        </article>
+
+        <article class="card rounded-[2rem] p-6 print-compact">
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-zinc-950">Discord Bot + Web Dashboard</h3>
+              <p class="print-text mt-2 text-sm leading-6 text-zinc-600">A learning project focused on commands, permissions, moderation utilities, API usage, and a simple admin dashboard.</p>
+            </div>
+            <span class="chip shrink-0">JavaScript · Node.js</span>
+          </div>
+        </article>
+
+        <article class="card rounded-[2rem] p-6 print-compact">
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-zinc-950">Hardware Troubleshooting Notes</h3>
+              <p class="print-text mt-2 text-sm leading-6 text-zinc-600">A structured knowledge base for common PC, OS, performance, and setup problems with practical solutions.</p>
+            </div>
+            <span class="chip shrink-0">Support · Documentation</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Education + Roadmap -->
+    <section id="education" class="reveal mt-20 grid gap-6 lg:grid-cols-2">
+      <div class="card rounded-[2rem] p-7 md:p-9 print-compact">
+        <div class="mb-7 flex items-center gap-3">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-zinc-950 text-white"><i class="ph ph-graduation-cap text-xl"></i></span>
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.18em] text-zinc-400">Education</p>
+            <h2 class="text-2xl font-extrabold tracking-tight text-zinc-950">Academic background</h2>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-zinc-200/80 bg-white/60 p-5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h3 class="font-bold text-zinc-950">Ankara University</h3>
+            <span class="rounded-full bg-zinc-950 px-3 py-1 text-xs font-bold text-white">Present</span>
+          </div>
+          <p class="mt-2 font-semibold text-zinc-700">Associate Degree · Computer Technology</p>
+          <p class="print-text mt-3 text-sm leading-6 text-zinc-600">Distance learning program. Building fundamentals in computing, web technologies, systems, databases, and independent academic study habits.</p>
+        </div>
+      </div>
+
+      <div class="card rounded-[2rem] p-7 md:p-9 print-compact">
+        <div class="mb-7 flex items-center gap-3">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-map-trifold text-xl"></i></span>
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.18em] text-zinc-400">Roadmap</p>
+            <h2 class="text-2xl font-extrabold tracking-tight text-zinc-950">Next academic goals</h2>
+          </div>
+        </div>
+
+        <div class="timeline-line relative space-y-6 pl-8">
+          <div class="relative flex gap-4">
+            <span class="dot absolute -left-8"></span>
+            <div>
+              <h3 class="font-bold text-zinc-950">Strengthen foundations</h3>
+              <p class="print-text mt-1 text-sm leading-6 text-zinc-600">Programming, mathematics basics, English output, and technical reading.</p>
+            </div>
+          </div>
+          <div class="relative flex gap-4">
+            <span class="dot absolute -left-8 bg-zinc-400"></span>
+            <div>
+              <h3 class="font-bold text-zinc-950">Build practical portfolio</h3>
+              <p class="print-text mt-1 text-sm leading-6 text-zinc-600">Small but polished web projects, bot/dashboard work, and support documentation.</p>
+            </div>
+          </div>
+          <div class="relative flex gap-4">
+            <span class="dot absolute -left-8 bg-zinc-400"></span>
+            <div>
+              <h3 class="font-bold text-zinc-950">Prepare for Europe</h3>
+              <p class="print-text mt-1 text-sm leading-6 text-zinc-600">Targeting Computer Science / Computer Engineering programs in Italy, Latvia, or similar European options.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools / Languages -->
+    <section class="reveal mt-20 grid gap-6 lg:grid-cols-3">
+      <div class="card rounded-[2rem] p-7 print-compact lg:col-span-2">
+        <div class="mb-6 flex items-center gap-3">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-zinc-950 text-white"><i class="ph ph-toolbox text-xl"></i></span>
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.18em] text-zinc-400">Tools</p>
+            <h2 class="text-2xl font-extrabold tracking-tight text-zinc-950">Software & environments</h2>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2.5">
+          <span class="chip">VS Code</span>
+          <span class="chip">Git / GitHub basics</span>
+          <span class="chip">Windows</span>
+          <span class="chip">Linux basics</span>
+          <span class="chip">Microsoft Office</span>
+          <span class="chip">Google Workspace</span>
+          <span class="chip">Adobe tools basics</span>
+          <span class="chip">Figma basics</span>
+          <span class="chip">Autodesk Fusion 360 interest</span>
+        </div>
+      </div>
+
+      <div class="card rounded-[2rem] p-7 print-compact">
+        <div class="mb-6 flex items-center gap-3">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-translate text-xl"></i></span>
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.18em] text-zinc-400">Languages</p>
+            <h2 class="text-2xl font-extrabold tracking-tight text-zinc-950">Communication</h2>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="rounded-3xl border border-zinc-200/80 bg-white/60 p-4">
+            <div class="flex items-center justify-between gap-3">
+              <span class="font-bold text-zinc-950">Turkish</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Native</span>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-zinc-200/80 bg-white/60 p-4">
+            <div class="flex items-center justify-between gap-3">
+              <span class="font-bold text-zinc-950">English</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">B1</span>
+            </div>
+            <p class="print-text mt-2 text-xs leading-5 text-zinc-500">Improving toward IELTS / academic English.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="reveal mt-20">
+      <div class="card overflow-hidden rounded-[2.2rem] p-7 md:p-10 print-compact">
+        <div class="grid gap-8 md:grid-cols-[1.2fr_.8fr] md:items-center">
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.2em] text-zinc-400">Contact</p>
+            <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-zinc-950 md:text-4xl">Let’s build something useful.</h2>
+            <p class="print-text mt-4 max-w-2xl text-base font-light leading-8 text-zinc-600">Open to remote junior tasks, data annotation opportunities, technical support work, and project-based web development practice.</p>
+          </div>
+
+          <div class="space-y-3">
+            <a href="mailto:omrhrkmmf06@gmail.com" class="flex items-center gap-3 rounded-3xl border border-zinc-200 bg-white/70 p-4 text-sm font-semibold text-zinc-800 transition hover:bg-white">
+              <span class="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-950 text-white"><i class="ph ph-envelope-simple"></i></span>
+              <span>omrhrkmmf06@gmail.com</span>
+            </a>
+            <a href="tel:+905510402013" class="flex items-center gap-3 rounded-3xl border border-zinc-200 bg-white/70 p-4 text-sm font-semibold text-zinc-800 transition hover:bg-white">
+              <span class="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-phone"></i></span>
+              <span>+90 551 040 2013</span>
+            </a>
+            <div class="flex items-center gap-3 rounded-3xl border border-zinc-200 bg-white/70 p-4 text-sm font-semibold text-zinc-800">
+              <span class="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-100 text-zinc-800"><i class="ph ph-map-pin"></i></span>
+              <span>Ankara, Türkiye</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="no-print relative z-10 border-t border-zinc-200/70 bg-white/55">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-7 text-sm text-zinc-500 md:flex-row md:px-8">
+      <p class="font-semibold text-zinc-800">Ömer Faruk Memiş</p>
+      <p>© <span id="year"></span> · Minimal CV & portfolio</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach((el) => {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible');
+      });
+    }, 80);
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('shadow-sm', window.scrollY > 8);
+    });
+  </script>
 </body>
 </html>
