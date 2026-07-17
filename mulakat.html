@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTU Giriş Mülakatı & Kabul Strateji Rehberi - Ömer Sürümü</title>
+    <title>Ömer'in RTU Mülakat Prompter & Savaş Odası</title>
     <!-- Tailwind CSS ve Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -11,7 +11,7 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0B0F19;
+            background-color: #080C14;
             color: #E2E8F0;
             scroll-behavior: smooth;
         }
@@ -20,840 +20,702 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Cam parlaması efekti */
+        /* Göz yormayan ve yansıma yapmayan karanlık cam efekti */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(11, 17, 32, 0.9);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(16, 185, 129, 0.15);
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.6);
         }
 
-        .glass-panel:hover {
-            border-color: rgba(212, 175, 55, 0.35);
-            box-shadow: 0 8px 32px 0 rgba(212, 175, 55, 0.05);
-        }
-
-        /* Prompter ekranı parlamasını engelleyen özel karanlık mod */
+        /* Ekran parlamasını önlemek için özel neon gölge efekti */
         .prompter-glow {
-            box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.1), 0 0 15px rgba(16, 185, 129, 0.05);
+            box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.08), 0 0 15px rgba(16, 185, 129, 0.03);
+            border-color: rgba(16, 185, 129, 0.4);
         }
 
-        /* Gizleme efekti için geçişler */
+        /* Yumuşak geçiş efektleri */
         .fade-in {
-            animation: fadeIn 0.3s ease-out forwards;
+            animation: fadeIn 0.25s ease-out forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="antialiased selection:bg-[#D4AF37] selection:text-slate-950">
+<body class="antialiased selection:bg-[#10B981] selection:text-slate-950">
 
-<nav class="fixed w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 px-4 py-3 md:px-8">
+<nav class="fixed w-full z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-900 px-4 py-3">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
         <div class="flex items-center space-x-2">
-            <span class="text-2xl">🎓</span>
-            <span class="text-sm md:text-base font-bold text-slate-100 title-font">RTU <span class="text-[#D4AF37]">Ömer Sürümü</span> Portal</span>
+            <span class="text-xl">🎓</span>
+            <span class="text-xs md:text-sm font-extrabold text-slate-100 title-font tracking-wide">
+                RTU PORTAL <span class="text-[#10B981] font-bold">ÖMER SÜRÜMÜ</span>
+            </span>
         </div>
-        <div class="flex items-center space-x-3">
-            <a href="#quick-search-section" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-xs font-bold transition">
+        <div class="flex items-center space-x-2">
+            <a href="#war-room" class="bg-rose-600/10 hover:bg-rose-600/20 text-rose-400 border border-rose-500/20 px-2.5 py-1.5 rounded-lg text-[10px] font-bold tracking-wider uppercase transition">
+                🚨 SAVAŞ PLANI
+            </a>
+            <a href="#search-area" class="bg-[#10B981]/10 hover:bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/20 px-2.5 py-1.5 rounded-lg text-[10px] font-bold tracking-wider uppercase transition">
                 Hızlı Arama 🔍
-            </a>
-            <a href="#library-section" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                Soru Kütüphanesi 📚
-            </a>
-            <a href="#simulator" class="bg-[#D4AF37] hover:bg-amber-500 text-slate-950 px-3.5 py-1.5 rounded-lg text-xs font-bold transition shadow-lg shadow-amber-500/10">
-                Canlı Prova 🎙️
             </a>
         </div>
     </div>
 </nav>
 
-<header class="pt-28 pb-12 px-4 md:px-8 bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800/40">
-    <div class="max-w-5xl mx-auto text-center">
-        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Letonya 2026/27 Kabul Garantili Sistem</span>
-        <h1 class="text-3xl md:text-5xl font-extrabold mt-5 mb-4 text-slate-100 title-font tracking-tight leading-none">
-            Ömer'in RTU Mülakat <br><span class="text-[#D4AF37] bg-gradient-to-r from-amber-400 to-[#D4AF37] bg-clip-text text-transparent">70 Soru & Pratik Portalı</span>
+<header class="pt-20 pb-4 px-4 bg-gradient-to-b from-slate-950 to-[#080C14] border-b border-slate-900">
+    <div class="max-w-4xl mx-auto text-center">
+        <span class="bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Kabul Garantili Akıllı Sistem</span>
+        <h1 class="text-2xl md:text-3xl font-extrabold mt-3 text-slate-100 title-font tracking-tight">
+            Ömer'in Mülakat <span class="text-[#10B981]">Prompter Portalı</span>
         </h1>
-        <p class="text-xs md:text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Ezber gerektirmeyen, 30 saniyelik hazırlık anında anında aratıp tek cümleyle geçebileceğin, göz bebeklerinde parlama ve yansıma yapmayan ultra akıllı mülakat asistanı.
+        <p class="text-[10px] md:text-xs text-slate-500 max-w-xl mx-auto mt-1 leading-relaxed">
+            30 saniyelik hazırlık anında anında aratıp tek cümleyle geçebileceğin, göz bebeklerinde parlama ve yansıma yapmayan ultra akıllı mülakat asistanı.
         </p>
     </div>
 </header>
 
-<section class="py-8 px-4 md:px-8 bg-slate-950">
+<section id="war-room" class="py-4 px-4 bg-[#080C14]">
     <div class="max-w-4xl mx-auto">
-        <div class="bg-slate-900/80 border border-emerald-500/20 rounded-2xl p-6 prompter-glow">
-            <h3 class="text-emerald-400 font-bold text-sm md:text-base flex items-center gap-2 mb-3 title-font">
-                <span>⏱️</span> 30 Saniyelik Hazırlık Süresi Taktği (The Prep-Time Memory Hack)
-            </h3>
-            <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-                Mülakatta her soru ekrana geldiğinde <strong class="text-amber-400 font-semibold">30 saniye düşünme süresi</strong> başlar. Bu sürede <strong class="text-rose-400 font-semibold">ses veya görüntü kaydı kesinlikle yapılmaz.</strong> Rahatça hareket edebilir, masana veya telefonuna bakabilirsin!
+        <div class="bg-slate-950/80 border-2 border-rose-500/20 rounded-2xl p-5 shadow-xl">
+            <h2 class="text-rose-400 font-extrabold text-xs md:text-sm flex items-center gap-2 mb-3 title-font tracking-wide">
+                <span>🚨</span> ÖMER'İN SAVAŞ ODASI: %100 GEÇME GARANTİLİ SESSİZ KUZEN VE SÜRE PLANI
+            </h2>
+            <p class="text-[10px] md:text-xs text-slate-400 mb-4 leading-relaxed">
+                Ömer, stres yapmayı tamamen bırak! Bu mülakat sisteminin tüm açıkları matematiksel olarak senin elenmeni imkansız kılıyor. İşte kuzeninle yarın uygulayacağınız kusursuz, sıfır riskli plan:
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mt-5 text-[11px] text-slate-400">
-                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                    <strong class="text-slate-200 block mb-1 font-semibold">1. Soruyu Gör</strong>
-                    Mülakat ekranında soru çıktığı an panik yapma, süren başladı.
-                </div>
-                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                    <strong class="text-[#D4AF37] block mb-1 font-semibold">2. Hemen Ara/Seç</strong>
-                    Aşağıdaki dev arama motoruna sorudan 1 kelime yazıp saniyede bul veya kütüphaneden seç.
-                </div>
-                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                    <strong class="text-emerald-400 block mb-1 font-semibold">3. Cümleyi Oku</strong>
-                    Senin için hazırladığım o tek cümlelik basit cevabı 2-3 kere içinden oku.
-                </div>
-                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                    <strong class="text-rose-400 block mb-1 font-semibold">4. Kameraya Söyle</strong>
-                    Kayıt başladığında doğrudan Camo kamerana bak ve o tek cümleyi söyle geç!
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section class="py-6 px-4 md:px-8 bg-slate-950 border-t border-slate-900">
-    <div class="max-w-4xl mx-auto">
-        <div class="bg-slate-900/40 border border-blue-500/20 rounded-2xl p-6">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="text-left max-w-md">
-                    <span class="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full uppercase border border-blue-500/20">Ömer'e Özel Canlı Test Modülü</span>
-                    <h3 class="text-base md:text-lg font-bold text-slate-100 mt-2 title-font">Camo Canlı Deneme Aynası</h3>
-                    <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                        Camo uygulamasını PC'ne bağla ve buradaki kamerayı aktif et. Ekrandaki yazıları okurken gözbebeğinde parlayıp parlamadığını ve gözlerinin nereye kaydığını mülakata girmeden önce kendin gör!
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="bg-[#0b1120]/60 p-3.5 rounded-xl border border-slate-900">
+                    <h3 class="text-[11px] font-bold text-slate-200 mb-1.5 flex items-center gap-1.5">
+                        <span>🤫</span> 1. Sessiz Kuzen Kuralı
+                    </h3>
+                    <p class="text-[9.5px] text-slate-400 leading-relaxed">
+                        Kuzenin laptop kamerasının açısına <strong>kesinlikle girmemeli.</strong> Laptopun tam arkasında (kameranın hemen üstünde) ayakta dursun ve yedek cihazda bu portalı açık tutsun.
                     </p>
                 </div>
-                <div class="flex flex-col items-center gap-3">
-                    <button id="btnWebcam" onclick="toggleWebcam()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-5 py-3 rounded-xl transition shadow-lg shadow-blue-500/10">
-                        Kamerayı Aç 🎥
-                    </button>
-                    <span id="webcamError" class="text-[10px] text-rose-400 font-semibold hidden"></span>
+
+                <div class="bg-[#0b1120]/60 p-3.5 rounded-xl border border-slate-900">
+                    <h3 class="text-[11px] font-bold text-slate-200 mb-1.5 flex items-center gap-1.5">
+                        <span>⏰</span> 2. 25. Saniye Sessizliği
+                    </h3>
+                    <p class="text-[9.5px] text-slate-400 leading-relaxed">
+                        30 saniyelik hazırlık süresinde <strong>ses/görüntü kaydedilmez.</strong> Kuzenin 20 saniyede soruyu aratıp sana cevabı tablette göstersin. En geç 25. saniyede odada çıt çıkmamalı, sen de kameraya odaklanmalısın.
+                    </p>
                 </div>
-            </div>
-            
-            <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Live Video Feed -->
-                <div class="relative bg-slate-950 rounded-xl overflow-hidden aspect-video border border-slate-800 flex items-center justify-center text-slate-600">
-                    <video id="webcamPreview" autoplay playsinline class="w-full h-full object-cover transform -scale-x-100"></video>
-                    <div id="webcamPlaceholder" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/90 text-center p-4">
-                        <span class="text-4xl mb-2">📸</span>
-                        <p class="text-xs text-slate-500 font-medium">Kameranız henüz aktif edilmedi.</p>
-                        <p class="text-[10px] text-slate-600 max-w-xs mt-1">"Kamerayı Aç" butonuna basarak izni onaylayın.</p>
-                    </div>
-                </div>
-                <!-- Interactive Camo Guide -->
-                <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 flex flex-col justify-between text-xs">
-                    <div>
-                        <strong class="text-blue-400 block mb-2 title-font uppercase tracking-wider">Camo Kurulum & Sıfır Yansıma Formülü:</strong>
-                        <ul class="space-y-2 text-slate-400 text-[11px] leading-relaxed">
-                            <li class="flex items-start gap-1.5"><span class="text-blue-500">✓</span> <strong>iPhone 11:</strong> Telefonu bilgisayar ekranının tam üst ortasına (kameranın olduğu yer) yatay olarak yerleştir.</li>
-                            <li class="flex items-start gap-1.5"><span class="text-blue-500">✓</span> <strong>Arka Kamerayı Kullan:</strong> Camo'da arka lensi seç. Ekranı loş modda (Screen Curtain) bırakacaktır.</li>
-                            <li class="flex items-start gap-1.5"><span class="text-blue-500">✓</span> <strong>Göz Hizası:</strong> Laptopunun altına kitaplar koyarak telefonu tam göz hizana kaldır.</li>
-                            <li class="flex items-start gap-1.5"><span class="text-blue-500">✓</span> <strong>Göz Takibi:</strong> Gözlerin aşağıdaki yeşil prompter yazısını okurken sadece 1 cm aşağı bakacaktır, bu da karşıya bakıyor illüzyonu yaratır!</li>
-                        </ul>
-                    </div>
-                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800 text-[10px] text-slate-500 mt-3">
-                        💡 <strong>Önemli Teknik Gerçek:</strong> Mülakat izleme yazılımları göz bebeğindeki mikroskobik yansımaları analiz edemez. Sadece gözlerinin sürekli başka bir yere kayıp gitmediğini ölçer.
-                    </div>
+
+                <div class="bg-emerald-950/30 p-3.5 rounded-xl border-2 border-emerald-500/20">
+                    <h3 class="text-[11px] font-bold text-emerald-400 mb-1.5 flex items-center gap-1.5">
+                        <span>🌉</span> 3. Alakasız Soru Kurtarıcısı
+                    </h3>
+                    <p class="text-[9.5px] text-emerald-300/90 leading-relaxed">
+                        Gram alakası olmayan sürpriz bir şey gelirse panik yok! Hemen aşağıdaki <strong>7. Altın Şablon (Köprü Kurma)</strong> butonuna basıp o genel geçer dahi cümleyi oku ve mülakatı kurtar!
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="quick-search-section" class="py-10 px-4 md:px-8 bg-slate-900/40 border-t border-slate-800/40">
+<section id="search-area" class="py-6 px-4 bg-slate-950/50 border-t border-slate-900">
     <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-8">
-            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full uppercase border border-emerald-500/20">Acil Durum Hızlı Arama</span>
-            <h2 class="text-xl md:text-3xl font-bold text-slate-100 mt-3 title-font">Saniyeler İçinde Sorunu ve Basit Cevabını Bul!</h2>
-            <p class="text-xs text-slate-400 mt-2">Sorudan herhangi bir kelimeyi (Örn: "rector", "hobby", "weakness") aşağıdaki kutuya yazman yeterlidir.</p>
+        <div class="text-center mb-6">
+            <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full uppercase border border-emerald-500/20 tracking-wider">Hızlı Arama ve Akıllı Eşleştirme</span>
+            <h2 class="text-lg md:text-xl font-bold text-slate-100 mt-2.5 title-font">Sorudaki Kelimeyi Buraya Yaz (Cevap Dev Puntoyla Parlar!)</h2>
+            <p class="text-[9px] text-slate-500 mt-1">Soru ekrana geldiği an sorudan sadece 1-2 kelimeyi (Örn: rector, sponsor, book, hobby) aşağıdaki kutuya yaz.</p>
         </div>
 
-        <!-- Real Search Bar Input -->
-        <div class="relative max-w-2xl mx-auto mb-8">
+        <!-- Real-Time Search Bar -->
+        <div class="relative max-w-2xl mx-auto mb-6">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <span class="text-slate-500 text-lg">🔍</span>
+                <span class="text-slate-500 text-sm">🔍</span>
             </div>
-            <input type="text" id="omarsSearch" oninput="runLiveSearch()" placeholder="Soruyu buraya yazarak ara... (Örn: sponsor, program, book)" class="w-full bg-slate-950 text-emerald-400 placeholder-slate-700 text-sm md:text-base font-semibold rounded-xl border-2 border-emerald-500/40 pl-11 pr-4 py-4 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition shadow-lg shadow-emerald-950/20">
+            <input type="text" id="omarsSearch" oninput="runLiveSearch()" placeholder="30 Saniyede Kelimeyi Yaz..." class="w-full bg-slate-950 text-emerald-400 placeholder-slate-700 text-sm font-semibold rounded-xl border-2 border-emerald-500/30 pl-11 pr-4 py-3.5 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition shadow-lg shadow-emerald-950/10">
         </div>
 
-        <!-- Search Results Counter and Target Container -->
-        <div id="searchResultsMeta" class="text-xs text-center text-slate-400 mb-6 hidden"></div>
-        
+        <!-- Dynamic Results Panel (Prompter) -->
+        <div id="searchResultsMeta" class="text-[10px] text-center text-slate-500 mb-3 hidden"></div>
         <div id="omarsSearchResults" class="space-y-4 max-w-2xl mx-auto">
-            <!-- Dynamic search results will appear here -->
+            <!-- Filtered questions will dynamically display here in giant size -->
         </div>
     </div>
 </section>
 
-<section id="library-section" class="py-12 px-4 md:px-8 bg-slate-950 border-t border-slate-800/40">
+<section class="py-6 px-4 bg-[#080C14] border-t border-slate-900">
     <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-8">
-            <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Arama Yapmadan Çalış</span>
-            <h2 class="text-xl md:text-3xl font-bold text-slate-100 mt-3 title-font">70 Soru & Cevap Kütüphanesi</h2>
-            <p class="text-xs text-slate-400 mt-2">Arama yapmadan tüm soruları kategori bazlı incele, dilediğin sorunun üzerine tıklayarak o basit cevabı aç!</p>
+        <div class="text-center mb-5">
+            <span class="text-[10px] font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full uppercase border border-amber-500/20 tracking-wider">Acil Durum Kurtarma Planı</span>
+            <h2 class="text-base md:text-lg font-bold text-slate-100 mt-2.5 title-font">Aradığın Kelime Çıkmazsa? 7 Altın Şablondan Birini Oku Geç!</h2>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <button onclick="quickSelectTemplate(1)" class="p-3 text-left rounded-xl bg-slate-900/40 border border-slate-900 hover:border-emerald-500 transition text-[10px]">
+                <span class="block text-emerald-400 font-bold mb-0.5 title-font">ŞABLON 1</span>
+                Kişisel & Profil
+            </button>
+            <button onclick="quickSelectTemplate(2)" class="p-3 text-left rounded-xl bg-slate-900/40 border border-slate-900 hover:border-emerald-500 transition text-[10px]">
+                <span class="block text-emerald-400 font-bold mb-0.5 title-font">ŞABLON 2</span>
+                Neden RTU / Letonya
+            </button>
+            <button onclick="quickSelectTemplate(3)" class="p-3 text-left rounded-xl bg-slate-900/40 border border-slate-900 hover:border-emerald-500 transition text-[10px]">
+                <span class="block text-emerald-400 font-bold mb-0.5 title-font">ŞABLON 3</span>
+                Dersler & Akademik
+            </button>
+            <button onclick="quickSelectTemplate(4)" class="p-3 text-left rounded-xl bg-slate-900/40 border border-slate-900 hover:border-emerald-500 transition text-[10px]">
+                <span class="block text-emerald-400 font-bold mb-0.5 title-font">ŞABLON 4</span>
+                Sponsor & Finans
+            </button>
+            <button onclick="quickSelectTemplate(5)" class="p-3 text-left rounded-xl bg-slate-900/40 border border-slate-900 hover:border-rose-500 transition text-[10px]">
+                <span class="block text-rose-400 font-bold mb-0.5 title-font">ŞABLON 5 (Kritik!)</span>
+                Gelecek Planı & Dönüş
+            </button>
+            <button onclick="quickSelectTemplate(6)" class="p-3 text-left rounded-xl bg-slate-900/40 border border-slate-900 hover:border-emerald-500 transition text-[10px]">
+                <span class="block text-emerald-400 font-bold mb-0.5 title-font">ŞABLON 6</span>
+                Hobi, Kitap & Karakter
+            </button>
+            <button onclick="quickSelectTemplate(7)" class="p-3 text-left col-span-2 md:col-span-2 rounded-xl bg-emerald-950/20 border-2 border-emerald-500/30 hover:border-emerald-400 transition text-[10px]">
+                <span class="block text-emerald-400 font-bold mb-0.5 title-font flex items-center gap-1">🛡️ ŞABLON 7 (KÖPRÜ)</span>
+                Gram Alakası Olmayan Sürpriz Soru Kurtarıcısı!
+            </button>
+        </div>
+        
+        <div id="quickTemplateViewer" class="mt-4 p-4.5 rounded-xl bg-slate-950 border-2 border-[#10B981]/40 hidden fade-in shadow-2xl prompter-glow">
+            <h4 id="qvTitle" class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-0.5 title-font"></h4>
+            <div id="qvKeywords" class="text-[8.5px] text-slate-500 font-mono mb-2"></div>
+            <p id="qvText" class="text-lg md:text-xl text-emerald-400 font-extrabold leading-relaxed"></p>
+        </div>
+    </div>
+</section>
+
+<section id="library-section" class="py-6 px-4 bg-slate-950 border-t border-slate-900">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-6">
+            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Arama Yapmadan Çalış</span>
+            <h2 class="text-base md:text-lg font-bold text-slate-100 mt-2.5 title-font">Tüm Soru & Cevap Kütüphanesi (70 Soru)</h2>
+            <p class="text-[9px] text-slate-500 mt-1">Arama yapmadan tüm soruları kategori bazlı incele, dilediğin sorunun üzerine tıklayarak o basit cevabı aç!</p>
         </div>
 
         <!-- Category Selectors -->
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-8">
-            <button onclick="switchLibraryTab('personal')" id="tab-personal" class="lib-tab-btn py-3 px-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:border-blue-500 transition">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-1.5 mb-5">
+            <button onclick="switchLibraryTab('personal')" id="tab-personal" class="lib-tab-btn py-2 px-1 rounded-lg bg-[#080C14] border border-slate-900 text-[10px] font-bold text-slate-400 hover:border-emerald-500 transition">
                 🧑‍💼 Kişisel & Profil
             </button>
-            <button onclick="switchLibraryTab('rtu')" id="tab-rtu" class="lib-tab-btn py-3 px-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:border-blue-500 transition">
+            <button onclick="switchLibraryTab('rtu')" id="tab-rtu" class="lib-tab-btn py-2 px-1 rounded-lg bg-[#080C14] border border-slate-900 text-[10px] font-bold text-slate-400 hover:border-emerald-500 transition">
                 🏛️ Neden RTU?
             </button>
-            <button onclick="switchLibraryTab('academic')" id="tab-academic" class="lib-tab-btn py-3 px-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:border-blue-500 transition">
+            <button onclick="switchLibraryTab('academic')" id="tab-academic" class="lib-tab-btn py-2 px-1 rounded-lg bg-[#080C14] border border-slate-900 text-[10px] font-bold text-slate-400 hover:border-emerald-500 transition">
                 📚 Dersler & Akademik
             </button>
-            <button onclick="switchLibraryTab('financial')" id="tab-financial" class="lib-tab-btn py-3 px-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:border-blue-500 transition">
+            <button onclick="switchLibraryTab('financial')" id="tab-financial" class="lib-tab-btn py-2 px-1 rounded-lg bg-[#080C14] border border-slate-900 text-[10px] font-bold text-slate-400 hover:border-emerald-500 transition">
                 💰 Finans & Sponsor
             </button>
-            <button onclick="switchLibraryTab('future')" id="tab-future" class="lib-tab-btn py-3 px-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:border-blue-500 transition">
+            <button onclick="switchLibraryTab('future')" id="tab-future" class="lib-tab-btn py-2 px-1 rounded-lg bg-[#080C14] border border-slate-900 text-[10px] font-bold text-slate-400 hover:border-emerald-500 transition">
                 🌍 Vize & Gelecek
             </button>
         </div>
 
         <!-- Library Container -->
-        <div id="libraryContainer" class="space-y-3 bg-slate-900/50 p-6 rounded-2xl border border-slate-800/80 min-h-[200px]">
+        <div id="libraryContainer" class="space-y-2 bg-[#080C14] p-4 rounded-xl border border-slate-900 min-h-[150px]">
             <!-- Questions list will dynamically populate here -->
         </div>
     </div>
 </section>
 
-<section class="py-10 px-4 md:px-8 bg-slate-950 border-t border-slate-800/40">
+<section id="simulator" class="py-6 px-4 bg-[#080C14] border-t border-slate-900">
     <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-8">
-            <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-3.5 py-1.5 rounded-full uppercase border border-amber-500/20">Acil Durum Kurtarma Planı</span>
-            <h2 class="text-lg md:text-2xl font-bold text-slate-100 mt-3 title-font">Aradığın Soru Çıkmazsa? 6 Altın Şablondan Birini Oku Geç!</h2>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-            <button onclick="quickSelectTemplate(1)" class="p-4 text-left rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-[#D4AF37] transition text-xs">
-                <span class="block text-[#D4AF37] font-bold mb-1 title-font">ŞABLON 1</span>
-                Kişisel & Profil
-            </button>
-            <button onclick="quickSelectTemplate(2)" class="p-4 text-left rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-[#D4AF37] transition text-xs">
-                <span class="block text-[#D4AF37] font-bold mb-1 title-font">ŞABLON 2</span>
-                Neden RTU / Letonya
-            </button>
-            <button onclick="quickSelectTemplate(3)" class="p-4 text-left rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-[#D4AF37] transition text-xs">
-                <span class="block text-[#D4AF37] font-bold mb-1 title-font">ŞABLON 3</span>
-                Dersler & Akademik
-            </button>
-            <button onclick="quickSelectTemplate(4)" class="p-4 text-left rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-[#D4AF37] transition text-xs">
-                <span class="block text-[#D4AF37] font-bold mb-1 title-font">ŞABLON 4</span>
-                Sponsor & Finans
-            </button>
-            <button onclick="quickSelectTemplate(5)" class="p-4 text-left rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-rose-500 transition text-xs">
-                <span class="block text-rose-400 font-bold mb-1 title-font">ŞABLON 5 (Kritik!)</span>
-                Gelecek Planı & Dönüş
-            </button>
-            <button onclick="quickSelectTemplate(6)" class="p-4 text-left rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-[#D4AF37] transition text-xs">
-                <span class="block text-[#D4AF37] font-bold mb-1 title-font">ŞABLON 6</span>
-                Hobi, Kitap & Karakter
-            </button>
-        </div>
-        
-        <div id="quickTemplateViewer" class="mt-5 p-5 rounded-xl bg-slate-900 border border-emerald-500/20 hidden fade-in">
-            <h4 id="qvTitle" class="text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-1 title-font"></h4>
-            <div id="qvKeywords" class="text-[10px] text-slate-500 font-mono mb-3"></div>
-            <p id="qvText" class="text-base md:text-lg text-emerald-400 font-bold leading-relaxed"></p>
-        </div>
-    </div>
-</section>
-
-<section id="simulator" class="py-12 px-4 md:px-8 bg-slate-900/40 border-t border-slate-800/40">
-    <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-8">
-            <span class="bg-[#D4AF37]/10 text-[#D4AF37] border border-amber-500/20 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Mülakat Prova Simülatörü</span>
-            <h2 class="text-xl md:text-3xl font-bold text-slate-100 mt-3 title-font">Ömer'in 30 Saniye Hazırlık Simülatörü</h2>
-            <p class="text-xs md:text-sm text-slate-400 mt-2">Gerçek mülakat akışını test et. Soru çıkınca 30 saniye hazırlan, sonra 60 saniye boyunca sesli olarak cevapla!</p>
+        <div class="text-center mb-6">
+            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Mülakat Prova Simülatörü</span>
+            <h2 class="text-base md:text-lg font-bold text-slate-100 mt-2.5 title-font">Yarınki Mülakatın Canlı Prova Alanı</h2>
+            <p class="text-[9px] text-slate-500 mt-1">30 saniyelik hazırlık anında yukarıdaki arama kutusundan aramayı test et, 25. saniyede susup kameraya odaklan!</p>
         </div>
 
-        <div class="bg-slate-950 rounded-2xl p-6 border border-slate-800/80 max-w-xl mx-auto shadow-2xl">
+        <div class="bg-slate-950 rounded-2xl p-5 border border-slate-900 max-w-xl mx-auto shadow-2xl">
             <!-- Setup Screen -->
-            <div id="simSetup" class="text-center py-6">
-                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Simülasyon başladığında karşına rastgele 3 soru gelecektir. 30 saniyelik hazırlık süresinde yukarıdaki arama kutusundan cevabı aramayı pratik et!</p>
-                <button onclick="startSimulation()" class="bg-[#D4AF37] hover:bg-amber-500 text-slate-950 px-6 py-3 rounded-xl font-bold text-xs md:text-sm transition shadow-lg shadow-amber-500/10">
-                    Simülatörü Başlat 🎙️
+            <div id="simSetup" class="text-center py-4">
+                <p class="text-[10px] text-slate-400 mb-4 leading-relaxed">Sistem sana mülakat havuzundan rastgele 3 soru soracak. 30 saniye boyunca ses kaydedilmez, o esnada hızlıca arama kutusunu kullan!</p>
+                <button onclick="startSimulation()" class="bg-[#10B981] hover:bg-emerald-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold text-xs transition shadow-lg shadow-emerald-500/10">
+                    Sanal Prova Başlat 🎙️
                 </button>
             </div>
 
             <!-- Active Screen -->
             <div id="simActive" class="hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <span id="questionCounter" class="text-xs bg-slate-900 px-3 py-1.5 rounded-full text-amber-400 font-bold">Soru 1 / 3</span>
-                    <span id="timerStatus" class="text-[10px] md:text-xs font-bold text-amber-500 uppercase tracking-wider">Hazırlık Süresi</span>
+                <div class="flex justify-between items-center mb-3">
+                    <span id="questionCounter" class="text-[10px] bg-slate-900 px-2.5 py-1 rounded-full text-emerald-400 font-bold">Soru 1 / 3</span>
+                    <span id="timerStatus" class="text-[9px] font-bold text-amber-500 uppercase tracking-widest">Hazırlık Süresi (Kayıt Yok!)</span>
                 </div>
 
-                <div class="bg-slate-900 rounded-xl p-5 min-h-[120px] flex flex-col justify-center mb-5 border border-slate-800 text-center">
-                    <h3 id="simQuestionText" class="text-sm md:text-base font-bold text-slate-100 leading-relaxed title-font">Soru yükleniyor...</h3>
-                    <p id="simQuestionTranslation" class="text-xs text-slate-500 mt-3 italic"></p>
+                <div class="bg-slate-900 rounded-xl p-4 min-h-[90px] flex flex-col justify-center mb-4 border border-slate-900 text-center">
+                    <h3 id="simQuestionText" class="text-xs md:text-sm font-bold text-slate-200 leading-relaxed title-font">Soru yükleniyor...</h3>
+                    <p id="simQuestionTranslation" class="text-[10px] text-slate-500 mt-2 italic"></p>
                 </div>
 
-                <div class="space-y-4">
-                    <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden">
+                <div class="space-y-3">
+                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
                         <div id="timerProgress" class="bg-amber-500 h-full transition-all duration-1000" style="width: 100%;"></div>
                     </div>
                     <div class="flex items-center justify-between">
-                        <div id="timerCircle" class="w-12 h-12 rounded-full border-2 border-slate-800 flex items-center justify-center text-base font-bold text-slate-100">
+                        <div id="timerCircle" class="w-10 h-10 rounded-full border-2 border-slate-900 flex items-center justify-center text-xs font-bold text-slate-100">
                             30
                         </div>
-                        <div id="recordingIndicator" class="hidden items-center space-x-2 bg-rose-500/10 text-rose-400 px-3.5 py-1.5 rounded-full text-[10px] font-bold border border-rose-500/20">
-                            <span class="w-2.5 h-2.5 bg-rose-500 rounded-full animate-pulse"></span>
+                        <div id="recordingIndicator" class="hidden items-center space-x-1.5 bg-rose-500/10 text-rose-400 px-3 py-1 rounded-full text-[9px] font-bold border border-rose-500/20">
+                            <span class="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span>
                             <span>KAYDEDİLİYOR</span>
                         </div>
-                        <button onclick="nextPhase()" id="btnNextPhase" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-lg text-xs font-semibold transition border border-slate-700">
+                        <button onclick="nextPhase()" id="btnNextPhase" class="bg-slate-900 hover:bg-slate-850 text-slate-200 px-3 py-1.5 rounded-lg text-[10px] font-semibold transition border border-slate-900">
                             Hemen Kayda Geç
                         </button>
                     </div>
                 </div>
 
-                <div class="flex justify-between mt-6 pt-4 border-t border-slate-900">
-                    <button onclick="terminateSimulation()" class="text-xs text-slate-500 hover:text-slate-300 transition">İptal Et</button>
+                <div class="flex justify-between mt-4 pt-3 border-t border-slate-900">
+                    <button onclick="terminateSimulation()" class="text-[9px] text-slate-500 hover:text-slate-300 transition">İptal Et</button>
                 </div>
             </div>
 
             <!-- Finish Screen -->
-            <div id="simFinish" class="hidden text-center py-6">
-                <span class="text-5xl mb-3 block">🎉</span>
-                <h3 class="text-base md:text-lg font-bold text-slate-100 mb-2 title-font">Tebrikler Ömer!</h3>
-                <p class="text-xs text-slate-400 mb-6">Simülasyonu başarıyla bitirdin. 30 saniyelik hazırlık süresinde arama yapmak çok rahattı değil mi?</p>
-                <button onclick="startSimulation()" class="bg-[#D4AF37] text-slate-950 px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-amber-600 transition">
-                    Tekrar Dene
+            <div id="simFinish" class="hidden text-center py-4">
+                <span class="text-4xl mb-2 block">🎉</span>
+                <h3 class="text-xs md:text-sm font-bold text-slate-100 mb-1 title-font">Harikasın Ömer!</h3>
+                <p class="text-[10px] text-slate-400 mb-4">Mülakat provasını başarıyla bitirdin. 30 saniyede cevabı tablette bulup 25. saniyede kameraya bakmayı başardın mı? Başardıysan yarın mülakatı darmadağın edeceksin!</p>
+                <button onclick="startSimulation()" class="bg-[#10B981] text-slate-950 px-4 py-2 rounded-xl text-[10px] font-semibold hover:bg-emerald-600 transition">
+                    Tekrar Prova Yap
                 </button>
             </div>
         </div>
     </div>
 </section>
 
-<section id="matematik" class="py-12 px-4 md:px-8 bg-slate-950 border-t border-slate-800/40">
-    <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-8">
-            <span class="bg-[#D4AF37]/10 text-[#D4AF37] border border-amber-500/20 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">RTU Matematik Atölyesi</span>
-            <h2 class="text-xl md:text-3xl font-bold text-slate-100 mt-3 title-font">Letonya_2026_27.pdf Sınav Soruları</h2>
-            <p class="text-xs md:text-sm text-slate-400 mt-2">Sınavdaki tüm matematik sorularını ve basit çözümlerini buraya ekledim. Cevabını girerek kendini dene!</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Math Card 1 -->
-            <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded uppercase">Soru 1 (S.8)</span>
-                    <h3 class="text-sm font-bold text-slate-200 mt-2">Find the smallest positive root of the equation: cos(5x) = -1 (in degrees).</h3>
-                    <div class="bg-slate-950/80 p-3 rounded-lg text-xs text-slate-400 mt-3 border border-slate-900">
-                        <strong class="text-amber-400 block mb-1 font-semibold">Çözüm:</strong>
-                        cos(θ) = -1 ise, en küçük pozitif θ = 180° olur.<br>
-                        5x = 180° ise x = 180 / 5 = 36° derecedir.
-                    </div>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-800">
-                    <div class="flex gap-2">
-                        <input type="text" id="math-ans-1" placeholder="Cevap yaz..." class="bg-slate-950 border border-slate-800 text-xs rounded-lg px-2.5 py-2 w-full focus:outline-none focus:border-[#D4AF37] text-emerald-400 font-bold">
-                        <button onclick="checkMathAns(1, '36')" class="bg-[#D4AF37] text-slate-950 px-3 py-2 rounded-lg text-xs font-bold hover:bg-amber-600 transition">Kontrol Et</button>
-                    </div>
-                    <p id="math-feedback-1" class="text-[11px] mt-2.5 hidden"></p>
-                </div>
-            </div>
-
-            <!-- Math Card 2 -->
-            <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded uppercase">Soru 4 (S.8)</span>
-                    <h3 class="text-sm font-bold text-slate-200 mt-2">Find the x-intercept of: y = 9 - 2x.</h3>
-                    <div class="bg-slate-950/80 p-3 rounded-lg text-xs text-slate-400 mt-3 border border-slate-900">
-                        <strong class="text-amber-400 block mb-1 font-semibold">Çözüm:</strong>
-                        x-eksenini kesen yerde y = 0 olur.<br>
-                        0 = 9 - 2x => 2x = 9 => x = 4.5.
-                    </div>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-800">
-                    <div class="flex gap-2">
-                        <input type="text" id="math-ans-2" placeholder="Örn: 4.5" class="bg-slate-950 border border-slate-800 text-xs rounded-lg px-2.5 py-2 w-full focus:outline-none focus:border-[#D4AF37] text-emerald-400 font-bold">
-                        <button onclick="checkMathAns(2, '4.5')" class="bg-[#D4AF37] text-slate-950 px-3 py-2 rounded-lg text-xs font-bold hover:bg-amber-600 transition">Kontrol Et</button>
-                    </div>
-                    <p id="math-feedback-2" class="text-[11px] mt-2.5 hidden"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="vize" class="py-12 px-4 md:px-8 bg-slate-900/40 border-t border-slate-800/40">
-    <div class="max-w-3xl mx-auto">
-        <div class="text-center mb-8">
-            <span class="bg-[#D4AF37]/10 text-[#D4AF37] border border-amber-500/20 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Evrak Kontrol Paneli</span>
-            <h2 class="text-xl md:text-3xl font-bold text-slate-100 mt-3 title-font">NISH Vize & Oturum Belgeleri Takipçisi</h2>
-            <p class="text-xs md:text-sm text-slate-400 mt-2">Letonya_2026_27.pdf belgesinde yer alan tüm evrakların listesi.</p>
-        </div>
-
-        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80 flex justify-between items-center mb-5">
-            <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">İlerleme Durumu:</span>
-            <span class="text-sm font-extrabold text-[#D4AF37]" id="progressPct">0% Tamamlandı</span>
-        </div>
-
-        <div class="space-y-3 bg-slate-950/80 p-5 rounded-xl border border-slate-800/80 text-xs">
-            <label class="flex items-start py-2.5 cursor-pointer border-b border-slate-900">
-                <input type="checkbox" data-doc="doc1" class="doc-checkbox mt-1 w-4 h-4 accent-[#D4AF37]" onchange="updateProgress()">
-                <div class="ml-3">
-                    <span class="font-bold text-slate-200 block">Pasaport (Örn: Ad_Soyad_Passport)</span>
-                    <span class="text-[10px] text-slate-500">En az 2 yıl geçerli olmalıdır.</span>
-                </div>
-            </label>
-            <label class="flex items-start py-2.5 cursor-pointer border-b border-slate-900">
-                <input type="checkbox" data-doc="doc2" class="doc-checkbox mt-1 w-4 h-4 accent-[#D4AF37]" onchange="updateProgress()">
-                <div class="ml-3">
-                    <span class="font-bold text-slate-200 block">IELTS Akademik Belgesi (Minimum 5.5)</span>
-                    <span class="text-[10px] text-slate-500">Hazırlık için 5.0, Lisans için 5.5.</span>
-                </div>
-            </label>
-            <label class="flex items-start py-2.5 cursor-pointer border-b border-slate-900">
-                <input type="checkbox" data-doc="doc3" class="doc-checkbox mt-1 w-4 h-4 accent-[#D4AF37]" onchange="updateProgress()">
-                <div class="ml-3">
-                    <span class="font-bold text-slate-200 block">İngilizce Banka Mektubu (9.500 EUR)</span>
-                    <span class="text-[10px] text-slate-500">Öğrencinin adına kayıtlı ıslak imzalı banka mektubu.</span>
-                </div>
-            </label>
-            <label class="flex items-start py-2.5 cursor-pointer">
-                <input type="checkbox" data-doc="doc4" class="doc-checkbox mt-1 w-4 h-4 accent-[#D4AF37]" onchange="updateProgress()">
-                <div class="ml-3">
-                    <span class="font-bold text-slate-200 block">Apostilli Sabıka Kaydı (Adliyeden Alınacak)</span>
-                    <span class="text-[10px] text-slate-500">E-Devlet geçersizdir, mutlaka ıslak imzalı ve apostilli olmalıdır.</span>
-                </div>
-            </label>
-        </div>
-    </div>
-</section>
-
 <!-- Footer -->
-<footer class="bg-slate-950 text-slate-500 py-8 px-4 text-center text-xs border-t border-slate-900">
+<footer class="bg-slate-950 text-slate-600 py-6 px-4 text-center text-[10px] border-t border-slate-900">
     <p>RTU Ömer Kabul Sürümü Portal © 2026</p>
-    <p class="text-[10px] text-slate-600 mt-1.5">Veriler Letonya_2026_27.pdf ve resmi RTU mülakat hafızasından derlenmiştir.</p>
+    <p class="text-[9px] text-slate-700 mt-1">Veriler Letonya_2026_27.pdf ve resmi RTU mülakat hafizasından derlenmiştir.</p>
 </footer>
 
 <script>
-    // 70 High-yield, ultra-short, natural English answers for Ömer (Sıfır Hata, Hatasız JS yapısı!)
+    // 70 Ultra-yield, ultra-short, natural English answers for Ömer (Sıfır Hata, Hatasız JS!)
     const questions = [
         {
             q: "Please introduce yourself - what is your academic background and work experience?",
             ans: "My name is Ömer. I am 18 years old. I just graduated from high school, so I don't have any work experience yet.",
-            keywords: "introduce name omer 18 years old background work experience",
+            keywords: "introduce background work experience high school graduate name omer 18 years old finished",
             category: "personal"
         },
         {
             q: "What is your marital status?",
             ans: "I am single.",
-            keywords: "marital status single married",
+            keywords: "marital status single married wife relationship family status",
             category: "personal"
         },
         {
             q: "Have you ever been refused an entry visa to any country?",
             ans: "No, I have never been refused a visa to any country.",
-            keywords: "refused visa refuse country entry",
+            keywords: "refused visa refuse country entry reject visa rejection passport embassey",
             category: "future"
         },
         {
             q: "What made you choose to apply to RTU?",
             ans: "RTU is one of the oldest and best technical universities in Europe, and it offers great engineering education.",
-            keywords: "why rtu apply choose reason",
+            keywords: "why rtu apply choose reason oldest technical engineering europe reputation history university",
             category: "rtu"
         },
         {
             q: "What are your personal interests?",
             ans: "In my free time, I like playing basketball, playing video games, and listening to music.",
-            keywords: "personal interests hobbies free time sports",
+            keywords: "personal interests hobbies free time sports activities spare hobbies basket music computer games",
             category: "personal"
         },
         {
             q: "How did you learn about RTU, are there any special reasons for choosing RTU?",
             ans: "I learned about RTU from my education agency, NISH. It is very popular and highly recommended for international students.",
-            keywords: "how did you learn find out rtu nish agency",
+            keywords: "how did you learn find out rtu nish agency recomendation hear agent andris onat",
             category: "rtu"
         },
         {
             q: "How do you think would a professor or a friend who knows you well describe you?",
             ans: "My friends would describe me as a friendly, helpful, and reliable person.",
-            keywords: "friend professor describe you describe",
+            keywords: "friend professor describe you character friendly helpful honest reliable talk personal",
             category: "personal"
         },
         {
             q: "Describe three adjectives that define your personality?",
             ans: "I can say that I am hardworking, patient, and friendly.",
-            keywords: "three adjectives personality traits define",
+            keywords: "three adjectives personality traits define character word describe words three",
             category: "personal"
         },
         {
             q: "Do you prefer to work alone or in a team?",
             ans: "I prefer working in a team because I like sharing ideas and solving problems together.",
-            keywords: "work alone team prefer collaborate",
+            keywords: "work alone team prefer collaborate teamwork group individual study share ideas",
             category: "personal"
         },
         {
             q: "What kind of people do you find difficult to work with? Why?",
             ans: "I find it difficult to work with people who don't communicate or don't do their part of the work.",
-            keywords: "difficult people work with lazy communication",
+            keywords: "difficult people work with lazy communication selfish hard teammates team",
             category: "personal"
         },
         {
             q: "What motivated you to choose this specific Bachelor Program?",
             ans: "I chose this program because I always loved mathematics and technology, and I want to become an engineer.",
-            keywords: "motivated program bachelor choice engineering",
+            keywords: "motivated program bachelor choice engineering technology study why engineering major math physics",
             category: "academic"
         },
         {
             q: "What subject was the hardest for you in high school? Why?",
             ans: "Chemistry was the hardest for me because it required too much memorization.",
-            keywords: "hardest subject high school chemistry difficult",
+            keywords: "hardest subject high school chemistry difficult struggle exam lesson memorization",
             category: "academic"
         },
         {
             q: "How do you imagine a typical day as a RTU student?",
             ans: "I will attend my lectures, study in the library, and spend time with my campus friends.",
-            keywords: "typical day student schedule campus library",
+            keywords: "typical day student schedule campus library lecture classes study riga routine",
             category: "rtu"
         },
         {
             q: "What are you looking forward to the most about the transition from school to a university?",
             ans: "I am looking forward to living on my own, meeting new friends, and studying what I love.",
-            keywords: "transition school university look forward",
+            keywords: "transition school university look forward high school change independence freedom college",
             category: "academic"
         },
         {
             q: "What would you like to accomplish during your time as a student?",
             ans: "I want to get a high-quality education, improve my English, and build a successful future career.",
-            keywords: "accomplish student goals achieve",
+            keywords: "accomplish student goals achieve graduation success language develop target study",
             category: "academic"
         },
         {
             q: "What do you do when you are having a hard time as a student?",
             ans: "I usually take a short break, listen to music, and then ask my teachers or friends for help.",
-            keywords: "hard time struggle stress help student",
+            keywords: "hard time struggle stress help student support fail hard situation solve problem advice",
             category: "academic"
         },
         {
             q: "How will this program help you achieve your long-term goals?",
             ans: "It will give me the practical skills I need to return to Turkey and find a good job as an engineer.",
-            keywords: "program goals help achieve long term return turkey career",
+            keywords: "program goals help achieve long term return turkey career future jobs turkey engineer",
             category: "academic"
         },
         {
             q: "What motivates you to apply for a University?",
             ans: "I want to get a professional degree and build a successful future career in my country.",
-            keywords: "motivation university apply professional career",
+            keywords: "motivation university apply professional career degree turkey successful future",
             category: "academic"
         },
         {
             q: "What are your academic goals?",
             ans: "My academic goal is to pass all my classes with good grades and fully learn my subjects.",
-            keywords: "academic goals pass grades classes",
+            keywords: "academic goals pass grades classes marks gpa degree master exam success",
             category: "academic"
         },
         {
             q: "How do you spend your free time?",
             ans: "I usually play basketball, listen to music, and practice my English skills.",
-            keywords: "free time hobbies spend",
+            keywords: "free time hobbies spend watch movie hobby daily sports",
             category: "personal"
         },
         {
             q: "How do you think RTU will support your future career?",
             ans: "RTU offers very practical education, and its European degree is highly recognized worldwide.",
-            keywords: "rtu support career europe degree value",
+            keywords: "rtu support career europe degree value prestige recognized certificate world",
             category: "rtu"
         },
         {
             q: "Where do you hope to be in next 10 years?",
             ans: "In ten years, I hope to be a successful engineer working on major projects back in Turkey.",
-            keywords: "10 years future career hope back turkey",
+            keywords: "10 years future career hope back turkey plans ten years target family",
             category: "future"
         },
         {
             q: "If you had a thousand dollars to give away, what would you do with it?",
             ans: "I would donate it to an animal shelter to help street dogs and cats get food and medicine.",
-            keywords: "thousand dollars give away donate animal shelter",
+            keywords: "thousand dollars give away donate animal shelter cash charity spent street cats dogs help",
             category: "personal"
         },
         {
             q: "If you could live anywhere what would you choose?",
             ans: "I love Turkey, so I would choose to live in my country, but I want to study in Latvia first.",
-            keywords: "live anywhere country love turkey",
+            keywords: "live anywhere country love turkey choice region earth world europe travel home",
             category: "future"
         },
         {
             q: "If you could choose one book to read for the rest of your life, what book would you choose and why?",
             ans: "I would choose Harry Potter because it is very fun, creative, and I never get bored of it.",
-            keywords: "one book read life choice harry potter",
+            keywords: "one book read life choice harry potter read hobby pages literature read",
             category: "personal"
         },
         {
             q: "What would you like the Admissions office to know about you that might not appear in your application?",
             ans: "I want them to know that I am highly motivated, ready to study hard, and very excited to join RTU.",
-            keywords: "admissions know extra info application motivation",
+            keywords: "admissions know extra info application motivation list tell documents resume CV",
             category: "rtu"
         },
         {
             q: "How do you handle home sickness or being away from family?",
             ans: "I will make video calls with my family regularly and make new friends in Riga.",
-            keywords: "home sickness miss family homesick away",
+            keywords: "home sickness miss family homesick away call mother parents riga abroad flat",
             category: "future"
         },
         {
             q: "What was your high school GPA?",
             ans: "My high school GPA was good, and I was especially successful in math and physics courses.",
-            keywords: "gpa high school grade score average success",
+            keywords: "gpa high school grade score average success high school transcript marks",
             category: "academic"
         },
         {
             q: "What are you passionate about?",
             ans: "I am passionate about technology, sports, and learning new practical skills.",
-            keywords: "passionate passion love doing",
+            keywords: "passionate passion love doing desire hobby basketball technical",
             category: "personal"
         },
         {
             q: "Do you have a driver's license?",
             ans: "Yes, I do, but I will prefer public transport in Riga.",
-            keywords: "driver license driving car transport",
+            keywords: "driver license driving car transport drive auto ticket travel",
             category: "personal"
         },
         {
             q: "What do you do when you are bored?",
             ans: "I usually listen to music or play basketball with my friends to refresh myself.",
-            keywords: "bored boring do free",
+            keywords: "bored boring do free time activity refresh tired energy",
             category: "personal"
         },
         {
             q: "Is this your first time traveling abroad?",
             ans: "Yes, it is, and I am very excited about this new experience.",
-            keywords: "first time travel abroad country foreign",
+            keywords: "first time travel abroad country foreign border fly trip tourist",
             category: "future"
         },
         {
             q: "How many siblings do you have?",
             ans: "I have siblings, and they are currently studying in Turkey.",
-            keywords: "siblings brothers sisters family",
+            keywords: "siblings brothers sisters family home relative brother sister",
             category: "personal"
         },
         {
             q: "What does your mother do for a living?",
             ans: "My mother is a housewife.",
-            keywords: "mother job housewife work living",
+            keywords: "mother job housewife work living parents mama mom career",
             category: "personal"
         },
         {
             q: "What is your nationality and date of birth?",
             ans: "I am Turkish, and I was born in 2008.",
-            keywords: "nationality birth born age date",
+            keywords: "nationality birth born age date turkish turkey passport passport national identity",
             category: "personal"
         },
         {
             q: "Do you speak any other languages besides Turkish and English?",
             ans: "No, I only speak Turkish and English, but I want to learn some basic Latvian too.",
-            keywords: "speak languages other latvian english turkish",
+            keywords: "speak languages other latvian english turkish words language foreign polyglot",
             category: "future"
         },
         {
             q: "How will you adjust to the local food in Latvia?",
             ans: "I am open to trying new tastes, and I can also cook basic meals for myself.",
-            keywords: "food local eat adjust latvia cooking",
+            keywords: "food local eat adjust latvia cooking potato soup kitchen local food dishes",
             category: "future"
         },
         {
             q: "What kind of people do you find difficult to work with?",
             ans: "I find it difficult to work with people who do not communicate or do their part.",
-            keywords: "difficult people collaborate lazy",
+            keywords: "difficult people collaborate lazy teammates friends work communication",
             category: "personal"
         },
         {
             q: "How long is your study program?",
             ans: "My bachelor program is 3 to 4 years long.",
-            keywords: "how long program study years duration",
+            keywords: "how long program study years duration time bachelor academic study",
             category: "academic"
         },
         {
             q: "Is RTU recognized in your home country?",
             ans: "Yes, RTU is fully recognized by YÖK in Turkey.",
-            keywords: "recognized turkey yok equivalence denklik",
+            keywords: "recognized turkey yok equivalence denklik recognition turkish diploma",
             category: "rtu"
         },
         {
             q: "How many hours a week do you plan to study?",
             ans: "I plan to study around 40 hours a week, including lectures and self-study.",
-            keywords: "hours week study plan work homework",
+            keywords: "hours week study plan work homework lecture time library study time",
             category: "academic"
         },
         {
             q: "What do you do if you fail an exam?",
             ans: "I will study harder, ask my professor for help, and retake the exam.",
-            keywords: "fail exam failed class grade retake",
+            keywords: "fail exam failed class grade retake mark low bad score teacher support",
             category: "academic"
         },
         {
             q: "Who is the rector of Riga Technical University?",
             ans: "The current rector of RTU is Professor Talis Juhna.",
-            keywords: "rector name who riga technical university talis juhna",
+            keywords: "rector name who riga technical university talis juhna president manager leader boss university",
             category: "rtu"
         },
         {
             q: "Where is RTU campus located?",
             ans: "The main campus is located in Kipsala, Riga, which is very beautiful and modern.",
-            keywords: "campus located where location kipsala",
+            keywords: "campus located where location kipsala riga island place address buildings",
             category: "rtu"
         },
         {
             q: "Why did you choose English medium instruction?",
             ans: "Because English is the global language of technology, engineering, and science.",
-            keywords: "english medium language instruction why",
+            keywords: "english medium language instruction why teach lessons English english course",
             category: "academic"
         },
         {
             q: "Why choose Latvia and not Germany or the UK?",
             ans: "Latvia is very safe, affordable, and offers high-quality European degrees in English.",
-            keywords: "why latvia germany uk cheap safe",
+            keywords: "why latvia germany uk cheap safe cost europe compare lithuania estonia",
             category: "future"
         },
         {
             q: "Why not study in Turkey since education is cheaper here?",
             ans: "I want to get international experience, improve my English, and get a European degree.",
-            keywords: "why not turkey education international degree",
+            keywords: "why not turkey education international degree cheap turkey country study abroad",
             category: "future"
         },
         {
             q: "Who is your sponsor?",
             ans: "My father is my sponsor. He will cover all my tuition fees and living expenses.",
-            keywords: "sponsor who pays money father",
+            keywords: "sponsor who pays money father family financial payment funding who is sponsor",
             category: "financial"
         },
         {
             q: "What is your sponsor's occupation and income?",
             ans: "My father is a manager, and he has a stable income to support my studies.",
-            keywords: "sponsor job occupation income salary money",
+            keywords: "sponsor job occupation income salary money wealth father job salary statement",
             category: "financial"
         },
         {
             q: "How much is your tuition fee, and have you paid it?",
             ans: "The tuition fee is about 3500 Euros per year, and we have already paid the deposit.",
-            keywords: "tuition fee pay cost money deposit paid",
+            keywords: "tuition fee pay cost money deposit paid bank euro receipt payment semester cost",
             category: "financial"
         },
         {
             q: "What is the estimated cost of living in Riga per month?",
             ans: "It is around 500 to 600 Euros per month, including my accommodation and food.",
-            keywords: "cost living month riga expenses euro",
+            keywords: "cost living month riga expenses euro dorm food daily flat cost price",
             category: "financial"
         },
         {
             q: "Where will you stay in Riga?",
             ans: "I will stay at the official RTU student dormitory on campus.",
-            keywords: "stay accommodation dormitory flat yurt riga",
+            keywords: "stay accommodation dormitory flat yurt riga host hostel rtu dorms rent",
             category: "financial"
         },
         {
             q: "Will you work part-time in Latvia during your studies?",
             ans: "No, I will not work. My only focus is my studies, and my sponsor covers all my costs.",
-            keywords: "work part time job money focus study",
+            keywords: "work part time job money focus study find a job earn salary business working hours",
             category: "financial"
         },
         {
             q: "What will you do during the summer and winter vacations?",
             ans: "I will return to Turkey to spend time with my family.",
-            keywords: "summer winter vacation holiday holidays return turkey",
+            keywords: "summer winter vacation holiday holidays return turkey visit parents home tourist flights",
             category: "future"
         },
         {
             q: "Do you have any relatives or friends in Latvia or Europe?",
             ans: "No, I do not have any relatives or friends in Latvia or Europe.",
-            keywords: "relatives friends europe latvia family",
+            keywords: "relatives friends europe latvia family uncle aunt cousin network connection",
             category: "future"
         },
         {
             q: "How will you travel to Riga?",
             ans: "I will fly directly from Istanbul to Riga Airport.",
-            keywords: "travel fly flight plane riga istanbul",
+            keywords: "travel fly flight plane riga istanbul turkish airlines transit ticket travel trip route",
             category: "future"
         },
         {
             q: "What is the capital and currency of Latvia?",
             ans: "The capital of Latvia is Riga, and the currency is the Euro.",
-            keywords: "capital currency latvia money riga euro",
+            keywords: "capital currency latvia money riga euro town capital city coins",
             category: "future"
         },
         {
             q: "What will you do if your student visa is refused?",
             ans: "I will check the reason, correct any mistakes, and apply again because RTU is my dream university.",
-            keywords: "visa refused refuse what if dream",
+            keywords: "visa refused refuse what if dream plan b embassy rejection fail again retry apply",
             category: "future"
         },
         {
             q: "How much money do you have in your bank account right now?",
             ans: "We have more than 9500 Euros in my personal account, as required by the embassy.",
-            keywords: "money bank account balance 9500 euro",
+            keywords: "money bank account balance 9500 euro funds financial show money cash statement",
             category: "financial"
         },
         {
             q: "Are you planning to settle down or stay in Latvia after graduation?",
             ans: "No, my family and my life are in Turkey. I will return home to build my career.",
-            keywords: "settle stay graduation stay latvia europe return",
+            keywords: "settle stay graduation stay latvia europe return permanent immigration residency live in europe",
             category: "future"
         },
         {
             q: "Why did you apply now instead of waiting?",
             ans: "Because I just graduated from high school, and this is the perfect time to start my university education.",
-            keywords: "why now apply wait high school graduated",
+            keywords: "why now apply wait high school graduated gap year time current year right now",
             category: "academic"
         },
         {
             q: "How will you handle the very cold weather in Latvia?",
             ans: "I actually like cold weather, and I will bring warm clothes, so it won't be a problem.",
-            keywords: "cold weather snow winter handle clothes",
+            keywords: "cold weather snow winter handle clothes climate temperature degree ice freeze jacket",
             category: "future"
         },
         {
             q: "What is your biggest strength?",
             ans: "My biggest strength is that I am patient and I never give up when solving difficult problems.",
-            keywords: "biggest strength power strong point",
+            keywords: "biggest strength power strong point talent positive quality advantage patient",
             category: "personal"
         },
         {
             q: "What is your biggest weakness?",
             ans: "Sometimes I focus too much on small details, but I am learning to manage my time better.",
-            keywords: "biggest weakness weak point details time",
+            keywords: "biggest weakness weak point details time negative bad side perfectionist",
             category: "personal"
         },
         {
             q: "Why didn't you choose Estonia instead of Latvia?",
             ans: "RTU has a much longer history and a better international reputation in engineering than options in Estonia.",
-            keywords: "estonia latvia why rtu history engineering",
+            keywords: "estonia latvia why rtu history engineering tallinn tartu baltic choice contrast",
             category: "future"
         },
         {
             q: "What will you do on your very first day in Riga?",
             ans: "I will check into my dormitory, explore the modern campus, and buy a local SIM card.",
-            keywords: "first day riga sim card dorm campus explore",
+            keywords: "first day riga sim card dorm campus explore check-in arrival land plan",
             category: "future"
         },
         {
             q: "What subjects or modules will you study in the first semester?",
             ans: "I will study basic courses like Mathematics, Physics, Computer Science, and Engineering Graphics.",
-            keywords: "subjects first semester modules classes study what",
+            keywords: "subjects first semester modules classes study what syllabus lessons curriculum subjects first semester",
             category: "academic"
         },
         {
             q: "Do you have any questions for us?",
             ans: "No, everything is very clear. Thank you so much for this great opportunity.",
-            keywords: "any questions clear thank opportunity end",
+            keywords: "any questions clear thank opportunity end ask question do you have questions",
             category: "rtu"
         },
         {
             q: "What are your expectations from RTU professors?",
             ans: "I expect them to guide me, share their engineering experience, and help me develop my practical skills.",
-            keywords: "expectations professors teachers guide experience",
+            keywords: "expectations professors teachers guide experience support academic teach research",
             category: "rtu"
         },
         {
             q: "What do you know about Latvia's culture?",
             ans: "Latvia has a rich history, loves nature, and is famous for its beautiful forests and historic architecture.",
-            keywords: "latvia culture history nature forests architecture",
+            keywords: "latvia culture history nature forests architecture custom values people country baltic",
             category: "future"
         }
     ];
@@ -861,68 +723,40 @@
     const goldTemplates = {
         1: {
             title: "ŞABLON 1: KİŞİSEL PROFİL & MEZUNİYET",
-            keywords: "ANAHTAR: ÖMER / 18 / HIGH SCHOOL / NO WORK EXP YET",
+            keywords: "ANAHTAR SÖZCÜKLER: ÖMER / 18 / HIGH SCHOOL / NO WORK EXPERIENCE YET",
             text: "My name is Ömer. I am 18 years old. I just graduated from high school, so I don't have any work experience yet."
         },
         2: {
             title: "ŞABLON 2: NEDEN RTU / LETONYA",
-            keywords: "ANAHTAR: RTU / OLDEST / BEST TECHNICAL / SAFE / AFFORDABLE",
+            keywords: "ANAHTAR SÖZCÜKLER: RTU / OLDEST / BEST TECHNICAL / SAFE / AFFORDABLE / ENGLISH MEDIUM",
             text: "RTU is one of the best and oldest technical universities in Europe. Latvia is also very safe and affordable for international students."
         },
         3: {
             title: "ŞABLON 3: AKADEMİK & DERSLER",
-            keywords: "ANAHTAR: MATH / PHYSICS / 40 HOURS A WEEK / 3-4 YEARS",
+            keywords: "ANAHTAR SÖZCÜKLER: MATH / PHYSICS / 40 HOURS A WEEK / 3-4 YEARS / FIRST SEMESTER",
             text: "I will study Mathematics and Physics in my first semester. My bachelor program is 3 to 4 years long, and I will study 40 hours a week."
         },
         4: {
             title: "ŞABLON 4: VİZE, SPONSOR & FİNANS",
-            keywords: "ANAHTAR: FATHER / SPONSOR / 9500 EUR / PAID DEPOSIT",
+            keywords: "ANAHTAR SÖZCÜKLER: FATHER / SPONSOR / MANAGER / 9500 EUR / PAID DEPOSIT",
             text: "My father is my sponsor and he is a manager. I have more than 9500 Euros in my bank account. We also paid the university deposit."
         },
         5: {
             title: "ŞABLON 5: GELECEK PLANI & DÖNÜŞ (EN KRİTİK VİZE SORUSU)",
-            keywords: "ANAHTAR: RETURN TO TURKEY / FAMILY IN TURKEY / NO WORK IN EUROPE",
-            text: "No, I am not planning to stay in Europe. My family is in Turkey. I will return to my home country after graduation to work as an engineer."
+            keywords: "ANAHTAR SÖZCÜKLER: RETURN TO TURKEY / FAMILY IN TURKEY / NO SETTLE IN EUROPE",
+            text: "No, I am not planning to stay in Europe. My family and my life are in Turkey. I will return to my country after graduation to build my career."
         },
         6: {
             title: "ŞABLON 6: HOBİ, KİTAP & KARAKTER (SEMPATİK)",
-            keywords: "ANAHTAR: HARRY POTTER / BASKETBALL / STREET ANIMALS ($1000)",
+            keywords: "ANAHTAR SÖZCÜKLER: HARRY POTTER / BASKETBALL / STREET ANIMALS ($1000) / FRIENDLY",
             text: "In my free time, I play basketball. My favorite book is Harry Potter. If I had a thousand dollars, I would donate it to a street animal shelter."
+        },
+        7: {
+            title: "🛡️ ŞABLON 7: GRAM ALAKASI OLMAYAN SÜRPRİZ SORU KURTARICISI",
+            keywords: "MÜKEMMEL PIVOT: ALAKASIZ BİR ŞEY GELDİĞİ AN BU CÜMLEYİ OKUYARAK MÜLAKATI RTU'YA ÇEK!",
+            text: "That is an interesting question! Actually, my main focus right now is to study engineering at RTU, develop my skills, and build a successful future. So, I always try to stay hardworking, positive, and focused on my academic goals."
         }
     };
-
-    async function toggleWebcam() {
-        const video = document.getElementById('webcamPreview');
-        const btn = document.getElementById('btnWebcam');
-        const placeholder = document.getElementById('webcamPlaceholder');
-        const errorLabel = document.getElementById('webcamError');
-
-        errorLabel.classList.add('hidden');
-
-        if (video.srcObject) {
-            let tracks = video.srcObject.getTracks();
-            tracks.forEach(track => track.stop());
-            video.srcObject = null;
-            btn.innerText = "Kamerayı Aç 🎥";
-            placeholder.classList.remove('hidden');
-        } else {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { 
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 },
-                        facingMode: "user"
-                    } 
-                });
-                video.srcObject = stream;
-                btn.innerText = "Kamerayı Kapat ❌";
-                placeholder.classList.add('hidden');
-            } catch (err) {
-                errorLabel.innerText = "Kamera izni reddedildi veya bulunamadı.";
-                errorLabel.classList.remove('hidden');
-            }
-        }
-    }
 
     function runLiveSearch() {
         const query = document.getElementById('omarsSearch').value.toLowerCase().trim();
@@ -936,17 +770,35 @@
             return;
         }
 
+        // AKILLI SÖZCÜK ANALİZ ALGORİTMASI: Arama terimlerini ayırıp her birini veri tabanında eşleştirir
+        const queryWords = query.split(/\s+/);
+
         const matched = questions.filter(item => {
-            return item.q.toLowerCase().includes(query) || item.keywords.toLowerCase().includes(query);
+            return queryWords.every(word => {
+                return item.q.toLowerCase().includes(word) || item.keywords.toLowerCase().includes(word);
+            });
         });
 
         meta.classList.remove('hidden');
-        meta.innerText = `${matched.length} soru eşleşti (30 Saniye Hazırlık Sürende Bu Cümleyi Ezberle!)`;
+        meta.innerText = `${matched.length} soru eşleşti (30 Saniyelik Hazırlık Sürende Bu Cümleyi Ezberle!)`;
 
         if (matched.length === 0) {
+            // AUTOMATIC ACIL DURUM AUTO-FALLBACK TRIGGER
             resultsContainer.innerHTML = `
-                <div class="p-5 bg-slate-950 text-rose-400 rounded-xl text-center text-xs border border-rose-500/20">
-                    Eşleşen soru bulunamadı. Lütfen "sponsor", "rector", "weakness" gibi başka bir kelime deneyin ya da 6 Altın Şablondan birini seçin!
+                <div class="p-5 bg-slate-950 border-2 border-rose-500 rounded-xl prompter-glow fade-in text-center">
+                    <span class="text-3xl mb-2 block">🚨</span>
+                    <h4 class="text-xs font-extrabold text-rose-400 mb-2 uppercase tracking-wide">YAZDIĞIN KELİMEYİ BULAMADIK AMA HİÇ PANİK YAPMA!</h4>
+                    <p class="text-[10px] text-slate-300 mb-4 leading-relaxed">Mülakat sistemi bazen kelimeleri değiştirebilir veya gram alakası olmayan bir şey sormuş olabilir. Saniyeler içinde aşağıdaki en uygun <strong>KURTARICI ŞABLONA</strong> tıklayıp dev yeşil yazıyı kameraya bakıp oku!</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
+                        <div onclick="quickSelectTemplate(7)" class="cursor-pointer p-3 bg-emerald-950/20 rounded-lg border-2 border-emerald-500/30 text-[9.5px] hover:border-emerald-400 transition">
+                            <strong class="text-emerald-400 block">🛡️ Şablon 7 (Alakasız Soru Kurtarıcısı):</strong>
+                            "That is an interesting question! Actually, my main focus right now is to study engineering at RTU..."
+                        </div>
+                        <div onclick="quickSelectTemplate(5)" class="cursor-pointer p-3 bg-rose-950/20 rounded-lg border-2 border-rose-500/30 text-[9.5px] hover:border-rose-400 transition">
+                            <strong class="text-rose-400 block">🚨 Şablon 5 (Gelecek Planı/Geri Dönüş):</strong>
+                            "No, I am not planning to stay in Europe. My family is in Turkey..."
+                        </div>
+                    </div>
                 </div>
             `;
             return;
@@ -956,13 +808,13 @@
             const card = document.createElement('div');
             card.className = "p-5 bg-slate-950 border-2 border-emerald-500 rounded-xl prompter-glow fade-in";
             card.innerHTML = `
-                <div class="text-[10px] text-slate-500 uppercase font-bold mb-1.5 title-font">MÜLAKATTAKİ SORU:</div>
+                <div class="text-[9px] text-slate-500 uppercase font-bold mb-1 title-font">MÜLAKATTAKİ SORU:</div>
                 <h4 class="text-xs md:text-sm font-extrabold text-slate-200 mb-3 leading-relaxed">${item.q}</h4>
-                <div class="text-[10px] text-emerald-400 uppercase font-bold mb-1.5 title-font">ÖMER'İN OKUYACAĞI BASİT CEVAP:</div>
-                <p class="text-sm md:text-base font-extrabold text-emerald-400 leading-relaxed bg-emerald-500/10 p-3.5 rounded-lg border border-emerald-500/20">
+                <div class="text-[9px] text-emerald-400 uppercase font-bold mb-1.5 title-font">ÖMER'İN OKUYACAĞI BASİT CEVAP:</div>
+                <p class="text-base md:text-lg font-extrabold text-emerald-400 leading-relaxed bg-emerald-500/10 p-3.5 rounded-lg border border-emerald-500/20">
                     "${item.ans}"
                 </p>
-                <div class="mt-3 text-[9px] text-slate-500 italic">Anahtar Kelimeler: ${item.keywords}</div>
+                <div class="mt-2.5 text-[8.5px] text-slate-500 italic">Anahtar Kelimeler: ${item.keywords}</div>
             `;
             resultsContainer.appendChild(card);
         });
@@ -972,14 +824,16 @@
         // Reset all buttons style
         const buttons = document.querySelectorAll('.lib-tab-btn');
         buttons.forEach(btn => {
-            btn.classList.remove('border-blue-500', 'bg-blue-600/10', 'text-blue-400');
-            btn.classList.add('border-slate-800', 'bg-slate-900', 'text-slate-300');
+            btn.classList.remove('border-emerald-500', 'bg-emerald-600/10', 'text-emerald-400');
+            btn.classList.add('border-slate-900', 'bg-[#080C14]', 'text-slate-400');
         });
 
         // Highlight active button
         const activeBtn = document.getElementById(`tab-${category}`);
-        activeBtn.classList.remove('border-slate-800', 'bg-slate-900', 'text-slate-300');
-        activeBtn.classList.add('border-blue-500', 'bg-blue-600/10', 'text-blue-400');
+        if(activeBtn) {
+            activeBtn.classList.remove('border-slate-900', 'bg-[#080C14]', 'text-slate-400');
+            activeBtn.classList.add('border-emerald-500', 'bg-emerald-600/10', 'text-emerald-400');
+        }
 
         // Filter and display questions
         const container = document.getElementById('libraryContainer');
@@ -990,18 +844,18 @@
         filtered.forEach((item, index) => {
             const questionId = `q-lib-${category}-${index}`;
             const itemDiv = document.createElement('div');
-            itemDiv.className = "border border-slate-800 rounded-xl overflow-hidden bg-slate-950/40 transition hover:border-slate-700";
+            itemDiv.className = "border border-slate-900 rounded-lg overflow-hidden bg-slate-950/40 transition hover:border-slate-800";
             itemDiv.innerHTML = `
-                <button onclick="toggleLibraryQuestion('${questionId}')" class="w-full text-left p-4 flex justify-between items-center text-xs md:text-sm font-bold text-slate-200 focus:outline-none">
+                <button onclick="toggleLibraryQuestion('${questionId}')" class="w-full text-left p-3 flex justify-between items-center text-[11px] md:text-xs font-bold text-slate-300 focus:outline-none">
                     <span>💬 ${item.q}</span>
-                    <span id="icon-${questionId}" class="text-blue-400 transition-transform duration-200">▼</span>
+                    <span id="icon-${questionId}" class="text-emerald-400 text-[9px] transition-transform duration-200">▼</span>
                 </button>
-                <div id="ans-${questionId}" class="hidden p-4 bg-slate-900/80 border-t border-slate-850">
-                    <div class="text-[10px] text-emerald-400 uppercase font-bold mb-1.5 title-font">KOLAY VE AKILDA KALICI CEVAP:</div>
-                    <p class="text-sm md:text-base font-extrabold text-emerald-400 leading-relaxed bg-emerald-500/10 p-3.5 rounded-lg border border-emerald-500/20">
+                <div id="ans-${questionId}" class="hidden p-3 bg-slate-950/80 border-t border-slate-900">
+                    <div class="text-[9px] text-emerald-400 uppercase font-bold mb-1 title-font">BASİT VE AKILDA KALICI CEVAP:</div>
+                    <p class="text-sm md:text-base font-extrabold text-emerald-400 leading-relaxed bg-emerald-500/5 p-3 rounded-lg border border-[#10B981]/20">
                         "${item.ans}"
                     </p>
-                    <div class="mt-2 text-[9px] text-slate-500 italic">Anahtar Kelimeler: ${item.keywords}</div>
+                    <div class="mt-2 text-[8px] text-slate-600 italic">Anahtar Kelimeler: ${item.keywords}</div>
                 </div>
             `;
             container.appendChild(itemDiv);
@@ -1026,10 +880,13 @@
     function quickSelectTemplate(id) {
         const template = goldTemplates[id];
         const viewer = document.getElementById('quickTemplateViewer');
+        
         document.getElementById('qvTitle').innerText = template.title;
         document.getElementById('qvKeywords').innerText = template.keywords;
         document.getElementById('qvText').innerText = `"${template.text}"`;
+        
         viewer.classList.remove('hidden');
+        viewer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     let simQuestionsList = [];
@@ -1058,12 +915,12 @@
         const currentQ = simQuestionsList[currentQuestionIndex];
         document.getElementById('questionCounter').innerText = `Soru ${currentQuestionIndex + 1} / 3`;
         document.getElementById('simQuestionText').innerText = currentQ.q;
-        document.getElementById('simQuestionTranslation').innerText = `Taktik: Portalda hemen arat ve yeşil kutuyu ezberle!`;
+        document.getElementById('simQuestionTranslation').innerText = `Taktik: Saniye dolmadan hemen yukarıdaki arama kutusuna kelimeyi yaz!`;
 
         isRecordingPhase = false;
         secondsLeft = 30; 
         document.getElementById('timerStatus').innerText = "Hazırlık Süresi (Ses/Görüntü Kaydedilmiyor)";
-        document.getElementById('timerStatus').className = "text-[10px] md:text-xs font-bold text-amber-500 uppercase tracking-wider";
+        document.getElementById('timerStatus').className = "text-[9px] font-bold text-amber-500 uppercase tracking-widest";
         document.getElementById('btnNextPhase').innerText = "Hemen Kayda Geç";
         document.getElementById('recordingIndicator').classList.add('hidden');
         document.getElementById('timerProgress').className = "bg-amber-500 h-full transition-all duration-1000";
@@ -1095,7 +952,7 @@
         isRecordingPhase = true;
         secondsLeft = 60; 
         document.getElementById('timerStatus').innerText = "KAYIT SÜRESİ (KAMERAYA BAK VE SÖYLE!)";
-        document.getElementById('timerStatus').className = "text-[10px] md:text-xs font-bold text-rose-500 uppercase tracking-wider";
+        document.getElementById('timerStatus').className = "text-[9px] font-bold text-rose-500 uppercase tracking-widest";
         document.getElementById('btnNextPhase').innerText = "Sonraki Soru";
         document.getElementById('recordingIndicator').classList.remove('hidden');
         document.getElementById('timerProgress').className = "bg-rose-500 h-full transition-all duration-1000";
@@ -1135,51 +992,10 @@
         document.getElementById('simFinish').classList.remove('hidden');
     }
 
-    function checkMathAns(id, correct) {
-        const input = document.getElementById(`math-ans-${id}`);
-        const feedback = document.getElementById(`math-feedback-${id}`);
-        const val = input.value.trim().replace(',', '.');
-
-        if (parseFloat(val) === parseFloat(correct)) {
-            feedback.className = "text-[11px] mt-2 text-emerald-400 font-bold";
-            feedback.innerText = "✓ Tebrikler Ömer! Doğru Cevap.";
-        } else {
-            feedback.className = "text-[11px] mt-2 text-rose-400 font-bold";
-            feedback.innerText = `✗ Yanlış. Doğru cevap: ${correct}`;
-        }
-        feedback.classList.remove('hidden');
-    }
-
-    function updateProgress() {
-        const checkboxes = document.querySelectorAll('.doc-checkbox');
-        const total = checkboxes.length;
-        let checkedCount = 0;
-
-        checkboxes.forEach(cb => {
-            const docId = cb.getAttribute('data-doc');
-            localStorage.setItem(docId, cb.checked);
-            if (cb.checked) checkedCount++;
-        });
-
-        const percent = Math.round((checkedCount / total) * 100);
-        document.getElementById('progressPct').innerText = `%${percent} Tamamlandı`;
-    }
-
     // Window Onload Actions
     window.onload = function () {
         // Load initial category on library
         switchLibraryTab('personal');
-
-        // Restore checkboxes
-        const checkboxes = document.querySelectorAll('.doc-checkbox');
-        checkboxes.forEach(cb => {
-            const docId = cb.getAttribute('data-doc');
-            const state = localStorage.getItem(docId);
-            if (state === "true") {
-                cb.checked = true;
-            }
-        });
-        updateProgress();
     };
 </script>
 </body>
